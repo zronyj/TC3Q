@@ -1,0 +1,109 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Rony J. Letona}
+\title{Taller de Qu\'imica Computacional Aplicada: D\'ia 1}
+
+\definecolor{light-gray}{gray}{0.90}
+\newcommand{\inlinecode}[1]{
+\colorbox{light-gray}{\texttt{#1}}
+}
+
+\begin{document}
+\maketitle
+
+\section{Ejercicios con la l\'inea de comando}
+
+\subsection{Archivos y Directorios}
+Navegar dentro del sistema de archivos de Linux puede hacerse por medio de una interfaz gr\'afica. Estas son las que ofrecen ventanas, \'iconos, botonos, barras de b\'usqueda, etc. Sin embargo, habr\'an veces en las que ver el contenido de una carpeta no ser\'a pr\'activo por medio de una interfaz gr\'afica. Adem\'as, en ella no se puede crear rutinas de manera inmediata. Por eso, se recomienda tener una noci\'on de c\'omo navegar dentro del sistema de archivos, mediante la l\'inea de comando. A continuaci\'on haremos algunos ejercicios para comprender mejor c\'omo se hace esto.
+
+\subsubsection{Directorio de Trabajo}
+Lo primero que debemos saber antes de movernos hacia otro directorio es en qu\'e directorio nos encontramos ahorita. Para ello vamos a utilizar un comando que nos revelar\'a esa informaci\'on. Abre la terminal (l\'inea de comando), despu\'es del signo \inlinecode{$\sim\$ $} escribe \inlinecode{pwd} y presiona Enter. Cu\'al fuel el resultado? An\'otalo y recu\'erdalo.
+
+\subsubsection{Navegando entre carpetas}
+Ahora intentaremos cambiar de lugar dentro del \'arbol de directorios. Ingresa el siguiente comando \inlinecode{cd /} y presiona Enter. Despu\'es de eso, vuelve a revisar cu\'al es el directorio en el que te encuentras. Hay alguna diferencia? Si s\'i, cu\'al y por qu\'e crees que la hubo?
+
+\subsubsection{Listando Contenidos}
+Finalmente, ingresa el comando \inlinecode{ls} y presiona Enter. Qu\'e puedes ver all\'i? Reconoces alguno de los archivos que all\'i se te muestran? Toma nota de ellos. Ahora ingresa \inlinecode{cd} solamente y presiona Enter. Repite el procedimiento con \inlinecode{ls} y anota lo que ves. Qu\'e crees que hace el comando \inlinecode{ls}?
+
+\subsection{Creando Cosas}
+Todos los archivos en un ordenador son archivos de texto. En algunos, el texto es incomprensible para nosotros; es c\'odigo que solo el ordenador puede leer. Mientras que en otros, este es dise\~nado para ser comprendido por nosotros. Para crear archivos de texto, generalmente usamos procesadores de texto como Word, WordPad en Microsoft Windows. Sin embargo, para crear un simple archivo de texto, a veces hemos utilizado Notepad o Block de Notas. En Linux tambi\'en existen procesadores de texto con una interfaz gr\'afica, como Gedit o Kate. Sin embargo, estos todav\'ia son elaborados. Para esta secci\'on crearemos y borraremos directorios, y haremos una serie de ejercicios entre los que crearemos archivos de texto en la l\'inea de comando y los borraremos despu\'es.
+
+\subsubsection{Directorios}
+Para trabajar mejor, vamos a crear un nuevo directorio en donde guardar nuestros ejercicios y pruebas. En la terminarl que ten\'iamos del ejercicio anterior, vamos a ingresar un nuevo comando: \inlinecode{mkdir Playground}\\
+
+Para revisar qu\'e es lo que ha pasado, vamos a listar el contenido de el directorio en el que nos hallamos y revisar qu\'e cambios ha habido desde que listamos los contenidos la vez pasada. Notas el nuevo directorio?\\
+
+Ahora procederemos a entrar a ese directorio de la siguiente manera \inlinecode{cd Playground} y luego crearemos un directorio de prueba llamado \emph{Test}. C\'omo lo har\'ias? Int\'entalo!
+
+\subsubsection{Archivos de Texto}
+En el caso de los archivos de texto, cuando los creamos en la l\'inea de comando, no seguimos el mismo patr\'on que en una interfaz gr\'afica. En la \'ultima, abrimos el editor, creamos el archivo y finalmente lo guardamos. Si bien esto se puede hacer en algunos editores de la l\'inea de comando, es recomendable nombrar el archivo desde el inicio y no hasta el final. Hagamos una prueba. Ingresa el siguiente comando: \inlinecode{nano mi\_archivo.txt} y analiza lo que ves.\\
+
+Ahora escribe alg\'un mensaje dentro de tu nuevo archivo y ci\'erralo. Lee muy bien cada instrucci\'on que se te de en el proceso. Al final lista el contenido de la carpeta y nota c\'omo es que ahora aparece tu nuevo archivo.
+
+\subsubsection{Eliminar}
+Hasta ahora todo va muy bien, sin embargo, estas han sido pruebas y debemos dejar nuestro directorio limpio antes de continuar con el taller. Para ello, necesitamos eliminar tanto el directorio \emph{Test} como nuestro reci\'en-creado archivo. A diferencia de simplemente seleccionar a cada uno y eliminarlos, en la l\'inea de comando generalmente se utilizan dos comandos diferentes: uno para archivos (\inlinecode{rm}) y otro para carpetas (\inlinecode{rmdir}). Intenta eliminar ambos.\\
+
+\textbf{Nota}: Al eliminar un directorio, este tiene que hallarse vac\'io. De no ser as\'i, el comando no dejar\'a que lo elimines de esta forma. Debes usar otra manera un poco m\'as peligrosa. Si deseas saberla, pregunta por ella.
+
+\subsubsection{Copiar y Pegar}
+Una pr\'actica que nos encanta al trabajar editando texto en ordenadores es el de copiar, cortar y pegar. Esto quiz\'a se deba a que no existe un equivalente en el mundo real, excepto quiz\'a por las fotocopias. Sin embargo, estas no son tan fieles como una copia digital: copia $100\%$ id\'entica. Para realizar este tipo de operaciones con nuestros archivos, vamos a copiar un archivo del directorio de documentos a nuestro directorio, y luego vamos a cortar otro archivo del directorio de documentos y lo trasladaremos a nuestro directorio de trabajo.\\
+
+Comenzando, copiaremos un archivo con el siguiente comando: \inlinecode{cp ../Documents/lorem\_ipsum.txt $\sim$/Playground/} Ahora, debemos tomar en cuenta un par de aspectos importantes. El primero son los dos puntos antes del directorio de documentos. Qu\'e crees que hagan? Y luego est\'a el hecho de que primero pusimos la direcci\'on de todo el archivo, luego solo la ubicaci\'on donde lo \'ibamos a colocar. Anota eso, es importante.\\
+
+Finalmente, cortaremos y pegaremos un archivo. Como ya nos dimos cuenta antes, en estos casos no se copia y pega, sino que se transfiere una copia de manera directa. En este caso es igual, solo que a transferir un archivo en Linux se le denomina \emph{mover}. Por ello, el comando utilizado es \inlinecode{mv} Borra el archivo \emph{lorem\_ipsum.txt} e ingresa este comando en una nueva l\'inea: \inlinecode{mv ../Documents/lorem\_ipsum.txt $ \sim $/Playground/lorem\_ipsum.txt} El comando es casi igual al de copiado, solo con una diferencia importante. Notas cu\'al es?
+
+\subsection{Tubos y Filtros}
+Una de las tareas m\'as dif\'iciles en el mundo actual es el saber qu\'e informaci\'on tomar en cuenta y c\'omo separarla de tods los datos que extraemos de experimentos, de la red y de muchas fuentes de informaci\'on. Esta tarea comienza con simples filtros y peque\~nas rutinas que nos ordenen los resultados de alguna manera. As\'i, la informaci\'on no solo se vuelve m\'as comprensible, sino que tambi\'en se puede notar patrones, tendencias y otras cosas. Es por ello que ahora comenzaremos con otro tipo de operaciones sobre los archivos: aprenderemos a extraer informaci\'on y a realizar m\'as de un comando a la vez con la informaci\'on que tenemos.
+
+\subsubsection{Contando Pedazos}
+Una tarea sencilla que podemos usar para extraer algo de informaci\'on de un archivo es contar la cantidad de l\'ineas, palabras o caracteres en \'el. Para esto existe un comando que nos muestra estos 3 resultados de una vez, o solo uno de los 3 si as\'i lo deseamos. Para una peque\~na prueba, comenzaremos con un conteo general: \inlinecode{wc ../Documents/lorem\_ipsum.txt} Esto debi\'o haberte dado como respuesta los 3 resultados de los que habl\'abamos.\\
+
+Ahora, para contar solo las palabras, intentaremos algo diferente: \inlinecode{wc -w ../Documents/lorem\_ipsum.txt} Notaste el argumento que agregamos? Intenta descubrir c\'omo contar solo l\'ineas o solo caracteres.\\
+
+Finalmente, si quisieramos ver cu\'antas palabras hay en todos los archivos de texto contenidos en la carpeta de documento, podemos hacer lo siguiente: \inlinecode{wc -w ../Documents/*.txt} Aqu\'i tenemos algo muy interesante que notar. En vez de usar un nombre para denotar un archivo en particular, utilizamos un \inlinecode{*}. Este nos permite referirnos a \emph{muchos} archivos a la vez. Terminar con la extensi\'on \inlinecode{.txt} filtra los resultados dejando solo a aquellos archivos con \emph{esa} extensi\'on en particular. Intenta repetir el ejercicio con la cantidad de l\'ineas de cada archivo.
+
+\subsubsection{M\'as de un Comando}
+Y de qu\'e nos sirve ahora tener todos los resulatdos all\'i? Pues ... es cierto. Esto no dice mucho. Pero qu\'e pasar\'ia si pudieramos trabajar m\'as con esos resultados? Pues esa es la idea de los tubos! Tubo se le llama al comando que nos permite usar la informaci\'on de salida de un comando, como informaci\'on de entrada del siguiente. En la l\'inea de comando de Linux, esto se hace mediante este caracter: \inlinecode{|} Hagamos un ejercicio.\\
+
+Si comenzamos con 
+
+\subsubsection{Hallando cosas}
+
+\subsection{Ciclos}
+\subsection{Scripts de Shell}
+
+
+\section{Glosario de comandos sencillos}
+
+\begin{itemize}
+\item \textbf{man}: muestra p\'aginas o documentos de ayuda sobre un comando en particular. Para salir de la p\'agina de ayuda, presionar \emph{q}.
+\item \textbf{whoami}: muestra al usuario activo.
+\item \textbf{pwd}: muestra el directorio en el que se est\'a trabajando actualmente.
+\item \textbf{ls}: mostrar (listar) el contenido de un directorio.
+\item \textbf{cd}: cambia de directorio al directorio que se ponga a continuaci\'on, o regresa al directorio \emph{home} si no se agrega nada.
+\item \textbf{mkdir}: crea un nuevo directorio con el nombre que se ponga a continuaci\'on.
+\item \textbf{rm}: elimina el archivo que se coloque a continuaci\'on.
+\item \textbf{rmdir}: elimina el directorio que se coloque a continuaci\'on. El directorio debe de estar vac\'io.
+\item \textbf{nano}: editor de texto en l\'inea de comando. El nombre que se coloque a continuaci\'on ser\'a el nombre del archivo.
+\item \textbf{cp}: copia un archivo de un lugar a otro. Se coloca a continuaci\'on el nombre, con ubicaci\'on, del archivo a copiar y despu\'es la ubicaci\'on en donde se colocar\'a la copia.
+\item \textbf{mv}: corta y pega un archivo de una ubicaci\'on a otra. Para ello hay que colocar a continuaci\'on el nombre, con ubicaci\'on, del archivo a cortar, y el directorio, con el nombre del archivo, a donde se va a pegar.
+\item \textbf{wc}: cuenta la cantidad de linias y de palabras en un documento de texto.
+\item \textbf{sort}: ordena una lista de palabras en orden alfab\'etico.
+\item \textbf{head}: muestra las primeras l\'ineas de un documento de texto.
+\item \textbf{tail}: muestra las \'ultimas l\'ineas de un documento de texto.
+\item \textbf{uniq}: elimina los duplicados adyacentes en una lista de palabras.
+\item \textbf{grep}: busca dentro de los archivos por una frase o palabra en particular. Esta se le tiene que dar posterior al comando.
+\item \textbf{find}: busca un archivo cuyo nombre tenga una frase o palabra en particular. Esta se le tiene que dar posterior al comando.
+\item \textbf{for}: crea ciclos que se mueven a lo largo de una lista dada de elementos.
+\end{itemize}
+
+\end{document}
