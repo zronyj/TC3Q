@@ -1,0 +1,188 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[round]{natbib}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\bibliographystyle{achemso}
+\author{Rony J. Letona}
+\title{Taller de Qu\'imica Computacional Aplicada}
+\begin{document}
+\maketitle
+
+\section{Introducci\'on}
+El taller que se propone pretende dar la oportunidad, a quienes atiendan, a incursionar en el campo de la qu\'imica computacional aplicada. Se comienza con conceptos b\'asicos, pero esenciales, para la comprensi\'on y uso de un ordenador para luego escalar hacia el uso de paquetes, librer\'ias y programas espec\'ificos. Esto se distribuye a lo largo de 2 semanas en donde cada uno har\'a ejercicios sobre cada tema visto a modo de tener contacto directo con cada interface y cada diferente ambiente digital en el que se llevan a cabo las simulaciones y modelos. Finalmente, se espera que cada uno tenga una mejor idea de lo que se puede hacer en este campo para poder hacer uso de \'el en su formaci\'on acad\'emica, as\'i como en su vida profesional.
+
+\section{Objetivos}
+\subsection{General}
+Que quienes atiendan al taller ampl\'ien su visi\'on sobre el alcance y las aplicaciones de la qu\'imica computacional y puedan aplicar estos conceptos y pr\'acticas en sus cursos o ambiente profesional.
+\subsection{Espec\'ificos}
+Que quienes atiendan al taller:
+\begin{enumerate}
+\item Aprendan sobre el sistema operativo Linux, hagan uso de \'el y comprendan sobre la conveniencia de este en el campo de las ciencias exactas.
+\item Aprendan sobre el uso del shell (capa de l\'inea de comando) Bash y hagan uso de \'el para facilitar muchas tareas cotidianas.
+\item Se familiaricen con las bases de datos relacionales y hagan uso del lenguaje SQL para interactuar con ellas.
+\item Conozcan sobre el sistema de control de revisi\'on Git, los ambientes de edici\'on de programas (IDE) y el lenguaje \LaTeX\ para utilizarlos en la elaboraci\'on de scripts, reportes y art\'iculos.
+\item Aprendan, se familiaricen y hagan uso del lenguaje Python para crear peque\~nos programs que puedan interactuar con informaci\'on sobre datos de an\'alisis, reacciones o mol\'eculas para facilitar tareas repetitivas.
+\item Se familiaricen con los algoritmos m\'as modernos en el campo de la qu\'imica computacional y que sepan aplicarlos dependiendo de la situaci\'on que se les presente.
+\item Conozcan y se familiaricen con el paquete para c\'alculos num\'ericos SciPy y operaciones qu\'imicas Cinfony, para interactuar con diferentes tipos de archivos y extraer propiedades f\'isicas y qu\'imicas de las mol\'eculas.
+\item Conozcan y se familiaricen con todo el software de fuente abierta para hacer qu\'imica computacional:
+	\begin{enumerate}
+	\item Avogadro: Dibujo de mol\'eculas en 3D y optimizaci\'on de las mismas por mec\'anica molecular.
+	\item Firefly: C\'alculos de mec\'anica cu\'antica, optimizaci\'on de geometr\'ia, generaci\'on de espectros y datos termodin\'amicos te\'oricos.
+	\item AutoDock Tools: Preparaci\'on de par\'ametros para llevar a cabo dockings en AutoDock o AutoDock Vina.
+	\item AutoDock Vina: Acoplamiento intermolecular para determinaci\'on de energ\'ias de acomplejamiento.
+	\item Chimera: Visualizaci\'on de biomol\'eculas, c\'alculo de interacciones, alineado, comparado y b\'usqueda de mol\'eculas similares por medio de m\'etodos BLAST y FASTA.
+	\item VMD: Visualizaci\'on de mol\'eculas, preparaci\'on de din\'amicas moleculares para ejecuci\'on en NAMD y visualizaci\'on de los resultados.
+	\item Open3DQSAR: C\'alculo de modelos de relaci\'on estructura-actividad basados en campos electrost\'aticos.
+	\item KNIME: Plataforma para an\'alisis de datos de manera estad\'istica, inteligente y sencilla.
+	\end{enumerate}
+\end{enumerate}
+
+\section{Contenido}
+\begin{enumerate}
+\item \textbf{Sistema Operativo Linux}\\ Entorno gr\'afico, sistema de ficheros, diferencias con otros sistemas, instalaci\'on y manejo de software.
+\item \textbf{Shell Unix}\\ Comandos b\'asicos para manejo de archivos, tubos y sistemas de permisos.
+\item \textbf{Bases de Datos}\\ Organizaci\'on de una base de datos relacional, \'algebra relacional b\'asica y comandos SQL para interactuar con ellas.
+\item \textbf{Sistema de Control de Revisi\'on}\\ Creaci\'on, clonado, descargado, cometido y empujado de proyectos mediante Git y sus formas de visualizado en l\'inea.
+\item \textbf{Ambientes de Desarrollo Integrado}\\ Ventajas y desventajas al desarrollar sobre los ambientes Ecplipse, Geany, IDLE y NetBeans y otros editores de texto como Gedit/Pluma, Kate, nano, TexMaker y Sublime Text.
+\item \textbf{Lenguaje \LaTeX\ }\\ Comandos b\'asicos en la elaboraci\'on de informes t\'ecnicos, control de estilos, funciones y manejo de paquetes.
+\item \textbf{Lenguaje Python}\\ Comandos b\'asicos, rutinas sencillas y peque\~nos programas que lleven al mejor uso y comprensi\'on de los paquetes para ciencia SciPy y Cinfony, y su implementaci\'on en investigaci\'on y la industria.
+\item \textbf{Algoritmos}\\ Desde m\'etodos num\'ericos sencillos (bisecci\'on, punto fijo, Newton-Raphson) hasta algoritmos de optimizaci\'on (MonteCarlo, Metropolis, Gen\'etico). Su uso y condiciones de uso.
+\item \textbf{Paquetes de Software}\\ Uso de estos en la determinaci\'on de propiedades moleculares, optimizaci\'on de geometr\'ias, predicci\'on de conformaciones en acomplejamientos, creaci\'on de modelos y an\'alisis de datos.
+\end{enumerate}
+
+\section{Cronograma}
+Cada d\'ia se desarrollar\'a el taller durante 4 horas, en dos segmentos de 2 horas para tener oportunidad de poner en pr\'actica todo el contenido y aclarar dudas.
+
+\begin{itemize}
+\item \textbf{D\'ia 1}: Introducci\'on al taller, entrega e instalaci\'on de software, introducci\'on al ambiente Linux y uso de la consola (l\'inea de comando Bash).
+\item \textbf{D\'ia 2}: Introducci\'on a las bases de datos, lenguaje SQL y su uso en una base de datos MySQL.
+\item \textbf{D\'ia 3}: Introducci\'on al sistema de control de revisiones Git, manipulaci\'on de proyectos y acceso a los mismos en Internet. Ambientes integrados de desarrollo, ventajas y desventajas. Lenguaje \LaTeX\ y elaboraci\'on de reportes e informes t\'ecnicos con \'el.
+\item \textbf{D\'ia 4}: Introducci\'on al lenguaje Python, declaraci\'on de funciones, ciclos y condiciones.
+\item \textbf{D\'ia 5}: Manejo de archivos y paquetes en Python, orientaci\'on a objetos y rutinas para correr en l\'inea de comando.
+\item \textbf{D\'ia 6}: Algoritmos: desarrollo de rutinas para calcular ra\'ices, derivaci\'on e integraci\'on num\'erica.
+\item \textbf{D\'ia 7}: Algoritmos: implementaci\'on y condiciones de uso de algoritmos de optimizaci\'on. Paquete SciPy para desarrollo de c\'alculo, \'algebra lineal, estad\'istica y visualizaci\'on de gr\'aficas.
+\item \textbf{D\'ia 8}: Formatos de archivos en qu\'imica computacional: sus ventajas, desventajas y usos. Paquete Cinfony para c\'alculo de propiedades moleculares.
+\item \textbf{D\'ia 9}: Dibujo, optimizaci\'on y preparaci\'on de c\'alculos en Avogadro. Determinaci\'on de propiedades termidin\'amicas, espectros IR y orbitales moleculares mediante Firefly. Preparaci\'on de acoplamientos (docking) mediante AutoDock Tools. Acoplamiento molecular y hallazgo de complejos biol\'gicos de baja energ\'ia utilizando AutoDock Vina.
+\item \textbf{D\'ia 10}: Visualizaci\'on, edici\'on y alineado de biomol\'eculas en UCSF Chimera. Preparaci\'on y visualizaci\'on de din\'amicas moleculares utilizando VMD y NAMD. C\'alculo de relaciones estructura-actividad por campos electrost\'aticos con Open3DQSAR. C\'alculo de descriptores moleculares y manejo estad\'istico de datos con KNIME.
+\end{itemize}
+
+\section{Materiales y Requisitos}
+\begin{itemize}
+\item El taller est\'a enfocado para poder ser comprendido sin una base previa en ninguno de los temas a tratar.
+\item Se requerir\'a que quien atienda al taller provea una memoria USB de m\'inimo 4GB de capacidad para entregarle el software con el que se trabajar\'a.
+\item El taller tendr\'a un costo de Q50 por persona, y se espera a un m\'inimo de 10 personas para llevarlo a cabo.
+\item Ser\'ia muy conveniente, mas no indispensable, que quien atienda al taller lleve consigo una computadora laptop (no tablet) para realizar los ejercicios propuestos.
+\item Todo el material se manejar\'a de manera electr\'onica, por lo que al final de cada d\'ia se le estar\'a enviando a quienes asistan todo lo referente al contenido cubierto ese d\'ia y una introducci\'on al siguiente d\'ia.
+\item Al final del taller se har\'a entrega de un diploma de participaci\'on.
+\end{itemize}
+
+Parte de los fondos recaudados ser\'an para el desarrollo de la Organizaci\'on de Estudiantes de Qu\'imica.
+
+\begin{thebibliography}{99}
+
+\bibitem[Berthold et. al., 2009]{knime}
+ Berthold, M. R., Cebron, N., Dill, F., Gabriel, T. R., K\"otter, T., Meinl, T., et al. (2009).
+ KNIME - The Konstanz Information Miner.
+ \textit{ACM SigKDD Explorations Newsletter},
+ \textit{11} (1),
+ 26.
+
+\bibitem[Davis, 2014]{github}
+ Davis, J. (2014, January 19).
+ GitHub + University: How College Coding Assignments Should Work - Josh Davis.
+ \textit{GitHub + University: How College Coding Assignments Should Work - Josh Davis}.
+ Retrieved May 28, 2014, from {\footnotesize http://joshldavis.com/2014/01/19/github-university-how-college-assignments-should-work/}
+
+\bibitem[Downey, Meyer \& Elkner, 2002]{python}
+ Downey, A., Meyer, C., \& Elkner, J. (2002).
+ \textit{How to think like a computer scientist: learning with Python.}
+ Wellsley, Mass.:
+ Green Tea Press.
+
+\bibitem[Granovsky, 2014]{firefly}
+ Granovsky, A. A. (2014).
+ Firefly (formerly PC GAMESS) Home Page.
+ \textit{Firefly (formerly PC GAMESS) Home Page.}
+ Retrieved May 28, 2014, from {\footnotesize http://classic.chem.msu.su/gran/gamess/index.html}
+
+\bibitem[Hanwel et. al., 2012]{avogadro}
+ Hanwell, M. D., Curtis, D. E., Lonie, D. C., Vandermeersch, T., Zurek, E., \& Hutchison, G. R. (2012).
+ Avogadro: an advanced semantic chemical editor, visualization, and analysis platform.
+ \textit{Journal of Cheminformatics},
+ \textit{4}(17),
+ 1-17.
+
+\bibitem[Humphrey, Dalke \& Schulten, 1996]{vmd}
+ Humphrey, W., Dalke, A., \& Schulten, K. (1996).
+ VMD: Visual molecular dynamics.
+ \textit{Journal of Molecular Graphics},
+ \textit{14}(1),
+ 33-38.
+
+\bibitem[Lamport, 1995]{latex}
+ Lamport, L. (1995).
+ LATEX: A document preparation system user's guide and reference manual.
+ \textit{Computers \& Mathematics with Applications},
+ \textit{29}(11),
+ 108.
+
+\bibitem[MySQL, 2014]{mysql}
+ MySQL :: The world's most popular open source database. (2014).
+ MySQL :: The world's most popular open source database.
+ Retrieved May 28, 2014, from {\footnotesize http://www.mysql.com/}
+
+\bibitem[O'Boyle \& Hutchinson, 2008]{cinfony}
+ O'Boyle, N. M., \& Hutchison, G. R. (2008).
+ Cinfony: combining Open Source cheminformatics toolkits behind a common interface.
+ \textit{Chemistry Central Journal},
+ \textit{2}(24),
+ 1-10.
+
+\bibitem[Park, Lee \& Lee, 2006]{autodock}
+ Park, H., Lee, J., \& Lee, S. (2006).
+ Critical assessment of the automated AutoDock as a new docking tool for virtual screening.
+ \textit{Proteins: Structure, Function, and Bioinformatics},
+ \textit{65}(3),
+ 549-554.
+
+\bibitem[Petersen et. al., 2004]{chimera}
+ Pettersen, E. F., Goddard, T. D., Huang, C. C., Couch, G. S., Greenblatt, D. M., Meng, E. C., et al. (2004).
+ UCSF Chimera: A visualization system for exploratory research and analysis.
+ \textit{Journal of Computational Chemistry},
+ \textit{25}(13),
+ 1605-1612.
+
+\bibitem[Silva, 2013]{scipy}
+ Silva, F. J. (2013).
+ \textit{Learning SciPy for numerical and scientific computing}.
+ Birmingham, UK:
+ Packt Pub.
+
+\bibitem[Software Carpentry, 2014]{softwarec}
+ TEACHING LAB SKILLS FOR SCIENTIFIC COMPUTING. (2014).
+ Software Carpentry.
+ Retrieved May 28, 2014, from {\footnotesize http://software-carpentry.org/index.html}
+
+\bibitem[Tosco \& Balle, 2011]{open3dqsar}
+ Tosco, P., \& Balle, T. (2011).
+ Open3DQSAR: a new open-source software aimed at high-throughput chemometric analysis of molecular interaction fields.
+ \textit{Journal of Molecular Modeling},
+ \textit{17}(1),
+ 201-208.
+
+\bibitem[Trott \& Olson, 2009]{vina}
+ Trott, O., \& Olson, A. J. (2009).
+ AutoDock Vina: Improving the speed and accuracy of docking with a new scoring function, efficient optimization, and multithreading.
+ \textit{Journal of Computational Chemistry},
+ \textit{31}(2),
+ 455-461.
+
+\end{thebibliography}
+
+\end{document}
