@@ -71,12 +71,20 @@ Ahora, para contar solo las palabras, intentaremos algo diferente: \inlinecode{w
 
 Finalmente, si quisieramos ver cu\'antas palabras hay en todos los archivos de texto contenidos en la carpeta de documento, podemos hacer lo siguiente: \inlinecode{wc -w ../Documents/*.txt} Aqu\'i tenemos algo muy interesante que notar. En vez de usar un nombre para denotar un archivo en particular, utilizamos un \inlinecode{*}. Este nos permite referirnos a \emph{muchos} archivos a la vez. Terminar con la extensi\'on \inlinecode{.txt} filtra los resultados dejando solo a aquellos archivos con \emph{esa} extensi\'on en particular. Intenta repetir el ejercicio con la cantidad de l\'ineas de cada archivo.
 
-\subsubsection{M\'as de un Comando}
+\subsubsection{Tubos y Ordenando Listas}
 Y de qu\'e nos sirve ahora tener todos los resulatdos all\'i? Pues ... es cierto. Esto no dice mucho. Pero qu\'e pasar\'ia si pudieramos trabajar m\'as con esos resultados? Pues esa es la idea de los tubos! Tubo se le llama al comando que nos permite usar la informaci\'on de salida de un comando, como informaci\'on de entrada del siguiente. En la l\'inea de comando de Linux, esto se hace mediante este caracter: \inlinecode{|} Hagamos un ejercicio.\\
 
-Si comenzamos con 
+Vamos a comenzar donde lo dejamos la vez pasada: con una lista de archivos y el conteo de la cantidad de palabras en cada uno. Ahora vamos a intentar ordenar los resultados. Como siempre, se sigue la convenci\'on de ir en el orden alfab\'etico. Intentemos, pues, ordenar los resultados. Para eso ingresa lo siguiente en tu l\'inea de comando: \inlinecode{wc -w ../Documents/*.txt | sort}\\
+
+Creo que inmediatamente notaste los cambios. Agregamos el tubo (en ingl\'es \emph{pipe}) y agregamos un comando para ordenar nuestros resultados: \inlinecode{sort} Al fin tenemos todo ordenado, o no? Lo \'unico que no est\'a bien con el resultado es el total. El total, siendo un n\'umero mayor deber\'ia de ir al final. Para eso quiz\'a sea necesario agregar un \'ultimo argumento. Ingresa: \inlinecode{wc -w ../Documents/*.txt | sort -n} Ahora obtuvimos el resultado deseado; solo hab\'ia que pedirle al comando de ordenar, que lo hiciera de manera num\'erica.
 
 \subsubsection{Hallando cosas}
+find
+cat
+grep
+head
+tail
+cut
 
 \subsection{Ciclos}
 \subsection{Scripts de Shell}
