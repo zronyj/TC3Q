@@ -23,7 +23,7 @@
 \section{Ejercicios con la l\'inea de comando}
 
 \subsection{Archivos y Directorios}
-Navegar dentro del sistema de archivos de Linux puede hacerse por medio de una interfaz gr\'afica. Estas son las que ofrecen ventanas, \'iconos, botonos, barras de b\'usqueda, etc. Sin embargo, habr\'an veces en las que ver el contenido de una carpeta no ser\'a pr\'activo por medio de una interfaz gr\'afica. Adem\'as, en ella no se puede crear rutinas de manera inmediata. Por eso, se recomienda tener una noci\'on de c\'omo navegar dentro del sistema de archivos, mediante la l\'inea de comando. A continuaci\'on haremos algunos ejercicios para comprender mejor c\'omo se hace esto.
+Navegar dentro del sistema de archivos de Linux puede hacerse por medio de una interfaz gr\'afica. Estas son las que ofrecen ventanas, \'iconos, botonos, barras de b\'usqueda, etc. Sin embargo, habr\'an veces en las que ver el contenido de una carpeta no ser\'a pr\'activo por medio de una interfaz gr\'afica. Adem\'as, en ella no se puede crear rutinas de manera inmediata. Por eso se recomienda tener una noci\'on de c\'omo navegar dentro del sistema de archivos mediante la l\'inea de comando. A continuaci\'on haremos algunos ejercicios para comprender mejor c\'omo se hace esto.
 
 \subsubsection{Directorio de Trabajo}
 Lo primero que debemos saber antes de movernos hacia otro directorio es en qu\'e directorio nos encontramos ahorita. Para ello vamos a utilizar un comando que nos revelar\'a esa informaci\'on. Abre la terminal (l\'inea de comando), despu\'es del signo \inlinecode{$\sim\$ $} escribe \inlinecode{pwd} y presiona Enter. Cu\'al fuel el resultado? An\'otalo y recu\'erdalo.
@@ -52,14 +52,14 @@ Ahora escribe alg\'un mensaje dentro de tu nuevo archivo y ci\'erralo. Lee muy b
 \subsubsection{Eliminar}
 Hasta ahora todo va muy bien, sin embargo, estas han sido pruebas y debemos dejar nuestro directorio limpio antes de continuar con el taller. Para ello, necesitamos eliminar tanto el directorio \emph{Test} como nuestro reci\'en-creado archivo. A diferencia de simplemente seleccionar a cada uno y eliminarlos, en la l\'inea de comando generalmente se utilizan dos comandos diferentes: uno para archivos (\inlinecode{rm}) y otro para carpetas (\inlinecode{rmdir}). Intenta eliminar ambos.\\
 
-\textbf{Nota}: Al eliminar un directorio, este tiene que hallarse vac\'io. De no ser as\'i, el comando no dejar\'a que lo elimines de esta forma. Debes usar otra manera un poco m\'as peligrosa. Si deseas saberla, pregunta por ella.
+\textbf{Nota}: Al eliminar un directorio, este tiene que hallarse vac\'io. De no ser as\'i, el comando no dejar\'a que lo elimines  y debes usar otra manera un poco m\'as peligrosa. Si deseas saberla, pregunta por ella.
 
 \subsubsection{Copiar y Pegar}
 Una pr\'actica que nos encanta al trabajar editando texto en ordenadores es el de copiar, cortar y pegar. Esto quiz\'a se deba a que no existe un equivalente en el mundo real, excepto quiz\'a por las fotocopias. Sin embargo, estas no son tan fieles como una copia digital: copia $100\%$ id\'entica. Para realizar este tipo de operaciones con nuestros archivos, vamos a copiar un archivo del directorio de documentos a nuestro directorio, y luego vamos a cortar otro archivo del directorio de documentos y lo trasladaremos a nuestro directorio de trabajo.\\
 
 Comenzando, copiaremos un archivo con el siguiente comando: \inlinecode{cp ../Documents/lorem\_ipsum.txt $\sim$/Playground/} Ahora, debemos tomar en cuenta un par de aspectos importantes. El primero son los dos puntos antes del directorio de documentos. Qu\'e crees que hagan? Y luego est\'a el hecho de que primero pusimos la direcci\'on de todo el archivo, luego solo la ubicaci\'on donde lo \'ibamos a colocar. Anota eso, es importante.\\
 
-Finalmente, cortaremos y pegaremos un archivo. Como ya nos dimos cuenta antes, en estos casos no se copia y pega, sino que se transfiere una copia de manera directa. En este caso es igual, solo que a transferir un archivo en Linux se le denomina \emph{mover}. Por ello, el comando utilizado es \inlinecode{mv} Borra el archivo \emph{lorem\_ipsum.txt} e ingresa este comando en una nueva l\'inea: \inlinecode{mv ../Documents/lorem\_ipsum.txt $ \sim $/Playground/lorem\_ipsum.txt} El comando es casi igual al de copiado, solo con una diferencia importante. Notas cu\'al es?
+Finalmente, cortaremos y pegaremos un archivo. Como ya nos dimos cuenta antes, en estos casos no se copia y pega, sino que se transfiere una copia de manera directa. En este caso es igual, solo que a transferir un archivo en Linux se le denomina \emph{mover}. Por ello, el comando utilizado es \inlinecode{mv} Elimina el archivo \emph{lorem\_ipsum.txt} en tu directorio de trabajo e ingresa este comando en una nueva l\'inea: \inlinecode{mv ../Documents/lorem\_ipsum.txt $ \sim $/Playground/lorem\_ipsum.txt} El comando es casi igual al de copiado, solo con una diferencia importante. Notas cu\'al es?
 
 \subsection{Tubos y Filtros}
 Una de las tareas m\'as dif\'iciles en el mundo actual es el saber qu\'e informaci\'on tomar en cuenta y c\'omo separarla de tods los datos que extraemos de experimentos, de la red y de muchas fuentes de informaci\'on. Esta tarea comienza con simples filtros y peque\~nas rutinas que nos ordenen los resultados de alguna manera. As\'i, la informaci\'on no solo se vuelve m\'as comprensible, sino que tambi\'en se puede notar patrones, tendencias y otras cosas. Es por ello que ahora comenzaremos con otro tipo de operaciones sobre los archivos: aprenderemos a extraer informaci\'on y a realizar m\'as de un comando a la vez con la informaci\'on que tenemos.
@@ -69,7 +69,7 @@ Una tarea sencilla que podemos usar para extraer algo de informaci\'on de un arc
 
 Ahora, para contar solo las palabras, intentaremos algo diferente: \inlinecode{wc -w ../Documents/lorem\_ipsum.txt} Notaste el argumento que agregamos? Intenta descubrir c\'omo contar solo l\'ineas o solo caracteres.\\
 
-Finalmente, si quisieramos ver cu\'antas palabras hay en todos los archivos de texto contenidos en la carpeta de documento, podemos hacer lo siguiente: \inlinecode{wc -w ../Documents/*.txt} Aqu\'i tenemos algo muy interesante que notar. En vez de usar un nombre para denotar un archivo en particular, utilizamos un \inlinecode{*}. Este nos permite referirnos a \emph{muchos} archivos a la vez. Terminar con la extensi\'on \inlinecode{.txt} filtra los resultados dejando solo a aquellos archivos con \emph{esa} extensi\'on en particular. Intenta repetir el ejercicio con la cantidad de l\'ineas de cada archivo.
+Finalmente, si quisieramos ver cu\'antas palabras hay en todos los archivos de texto contenidos en la carpeta de documentos, podemos hacer lo siguiente: \inlinecode{wc -w ../Documents/*.txt} Aqu\'i tenemos algo muy interesante que notar. En vez de usar un nombre para denotar un archivo en particular, utilizamos un \inlinecode{*}. Este nos permite referirnos a \emph{muchos} archivos a la vez. Terminar con la extensi\'on \inlinecode{.txt} filtra los resultados dejando solo a aquellos archivos con \emph{esa} extensi\'on en particular. Intenta repetir el ejercicio con la cantidad de l\'ineas de cada archivo.
 
 \subsubsection{Tubos y Ordenando Listas}
 Y de qu\'e nos sirve ahora tener todos los resulatdos all\'i? Pues ... es cierto. Esto no dice mucho. Pero qu\'e pasar\'ia si pudieramos trabajar m\'as con esos resultados? Pues esa es la idea de los tubos! Tubo se le llama al comando que nos permite usar la informaci\'on de salida de un comando, como informaci\'on de entrada del siguiente. En la l\'inea de comando de Linux, esto se hace mediante este caracter: \inlinecode{|} Hagamos un ejercicio.\\
@@ -79,14 +79,33 @@ Vamos a comenzar donde lo dejamos la vez pasada: con una lista de archivos y el 
 Creo que inmediatamente notaste los cambios. Agregamos el tubo (en ingl\'es \emph{pipe}) y agregamos un comando para ordenar nuestros resultados: \inlinecode{sort} Al fin tenemos todo ordenado, o no? Lo \'unico que no est\'a bien con el resultado es el total. El total, siendo un n\'umero mayor deber\'ia de ir al final. Para eso quiz\'a sea necesario agregar un \'ultimo argumento. Ingresa: \inlinecode{wc -w ../Documents/*.txt | sort -n} Ahora obtuvimos el resultado deseado; solo hab\'ia que pedirle al comando de ordenar, que lo hiciera de manera num\'erica.
 
 \subsubsection{Hallando cosas}
-find
-cat
-grep
-head
-tail
-cut
+Al trabajar con muchos archivos, uno de los problemas con los que nos encontramos seguido es querer aislar solo algunos de ellos. Son bastantes los casos en los que un programa produce varios archivos de salida: resultados, documentaci\'on de la corrida, errores, etc. A nosotros quiz\'a solo nos interese el de los resultados. Haremos un ejercicio para demostrar c\'omo se hace esto de manera sencilla. Ingresa en tu l\'inea de comando lo siguiente: \inlinecode{find ../Documents/*ipsum*} y observa el resultado. Piensa y discute un momento sobre qu\'e otro comando que ya conoces podr\'ia generar el mismo resultado.\\
+
+Hasta ahora hemos trabajado con archivos solamente, no con su contenido. A lo m\'as que hab\'iamos llegado es a escribir dentro de un archivo con \inlinecode{nano}. Pero qu\'e pasa si queremos ver lo que hay dentro de un archivo sin editarlo? Qu\'e pasa si deseamos buscar cosas dentro del contenido? Para eso vamos a utilizar dos nuevos comandos. El primero nos permitir\'a ver el contenido de un archivo de texto sin abrirlo. Hagamos una prueba. Ingresa \inlinecode{cat ../Documents/lorem\_ipsum.txt} y observa qu\'e pasa.\\
+
+Como te habr\'as dado cuenta, se muestra el contenido de todo el archivo. Esto puede ser lo que buscamos, o puede que no, ya que a veces, es solo el principio o el final del archivo lo que necesitamos. Para eso podemos usar \inlinecode{head -5} si quisieramos las primeras 5 l\'ineas de un archivo, por ejemplo. O en el caso de querer las \'ultimas 3, podemos ingresar \inlinecode{tail -3}. Por supuesto, los n\'umeros los podemos cambiar, pero eso depender\'a de lo que querramos en ese momento.\\
+
+Ahora que ya sabemos c\'omo mostrar el texto de un archivo de formar total y parcial, vamos a buscar algo dentro de \'el. Para ello vamos utilizar un nuevo comando: \inlinecode{grep}. Este comando busca por expresiones regulares dentro de un texto y devuelve las l\'ineas en el texto que contengan esa expresi\'on. Una \emph{expresi\'on regular} puede ser una palabra o algunas f\'ormulas que permiten hallar patrones dentro del texto. En este caso vamos a proceder buscando un patr\'on sencillo dentro de un archivo con mucha informaci\'on. Ingresa esto en la terminal y comenta sobre el resultado \inlinecode{cat ../Documents/data.csv | grep 199}. Hallamos entonces a todos los premios nobel en qu\'imica de la d\'ecada de los 90. Sin embargo, obtenemos tambi\'en un resultado que no nos interesa: la \'ultima l\'inea. Para eso, podemos contar cu\'antas l\'ineas hay y as\'i seleccionar solo las que deseamos. Antes de darte la manera de hacer esto, piensa un momento en c\'omo llevar a cabo esta tarea con lo que ya sabes.\\
+
+Para resolver el problema anterior, lo que haces es agregar otro \emph{pipe} al comando que ya ten\'ias, contar las l\'ineas y con \inlinecode{head} seleccionar solo las que deseas. En otras palabras, hacemos esto:\\
+\inlinecode{cat ../Documents/data.csv | grep 199 | wc -l}\\
+lo cual debe de darte como resultado \inlinecode{19}. La \'unica l\'inea que deseamos eliminar es la \'ultima, por lo que seleccionamos solo 18 l\'ineas:\\
+\inlinecode{cat ../Documents/data.csv | grep 199 | head -18}\\
+De esa forma tenemos al listado de todos los premios nobel en qu\'imica de la d\'ecada de los 90s.
+
+\subsubsection{Filtrando Resultados}
+Los resultados obtenidos del \'ultimo ejercicio ya son algo que nos provee informaci\'on r\'apida sobre el contenido de un archivo. No obstante, si desearamos solo el a\~no, el nombre y el apellido de cada premio nobel de qu\'imica, tenemos que hacer un \'ultimo arreglo. Como notamos de los resultados, el documento que utilizamos usa comas para dividir los campos. Y si ponemos atenci\'on, son las divisiones 1, 5 y 6 las que nos interesan para obtener la informaci\'on antes mencionada. Veamos c\'omo hacer esto. En la terminal ingresa:\\
+\inlinecode{cat ../Documents/data.csv | grep 199 | head -18 | cut -d , -f 1,5,6}\\
+Observa los resultados y comenta sobre qu\'e crees que hace cada parte del nuevo comando y argumentos que se utilizaron ahora.\\
+
+Finalmente, tener resultados as\'i en la l\'inea de comando puede ser \'util a veces, pero en el caso de haber extra\'ido informaci\'on importante, quiz\'a es deseable almacenar esto en otro archivo. Ahora, en vez de copiar y pegar los resultados obtenidos del ejercicio anterior, vamos a alargar nuestro comando un poco m\'as. Esta vez vamos a agregar un peque\~no signo m\'as: \inlinecode{>}. Este nos permitir\'a guardar los resultados obtenidos en un archivo de la siguiente forma:\\
+\inlinecode{cat ../Documents/data.csv | grep 199 | head -18 | cut -d , -f 1,5,6 > \ mi\_archivo.txt}\\
+Despu\'es de ejecutar eso, como no obtuviste un resultado, deseo que veas cu\'al es el contenido de tu directorio de trabajo y que lo comentes con los dem\'as.
 
 \subsection{Ciclos}
+
+
+
 \subsection{Scripts de Shell}
 
 
@@ -104,10 +123,11 @@ cut
 \item \textbf{nano}: editor de texto en l\'inea de comando. El nombre que se coloque a continuaci\'on ser\'a el nombre del archivo.
 \item \textbf{cp}: copia un archivo de un lugar a otro. Se coloca a continuaci\'on el nombre, con ubicaci\'on, del archivo a copiar y despu\'es la ubicaci\'on en donde se colocar\'a la copia.
 \item \textbf{mv}: corta y pega un archivo de una ubicaci\'on a otra. Para ello hay que colocar a continuaci\'on el nombre, con ubicaci\'on, del archivo a cortar, y el directorio, con el nombre del archivo, a donde se va a pegar.
-\item \textbf{wc}: cuenta la cantidad de linias y de palabras en un documento de texto.
+\item \textbf{wc}: cuenta la cantidad de l\'ineas y de palabras en un archivo de texto.
 \item \textbf{sort}: ordena una lista de palabras en orden alfab\'etico.
-\item \textbf{head}: muestra las primeras l\'ineas de un documento de texto.
-\item \textbf{tail}: muestra las \'ultimas l\'ineas de un documento de texto.
+\item \textbf{cat}: muestra todo el contenido de un archivo de texto.
+\item \textbf{head}: muestra las primeras l\'ineas de un archivo de texto.
+\item \textbf{tail}: muestra las \'ultimas l\'ineas de un archivo de texto.
 \item \textbf{uniq}: elimina los duplicados adyacentes en una lista de palabras.
 \item \textbf{grep}: busca dentro de los archivos por una frase o palabra en particular. Esta se le tiene que dar posterior al comando.
 \item \textbf{find}: busca un archivo cuyo nombre tenga una frase o palabra en particular. Esta se le tiene que dar posterior al comando.
