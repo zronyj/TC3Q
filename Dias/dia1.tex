@@ -13,8 +13,24 @@
 \title{Taller de Qu\'imica Computacional Aplicada: D\'ia 1}
 
 \definecolor{light-gray}{gray}{0.90}
+
+\newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
+
 \newcommand{\inlinecode}[1]{
 \colorbox{light-gray}{\texttt{#1}}
+}
+
+\newsavebox{\selvestebox}
+\newenvironment{Code}
+{
+\begin{lrbox}{\selvestebox}%
+\begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax}
+\fontfamily{\ttdefault}\selectfont
+}
+{\end{minipage}\end{lrbox}%
+\begin{center}
+\colorbox{light-gray}{\usebox{\selvestebox}}
+\end{center}
 }
 
 \begin{document}
@@ -87,7 +103,7 @@ Como te habr\'as dado cuenta, se muestra el contenido de todo el archivo. Esto p
 
 Ahora que ya sabemos c\'omo mostrar el texto de un archivo de formar total y parcial, vamos a buscar algo dentro de \'el. Para ello vamos utilizar un nuevo comando: \inlinecode{grep}. Este comando busca por expresiones regulares dentro de un texto y devuelve las l\'ineas en el texto que contengan esa expresi\'on. Una \emph{expresi\'on regular} puede ser una palabra o algunas f\'ormulas que permiten hallar patrones dentro del texto. En este caso vamos a proceder buscando un patr\'on sencillo dentro de un archivo con mucha informaci\'on. Ingresa esto en la terminal y comenta sobre el resultado \inlinecode{cat ../Documents/data.csv | grep 199}. Hallamos entonces a todos los premios nobel en qu\'imica de la d\'ecada de los 90. Sin embargo, obtenemos tambi\'en un resultado que no nos interesa: la \'ultima l\'inea. Para eso, podemos contar cu\'antas l\'ineas hay y as\'i seleccionar solo las que deseamos. Antes de darte la manera de hacer esto, piensa un momento en c\'omo llevar a cabo esta tarea con lo que ya sabes.\\
 
-Para resolver el problema anterior, lo que haces es agregar otro \emph{pipe} al comando que ya ten\'ias, contar las l\'ineas y con \inlinecode{head} seleccionar solo las que deseas. En otras palabras, hacemos esto:\\
+Para resolver el problema anterior, lo que hacemos es agregar otro \emph{pipe} al comando que ya ten\'iamos, contar las l\'ineas y con \inlinecode{head} seleccionar solo las que deseamos. En otras palabras, hacemos esto:\\
 \inlinecode{cat ../Documents/data.csv | grep 199 | wc -l}\\
 lo cual debe de darte como resultado \inlinecode{19}. La \'unica l\'inea que deseamos eliminar es la \'ultima, por lo que seleccionamos solo 18 l\'ineas:\\
 \inlinecode{cat ../Documents/data.csv | grep 199 | head -18}\\
@@ -103,13 +119,123 @@ Finalmente, tener resultados as\'i en la l\'inea de comando puede ser \'util a v
 Despu\'es de ejecutar eso, como no obtuviste un resultado, deseo que veas cu\'al es el contenido de tu directorio de trabajo y que lo comentes con los dem\'as.
 
 \subsection{Ciclos}
+Perfecto, ahora ya sabemos c\'omo trabajar con un archivo. El asunto es que muchas veces, en especial cuando muestreamos, vamos a tener muchos datos en diferentes archivos. Cada archivo merecer\'a nuestra atenci\'on, puesto que los datos en ellos nos permitir\'an realizar una investigaci\'on o un estudio.\\
 
+En esta secci\'on vamos a ver c\'omo trabajar de manera repetitiva. Esto nos permitir\'a trabajar con varios archivos: uno a la vez, pero sin tener que escribir c\'odigo para cada uno de ellos sino para todos de un solo. Para eso vamos a aprender sobre ciclos.
 
+\subsubsection{for ... in ...}
+El ciclo m\'as pr\'actico suele ser el ciclo \inlinecode{for}. Realmente, como casi todas las cosas dentro de un ordenador est\'an enumeradas se les puede enumerar, es muy f\'acil utilizar este tipo de ciclos para resolver cualquier problema de repetici\'on de operaciones. Vamos a ver un ejemplo sencillo de esto. Para eso vamos a utilizar una variable \emph{enu} que nos servir\'a para enumerar. La sintaxis del comando ser\'a as\'i:
+\begin{Code}
+$\sim$\$ for enum in 1 2 3 4 5 6 7 8 9 0\\
+>\ do\\
+>\ echo \$enum\\
+>\ done
+\end{Code}
 
-\subsection{Scripts de Shell}
+Esta vez hemos incluido varias cosas. As\'i que debemos ir una por una. \inlinecode{for} es el comando inicial que declara el comienzo de toda la instrucci\'on. \inlinecode{in} denota que nuestra variable para enumerar va a tomar los valores que se hallan \emph{en} la lista siguiente. \inlinecode{do} anuncia el comienzo de las instrucciones que van a repetirse. Y finalmente, \inlinecode{done} indica el final de estas instrucciones. Todo esto es necesario en \emph{todo} comando c\'iclico \inlinecode{for}. Como podemos ver, no solo se trata de una palabra, sino que son varias ordenadas de una forma particular.\\
 
+Ahora nos queda explicar qu\'e es \inlinecode{echo} y por qu\'e es que nuestra variable \inlinecode{enum} ahora comienza con un \inlinecode{\$} \inlinecode{echo} es un comando que nos sirve para mostrar el valor de una variable en la terminal. Nuestra variable \inlinecode{enum} por otra parte, requiere del signo \inlinecode{\$} para poder usar su valor. Si no agregamos ese signo antes de una variable, la terminal no nos dejar\'a usar el valor que tiene almacenado esa variable.
+
+\subsection{Scripts}
+Para terminar con nuestra breve introducci\'on a la l\'inea de comando, vamos a intentar combinar todo lo que hemos aprendido y hacer algo interesante con ello. Supongamos que estamos trabajando en una investigaci\'on. Entre nuestros documentos hay ciertos archivos con datos de un estudio de aguas (falso) en el lago de Atitl\'an. Estos datos est\'an en forma de tablas que contienen el pH, la temperatura de la muestra y la profundad a la que se tom\'o para 5 diferentes puntos de muestreo. Un ejemplo es el archivo \emph{Agua\_Ati\_20140224.csv}\\
+
+\begin{Code}
+Punto,pH,Temp / $^o$C,Prof / m\\
+San Antonio,7.6724475943,23.61061926,10.4545873217\\
+Santiago,7.2130122874,21.0422111279,10.677484815\\
+San Pedro,7.7370670531,21.3379880926,9.4660710143\\
+Santa Maria,7.046375392,20.4230312561,9.3680636119\\
+Panajachel,7.7367713079,22.9446999496,10.160015882
+\end{Code}
+
+La investigadora principal nos env\'ia un correo electr\'onico solicit\'andonos las medias del pH, temperatura y profundidad para cada uno de los archivos. Adjunto nos env\'ia instrucciones de que utilicemos una herramienta que puede calcular las medias de cada uno de los par\'ametros medidos, pero solo en \textbf{un} archivo. Esa herramienta est\'a dentro de nuestros archivos y se llama \emph{med.sh} Finalmente nos dice que esos datos le urgen para dentro de los pr\'oximos 15 minutos.\\
+
+Hacer el trabajo a mano (un archivo a la vez) es f\'acil si la cantidad de archivos es baja, pero no sabemos si se trata de 3 archivos o de 3000. La idea entonces es automatizar todo el proceso. Desarrollaremos entonces un \emph{script} que lleve a cabo esta tarea por nosotros y nos devuelva los resultados sin preocuparnos nosotros por la cantidad de archivos. Un script no es nada m\'as que una serie de comandos, como los que hemos estado aprendiendo, escritos dentro de un archivo de texto para ser ejecutados secuencial- y autom\'aticamente por el ordenador. De esta forma, solo los escribimos una vez y los podemos volver a utilizar cuantas veces querramos. Comencemos, pues!\\
+
+Lo primero que necesitamos es un pensar que debemos ir haciendo alguna operaci\'on un archivo a la vez. Lo primero que viene a nuestra mente es algo c\'iclico! En ese caso, necesitamos utilizar un comando \inlinecode{for} que vaya accesando cada archivo a la vez.
+
+\begin{Code}
+for archivo in \emph{listado de arhivos?}\\
+do\\
+\emph{calcular las medias de alguna manera}\\
+done
+\end{Code}
+
+Inmediatamente nos damos cuenta de que necesitamos el listado de los archivos que tengan que ver con agua. C\'omo hac\'amos esto? Es cierto! Tenemos un comando \inlinecode{find} que nos permite hallar eso. Intentamos colocarlo dentro del c\'odigo y ...
+
+\begin{Code}
+for archivo in \$(find ../Documents/Agua*)\\
+do\\
+\emph{calcular las medias de alguna manera}\\
+done
+\end{Code}
+
+S\'i, debemos colocar nuestro comando entre par\'entesis y con el signo \inlinecode{\$} para que se genere la lista. As\'i como cuando extra\'iamos el valor de una variable, estamos extrayendo la lista. Genial, ahora ya tenemos la lista. Pero ... nuestra jefa probablemente la querr\'a ordenada. Hmm ... arreglemos eso.
+
+\begin{Code}
+for archivo in \$(find ../Documents/Agua* | sort)\\
+do\\
+\emph{calcular las medias de alguna manera}\\
+done
+\end{Code}
+
+Perfecto! Ahora, antes de comenzar a calcular las medias de los par\'ametros de cada archivo, ser\'ia conveniente mostrar de qu\'e archivo es que se est\'a calculando la media. Agregemos entonces, antes de cada dato, el nombre del archivo.
+
+\begin{Code}
+for archivo in \$(find ../Documents/Agua* | sort)\\
+do\\
+echo \$archivo\\
+\emph{calcular las medias de alguna manera}\\
+done
+\end{Code}
+
+Ahora s\'i, a calcular las medias. Esto se supone que lo hace la herramienta \emph{med.sh} Pero ... qu\'e es realmente esa herramienta? Pues esto, para nuestra sorpresa, es \textbf{otro} script. Resulta que para calcular las medias de los par\'ametros en un archivo con resultados de un muestreo de aguas, el script se debe de ejecutar de la siguiente forma.\\
+\inlinecode{bash med.sh \emph{nombre\_del\_archivo.csv}}\\
+
+Qu\'e es lo que est\'a sucediendo ac\'a? \inlinecode{bash} es el comando que \emph{activa} o \emph{ejecuta} ese script. Luego viene el nombre del script a ejecutar, y termina con el nombre del archivo del cual se est\'a realizando los c\'alculos. Al implementar esto dentro de nuestro script (s\'i, se puede correr un script desde otro script), el c\'odigo se va a ver algo as\'i:
+
+\begin{Code}
+for archivo in \$(find ../Documents/Agua* | sort)\\
+do\\
+echo \$archivo\\
+echo \$(bash med.sh \$archivo)\\
+done
+\end{Code}
+
+Ya casi terminarmos. Ahora, ser\'ia conveniente saber cu\'ales son los datos que se est\'a calculando en cada columna. Para eso, agregamos otra l\'inea m\'as extrayendo del contenido de cada archivo la primera fila, y de ella los nombres de las columnas excepto la primera que sabemos que son los nombres de los lugares.
+
+\begin{Code}
+for archivo in \$(find ../Documents/Agua* | sort)\\
+do\\
+echo \$archivo\\
+echo \$(cat \$archivo | head -1 | cut -d , -f 2-)\\
+echo \$(bash med.sh \$archivo)\\
+done
+\end{Code}
+
+Excelente, terminamos el script. Pero momento, si se trata de muchos archivos, no podemos esperar a que nos muestre todo en pantalla. Eso ser\'ia poco pr\'actico, pues tendr\'iamos que copi\'arselo y peg\'arselo en un editor de texto, o peor a\'un, en el correo electr\'onico. Para ello, mejor crear un archivo nuevo, e ir agregando los resultados a \'el. Para crear el archivo nuevo r\'apidamente, solo introduciremos alg\'un texto con el comando \inlinecode{$>$}. Y posteriormente iremos agregando cada l\'inea al archivo en vez de mostrarla en pantalla. Esto lo haremos con el comando \inlinecode{$>>$} Este comando no solo introduce texto en un archivo, como su compa\~nero, sino que lo agrega al texto ya existente. Procedamos entonces.
+
+\begin{Code}
+echo Medias de los muestreos en el lago de Atitlan $>$\ resultados.txt\\
+for archivo in \$(find ../Documents/Agua* | sort)\\
+do\\
+echo \$archivo $>>$\ resultados.txt\\
+echo \$(cat \$archivo | head -1 | cut -d , -f 2-) $>>$\ resultados.txt\\
+echo \$(bash med.sh \$archivo) $>>$\ resultados.txt\\
+done
+\end{Code}
+
+Finalizamos! Ahora que ya tenemos la idea completa, abrimos nano y escribimos el script, lo guardamos con el nombre que m\'as nos guste (y extensi\'on \emph{sh}) y lo ejecutamos escribiendo \inlinecode{bash nombre\_de\_mi\_script.sh} Al final nos dirigimos a nuestra carpeta de trabajo en donde hallamos el archivo \emph{resultados.txt}, el cual le enviamos a la investigadora principal por correo. Todo sali\'on en tiempo y ahora ya, sino vuelve a pedir esos datos dentro de los pr\'oximos 3 meses, solo tendremos que correr el script nuevamente; la cantidad de archivos/muestreos realizados no importa, pues todo ya est\'a automatizado.
+
+\subsection{Comentarios Finales}
+Felicidades, has completado el primer d\'ia del taller de QCA. Ahora ya conoces el alcance y las posibilidades de lo que se puede hacer en una l\'inea de comando de Linux. Esta es, seg\'un muchos, la parte que aparenta ser m\'as complicada y oscura. Int\'entalo, falla y vuelve a intentarlo sin miedo. Nadie es perfecto la primera vez.\\
+
+Si deseas profundizar, lee, experimenta y sigue escribiendo scripts. Para comenzar quiz\'a sea bueno que revises qu\'e es lo que hace \emph{med.sh}. Te recomiendo leer los manuales de cada comando e ir probando qu\'e hace cada uno. Despu\'es de todo, si tus scripts son archivos independientes, no puedes romper nada ni desperdiciar mucho. Al contrario, hay mucho que puedes aprender.\\
+
+Felicidades nuevamente, y nos vemos ma\~nana en la introducci\'on a bases de datos!
 
 \section{Glosario de comandos sencillos}
+\begin{small}
 
 \begin{itemize}
 \item \textbf{man}: muestra p\'aginas o documentos de ayuda sobre un comando en particular. Para salir de la p\'agina de ayuda, presionar \emph{q}.
@@ -131,7 +257,9 @@ Despu\'es de ejecutar eso, como no obtuviste un resultado, deseo que veas cu\'al
 \item \textbf{uniq}: elimina los duplicados adyacentes en una lista de palabras.
 \item \textbf{grep}: busca dentro de los archivos por una frase o palabra en particular. Esta se le tiene que dar posterior al comando.
 \item \textbf{find}: busca un archivo cuyo nombre tenga una frase o palabra en particular. Esta se le tiene que dar posterior al comando.
+\item \textbf{cut}: segmenta y filtra el texto tabulado de un archivo.
 \item \textbf{for}: crea ciclos que se mueven a lo largo de una lista dada de elementos.
 \end{itemize}
+\end{small}
 
 \end{document}
