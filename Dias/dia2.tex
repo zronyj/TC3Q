@@ -1,0 +1,85 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Rony J. Letona}
+\title{Taller de Qu\'imica Computacional Aplicada: D\'ia 2}
+
+\definecolor{light-gray}{gray}{0.90}
+
+\newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
+
+\newcommand{\inlinecode}[1]{
+\colorbox{light-gray}{\texttt{#1}}
+}
+
+\newsavebox{\selvestebox}
+\newenvironment{Code}
+{
+\begin{lrbox}{\selvestebox}%
+\begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax}
+\fontfamily{\ttdefault}\selectfont
+}
+{\end{minipage}\end{lrbox}%
+\begin{center}
+\colorbox{light-gray}{\usebox{\selvestebox}}
+\end{center}
+}
+
+\begin{document}
+\maketitle
+
+\section{Ejercicios con el Sistema de Control de Revisi\'on - Git}
+Al comenzar a trabajar en un proyecto en computaci\'on, generalmente se trabaja con archivos sencillos de texto. Estos tienen el c\'odigo que escribimos y al compilarlos/interpretarlos y ejecutarlos, resultan en programas. Todo funciona as\'i. A veces el c\'odigo en los archivos es comprensible, a veces no lo es porque no es para que lo entendamos nosotros sino el ordenador. Sin embargo, a todos nos ha pasado que borramos un archivo importante o que cambiamos algo que no deb\'iamos de cambiar y no hay manera de recuperarlo. Desde documentos como reportes de laboratorio hasta cartas, siempre nos pasa en alguna ocasi\'on que perdemos informaci\'on importante. Para ello se dise\~n\'o una alternativa.\\
+
+Git es la soluci\'on m\'as eficiente para ello. Es un sistema en el que cada revisi\'on o versi\'on de un archivo se va guardando gradualmente, se lleva registro de cu\'ales cambios se hicieron y de cu\'ando se hicieron. Es el cuaderno de laboratorio digital! No nos salvar\'a una tarea si repentinamente desconectamos el ordenador o se interrumpe la energ\'ia el\'ectrica. Es un sistema para llevar autom\'aticamente registro del trabajo realizado. Lo usan grandes empresas, as\'i como peque\~nas iniciativas en sus proyectos. Y no se tiene que limitar a software, puede tratarse de libros, art\'iculos, bases de datos peque\~nas y cualquier otra cosa que sufra cambios con el tiempo o requiera ser compartida. Por ello, y por otras razones que veremos m\'as adelante, vamos a hacer algunos ejercicios con el sistema git.
+
+\subsection{Configuraci\'on de Git}
+Lo primero que debemos hacer con una nueva pieza de software es configurarla. Por ello, vamos a aprender sobre algunas de las cosas importantes que debemos tener para comenzar. Antes de comenzar con esta parte, aseg\'urate de tener una cuenta en GitHub.
+
+\subsection{Creando y Clonando un Repositorio}
+
+\subsection{Estado, Diferencias y Log}
+
+\subsection{Pull, Commit y Push}
+
+\subsection{Ramas, Fork y Merge}
+
+\section{Ejercicios con una Base de Datos Relacional - SQLite}
+
+\subsection{Seleccionando Datos}
+
+\subsubsection{Una Consulta Sencilla}
+
+\subsubsection{\emph{Donde} se cumpla una Condici\'on}
+
+\subsection{Operaciones Matem\'aticas}
+
+\subsubsection{Alterando el Resultado}
+
+\subsubsection{Obteniendo Descriptores}
+
+\subsection{Extendiendo Tablas}
+
+\subsection{ORM}
+
+\subsubsection{SQLite}
+
+\subsubsection{Uno m\'as General: SQLAlchemy}
+
+\section{Glosario de comandos sencillos}
+\begin{small}
+
+\begin{itemize}
+\item 
+\end{itemize}
+\end{small}
+
+\end{document}
