@@ -8,10 +8,10 @@
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{float}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \author{Rony J. Letona}
 \title{Taller de Qu\'imica Computacional Aplicada: D\'ia 2}
-
 \definecolor{light-gray}{gray}{0.90}
 
 \newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
@@ -33,6 +33,15 @@
 \end{center}
 }
 
+\newcommand{\Picture}[1]
+{
+	\begin{figure}[H]
+	\begin{flushleft}
+	\includegraphics[width=\columnwidth]{#1}
+	\end{flushleft}
+	\end{figure}
+}
+
 \begin{document}
 \maketitle
 
@@ -42,11 +51,42 @@ Al comenzar a trabajar en un proyecto en computaci\'on, generalmente se trabaja 
 Git es la soluci\'on m\'as eficiente para ello. Es un sistema en el que cada revisi\'on o versi\'on de un archivo se va guardando gradualmente, se lleva registro de cu\'ales cambios se hicieron y de cu\'ando se hicieron. Es el cuaderno de laboratorio digital! No nos salvar\'a una tarea si repentinamente desconectamos el ordenador o se interrumpe la energ\'ia el\'ectrica. Es un sistema para llevar autom\'aticamente registro del trabajo realizado. Lo usan grandes empresas, as\'i como peque\~nas iniciativas en sus proyectos. Y no se tiene que limitar a software, puede tratarse de libros, art\'iculos, bases de datos peque\~nas y cualquier otra cosa que sufra cambios con el tiempo o requiera ser compartida. Por ello, y por otras razones que veremos m\'as adelante, vamos a hacer algunos ejercicios con el sistema git.
 
 \subsection{Configuraci\'on de Git}
-Lo primero que debemos hacer con una nueva pieza de software es configurarla. Por ello, vamos a aprender sobre algunas de las cosas importantes que debemos tener para comenzar. Antes de comenzar con esta parte, aseg\'urate de tener una cuenta en GitHub.
+Lo primero que debemos hacer con una nueva pieza de software es configurarla. Por ello, vamos a aprender sobre algunas de las cosas importantes que debemos tener para comenzar. Es importante que nuestro trabajo tenga nuestro nombre y que d\'e una direcci\'on para contactarnos en caso de que alguien desee hacerlo. Adem\'as de eso, es importante que git nos pueda ofecer un editor de texto para hacer cambios en los registros. Comencemos pues con el c\'odigo.\\
 
+Abre una l\'inea de comando e ingresa lo siguiente. Claro, cambia el nombre por el tuyo y la direcci\'on de email por la tuya tambi\'en.
+
+\begin{Code}
+git config --global user.name "Tu Nombre"\\
+git config --global user.email "tu\_direccion\_de@email.com"\\
+git config --global color.ui "\ \hspace*{-1em} auto"\\
+git config --global core.editor "nano"
+\end{Code}
+
+Con esto ya configuramos git; no necesitamos hacer esto nunca en nuestro ordenador. Revisando r\'apidamente lo que hicimos, porque no vamos a entrar mucho en detalle, debemos notar que cada comando de git se escribe de la siguiente forma \inlinecode{git \emph{verbo}}. Al principio se anuncia que vamos a trabajar con git, luego el \emph{verbo} especifica lo que vamos a hacer. Lo dem\'as ya son par\'ametros. Ahora procederemos a practicar un poco con git.
+\pagebreak
 \subsection{Creando y Clonando un Repositorio}
+Como cualquier nuevo proyecto en un laboratorio, vamos a inaugurarlo con un cuaderno nuevo: vamos a crear un repositorio nuevo localmente. Para ello crearemos un nuevo directorio y luego iniciaremos git dentro de \'el.
+
+\begin{Code}
+mkdir "Mi Proyecto"\\
+cd "Mi Proyecto"\\
+git init
+\end{Code}
+
+Si observamos el contenido del directorio con \inlinecode{ls}, notaremos que no hay nada aparentemente en \'el. Sin embargo, si ingresamos el comando \inlinecode{ls -a} para mostrar \emph{todos} los contenidos en el directorio (hasta los ocultos), nos daremos cuenta de que existe ahora un directorio \inlinecode{.git} en donde se ir\'a guardando el registro de nuestro trabajo.\\
+
+Otra forma de hacer esto, y de hecho la m\'as c\'omoda, es crear un repositorio en GitHub y luego clonarlo a nuestro ordenador. Antes de comenzar con esta parte, aseg\'urate de tener una cuenta en GitHub. Luego, vamos a crear un nuevo repositorio presionando el bot\'on de ``New repository'' que sale al presionar el \textbf{+} en la esquina superior derecha.\\
+
+\Picture{img/github1.png}
+
+Luego vamos a crear un nuevo proyecto. Este va a contener todos los archivos y peque\~nos ejercicios que vamos a ir realizando durante todo el taller. Es por ello que lo vamos a nombrar \textbf{TQCA}. Claro que podemos ponerle cualquier nombre, pero en este caso caso solo buscamos un lugar para llevar registro de todo el taller. Inmediatamente despu\'es hay un espacio para colocar la descripci\'on del proyecto. Coloca all\'i lo que desees. Luego nos damos cuenta de que podemos tenerlo como p\'ublico (a la vista del mundo) o privado (tenerlo privado implica el cobro de una mensualidad). Imagino que vamos a tenerlo p\'ublico. A continuaci\'on se nos ofrece la posibilidad de incluir un archivo README. Este es una forma de instructivo sobre qu\'e es y c\'omo funciona el proyecto. Adem\'as, permite que el proyecto sea clonado. Por ello, vamos a activar la casilla. Finalmente se puede activar el tener un archivo \inlinecode{.gitignore}, el cual no vamos a tener ahorita, y una licencia. El tema de las licencias lo tocaremos m\'as adelante en el taller, por lo que esto tambi\'en lo podemos dejar sin crear.\\
+
+\Picture{img/github2.png}
+
+Finalmente ingresamos a nuestro nuevo repositorio y vemos que en \'el se hallan varias cosas como el nombre, los archivos en \'el, la descripci\'on y una serie de opciones al lado derecho. A nosotros ahora nos interesa la opci\'on que dice \emph{\textbf{HTTPS} clone URL} en la esquina inferior derecha. Vamos a hacer click en el bot\'on al final del campo de texto. Ahora, despu\'es de nuestra vuelta por GitHub, vamos a iniciar el proyecto en nuestro ordenador. Para ello vamos a clonar el proyecto de GitHub de la siguiente manera: en la l\'inea de comando escribe \inlinecode{git clone} y pega la direcci\'on que acabas de copiar. Al presionar Enter, te dar\'as cuenta de que el proyecto se habr\'a copiado a una nueva carpeta con el nombre del proyecto. Ahora ya puedes trabajar tu proyecto de GitHub en tu ordenador.
 
 \subsection{Estado, Diferencias y Log}
+Para comenzar con esta parte, ser\'ia conveniente que copiaras todos los archivos que has producido anteriormente en el directorio del proyecto. As\'i podremos demostrar el uso de diferentes t\'ecnicas en git que nos permitir\'an trabajar mejor con los registros.
 
 \subsection{Pull, Commit y Push}
 
