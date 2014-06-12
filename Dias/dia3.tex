@@ -67,7 +67,7 @@ Con esto ya configuramos git; no necesitamos hacer esto nunca en nuestro ordenad
 \subsection{Creando y Clonando un Repositorio}
 Como cualquier nuevo proyecto en un laboratorio, vamos a inaugurarlo con un cuaderno nuevo: vamos a crear un repositorio nuevo localmente. Para ello crearemos un nuevo directorio y luego iniciaremos git dentro de \'el.
 
-\begin{Code}
+\begin{Code}``
 mkdir "Mi Proyecto"\\
 cd "Mi Proyecto"\\
 git init
@@ -79,18 +79,43 @@ Otra forma de hacer esto, y de hecho la m\'as c\'omoda, es crear un repositorio 
 
 \Picture{img/github1.png}
 
-Luego vamos a crear un nuevo proyecto. Este va a contener todos los archivos y peque\~nos ejercicios que vamos a ir realizando durante todo el taller. Es por ello que lo vamos a nombrar \textbf{TQCA}. Claro que podemos ponerle cualquier nombre, pero en este caso caso solo buscamos un lugar para llevar registro de todo el taller. Inmediatamente despu\'es hay un espacio para colocar la descripci\'on del proyecto. Coloca all\'i lo que desees. Luego nos damos cuenta de que podemos tenerlo como p\'ublico (a la vista del mundo) o privado (tenerlo privado implica el cobro de una mensualidad). Imagino que vamos a tenerlo p\'ublico. A continuaci\'on se nos ofrece la posibilidad de incluir un archivo README. Este es una forma de instructivo sobre qu\'e es y c\'omo funciona el proyecto. Adem\'as, permite que el proyecto sea clonado. Por ello, vamos a activar la casilla. Finalmente se puede activar el tener un archivo \inlinecode{.gitignore}, el cual no vamos a tener ahorita, y una licencia. El tema de las licencias lo tocaremos m\'as adelante en el taller, por lo que esto tambi\'en lo podemos dejar sin crear.\\
+Luego vamos a crear un nuevo proyecto. Este va a contener todos los archivos y peque\~nos ejercicios que vamos a ir realizando durante todo el taller. Es por ello que lo vamos a nombrar \textbf{TQCA-ej}. Claro que podemos ponerle cualquier nombre, pero en este caso caso solo buscamos un lugar para llevar registro de todo el taller. Inmediatamente despu\'es hay un espacio para colocar la descripci\'on del proyecto. Coloca all\'i lo que desees. Luego nos damos cuenta de que podemos tenerlo como p\'ublico (a la vista del mundo) o privado (tenerlo privado implica el cobro de una mensualidad). Imagino que vamos a tenerlo p\'ublico. A continuaci\'on se nos ofrece la posibilidad de incluir un archivo README. Este es una forma de instructivo sobre qu\'e es y c\'omo funciona el proyecto. Adem\'as, permite que el proyecto sea clonado. Por ello, vamos a activar la casilla. Finalmente se puede activar el tener un archivo \inlinecode{.gitignore}, el cual no vamos a tener ahorita, y una licencia. El tema de las licencias lo tocaremos m\'as adelante en el taller, por lo que esto tambi\'en lo podemos dejar sin crear.\\
 
 \Picture{img/github2.png}
 
 Finalmente ingresamos a nuestro nuevo repositorio y vemos que en \'el se hallan varias cosas como el nombre, los archivos en \'el, la descripci\'on y una serie de opciones al lado derecho. A nosotros ahora nos interesa la opci\'on que dice \emph{\textbf{HTTPS} clone URL} en la esquina inferior derecha. Vamos a hacer click en el bot\'on al final del campo de texto. Ahora, despu\'es de nuestra vuelta por GitHub, vamos a iniciar el proyecto en nuestro ordenador. Para ello vamos a clonar el proyecto de GitHub de la siguiente manera: en la l\'inea de comando escribe \inlinecode{git clone} y pega la direcci\'on que acabas de copiar. Al presionar Enter, te dar\'as cuenta de que el proyecto se habr\'a copiado a una nueva carpeta con el nombre del proyecto. Ahora ya puedes trabajar tu proyecto de GitHub en tu ordenador.
 
-\subsection{Estado, Diferencias y Log}
+\subsection{Estado, Diferencias e Ignorados}
+Entre las operaciones b\'asicas que se pueden hacer \emph{antes} de guardar un registro, est\'an la revisi\'on del estado del mismo, las diferencias halladas en los archivos del proyecto y qu\'e archivos no se deben de tomar en cuenta en el registro. Quiz\'a ahorita no sea tan evidente el uso de estas funciones, pero a la hora de ya estar trabajando en un proyecto y de tener que llevar registro de varios cambios por varias personas trabajando en el mismo proyecto
+
+\subsubsection{status}
 Para comenzar con esta parte, ser\'ia conveniente que copiaras todos los archivos que has producido anteriormente en el directorio del proyecto. As\'i podremos demostrar el uso de diferentes t\'ecnicas en git que nos permitir\'an trabajar mejor con los registros. Ahora, despu\'es de haberlos copiado, nos disponemos a revisar qu\'e dice git de estos cambios. Para ello ingresamos en la l\'inea de comando \inlinecode{git status}.\\
 
-Lo que git nos dice ahora es que hay nuevos archivos que no han sido agregados al registro. Esto significa que s\'i son parte del proyecto, pero git no sabe si debe de registrarlos y \emph{seguirlos}. Inmediatamente se nos dice tambi\'e c\'omo se agregan estos al registro: \inlinecode{git add \emph{nombre\_del\_archivo.ext}}.
+Lo que git nos dice ahora es que hay nuevos archivos que no han sido agregados al registro. Esto significa que s\'i son parte del proyecto, pero git no sabe si debe de registrarlos y \emph{seguirlos}. Inmediatamente se nos dice tambi\'e c\'omo se agregan estos al registro: \inlinecode{git add \emph{nombre\_del\_archivo.ext}}. Si dese\'aramos agregar m\'as de un archivo, podemos solo agregar el nombre del archivo despu\'es del primero as\'i: \inlinecode{git add \emph{archivo1.txt} \emph{archivo2.txt} \emph{archivo3.txt}} Ahora vamos a volver a correr \inlinecode{git status} para revisar qu\'e ha pasado. Nos topamos con que los arhivos que hemos agregado ya est\'an listos para ser registrados.\\
 
-\subsection{Pull, Commit y Push}
+Finalmente, vamos a guardar este registro. Por ahora solo lo haremos sin mayor explicaci\'on; m\'as adelante comprenderemos en su totalidad qu\'e es lo que hace el siguiente comando. Ingresa en la l\'inea de comando lo siguiente: \inlinecode{git commit -m "Probando agregar archivos"} y listo. Con esto hemos creado nuestro primer registro en git con los archivos que hemos agregado.
+
+\subsubsection{diff}
+Una cosa es agregar y quitar archivos. Otra cosa es editarlos. Vamos a ingresar a alguno de nuestros archivos y vamos a cambiar algo peque\~no en \'el. Busca alg\'un dato que puedas cambiar, sin miedo, y c\'ambialo. Ahora, vamos a volver a repetir lo del ejercicio anterior: \inlinecode{git status} Como era de esperarse, se nos indica que uno de nuestros archivos ha sido modificado. Ahora, veremos en qu\'e ha cambiado. Para eso corremos el nuevo comando: \inlinecode{git diff}\\
+
+Esto es m\'as interesante. Se nos dice qu\'e l\'ineas han cambiado en nuestro archivo. De hecho, se nos indica con un signo $-$ el estado anterior de esa l\'inea, y con un signo $+$ el nuevo estado de la misma. Podemos ir viendo, entonces, qu\'e cambios hemos hecho y d\'onde. Tambi\'en se nos dice en qu\'e archivo, si nos fijamos en las primeras l\'ineas de resultado. Si deseamos dejar esos cambios, agregamos el archivo con \emph{add}, como hab\'iamos visto antes. Si no, lo ignoramos.
+
+\subsubsection{.gitignore}
+Al crear programas nuevos es necesario ir prob\'andolos para asegurarse de que todo funcione bien. Cada vez que un programa se traduce al lenguaje de la compu y se ``ensambla'', se crean varios archivos auxiliares o de soporte, adem\'as del programa en versi\'on ya terminada. Claro, esto es importante a la hora de hacer pruebas, pero generalmente no queremos agregarlo a nuestro registro, ya que lo importante para nosotros es el c\'odigo fuente: lo que nosotros hemos escrito. Para ello, git nos ofrece un peque\~no truco: \inlinecode{.gitignore}\\
+
+\inlinecode{.gitignore} es un archivo ``oculto'', como el directorio de git en nuestro directorio de trabajo, que nos ofrece la habilidad de ignrar ciertos archivos a la hora de registrar un estado del proyecto. C\'omo as\'i? Cada vez que creamos un registro nuevo de nuestro proyecto, podemos ignorar algunos archivos (e.g. archivos auxiliares o programas semi-terminados) con el fin de solo ir guardando nuestro c\'odigo fuente. Hagamos un ejercicio con esto.\\
+
+En tu directorio del proyecto crea un archivo nuevo y escribe algo en \'el, cualquier cosa. Luego, en la l\'inea de comando, abriremos el archivo con \inlinecode{nano} de la siguiente forma: \inlinecode{nano .gitignore}. All\'i vamos a agregar el nombre de nuestro nuevo archivo, precedido por una diagonal: \inlinecode{/mi\_archivo.txt}. Cerramos, guardamos y expliramos el estado de nuestro proyecto con \inlinecode{git status}. Inmadiatamente nos damos cuenta de que nuestro archivo no ha sido tomado en cuenta, pero \inlinecode{.gitignore} si. Agregamos este \'ultimo a nuestro registro y corremos \inlinecode{git commit -m "\ \hspace{-1em} Comenzando con .gitignore"} para guardar el registro.
+
+\subsection{Pull, Commit, Log y Push}
+Una de las cosas m\'as interesantes que se pueden llevar a cabo con un sistema como git, es trabajar en grupo en un proyecto en particular. Esto significa que todos estar\'an realizando cambios sobre los mismos archivos y creando o eliminando cosas dentro del mismo proyecto. Es una buena pr\'actica que cada vez que alguien hace alg\'un cambio, se guarde el registro. Por ello, a continuaci\'on veremos c\'omo hacer operaciones como: actualizar el proyecto con cambios de alguien m\'as, registrar cambios, ver qu\'e cambios se han hecho en general, y subir los cambios registrados a nuestra cuenta en GitHub.
+
+\subsubsection{pull}
+
+
+\subsubsection{commit}
+\subsubsection{log}
+\subsubsection{push}
 
 \subsection{Ramas, Fork y Merge}
 
