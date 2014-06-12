@@ -83,7 +83,7 @@ Luego vamos a crear un nuevo proyecto. Este va a contener todos los archivos y p
 
 \Picture{img/github2.png}
 
-Finalmente ingresamos a nuestro nuevo repositorio y vemos que en \'el se hallan varias cosas como el nombre, los archivos en \'el, la descripci\'on y una serie de opciones al lado derecho. A nosotros ahora nos interesa la opci\'on que dice \emph{\textbf{HTTPS} clone URL} en la esquina inferior derecha. Vamos a hacer click en el bot\'on al final del campo de texto. Ahora, despu\'es de nuestra vuelta por GitHub, vamos a iniciar el proyecto en nuestro ordenador. Para ello vamos a clonar el proyecto de GitHub de la siguiente manera: en la l\'inea de comando escribe \inlinecode{git clone} y pega la direcci\'on que acabas de copiar. Al presionar Enter, te dar\'as cuenta de que el proyecto se habr\'a copiado a una nueva carpeta con el nombre del proyecto. Ahora ya puedes trabajar tu proyecto de GitHub en tu ordenador.
+Finalmente ingresamos a nuestro nuevo repositorio y vemos que en \'el se hallan varias cosas como el nombre, los archivos en \'el, la descripci\'on y una serie de opciones al lado derecho. A nosotros ahora nos interesa la opci\'on que dice \emph{\textbf{HTTPS} clone URL} en la esquina inferior derecha. Vamos a hacer click en el bot\'on al final del campo de texto. Ahora, despu\'es de nuestra vuelta por GitHub, vamos a iniciar el proyecto en nuestro ordenador. Para ello vamos a clonar el proyecto de GitHub de la siguiente manera: en la l\'inea de comando escribe \inlinecode{git clone} y pega la direcci\'on que acabas de copiar. Al presionar Enter, te dar\'as cuenta de que el proyecto se habr\'a copiado a un nuevo directorio con el nombre del proyecto. Ahora ya puedes trabajar tu proyecto de GitHub en tu ordenador.
 
 \subsection{Estado, Diferencias e Ignorados}
 Entre las operaciones b\'asicas que se pueden hacer \emph{antes} de guardar un registro, est\'an la revisi\'on del estado del mismo, las diferencias halladas en los archivos del proyecto y qu\'e archivos no se deben de tomar en cuenta en el registro. Quiz\'a ahorita no sea tan evidente el uso de estas funciones, pero a la hora de ya estar trabajando en un proyecto y de tener que llevar registro de varios cambios por varias personas trabajando en el mismo proyecto
@@ -107,15 +107,26 @@ Al crear programas nuevos es necesario ir prob\'andolos para asegurarse de que t
 
 En tu directorio del proyecto crea un archivo nuevo y escribe algo en \'el, cualquier cosa. Luego, en la l\'inea de comando, abriremos el archivo con \inlinecode{nano} de la siguiente forma: \inlinecode{nano .gitignore}. All\'i vamos a agregar el nombre de nuestro nuevo archivo, precedido por una diagonal: \inlinecode{/mi\_archivo.txt}. Cerramos, guardamos y expliramos el estado de nuestro proyecto con \inlinecode{git status}. Inmadiatamente nos damos cuenta de que nuestro archivo no ha sido tomado en cuenta, pero \inlinecode{.gitignore} si. Agregamos este \'ultimo a nuestro registro y corremos \inlinecode{git commit -m "\ \hspace{-1em} Comenzando con .gitignore"} para guardar el registro.
 
-\subsection{Pull, Commit, Log y Push}
-Una de las cosas m\'as interesantes que se pueden llevar a cabo con un sistema como git, es trabajar en grupo en un proyecto en particular. Esto significa que todos estar\'an realizando cambios sobre los mismos archivos y creando o eliminando cosas dentro del mismo proyecto. Es una buena pr\'actica que cada vez que alguien hace alg\'un cambio, se guarde el registro. Por ello, a continuaci\'on veremos c\'omo hacer operaciones como: actualizar el proyecto con cambios de alguien m\'as, registrar cambios, ver qu\'e cambios se han hecho en general, y subir los cambios registrados a nuestra cuenta en GitHub.
+\subsection{Commit, Push, Pull y Log}
+Una de las cosas m\'as interesantes que se pueden llevar a cabo con un sistema como git, es trabajar en grupo en un proyecto en particular. Esto significa que todos estar\'an realizando cambios sobre los mismos archivos y creando o eliminando cosas dentro del mismo proyecto. Es una buena pr\'actica que cada vez que alguien hace alg\'un cambio, se guarde el registro. Por ello, a continuaci\'on veremos c\'omo hacer operaciones como: registrar cambios, subir los cambios registrados a nuestra cuenta en GitHub, actualizar el proyecto con cambios de alguien m\'as y ver qu\'e cambios se han hecho en general.
+
+\subsubsection{commit}
+Algo que ya hemos hecho con anteriorirdad, aunque no hemos entendido muy bien qu\'e es lo que hace, es registrar cambios o \emph{commitear} cambios (dado que no existe una traducci\'on exacta para este verbo). La acci\'on de este comando es sencilla: est\'a guardando \textbf{solo los cambios realizados} en el proyecto. Esto lo hace en el directorio oculto que tiene nuestro proyecto. Sin embargo, esto solo sucede localmente! Los cambios solo se guardan en nuestro ordenador. Para que estos pasen a GitHub, veremos otro comando m\'as. La ventaja es que antes de empujar cambios a GitHub, podemos hacer cualquier cantidad de commits. Veamos qu\'e se requiere y c\'omo se hace esto.\\
+
+El comando es relativamente sencillo cuando uno lo ve: \inlinecode{git commit}. Solo eso? S\'i, en esencia, s\'i. Si queremos entender qu\'e pasar\'a despu\'es, debemos entender algunas cosas sobre este comando. Cada vez que registramos un cambio nuevo, git nos pide que agreguemos un mensaje. La idea es explicar a grandes rasgos qu\'e se hizo, c\'omo y por qu\'e. Hay dos formas de incluir este mensaje:
+\begin{enumerate}
+\item Esperando que despu\'es de correr \inlinecode{git commit}, git inicie \inlinecode{nano} en donde escribiremos el mensaje.
+\item Agregando, despu\'es de \inlinecode{git commit}, la bandera \inlinecode{-m} y nuestro mensaje entre comillas.
+\end{enumerate}
+
+Ahorita no hemos hecho ning\'un cambio en nuestros datos, as\'i que, intenta editar y cambiar el archivo que hab\'ias editado en la secci\'on de \textbf{diff} y vamos a realizar alg\'un otro cambio que podamos registrar. Cuando ya todo est\'e listo, vamos a correr \inlinecode{git commit}, vamos a ingresar un mensaje en \inlinecode{nano} y vamos a finalizar cerrando y guardando. Comenta, qu\'e ventajas y desventajas hay de usar la primera o la segunda forma?
+
+\subsubsection{push}
+Y finalmente llegamos al momento en el que todo se une. Todos los cambios que hemos estado realizando, los hemos hecho localmente. Nos toca entonces, empujar todos estos cambios a GitHub. Para ello vamos a ingresar el siguiente comando: \inlinecode{git push} y lo vamos a correr. Si no hab\'ia cambios pendientes de registrar, se nos pedir\'a un usuario y una clave. Estos son los de GitHub. Finalmente, todos los cambios se guardar\'an en la nube y quedar\'an disponibles para colaboradores o usuarios de datos o el software en el que estamos trabajando.
 
 \subsubsection{pull}
 
-
-\subsubsection{commit}
 \subsubsection{log}
-\subsubsection{push}
 
 \subsection{Ramas, Fork y Merge}
 
