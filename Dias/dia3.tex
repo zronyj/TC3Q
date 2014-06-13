@@ -187,7 +187,40 @@ Para este problema, existen dos soluciones. La primera es responsabilizarse por 
 \subsubsection{Ambos editamos el mismo archivo en el mismo lugar}
 Es com\'un, aunque a pocos les guste, que dos personas cambien el mismo archivo al mismo tiempo. Una intenta hacer \inlinecode{pull} antes de registrar cambios y resulta que BAM! hay un choque! Git nos avisa que el mismo archivo ha sido editado en las mismas l\'ineas. Que desastre! Y ahora, qu\'e debemos hacer? Pues la verdad, este asunto se resuelve de una manera bastante simple. Git nos permite ignorar cambios, o escoger cu\'al deseamos mantener y cual desechar. Hay herramientas especializadas para esto como KDiff. Este programa nos permite ver el c\'odigo antes de ser editado, la edici\'on de una persona, y la nuestra a modo de ver los cambios y escoger cu\'ales se quedan.
 
+\subsection{Comentarios Finales}
+Si observamos bien, no hicimos ning\'un ejercicio grande y especial con git. Esto se debe a que este sistema no sirve para hacer algo muy interesante dentro de un proyecto, m\'as que organizarlo y mantener copias de seguridad de cada paso en el desarrollo de un proyecto. M\'as adelante en el taller, vamos a continuar utilizando git a modo de ir guardando nuestros avances y practicar su uso.\\
+
+Por ahora, felicidades! Has completado la introducci\'on al uso de un sistema de control de revisiones. Si deseas profundizar en el tema, se te recomienda hacerlo. Saber usar a mayor profundidad las ventajas que te ofrece git es algo de lo que jam\'as te arrepentir\'as. Y pues claro, llevar un registro decente y ordenado es una buena pr\'actica en toda ciencia.\\
+
+Felicidades de nuevo, y \'animo! Ahora toca aprender a utilizar una herramienta que har\'a que tus reportes nunca vuelvan a ser iguales.
+
 \section{Ejercicios con \LaTeX\ }
 
+\section{Glosario de comandos sencillos}
+\subsection{Git}
+\begin{small}
+\begin{itemize}
+\item \textbf{git config}: configura git con tu nombre, tu direcci\'on de correo y tu editor de texto preferido.
+\item \textbf{git init}: inicia un nuevo proyecto en git de manera local; un nuevo repositorio.
+\item \textbf{git clone}: descarga los contenidos de un repositorio ya existente a tu ordenador y los deja listos para poder trabajar con ellos.
+\item \textbf{git status}: revisa el estado actual de los archivos en el repositorio en comparaci\'on al \'ultimo commit.
+\item \textbf{git diff}: muestra claramente las diferencias entre el estado actual de los archivos en el repositorio con respecto al \'ultimo commit. Muestra las diferencias l\'inea por l\'inea.
+\item \textbf{.gitignore}: archivo que contiene el listado de todos los archivos del proyecto que deben ser ignorados por git.
+\item \textbf{git commit}: guarda los cambios realizados a los archivos como una revisi\'on. Crea un registro y un \emph{id} que identifica a esa revisi\'on.
+\item \textbf{git push}: empuja (sube) los commits locales a GitHub.
+\item \textbf{git pull}: jala (descarga) los archivos del proyecto en GitHub, actualizando el estado de estos en nuestro ordenador.
+\item \textbf{git log}: muestra toda la actividad de commits que ha habido en un repositorio/proyecto.
+\item \textbf{git branch}: muestra a todas las ramas existentes o, si se le agrega un nombre despu\'es del comando, se crea una rama nueva en el proyecto.
+\item \textbf{git merge}: une a una rama existente con otra rama que se debe de especificar como argumento del comando.
+\item \textbf{git checkout}: si como argumento se agrega el nombre de una rama, se habr\'a trasladado a esa rama. Si como argumento se agrega el \emph{id} de un commit o la distancia de la cabeza a un commit con \inlinecode{HEAD$\sim$\#}, entonces nos situaremos en el commit seleccionado y podremos ver el estado del proyecto en ese momento.
+\end{itemize}
+\end{small}
+
+\subsection{\LaTeX\ }
+\begin{small}
+\begin{itemize}
+\item 
+\end{itemize}
+\end{small}
 
 \end{document}
