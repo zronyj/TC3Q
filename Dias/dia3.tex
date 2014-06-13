@@ -159,12 +159,27 @@ Se da a veces el caso en el que alg\'un proyecto nos parece muy interesante. Por
 \Picture{img/fork.png}
 
 \subsection{GUI y Situaciones Comunes}
+Acept\'emoslo, la l\'inea de comando nos permite hacer muchas cosas, pero tenemos que memorizar muchas palabras y no resulta nada pr\'actica muchas veces. Por qu\'e no existen soluciones m\'as gr\'aficas? Con campos de texto, botones, deslizadores, ventanas, etc.? Pues ... la verdad es que s\'i existen. Facilitan mucho el trabajo y nos ayudan a poder desarrollar m\'as r\'apidamente. Por qu\'e no las usamos muy seguido? Porque nos limitan mucho; no nos ofrecen muchas de las opciones que hemos aprendido hasta ahora en el taller. Sin embargo, como nuestro objetivo no es ser programadores, sino saber usar un ordenador para hacer qu\'imica, vamos a dar una breve introducci\'on a \emph{un} ambiente gr\'afico para git: Cola.
 
 \subsubsection{Cola Git}
+Esta interfaz para git es relativamente sencilla e intuitiva. Al abrirla, hallamos que solo nos expondr\'a una ventana con 3 botones: \textbf{Abrir}, \textbf{Clonar} y \textbf{Cerrar}.
 
-\subsubsection{GitHub}
+\Picture{img/cola1.png}
+
+\textbf{Abrir} se refiere a apuntar a Cola a una carpeta que ha sido iniciada o clonada de un proyecto git. Entonces Cola reconocer\'a esto y nos dir\'a en una ventana m\'as grande: qu\'e archivos han cambiado, nos ofrecer\'a agregarlos al commit, y si hacemos click en uno de ellos, en la parte inferior nos mostrar\'a qu\'e ha cambiado en ellos desde la \'ultima vez que se ha hecho commit. Desde ac\'a tambi\'en se puede realizar commits, se puede jalar y se puede empujar cambios.
+
+\Picture{img/cola2.png}
+
+Como ejercicio, intenta cambiar alg\'un archivo, realiza un commit y empuja cambios desde Cola.
+
+\textbf{Clonar} se refiere a clonar un repositorio; un proyecto. Cola inmediatamente te pide una direcci\'on web de d\'onde descargar el proyecto, te pregunta a qu\'e directorio lo deseas descargar y te da la opci\'on de descargarlo a trav\'es de \'el.\\
+
+Si lo notas, todo lo que puedes hacer con Cola, lo puedes hacer desde la l\'inea de comando. En el caso de Cola, puedes hacerlo quiz\'a m\'as r\'apido, pero la l\'inea de comando te permite hacer m\'as cambios y con mucho m\'as control.
 
 \subsubsection{Deseo ver c\'omo estaban mis archivos en una revisi\'on particular}
+No es tan com\'un como las dos siguientes, pero sin embargo, nos pasa. Deseamos ver qu\'e hab\'iamos escrito en determinado punto del proyecto o c\'omo se ve\'ia un archivo en particular porque ``entonces funcionaba, y ahora no''. Para hacer esto se trabaja de manera muy similar a las ramas, pero con un truco leve. Lo primero que debemos saber es el \emph{id} del commit que queremos revisar. Para eso es \'util usar \inlinecode{git log}. Una vez hallado el \emph{id}, entonces procedemos a situarnos en ese punto del proyecto mediante: \inlinecode{git checkout <id-commit>}. De esta forma llegamos a \textbf{ESE} momento en particular.\\
+
+Ahora, resulta \'util hacer esto, pero ... y c\'omo regresamos? Aqu\'i vale la pena mencionar nuevamente el caso de la cabeza del proyecto: \inlinecode{HEAD}. Nosotros podemos navegar entre diferentes puntos del proyecto refiri\'endonos solamente a d\'onde se halla la cabeza o a qu\'e distancia de la cabeza se halla alg\'un commit. Para regresar a la cabeza, el comando es sencillo: \inlinecode{git checkout HEAD}. Sin embargo, mencionamos lo dem\'as, porque para movernos a un commit en particular, a veces no es necesario el \emph{id}. El commit anterior a la cabeza se llama \inlinecode{HEAD$\sim$1}, el anterior a ese \inlinecode{HEAD$\sim$2}, el anterior a ese \inlinecode{HEAD$\sim$3} y as\'i sucesivamente. De esta manera, si deseamos retroceder 5 pasos, solo debemos de ingresar \inlinecode{HEAD$\sim$5} a la l\'inea de comando y \emph{voil\'a}, hemos llegado!
 
 \subsubsection{Hice commit de cambios que no deseo en GitHub}
 Para este problema, existen dos soluciones. La primera es responsabilizarse por el error y dejarlo all\'i para la posteridad. La segunda es decirle a git que ignore eso y borre lo que acabas de registrar. Si se dice que la \emph{cabeza} del sistema de revisiones es el \'ultimo commit en haber sido agregado, esta acci\'on de ignorar lo que acabas de hacer y borrar todo desde cierto punto en adelante se conoce como mover la cabeza hasta X punto (en donde X es el identificador del commit hecho). Hacer esto es \textbf{MUY} peligroso y no se recomienda, porque se perder\'an los cambios de todos a partir del commit escogido como nueva cabeza. Sin embargo, esta es una pregunta com\'un y por eso dejaremos el c\'digo para hacerlo: \inlinecode{git reset --hard <id-commit>} Si ya empujaste los cambios que no deseabas a GitHub, hay algunas maneras de eliminar los commits hechos, pero no se cubrir\'an aqu\'i.
@@ -174,12 +189,5 @@ Es com\'un, aunque a pocos les guste, que dos personas cambien el mismo archivo 
 
 \section{Ejercicios con \LaTeX\ }
 
-\section{Glosario de comandos sencillos}
-\begin{small}
-
-\begin{itemize}
-\item 
-\end{itemize}
-\end{small}
 
 \end{document}
