@@ -73,7 +73,7 @@ En el caso de una DB, los pasos para obtener informaci\'on son muy similares.
 \end{enumerate}
 Como podemos ver, los pasos son similares. Otra cosa que debemos tomar en cuenta es que a nosotros no se nos dejaba usar reactivos o equipo (m\'as adelante pedir reactivos o equipo) hasta que ya hubi\'eramos pasado algunos cursos, tenido un poco de experiencia y estado concientes de lo que est\'abamos haciendo. Tambi\'en debemos recordar que aunque ya se nos deje solicitar estas cosas, siempre lo debemos hacer a trav\'es del encargado del laboratorio o bodega. Con esto en mente ya procederemos a ir paso a paso aprendiendo c\'omo se usa una DB.\\
 
-Para comenzar vamos a vamos a abrir una l\'inea de comando y en ella iremos hasta nuestra carpeta de documentos. All\'i ingresaremos el comando \inlinecode{sqlite monitoreo.db} Aqu\'i vamos a ver algunas l\'ineas que describen la versi\'on de SQLite que tenemos y c\'omo obtener ayuda. Considerando que ya estamos en una DB, piensa por un momento: qu\'e es lo que nos gustar\'ia saber de esta base de datos?\\
+Para comenzar vamos a vamos a abrir una l\'inea de comando y en ella iremos hasta nuestro directorio de documentos. All\'i ingresaremos el comando \inlinecode{sqlite monitoreo.db} Aqu\'i vamos a ver algunas l\'ineas que describen la versi\'on de SQLite que tenemos y c\'omo obtener ayuda. Considerando que ya estamos en una DB, piensa por un momento: qu\'e es lo que nos gustar\'ia saber de esta base de datos?\\
 
 Si ``el contenido'' fue lo primero que apareci\'o en nuestra mente, nos estamos adelantando un poco y estamos perdiendo la noci\'on de la idea de una base de datos. Por qu\'e ser\'a que ver \emph{todo} el contenido es una mala idea? (Pensemos en bases de datos grandes.) Antes de apresurarnos a ver qu\'e hay dentro de la DB, debemos entender c\'omo se divide; qu\'e listas de reactivos o equipos hay. Para ello vamos a ingresar el comando \inlinecode{.tables} Qu\'e te mostr\'o el administrador? Qu\'e crees que son esos nombres? Pi\'ensalo y disc\'utelo un momento.
 
@@ -242,13 +242,80 @@ CREATE TABLE Lugares (\\
 );
 \end{Code}
 
-Las diferencias no son muchas. Vale la pena mencionar que con \inlinecode{VARCHAR} le podemos colocar un l\'imite a la cantidad de caracteres a almacenarse para que la base de datos no ocupe espacio de m\'as. \inlinecode{TEXT} por otra parte, no pone l\'imite y a este se le puede ingresar cantidades muy grandes de texto. El tipo de dato \inlinecode{REAL} especifica que los datos en ese campo son n\'umeros reales. Y fuera de eso, no hay muchas diferencias con la tabla anterior.\\
+Las diferencias no son muchas. Vale la pena mencionar que con \inlinecode{VARCHAR} le podemos colocar un l\'imite a la cantidad de caracteres a almacenarse para que la base de datos no ocupe espacio de m\'as. \inlinecode{TEXT} por otra parte, no pone l\'imite y a este se le puede ingresar cantidades muy grandes de texto. El tipo de dato \inlinecode{REAL} especifica que los datos en ese campo son n\'umeros reales. Y fuera de eso, no hay muchas diferencias con la tabla anterior. Intentemos crear la \'ultima tabla.\\
 
-Antes de pasar a la \'ultima tabla, mencionaremos nada m\'as c\'omo es que las tablas se pueden eliminar. Esto \'ultimo es bastante f\'acil en SQLite. El comando para esto es \inlinecode{.drop Nombre\_de\_mi\_Tabla} A veces la creaci\'on o eliminaci\'on de una tabla toma tiempo; s\'e paciente si as\'i es el caso. Por ahora no eliminemos ninguna de nuestras dos nuevas tablas; nos servir\'an. Pero para proseguir, debemos ingresar algunos datos en ellas.
+\begin{Code}
+CREATE TABLE Lugares (\\
+\hspace*{5mm}mid INTEGER NOT NULL,\\
+\hspace*{5mm}perona INTEGER NOT NULL,\\
+\hspace*{5mm}lugar INTEGER NOT NULL,\\
+\hspace*{5mm}CO2 REAL,\\
+\hspace*{5mm}NO2 REAL,\\
+\hspace*{5mm}SO2 REAL,\\
+\hspace*{5mm}PM10 REAL,\\
+\hspace*{5mm}[PM2.5] REAL,\\
+\hspace*{5mm}pH REAL,\\
+\hspace*{5mm}fecha DATE,\\
+\hspace*{5mm}PRIMARY KEY(mid),\\
+\hspace*{5mm}FOREIGN KEY(persona) REFERENCE Personas(pid),\\
+\hspace*{5mm}FOREIGN KEY(lugar) REFERENCE Lugares(lid)\\
+);
+\end{Code}
+
+Aqu\'i nos damos cuenta de que hay un campo nuevo: \inlinecode{DATE} Este almacena fechas nada m\'as. Hay otro formato similar que puede almacenar fechas y horas. Ser\'ia un buen ejercicio averiguar cu\'al es. Por el momento, nos interesa ver qu\'e es lo que agregamos al final. Esas \'ultimas dos l\'ineas son las que indican que un campo de nuestra tabla debe de referirse al campo de \emph{otra} tabla. Esto tiene varias ventajas realmente. En la tabla de \textbf{Muestreo}, los campos \emph{persona} o \emph{lugar} no van a aceptar ning\'un valor que no exista en las otras tablas (\textbf{Personas} y \textbf{Lugares}). Adem\'as, no podremos eliminar una entrada de estas \'ultimas dos tablas, si existe alguna entrada en \textbf{Muestreo} que se refiera a ellas. Esto es una gran ayuda!\\
+
+Ahora mencionaremos nada m\'as c\'omo es que las tablas se pueden eliminar. Esto \'ultimo es bastante f\'acil en SQL. El comando para esto es \inlinecode{DROP TABLE Muestreo;} A veces la creaci\'on o eliminaci\'on de una tabla toma tiempo; seamos pacientes si as\'i es el caso. Por ahora no eliminemos ninguna de nuestras dos nuevas tablas; nos servir\'an. Pero para proseguir, debemos ingresar algunos datos en ellas.
 
 \subsubsection{Entradas}
+Insertar nuevas entradas a una tabla es una tarea que, como todo en SQL, no es tan complicado. Sin embargo, se requiere de escribir bastante. Para insertar una nueva entrada, debemos especificar en qu\'e tabla vamos a ingresar la entrada, qu\'e columnas tiene, y qu\'e valores vamos a ingresar. Agreguemos algunas entradas a la tabla de \textbf{Personas}.
 
-\subsubsection{\emph{dump} de una Base de Datos}
+\begin{Code}
+INSERT INTO Personas(pid, nombre, apellido) VALUES(NULL, 'Alvaro', 'Garcia');\\
+INSERT INTO Personas(pid, nombre, apellido) VALUES(NULL, 'Eduardo', 'Saquilmer');\\
+INSERT INTO Personas(pid, nombre, apellido) VALUES(NULL, 'Francisco', 'Garcia');\\
+INSERT INTO Personas(pid, nombre, apellido) VALUES(NULL, 'Elisandra', 'Hernandez');
+\end{Code}
+
+Aqu\'i hay algo peculiar. Notamos que para \emph{pid} estamos ingresando el valor \inlinecode{NULL}. Si recordamos bien cuando creamos la tabla, especificamos que ese campo \textbf{no} pod\'ia estar vac\'io; no pod\'ia ser \inlinecode{NULL} Entonces qu\'e pas\'o? Como especificamos que \emph{pid} es una llave primaria, SQLite inserta un n\'umero en vez de dejar el campo vac\'io. Como tambi\'en especificamos que ese campo solo pod\'ia almacenar n\'umeros enteros, SQLite comienza numerando desde 1 en adelante. A cada nueva entrada le toca el n\'umero siguiente, a menos de que seamos nosotros los que asignemos un n\'umero en particular. Eso nos lleva a otra cosa que se puede hacer con las entradas.\\
+
+Despu\'es de ingresar toda la informaci\'on en la tabla de \textbf{Lugares}, nos damos cuenta de que nos equivocamos en algo: ingresamos INCAP una segunda vez, en vez de ingresar MUSAC. Cl\'asico error de estar ingresando datos solo copiando y pegando la misma l\'inea y haci\'endole cambios cada vez. Ahora la pregunta es: qu\'e hacemos?
+
+\begin{Code}
+INSERT INTO Lugares(lid, nombre, longitud, latitud) VALUES(1,'INSIVUMEH',-90.532677,14.487356);\\
+INSERT INTO Lugares(lid, nombre, longitud, latitud) VALUES(2,'T10',-90.554700,14.585181);\\
+INSERT INTO Lugares(lid, nombre, longitud, latitud) VALUES(3,'EFPEM',-90.545535,14.588231);\\
+INSERT INTO Lugares(lid, nombre, longitud, latitud) VALUES(4,'San Juan',-90.547528,14.622473);\\
+INSERT INTO Lugares(lid, nombre, longitud, latitud) VALUES(5,'INCAP',-90.539983,14.616133);\\
+INSERT INTO Lugares(lid, nombre, longitud, latitud) VALUES(6,'INCAP',-90.510983,14.638987);
+\end{Code}
+
+Para enmendar este tipo de errores, o para hacer cambios puntuales en una entrada en particular, existe una consulta de actualizaci\'on de datos. Vamos a actualizar de una tabla, el valor de un campo establecido, en donde se cumpla alguna condici\'on. Veamos esta consulta para entender mejor la situaci\'on:
+
+\begin{Code}
+UPDATE Lugares SET nombre='MUSAC' WHERE lid=6;
+\end{Code}
+
+De esta forma corregimos el error que hab\'iamos hecho. Si no ponemos una condici\'on, se le pondr\'a de nombre MUSAC a todas las entradas. La condici\'on es la que especifica en qu\'e entrada se debe de hacer el cambio realmente. Finalmente, qu\'e hubiera pasado si en vez de habernos equivocado en un nombre, hubieramos ingresado el mismo dato dos veces? La respuesta es evidente: borrar una de las dos entradas.\\
+
+Supongamos que de casualidad agregamos otra vez la informaci\'on del INCAP:\\ \inlinecode{INSERT INTO Lugares(lid, nombre, longitud, latitud) VALUES(NULL,'INCAP',-90.510983,14.638987);}\\
+Lo que nos queda ahora es eliminar la \'ultima, para ello debemos saber seleccionar esa entrada \'unicamente. Pensemos por un momento, c\'omo seleccionamos solamente esa entrada? La \'unica alternativa que nos queda es utilizar el identificador. Por qu\'e? Porque es el \'unico que declaramos como llave principal. Eso significa que es \'unico en toda la tabla! Por eso dise\~namos nuestra consulta de la siguiente manera:
+
+\begin{Code}
+SELECT * FROM Lugares WHERE lid=7;
+\end{Code}
+
+Perfecto! La podemos mostrar de manera aislada. Pero esto de qu\'e nos sirve? Pues que este es el primer paso para eliminar una entrada: saber c\'omo hallarla y aislarla. Eliminarla solo requiere de un peque\~no cambio en la consulta que acabamos de hacer: \inlinecode{SELECT *} lo reemplazamos con \inlinecode{DELETE}. Entonces la consulta se ve de la siguiente manera:
+
+\begin{Code}
+DELETE FROM Lugares WHERE lid=7;
+\end{Code}
+
+\noindent Y as\'i de sencillo se puede eliminar una entrada.
+
+\subsubsection{Construyendo y Exportando una Base de Datos}
+Si seguimos las indicaciones del taller hasta ahora, tenemos una base de datos nueva con dos tablas: la de \textbf{Personas} y la de \textbf{Lugares}. La de \textbf{Muestreo} la hab\'iamos creado, pero la eliminamos. Por otra parte, todas estas consultas que hemos hecho las hemos tenido que ir ingresando una a una para acceder a los datos y editarlos. No ser\'ia m\'as eficiente que nuestro ordenador pudiera solo leer todas las instrucciones de un solo y armar la base de datos o realizar una consulta complicada? Pues s\'i la hay! Vamos a crear la tabla de \textbf{Muestreo} y llenarla con todos los datos que esta lleva sin escribir m\'as que una l\'inea. En nuestro directorio de documentos se halla un archivo de texto llamado \emph{monitoreo.txt}. Abr\'amoslo por un momento y, sin alterar el contenido, entendamos lo que hay en \'el.\\
+
+Finalmente, despu\'es de entender eso, vamos a volver a nuestra l\'inea de comando con nuestra base de datos nueva y en ella vamos a escribir \inlinecode{.read monitoreo.txt} Esto, en SQLite, lee todo el contenido del archivo y lo ejecuta. Puede que se tarde un momento, pero al final, la tabla de \textbf{Muestreo} no solo estar\'a creada, sino llena con toda la informaci\'on tambi\'en.
 
 \subsection{Comentarios Finales}
 
