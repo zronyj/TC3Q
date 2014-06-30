@@ -73,7 +73,7 @@ En el caso de una DB, los pasos para obtener informaci\'on son muy similares.
 \end{enumerate}
 Como podemos ver, los pasos son similares. Otra cosa que debemos tomar en cuenta es que a nosotros no se nos dejaba usar reactivos o equipo (m\'as adelante pedir reactivos o equipo) hasta que ya hubi\'eramos pasado algunos cursos, tenido un poco de experiencia y estado concientes de lo que est\'abamos haciendo. Tambi\'en debemos recordar que aunque ya se nos deje solicitar estas cosas, siempre lo debemos hacer a trav\'es del encargado del laboratorio o bodega. Con esto en mente ya procederemos a ir paso a paso aprendiendo c\'omo se usa una DB.\\
 
-Para comenzar vamos a vamos a abrir una l\'inea de comando y en ella iremos hasta nuestro directorio de documentos. All\'i ingresaremos el comando \inlinecode{sqlite monitoreo.db} Aqu\'i vamos a ver algunas l\'ineas que describen la versi\'on de SQLite que tenemos y c\'omo obtener ayuda. Considerando que ya estamos en una DB, piensa por un momento: qu\'e es lo que nos gustar\'ia saber de esta base de datos?\\
+Para comenzar vamos a vamos a abrir una l\'inea de comando y en ella iremos hasta nuestro directorio de documentos. All\'i ingresaremos el comando \inlinecode{sqlite3 monitoreo.db} Aqu\'i vamos a ver algunas l\'ineas que describen la versi\'on de SQLite que tenemos y c\'omo obtener ayuda. Considerando que ya estamos en una DB, piensa por un momento: qu\'e es lo que nos gustar\'ia saber de esta base de datos?\\
 
 Si ``el contenido'' fue lo primero que apareci\'o en nuestra mente, nos estamos adelantando un poco y estamos perdiendo la noci\'on de la idea de una base de datos. Por qu\'e ser\'a que ver \emph{todo} el contenido es una mala idea? (Pensemos en bases de datos grandes.) Antes de apresurarnos a ver qu\'e hay dentro de la DB, debemos entender c\'omo se divide; qu\'e listas de reactivos o equipos hay. Para ello vamos a ingresar el comando \inlinecode{.tables} Qu\'e te mostr\'o el administrador? Qu\'e crees que son esos nombres? Pi\'ensalo y disc\'utelo un momento.
 
@@ -214,7 +214,7 @@ Como siempre, nuestra consulta al final de cuentas se ve algo monstruosa, pero l
 En este segmento vamos a pasar a tomar m\'as responsabilidad de nuestras acciones y vamos a ir con el encargado de bodega a sacar y meter el equipo y los reactivos que necesitamos. Incluso vamos a ayudarle a mover muebles de la bodega! La idea ahora ser\'a llegar al principio: c\'omo crear una base de datos y agregarle datos. Esta parte, contrario a lo que cualquiera esperar\'ia, es bastante sencilla, pero mucho m\'as peligrosa. Si llegamos a agregar algo que no es real o a eliminar un dato, no hay vuelta atr\'as: hicimos algo mal y corregirlo cuesta.
 
 \subsubsection{Bases de Datos}
-Crear una base de datos en SQLite no es nada complicado. Hay otras DBs como MySQL o PosgreSQL que requieren que entremos al administrador de DB antes de crearla en s\'i. En el caso de SQLite, lo \'unico que debemos hacer es lo mismo que hacemos para abrirla. En una l\'inea de comando linux escribimos \inlinecode{sqlite nombre\_de\_mi\_nueva.db} Y ya, con eso estamos dentro de nuestra nueva base de datos. Por supuesto, debemos utilizar nombres significativos en nuestros archivos.\\
+Crear una base de datos en SQLite no es nada complicado. Hay otras DBs como MySQL o PosgreSQL que requieren que entremos al administrador de DB antes de crearla en s\'i. En el caso de SQLite, lo \'unico que debemos hacer es lo mismo que hacemos para abrirla. En una l\'inea de comando linux escribimos \inlinecode{sqlite3 nombre\_de\_mi\_nueva.db} Y ya, con eso estamos dentro de nuestra nueva base de datos. Por supuesto, debemos utilizar nombres significativos en nuestros archivos.\\
 
 Para eliminar una base de datos, la operaci\'on es a\'un m\'as f\'acil. Puesto que una base de datos en SQLite es un archivo, solo necesitamos eliminarlo; eso es todo. Sin embargo, recordemos que borrar datos es algo \textbf{MUY} peligroso. Solo se debe de hacer si esos datos no nos van a servir a nosotros ni a nadie nunca.
 
@@ -315,15 +315,68 @@ DELETE FROM Lugares WHERE lid=7;
 \subsubsection{Construyendo y Exportando una Base de Datos}
 Si seguimos las indicaciones del taller hasta ahora, tenemos una base de datos nueva con dos tablas: la de \textbf{Personas} y la de \textbf{Lugares}. La de \textbf{Muestreo} la hab\'iamos creado, pero la eliminamos. Por otra parte, todas estas consultas que hemos hecho las hemos tenido que ir ingresando una a una para acceder a los datos y editarlos. No ser\'ia m\'as eficiente que nuestro ordenador pudiera solo leer todas las instrucciones de un solo y armar la base de datos o realizar una consulta complicada? Pues s\'i la hay! Vamos a crear la tabla de \textbf{Muestreo} y llenarla con todos los datos que esta lleva sin escribir m\'as que una l\'inea. En nuestro directorio de documentos se halla un archivo de texto llamado \emph{monitoreo.txt}. Abr\'amoslo por un momento y, sin alterar el contenido, entendamos lo que hay en \'el.\\
 
-Finalmente, despu\'es de entender eso, vamos a volver a nuestra l\'inea de comando con nuestra base de datos nueva y en ella vamos a escribir \inlinecode{.read monitoreo.txt} Esto, en SQLite, lee todo el contenido del archivo y lo ejecuta. Puede que se tarde un momento, pero al final, la tabla de \textbf{Muestreo} no solo estar\'a creada, sino llena con toda la informaci\'on tambi\'en.
+Posteriormente, despu\'es de entender eso, vamos a volver a nuestra l\'inea de comando con nuestra base de datos nueva y en ella vamos a escribir \inlinecode{.read monitoreo.txt} Esto, en SQLite, lee todo el contenido del archivo y lo ejecuta. Puede que se tarde un momento, pero al final, la tabla de \textbf{Muestreo} no solo estar\'a creada, sino llena con toda la informaci\'on tambi\'en. Esto resulta m\'as c\'omodo, especialmente cuando tenemos datos en hojas de c\'alculo (Miscrosoft Excel) y las deseamos pasar a una base de datos. El procedimiento para hacerlo es similar. Esto es otra cosa que ser\'ia conveniente investigar despu\'es.\\
+
+Finalmente vamos a hacer el mismo procedimiento que acabamos de hacer, pero al rev\'es. Vamos extraer las instrucciones de creaci\'on y llenado de una base de datos. Esto resulta \'util cuando no estamos trabajando con una base de datos SQLite (que es port\'atil). Adem\'as, tambi\'en resulta \'util si se desea migrar de una base de datos a otra (e.g. MySQL a SQLite), el SQL suele ser el mismo o tener pocas variaciones. Veamos c\'omo se hace.\\
+
+Hacer una copia de seguridad de las instrucciones de la base de datos es algo que, si bien se puede hacer desde dentro de la DB, es m\'as sencillo hacerlo desde afuera de ella en el caso de SQLite. Lo que debemos hacer es colocarnos en el directorio con la DB e ingresar: \inlinecode{sqlite3 mi\_base\_de\_datos.db '.dump' >\ mi\_dump.sql} El resultado ser\'a un nuevo archivo en nuestra carpeta con todas las instrucciones para ensamblar y llenar una base de datos.\\
+
+La alternativa a hacer esto es hacerlo desde dentro de la DB. Para ello vamos a ingresar a la base de datos mediante: \inlinecode{sqlite3 monitoreo.db} y luego vamos a decirle 2 cosas al administrador: que queremos que los resultados los guarde en un archivo \inlinecode{.output mi\_dump2.sql} y que deseamos que ese archivo se llene con todas las instrucciones de creaci\'on de la base de datos \inlinecode{.dump} Eso es todo.\\
+
+Antes de terminar con esta secci\'on, es recomendable que abramos uno de los archivos que acabamos de crear y los veamos completamente. Vamos a notar que las primeras 2 l\'ineas y la \'ultima no son algo que nosotros entendamos. Esto es solo algo que agreg\'o el administrador al hacer el \emph{dump}. Borr\emos esas l\'ineas y nuestro archivo queda listo para armar una base de datos en cualquier momento.
 
 \subsection{Comentarios Finales}
+Felicidades, has completado el segundo d\'ia del taller de QCA. Ahora ya tienes idea de qu\'e es una base de datos, qu\'e se puede hacer con ella y c\'omo hacerlo. Como dijimos en alg\'un momento durante el desarrollo, el uso de SQL es menor en estos d\'ias gracias a los ORMs que facilitan mucho del trabajo. Sin embargo, conocer c\'omo manejar una base de datos es de vital importancia en un mundo en el que todo se almacena en ellas.\\
+
+Si deseas continuar aprendiendo sobre el tema, ser\'ia recomendable que buscaras en internet tutoriales, ejemplos y las instrucciones detalladas de todos los comandos que existen en cada base de datos. Tambi\'en es conveniente probar otras bases de datos como MySQL o PosgreSQL. Con eso ser\'ia suficiente para decir que ya puedes hacer uso de ellas.\\
+
+Felicidades nuevamente, nos vemos ma\~nana para aprender sobre control de revisiones y c\'omo hacer documentos con formato cient\'ifico. \'Animo!
 
 \section{Glosario de comandos sencillos}
 \begin{small}
 
 \begin{itemize}
-\item 
+\item \textbf{.help}: Solicita la p\'agina de ayuda de SQLite.
+\item \textbf{.tables}: Muestra qu\'e tablas hay en la base de datos actualmente.
+\item \textbf{.headers ON/OFF}: Activa o desactiva que se muestren los encabezados al desplegar el resultado de una consulta.
+\item \textbf{.mode}: Cambia el formato para el despliegue del resultado de una consulta. Opciones: \textit{csv}, \textit{column}, \textit{html}, \textit{insert}, \textit{line}, \textit{list}, \textit{tabs}, \textit{tcl}.
+\item \textbf{.output FILE}: Especifica el archivo en el que se van a almacenar los resultados desplegados por el administrador.
+\item \textbf{.dump TABLE*}: Generar SQL de creaci\'on y llenado, desde una base de datos ya hecha. Puede tratarse de una tabla individual o de toda la base de datos.
+\item \textbf{.schema TABLE}: Generar SQL para la creaci\'on de una tabla dada.
+\item \textbf{.read FILE}: Leer SQL de un archivo dado.
+\item \textbf{.exit}: Salir del programa.
+\item \textbf{.quit}: Salir del programa.
+\item \textbf{.import FILE TABLE}: Importar datos desde un arhivo dado, hacia una tabla espec\'ifica.
+\item \textbf{SELECT}: Seleccionar y mostrar campos.
+\item \textbf{FROM}: Especifica una tabla a la cual se debe hacer referencia.
+\item \textbf{WHERE}: Abre la posibilidad a filtrar los resultados mediante condiciones.
+\item \textbf{DISTINCT}: Elimina duplicados de una lista de entradas.
+\item \textbf{ORDER BY}: Ordena las entradas de un campo en particular.
+\item \textbf{DESC}: Modifica un ordenamiento para que sea al rev\'es.
+\item \textbf{AND}: Operador l\'ogico que permite otra condici\'on.
+\item \textbf{LIKE}: Compara entradas y revisa que alguna se parezca a una expresi\'on dada.
+\item \textbf{JOIN}: Junta una tabla con otra.
+\item \textbf{ON}: Especifica mediante qu\'e campos es que se juntan dos tablas.
+\item \textbf{CREATE TABLE}: Crea una tabla.
+\item \textbf{INTEGER}: Tipo de dato - \emph{n\'umero entero}.
+\item \textbf{VARCHAR()}: Tipo de dato - \emph{caracteres variables}. Puede coloc\'arsele l\'imite.
+\item \textbf{DATE}: Tipo de dato - \emph{fecha}.
+\item \textbf{TEXT}: Tipo de dato - \emph{texto}.
+\item \textbf{REAL}: Tipo de dato - \emph{n\'umero real}.
+\item \textbf{NOT NULL}: Especifica que el dato no puede ser vac\'io; no puede ser \inlinecode{NULL}.
+\item \textbf{PRIMARY KEY}: Identificador principal de las entradas en una tabla - llave principal.
+\item \textbf{FOREIGN KEY}: Identificador principal de las llaves de una tabla que no es con la que se est\'a trabajando - llave externa.
+\item \textbf{REFERENCE}: Especifica una tabla y un campo a los que se debe de hacer referencia si se est\'a creando una tabla.
+\item \textbf{INSERT INTO}: Crea y almacena una nueva entrada en una tabla dada.
+\item \textbf{VALUES()}: Valores a ser insertados como entrada en una tabla.
+\item \textbf{UPDATE}: Actualizar los valores en una tabla.
+\item \textbf{SET}: Establece qu\'e campo debe de ser actualizado y c\'omo.
+\item \textbf{DELETE}: Elimina entradas de una tabla.
+\item \textbf{min()}: Busca el valor m\'inimo en un campo.
+\item \textbf{max()}: Busca el valor m\'aximo en un campo.
+\item \textbf{avg()}: Calcula la media de los datos en un campo.
+\item \textbf{sum()}: Suma todos los datos de un campo.
+\item \textbf{count()}: Cuenta cu\'antos datos hay en un campo.
 \end{itemize}
 \end{small}
 
