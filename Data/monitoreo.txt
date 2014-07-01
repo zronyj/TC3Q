@@ -1,0 +1,149 @@
+create table Muestreo(
+mid integer not null,
+persona integer not null,
+lugar integer not null,
+CO2 real,
+NO2 real,
+SO2 real,
+PM10 real,
+[PM2.5] real,
+pH real,
+fecha date,
+primary key(mid),
+foreign key(persona) references Personas(pid),
+foreign key(lugar) references Lugares(lid)
+);
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 1 , 3.2432920858 , 4.5832829038 , 1.5908455784 , 13.4102626843 , 16.2371763214 , 5.9430389465 , "2011-11-08" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 2 , 2.1547221532 , 0.7656796603 , 0.418592433 , 20.1871891483 , 17.4726396054 , 6.4580189283 , "2011-11-08" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 3 , 9.1543914611 , 3.9368477836 , 1.226366004 , 6.8081510207 , 2.2283357941 , 6.4197028461 , "2011-11-08" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 5 , 3.1883502658 , 2.4915466434 , 1.9814134855 , 3.020777218 , 16.943969531 , 5.6848536676 , "2011-11-08" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 6 , 3.9614616707 , 4.8424055823 , 2.6702815318 , 21.6129827569 , 15.0536470022 , 6.0393785264 , "2011-11-08" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 1 , 8.5424878076 , 0.5123161897 , 2.0343131977 , 24.4808913767 , 6.6565722786 , 6.0379642521 , "2011-11-25" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 2 , 5.7728433143 , 3.0111103249 , 0.7684917566 , 32.7818969893 , 0.5465918221 , 6.1013122916 , "2011-11-25" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 3 , 4.851352335 , 4.8068340612 , 2.062513263 , 28.3312554727 , 2.6390064787 , 6.2667636059 , "2011-11-25" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 5 , 8.7802339299 , 1.0889314022 , 0.5778444135 , 3.2723462908 , 2.2800799459 , 5.7972516029 , "2011-11-25" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 6 , 3.7092221295 , 1.6607280797 , 2.0108173247 , 10.0226475671 , 3.3249890618 , 6.3968150376 , "2011-11-25" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 4 , 1.1951517267 , 0.3953055479 , 1.4426398803 , 15.3422569903 , 12.4903918896 , 6.7458438992 , "2011-11-25" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 1 , 5.7737043872 , 0.7067556097 , 1.5739743607 , 34.0730812028 , 17.5647007395 , 6.7134359328 , "2012-02-15" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 2 , 1.0983223887 , 2.0737598208 , 1.7730911979 , 33.742835687 , 9.2493825033 , 6.9106684232 , "2012-02-15" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 3 , 5.172152021 , 1.3456739928 , 1.9906051769 , 3.3074836736 , 15.4107283056 , 5.9366804711 , "2012-02-15" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 4 , 8.7135686399 , 4.5984948892 , 0.0933754854 , 12.4772234121 , 0.8116177097 , 6.6484636453 , "2012-02-15" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 6 , 8.8106579054 , 3.5931479163 , 0.4978696187 , 26.5681214235 , 16.5673612338 , 5.7213404477 , "2012-02-15" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 5 , 9.3641586369 , 1.7928567203 , 2.5577543769 , 10.7568326825 , 18.7799654435 , 5.9469999371 , "2012-02-15" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 1 , 6.9071696 , 2.6142861694 , 1.7810983085 , 28.3581246599 , 4.2752083205 , 6.9243774072 , "2012-02-23" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 4 , 6.0191834345 , 0.3728969814 , 0.7457469986 , 6.2751073763 , 1.7772962246 , 6.9085616604 , "2012-02-23" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 1 , 2.1593051823 , 3.8662022655 , 0.4584161653 , 11.4016964985 , 18.5435856786 , 5.7376792573 , "2012-02-23" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 2 , 1.8799241725 , 3.7191789388 , 0.8695313316 , 24.6822666773 , 14.0274641756 , 6.6099881532 , "2012-02-23" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 3 , 0.1297058631 , 4.7668941808 , 2.3991214586 , 30.9514607606 , 9.658086542 , 5.9069457995 , "2012-02-23" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 5 , 8.7307781447 , 4.1541615757 , 0.7224586434 , 26.3950261753 , 17.1826607361 , 6.0777180234 , "2012-02-23" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 6 , 5.4946189839 , 2.0338804368 , 1.5396983656 , 17.0057216729 , 4.350541262 , 5.5402944488 , "2012-02-23" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 4 , 7.6534743188 , 1.8290879042 , 2.3796475176 , 15.9622537158 , 8.3337383159 , 6.4243352257 , "2012-02-23" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 1 , 8.8867481472 , 1.9345763768 , 0.7988895751 , 17.1707605524 , 7.5052068569 , 6.9381902346 , "2012-03-20" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 2 , 4.6149467165 , 2.5743942894 , 2.0096458225 , 23.7098816456 , 11.0642783344 , 6.6197569303 , "2012-03-20" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 3 , 2.8811931098 , 4.1134366463 , 0.0095638423 , 16.6639104881 , 4.6449844446 , 6.9764754372 , "2012-03-20" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 4 , 5.6652311701 , 1.4651586232 , 0.5439580427 , 20.2822796325 , 6.2609952874 , 6.9958215437 , "2012-03-20" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 5 , 2.4641056079 , 4.9051325046 , 1.3914634623 , 4.1820931341 , 14.4912545662 , 6.4695540245 , "2012-03-20" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 6 , 2.3714320734 , 2.76465395 , 0.6182110556 , 6.1649517831 , 2.2135383729 , 5.5883101749 , "2012-03-20" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 1 , 2.5493083196 , 2.0991538418 , 0.6796696256 , 12.0328475279 , 14.2596974596 , 6.9601403736 , "2012-04-16" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 2 , 4.8078966141 , 0.768679129 , 0.5560284164 , 6.3757004566 , 10.88822864 , 6.4310948472 , "2012-04-16" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 4 , 4.1374372365 , 3.3412356628 , 2.7325970116 , 9.550686616 , 7.4572547711 , 6.2446664944 , "2012-04-16" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 3 , 2.831017836 , 0.6419636705 , 0.7380413851 , 24.4926044787 , 16.7629043944 , 5.9667742017 , "2012-04-16" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 5 , 5.1216925029 , 3.1063706893 , 2.2229856304 , 2.2884108615 , 11.3379415404 , 6.3844960183 , "2012-04-16" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 6 , 8.7476951769 , 4.8662221618 , 0.2431986281 , 6.5736748721 , 8.9396151807 , 5.9161778938 , "2012-04-16" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 1 , 9.7603006987 , 4.0281446883 , 1.6243497971 , 7.4610647187 , 19.5111938659 , 6.4367580255 , "2012-06-05" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 2 , 3.5855972767 , 3.7376014236 , 1.1679442716 , 21.4721696032 , 16.5071424469 , 6.922857238 , "2012-06-05" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 4 , 1.673510531 , 3.0793564953 , 2.8718586112 , 22.6849250076 , 4.2068400886 , 5.5982418074 , "2012-06-05" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 3 , 7.6960712485 , 0.713145046 , 2.4909107541 , 6.4172796975 , 2.5718256086 , 5.7215542037 , "2012-06-05" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 5 , 8.1087614177 , 3.7058462785 , 1.3686828283 , 3.2892273879 , 7.3251332622 , 6.629850233 , "2012-06-05" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 6 , 8.6956198979 , 3.5112070222 , 2.3812998743 , 13.3605934028 , 4.1044714488 , 5.6178123981 , "2012-06-05" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 1 , 3.2351554232 , 2.6738091744 , 1.3413432227 , 6.9399771001 , 4.1983735841 , 6.8244551804 , "2012-07-09" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 4 , 5.0800626725 , 2.6409030869 , 1.1583130262 , 16.9412718154 , 5.2446809597 , 5.6289452789 , "2012-07-09" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 2 , 3.3380955504 , 4.6377713745 , 2.0916288458 , 24.2329249112 , 13.0771415867 , 6.4406335494 , "2012-07-09" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 3 , 6.7507455964 , 0.4326218623 , 0.9175795298 , 29.4848964456 , 17.1032606158 , 6.4497370715 , "2012-07-09" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 1 , 5 , 7.0239567198 , 1.3157302351 , 1.4716989817 , 16.520097889 , 7.9896810278 , 6.4006383058 , "2012-07-09" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 6 , 4.0577505622 , 1.6043495596 , 1.9660609374 , 7.5827919296 , 14.9222410843 , 5.8414798144 , "2012-07-09" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 1 , 0.6203916762 , 0.5579062761 , 0.9318873701 , 32.6060405094 , 18.0626026634 , 6.1236140891 , "2012-08-06" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 2 , 8.1382265966 , 0.5219787406 , 0.9399971939 , 4.8068370693 , 9.2232797854 , 6.2949591847 , "2012-08-06" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 3 , 6.3915758347 , 3.8022340275 , 1.006869786 , 5.1507347752 , 19.8918652348 , 5.6377828775 , "2012-08-06" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 4 , 2.8862742288 , 3.6086380202 , 1.8936005649 , 21.7852942436 , 3.8515056204 , 5.5447705667 , "2012-08-06" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 5 , 6.4928187896 , 1.6420490178 , 0.9444187847 , 11.3524753507 , 5.6727879588 , 6.9731013943 , "2012-08-06" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 6 , 4.1493417649 , 3.1033305242 , 0.500346154 , 4.1065446963 , 0.4316292703 , 6.2590278964 , "2012-08-06" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 4 , 8.8381215185 , 3.2867418928 , 1.7679979359 , 10.1355522824 , 19.048757311 , 6.7747408841 , "2012-08-06" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 6 , 9.7821829095 , 1.2234314554 , 1.5187152182 , 1.4090110501 , 6.9255720079 , 6.521958207 , "2012-08-06" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 1 , 3.562675463 , 4.0843376471 , 2.9155758494 , 5.9531572089 , 7.9387851059 , 6.1727467407 , "2012-08-24" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 2 , 9.2126327753 , 1.425955072 , 0.9222852238 , 19.6147301351 , 4.8030586075 , 6.0897130975 , "2012-08-24" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 3 , 0.4563781992 , 3.2152583497 , 2.1227541366 , 11.6992835142 , 13.3706410509 , 6.2464195325 , "2012-08-24" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 5 , 3.6477927445 , 1.6939245025 , 2.870106665 , 0.492140369 , 10.4178883135 , 6.5164163022 , "2012-08-24" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 2 , 6.6719470453 , 1.3575424161 , 1.0152527774 , 2.8745108354 , 17.5059589092 , 6.4359138303 , "2012-08-24" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 4 , 8.9217458805 , 2.5259982189 , 0.5983761884 , 27.1595358965 , 13.7846216932 , 6.587827004 , "2012-08-24" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 6 , 1.6254802281 , 3.9439568738 , 0.1967218439 , 4.9268209818 , 15.5126381852 , 6.3469852917 , "2012-08-24" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 1 , 0.3347766632 , 2.8590617701 , 0.543071317 , 13.6410824419 , 0.9425757546 , 5.9818569364 , "2012-11-09" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 2 , 3.8867988344 , 0.764411944 , 1.6795062572 , 10.8480106341 , 0.3920082655 , 6.2375608345 , "2012-11-09" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 3 , 4.380734032 , 4.336319135 , 2.6110920673 , 16.9298928254 , 2.9757850617 , 6.9787094875 , "2012-11-09" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 4 , 5.1031549741 , 2.8897436731 , 2.4539294005 , 30.6283170148 , 8.328750506 , 6.4879531988 , "2012-11-09" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 5 , 9.1673363512 , 3.8733934425 , 2.6674677758 , 20.4374918877 , 19.6869326103 , 5.9498846151 , "2012-11-09" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 6 , 0.4618717171 , 1.1378675885 , 1.998171662 , 32.8426615917 , 7.1859387588 , 6.9911078583 , "2012-11-09" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 1 , 7.3277316196 , 4.3275797507 , 2.143045499 , 31.3362414669 , 3.8811665215 , 6.5323977941 , "2012-12-03" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 2 , 6.5430732537 , 3.8996122382 , 0.1082624956 , 24.0724747092 , 3.1220167689 , 6.1894946103 , "2012-12-03" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 4 , 3.5173480166 , 1.0855563544 , 0.232590613 , 25.9145139786 , 12.6085866522 , 6.1704398587 , "2012-12-03" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 6 , 3.6999366013 , 3.1868281169 , 0.1510735382 , 28.2823472167 , 1.8367819861 , 5.6941266055 , "2012-12-03" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 3 , 5.0462945085 , 4.6036093426 , 0.8753348608 , 0.523073189 , 3.1979605835 , 5.8594432715 , "2012-12-03" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 5 , 4.9867060315 , 0.5487737688 , 2.6701191603 , 14.5391483558 , 7.4593848363 , 5.9788113327 , "2012-12-03" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 1 , 8.8443344226 , 3.8959782268 , 2.9979977352 , 32.5717214891 , 1.6552056838 , 6.6275992191 , "2013-01-30" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 4 , 0.0676916353 , 3.3269489976 , 2.6069471212 , 25.8839813923 , 1.1369978264 , 5.8420129467 , "2013-01-30" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 2 , 5.3090574965 , 2.916654367 , 1.9045905308 , 6.4824576257 , 10.4609836917 , 5.7512772991 , "2013-01-30" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 3 , 3.6325332103 , 3.354755044 , 2.6189942001 , 25.0245842943 , 4.1466901638 , 6.1447330415 , "2013-01-30" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 4 , 8.8806227967 , 4.7526413575 , 1.3662084234 , 9.0319578932 , 10.2248768602 , 6.6595976178 , "2013-01-30" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 5 , 5.8789389487 , 2.5288032717 , 0.1983690108 , 3.2383171003 , 1.5694149863 , 6.0099503559 , "2013-01-30" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 6 , 4.2648252286 , 1.7895064526 , 0.3224048819 , 32.3803594266 , 4.8225719295 , 6.2576375881 , "2013-01-30" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 1 , 4.6765604476 , 4.9875400704 , 1.0216720956 , 12.3231320456 , 0.0279526133 , 6.6617871588 , "2013-02-04" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 4 , 7.7670365991 , 1.699449718 , 0.8481303044 , 27.4215488206 , 3.8997039665 , 6.4589581471 , "2013-02-04" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 2 , 0.0527974311 , 0.758462376 , 1.5690454468 , 18.7664922629 , 4.6280664392 , 6.4164347134 , "2013-02-04" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 6 , 7.3502334906 , 0.789393296 , 2.1641957047 , 3.4396834532 , 13.4485874511 , 6.4187437594 , "2013-02-04" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 3 , 8.28829668 , 2.9719831771 , 2.4397943798 , 25.0912181684 , 18.5876090173 , 6.5457119416 , "2013-02-04" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 5 , 5.4492490692 , 1.3433380052 , 2.9248436638 , 4.6486580628 , 18.8108850922 , 6.9681706748 , "2013-02-04" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 1 , 7.7442825539 , 0.2053544577 , 0.676026444 , 7.0318772551 , 3.4688193724 , 6.8493365743 , "2013-05-08" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 2 , 3.9897218207 , 1.6640522098 , 0.3781917156 , 30.3319879388 , 15.6318140496 , 6.1803846844 , "2013-05-08" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 3 , 3.3031845652 , 2.333106352 , 0.6561531429 , 3.7457740749 , 15.6246945728 , 5.7034735193 , "2013-05-08" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 4 , 8.06511214 , 2.5071390788 , 2.6714848196 , 28.4126835153 , 15.8935479634 , 5.7428730701 , "2013-05-08" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 6 , 6.5312029095 , 2.067550444 , 1.0439293524 , 13.5850274004 , 12.7268471196 , 6.5234101259 , "2013-05-08" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 5 , 5.7138874801 , 0.3468750953 , 1.4592609317 , 14.0076445602 , 13.4113284107 , 5.7344847037 , "2013-05-08" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 1 , 6.6377165448 , 1.4984255191 , 0.351331091 , 7.304379649 , 17.7580911107 , 6.727284604 , "2013-07-19" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 2 , 5.6835270487 , 0.4602912581 , 1.024546091 , 11.9973336253 , 1.4122357126 , 5.5504370427 , "2013-07-19" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 3 , 1.3312914316 , 2.8342875582 , 1.6310752183 , 18.6235463992 , 16.8368672021 , 6.5323894261 , "2013-07-19" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 4 , 8.9966795361 , 3.3487782232 , 1.1961886575 , 8.0495243543 , 9.2256715987 , 5.7351385138 , "2013-07-19" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 6 , 1.3637691503 , 3.0872363341 , 1.0110255796 , 33.0010845163 , 10.7443122007 , 6.0155968326 , "2013-07-19" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 5 , 1.1887508258 , 1.1375173321 , 2.2640372599 , 27.0198380901 , 4.0787111968 , 5.847071602 , "2013-07-19" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 1 , 6.4101355523 , 0.5132776871 , 0.480417042 , 7.4340806133 , 0.9062460531 , 5.6854526014 , "2013-10-23" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 2 , 1.7203055695 , 3.2327966229 , 1.8378621577 , 29.2530773999 , 3.122461848 , 5.5379608697 , "2013-10-23" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 2 , 3 , 9.462444284 , 3.6486554169 , 0.1334963199 , 18.0108996807 , 3.5844727606 , 6.8549989788 , "2013-10-23" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 4 , 8.2178933499 , 1.9300706848 , 2.5721342834 , 33.4221467515 , 19.9182460736 , 6.4710030893 , "2013-10-23" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 5 , 9.5287164859 , 2.0053491695 , 1.4610594129 , 29.8388860771 , 3.9421926253 , 5.8337454901 , "2013-10-23" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 6 , 0.7082547853 , 4.4287467841 , 0.2475780384 , 7.2520837747 , 17.9814963508 , 5.5324834595 , "2013-10-23" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 1 , 5.0319662411 , 2.0976726967 , 0.4502715678 , 21.7725097341 , 12.8370798752 , 5.9593716764 , "2013-10-23" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 2 , 6.4703800622 , 4.5238480484 , 1.1822012421 , 10.0818046508 , 12.7828669734 , 6.846011928 , "2014-01-03" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 1 , 0.0742514711 , 2.7710304759 , 1.5013615955 , 6.280949642 , 2.9837967549 , 6.8310971262 , "2014-01-03" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 2 , 2.0076541975 , 0.565372922 , 0.0457737478 , 5.1453447016 , 6.6646072268 , 6.8736449464 , "2014-01-03" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 4 , 8.4280566778 , 0.2987834462 , 1.9848209471 , 23.2608251134 , 3.6050392315 , 5.511134787 , "2014-01-03" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 6 , 4.4577082619 , 2.594925384 , 1.8585404456 , 13.9524866175 , 7.5707047991 , 5.8567774065 , "2014-01-03" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 3 , 9.200549107 , 0.5326664308 , 0.753546231 , 34.6808136231 , 3.7446268555 , 6.5750987076 , "2014-01-03" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 5 , 9.9228264298 , 1.6685404489 , 0.5942483484 , 17.3417743482 , 16.9834321644 , 5.6357850907 , "2014-01-03" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 1 , 7.5324262958 , 1.740866527 , 0.3526529227 , 14.0098222531 , 2.6428331342 , 6.0408934283 , "2014-01-27" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 4 , 2.5294291507 , 2.5580902747 , 2.0649965918 , 9.1128821927 , 13.0958373379 , 5.9823996178 , "2014-01-27" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 2 , 0.6582415011 , 0.9439303121 , 1.3194713001 , 9.3306349614 , 9.6204004157 , 6.1889078512 , "2014-01-27" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 3 , 3.0186064728 , 2.2754084133 , 1.2407982568 , 5.063321027 , 6.4464791771 , 6.0595578367 , "2014-01-27" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 4 , 5.1483837189 , 0.3760320065 , 2.4277839549 , 33.6213219329 , 1.57806715 , 5.8716325508 , "2014-01-27" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 5 , 5.941914781 , 2.1438740008 , 1.0777550186 , 17.9986236081 , 6.7519341595 , 6.4972873107 , "2014-01-27" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 6 , 5.3530808631 , 3.0521687516 , 1.5153803341 , 18.4656755417 , 3.1389867887 , 6.920875622 , "2014-01-27" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 1 , 9.441418401 , 3.5160478042 , 0.0692099906 , 24.4084564387 , 11.5206595138 , 5.7425534115 , "2014-01-30" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 4 , 0.5138286622 , 0.7031048555 , 0.2929953164 , 10.6514023617 , 4.5500351302 , 6.6772355135 , "2014-01-30" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 2 , 6.522390265 , 3.929986516 , 1.6940815332 , 25.1322111813 , 18.8191288058 , 6.4349626086 , "2014-01-30" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 6 , 9.7478336561 , 0.0225880556 , 2.9539582408 , 9.6825404512 , 6.555564804 , 6.5887197976 , "2014-01-30" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 3 , 4.5959929423 , 1.9912608294 , 1.2639309852 , 34.1053183144 , 9.2185659334 , 6.2379546973 , "2014-01-30" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 5 , 4.7345856717 , 1.1528582335 , 2.805140594 , 2.3677515844 , 5.3352722153 , 5.7408046944 , "2014-01-30" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 1 , 6.5934644733 , 1.4714926877 , 1.7456893022 , 6.8129086774 , 5.4035719577 , 6.3190075697 , "2014-02-10" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 2 , 9.0473228786 , 0.4351160605 , 2.1667357902 , 29.7105944948 , 2.4546213076 , 6.8209746908 , "2014-02-10" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 4 , 3 , 7.9023277294 , 3.7265763036 , 1.6387757943 , 29.4565473869 , 7.2694311943 , 6.6176909169 , "2014-02-10" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 4 , 8.8593623182 , 3.2196185202 , 0.4378242642 , 18.8361340412 , 15.1750917453 , 6.9726048594 , "2014-02-10" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 5 , 4.2992100725 , 3.553176329 , 0.7687153062 , 14.1646530502 , 18.6654595379 , 6.6403380872 , "2014-02-10" );
+insert into Muestreo(mid, persona, lugar, CO2, NO2, SO2, PM10, [PM2.5], pH, fecha) values( null , 3 , 6 , 7.1515287692 , 1.2044559116 , 2.0440451587 , 6.1163259903 , 11.1798305251 , 6.6166045957 , "2014-02-10" );
