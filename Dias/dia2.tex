@@ -1,12 +1,7 @@
 \documentclass[10pt,letterpaper]{article}
 \usepackage[latin1]{inputenc}
 \usepackage[spanish]{babel}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{makeidx}
 \usepackage{graphicx}
-\usepackage{listings}
 \usepackage{color}
 \usepackage{float}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
@@ -323,7 +318,7 @@ Hacer una copia de seguridad de las instrucciones de la base de datos es algo qu
 
 La alternativa a hacer esto es hacerlo desde dentro de la DB. Para ello vamos a ingresar a la base de datos mediante: \inlinecode{sqlite3 monitoreo.db} y luego vamos a decirle 2 cosas al administrador: que queremos que los resultados los guarde en un archivo \inlinecode{.output mi\_dump2.sql} y que deseamos que ese archivo se llene con todas las instrucciones de creaci\'on de la base de datos \inlinecode{.dump} Eso es todo.\\
 
-Antes de terminar con esta secci\'on, es recomendable que abramos uno de los archivos que acabamos de crear y los veamos completamente. Vamos a notar que las primeras 2 l\'ineas y la \'ultima no son algo que nosotros entendamos. Esto es solo algo que agreg\'o el administrador al hacer el \emph{dump}. Borr\emos esas l\'ineas y nuestro archivo queda listo para armar una base de datos en cualquier momento.
+Antes de terminar con esta secci\'on, es recomendable que abramos uno de los archivos que acabamos de crear y los veamos completamente. Vamos a notar que las primeras 2 l\'ineas y la \'ultima no son algo que nosotros entendamos. Esto es solo algo que agreg\'o el administrador al hacer el \emph{dump}. Borremos esas l\'ineas y nuestro archivo queda listo para armar una base de datos en cualquier momento.
 
 \subsection{Comentarios Finales}
 Felicidades, has completado el segundo d\'ia del taller de QCA. Ahora ya tienes idea de qu\'e es una base de datos, qu\'e se puede hacer con ella y c\'omo hacerlo. Como dijimos en alg\'un momento durante el desarrollo, el uso de SQL es menor en estos d\'ias gracias a los ORMs que facilitan mucho del trabajo. Sin embargo, conocer c\'omo manejar una base de datos es de vital importancia en un mundo en el que todo se almacena en ellas.\\

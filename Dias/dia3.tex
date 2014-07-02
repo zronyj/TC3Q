@@ -1,12 +1,7 @@
 \documentclass[10pt,letterpaper]{article}
 \usepackage[latin1]{inputenc}
 \usepackage[spanish]{babel}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{makeidx}
 \usepackage{graphicx}
-\usepackage{listings}
 \usepackage{color}
 \usepackage{float}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
@@ -166,7 +161,7 @@ Esta interfaz para git es relativamente sencilla e intuitiva. Al abrirla, hallam
 
 \Picture{img/cola1.png}
 
-\textbf{Abrir} se refiere a apuntar a Cola a una carpeta que ha sido iniciada o clonada de un proyecto git. Entonces Cola reconocer\'a esto y nos dir\'a en una ventana m\'as grande: qu\'e archivos han cambiado, nos ofrecer\'a agregarlos al commit, y si hacemos click en uno de ellos, en la parte inferior nos mostrar\'a qu\'e ha cambiado en ellos desde la \'ultima vez que se ha hecho commit. Desde ac\'a tambi\'en se puede realizar commits, se puede jalar y se puede empujar cambios.
+\textbf{Abrir} se refiere a apuntar a Cola a un directorio que ha sido iniciado o clonado de un proyecto git. Entonces Cola reconocer\'a esto y nos dir\'a en una ventana m\'as grande: qu\'e archivos han cambiado, nos ofrecer\'a agregarlos al commit, y si hacemos click en uno de ellos, en la parte inferior nos mostrar\'a qu\'e ha cambiado en ellos desde la \'ultima vez que se ha hecho commit. Desde ac\'a tambi\'en se puede realizar commits, se puede jalar y se puede empujar cambios.
 
 \Picture{img/cola2.png}
 
@@ -200,20 +195,255 @@ Los reportes son una de las cosas con las que m\'as nos topamos tanto en un ambi
 
 Hace ya varios a\~nos se intent\'o crear un programa que facilitara la impresi\'on de documentos en cualquier tipo de impresora; desde impresoras de matriz hasta impresoras laser. Este programa se hizo llamar \TeX\ y su desarrollo llev\'o a que sea utilizado por editoriales grandes hasta nuestros d\'ias. El ``dialecto'' m\'as utilizado de \TeX\ hoy d\'ia es llamado \LaTeX\ . Este result\'o siendo el lenguaje de programaci\'on adoptado por la comunidad cient\'ifica en muchas partes por sus ventajas para crear plantillas, escribir ecuaciones, numerarlas, insertar bibliograf\'ias, autonumerar p\'aginas, etc. Se dice que es un lenguaje de programaci\'on como HTML, pues se basa en peque\~nas palabras indicando las diferentes partes del documento. Y la idea final es obtener un documento que no solo tenga un contenido ideal, como solemos inclu\'irselos a nuestros proyectos, sino que se vea excepcional sin tener que invertir mucho tiempo en darle formato. Pero para qu\'e explicar lo bien que se puede ver un documento de estos? Es un poco redundante. El documento que estamos viendo fue hecho en \LaTeX\ , al igual que el de ayer, anteayer y el de los dem\'as d\'ias. Pero la idea no es que lo sepamos identificar en un documento, sino que lo sepamos usar. Comencemos, pues, a crear nuestros documentos de una forma diferente!
 
+\subsection{Comenzando con un Proyecto}
+Para trabajar con \LaTeX\ suele no hacer falta nada m\'as que un editor de texto y saber c\'omo crear un archivo \emph{PDF} a partir del archivo \TeX . Sin embargo, siendo \LaTeX\ tan extenso, vamos a utilizar un editor en espec\'ifico. Con este podremos ahorrarnos muchos problemas a la hora de crear nuestros documentos. Como primer paso, vamos a abrir \textbf{\TeX Maker} y all\'i vamos crear un documento nuevo. Este nuevo archivo en blanco lo vamos a guardar como \emph{proyecto\_01.tex}. Ahora vamos a iniciar con nuestro proyecto.\\
+
+Vamos a iniciar el documento escribiendo:
 \begin{Code}
 \begin{verbatim}
-\textbf{bold} $\oint_\gamma f dz = 0 $
+\documentclass[12pt,letterpaper]{article}
+
+\begin{document}
+
+\end{document}
 \end{verbatim}
 \end{Code}
 
-\subsection{Comenzando con un Proyecto}
-\subsection{Paquetes y Geometr\'ia}
-\subsection{Secciones y Etiquetas}
-\subsection{Autoensablados: \'Indice y T\'itulo}
-\subsection{Ecuaciones y F\'ormulas}
+Aqu\'i iniciamos especificando el tama\~no de letra que se utilizar\'a en todo el documento, y el tama\~no de p\'agina con el que se trabajar\'a. Finalmente, en la primera l\'inea vemos que se especifica que vamos a crear un art\'iculo. Hay otras opciones como \inlinecode{letter}, \inlinecode{report} y \inlinecode{book}. La diferencia entre ellos son los comandos y la forma de aplicar el formato (el libro utiliza cap\'itulos, la carta solicita encabezados, fechas y firma, el reporte es como un informe final de proyecto, etc). Luego especificamos en d\'onde deseamos tener el contenido del documento: entre el inicio y el final del documento. All\'i dentro vamos a poner el contenido del archivo \emph{lorem\_ipsu.txt} (c\'opialo y p\'egalo). Luego, en la barra superior de \textbf{\TeX Maker} vas a hallar dos flechas azul claro. A la par de la primera debe de decir PDFLaTeX y a la par de la segunda debe decir View PDF. La idea all\'i es tener configurada la parte que nos permitir\'a transformar nuestro archivo \TeX\ en un PDF y poder visualizarlo despu\'es.
+
+\Picture{img/tex_01.png}
+
+Cuando esas dos cosas ya est\'en como en la im\'agen, podemos presionar la primera flecha azul. En la barra de abajo deber\'ia de aparecer algo que nos diga que el proceso ha terminado exitosamente. Ahora presionaremos la segunda flecha azul y el resultado nos ser\'a revelado: un documento escrito con un estilo bastante limpio y hasta con p\'aginas numeradas. Genial! Ahora ... hay ciertas cosas que no se ven muy bien. En primer lugar, vamos a agregar espacios entre p\'arrafos. Para ello, agregaremos dos diagonales inversas \inlinecode{\textbackslash \textbackslash } al terminar de cada p\'arrafo: despu\'es del punto y volvemos a presionar ambas flechas.\\
+
+Ahora ya separamos los p\'arrafos y nuestro documento ya se ve mejor. Antes de proceder a la siguiente secci\'on repasemos en lo que hicimos. Inicializamos un documento especificando un tama\~no de letra y de p\'agina. Luego colocamos algo de texto dentro de \'el y finalmente separamos los p\'arrafos con una diagonal doble inversa. No es tan complicado, aunque s\'i requiere un poco de tiempo. Pero lo m\'as importante: no se ve como nosotros queremos que se vea. Para ello, vamos a continuar.
+
+\subsubsection{Geometr\'ia}
+
+Hasta ahora, si pensamos en c\'omo se ve nuestro documento, vamos a notar que los m\'argenes son muy grandes. Generalmente esto es algo que solo cambiamos cuando deseamos que la cantidad de p\'aginas en nuestros proyectos sea mayor o menor. En este caso, sin embargo, estamos desperdiciando demasiado espacio en los m\'argenes. C\'omo corregimos eso? La forma de cambiar m\'argenes en \LaTeX\ es m\'as sencilla de lo que uno se imagina, y suele hacerse siempre al inicio de los documentos que vayamos a producir. En nuestro caso, dejaremos m\'argenes de $2cm$ mediante el uso del paquete \inlinecode{geometry}. El resultado ser\'a algo as\'i:
+
+\begin{Code}
+\begin{verbatim}
+\documentclass[12pt,letterpaper]{article}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\begin{document}
+
+Lorem ipsum dolor ...
+
+\end{document}
+\end{verbatim}
+\end{Code}
+
+Al volver a correr esto con las dos flechas azules, nos damos cuenta de que nuestro resultado es mucho mejor. Ya se nota que tiene un toque de documento. Y la mejor parte es que \LaTeX\ usa sangr\'ias en cada p\'arrafo y los deja justificados a\'un utilizando guiones! Se ve bastante bien.
+
+\subsubsection{Idiomas}
+
+Ahora agregaremos un par de paquetes m\'as que nos permitir\'an escribir lo que nosotros querramos dentro de nuestro documento. Y es que \LaTeX\ fue dise\~nado originalmente para el idioma ingl\'es. Un ejemplo de eso es que \textbf{las tildes} y \textbf{la \~n} no las podemos escribir f\'acilmente. Pero m\'as que eso, los guiones para dividir una palabra son importantes. Para ello, vamos a agregar otro paquete en el documento que llevamos.
+
+\begin{Code}
+\begin{verbatim}
+\documentclass[12pt,letterpaper]{article}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[spanish]{babel}
+
+\begin{document}
+
+Lorem ipsum dolor ...
+
+\end{document}
+\end{verbatim}
+\end{Code}
+
+Con esto ya muchas cosas se nos permiten en espa\~nol. M\'as adelante vamos a ver qu\'e impacto tiene realmente eso. Ahora, vamos a ver dos alternativas para lograr escribir las tildes y la \~n. La forma \emph{complicada} de escribirlas en \LaTeX\ es as\'i:
+
+\begin{Code}
+\begin{verbatim}
+\'a
+\'e
+\'i
+\'o
+\'u
+\~n
+\end{verbatim}
+\end{Code}
+
+Ahora, a pesar de que parece bastante tedioso escribir de esa manera, es la \'unica infalible. Aunque el documento est\'e configurado para ingl\'es, esto garantiza que podamos tener tildes y \~ns. La otra forma de hacerlo sin complicarnos tanto la vida es incluyendo otro paquete en nuestro documento: un conjunto de caracteres universal.
+
+\begin{Code}
+\begin{verbatim}
+\documentclass[12pt,letterpaper]{article}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+\begin{document}
+
+Lorem ipsum dolor ...
+
+\end{document}
+\end{verbatim}
+\end{Code}
+
+Con este paquete ya no necesitamos estar usando el gui\'on y las ap\'ostrofes, sino que podemos escribir libremente y no habr\'an problemas. En este caso en particular, estos documentos est\'an escritos de la primera manera para garantizar que quien no posea el paquete en su ordenador, pueda de todas formas armar estos documentos. Sin embargo, la brecha de idiomas ya la cubrimos. Ahora solo vamos a profundizar en una \'ultima cosa: paquetes.\\
+
+\subsubsection{Paquetes}
+
+Los paquetes son formas de extender las funciones normales de \LaTeX . Como ya hemos visto, usamos paquetes para los m\'argenes, para el conjunto de caracteres permitidos y para idioma. Existen paquetes para muchas otras cosas m\'as. La sintaxis para incluirlos, sin embargo, es siempre la misma: \inlinecode{\textbackslash usepackage\{\emph{paquete}\}}\\
+
+Todav\'ia vamos a ver aqu\'i un paquete m\'as: encabezados y pies de p\'agina. Este nos dar\'a una idea de qu\'e hacer y c\'omo darle una forma m\'as elegante a nuestros documentos.\\
+
+\subsubsection{Encabezado y Pie}
+
+El encabezado y pie de p\'agina suele ser todo un rollo en Microsoft Word. Estos suelen necesitar mucha configuraci\'on y bastante paciencia. En \LaTeX\ el asunto no es tan diferente, pero veremos que existen algunas diferencias que nos facilitar\'an el proceso. Comencemos importando el paquete que nos permitir\'a hacer el encabezado y el pie.\\
+
+\begin{Code}
+\begin{verbatim}
+\documentclass[12pt,letterpaper]{article}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\begin{document}
+
+Lorem ipsum dolor ...
+
+\end{document}
+\end{verbatim}
+\end{Code}
+
+Si ponemos atenci\'on, notaremos que no solo incluimos un paquete, sino que le pedimos un estilo particular a la p\'agina. Lo que hace esto es que construye un estilo de encabezado y pies de p\'agina basados en el n\'umero de la p\'agina y en la secci\'on o cap\'itulo que se halle en esa p\'agina. Ahorita aunque re-armemos nuestro PDF no lo notaremos (solo notaremos una delgada l\'inea en el encabezado), pero en la siguiente secci\'on esto se har\'a evidente.
+
+\subsection{Decorando el Documento}
+\subsubsection{T\'itulo}
+Ahora que ya tenemos un formato general para nuestro documento, lo vamos a comenzar a decorar un poco. Lo primero que vamos a agregarle ser\'a un t\'itulo. Pero para eso necesitamos especificar 2 cosas: el autor y el t\'itulo de nuestro trabajo. En este caso, el autor vamos a ser nosotros mismos y el t\'itulo ser\'a: Lorem Ipsum. El c\'odigo se ver\'a ahora algo as\'i:
+
+\begin{Code}
+\begin{verbatim}
+\documentclass[12pt,letterpaper]{article}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\author{Mi Nombre}
+\title{Lorem Ipsum}
+
+\begin{document}
+
+\maketitle
+
+Lorem ipsum dolor ...
+
+\end{document}
+\end{verbatim}
+\end{Code}
+
+Notemos que dentro del documento incluimos una peque\~na palabra nueva: \inlinecode{\textbackslash maketitle} Es justo aqu\'i que el t\'itulo es incluido dentro de nuestro documento. Si no lo incluimos, ninguna de las otras 2 entradas tienen sentido. El resultado, al armar nuestro documento en PDF es algo vistoso, pero cumple con lo que dese\'abamos. Adem\'as, incluye la fecha actual en espa\~nol (otra cosa que sale de usar el paquete para espa\~nol). Es importante darnos cuenta de que al incluir el t\'itulo, el encabezado ya no apareci\'o en esa p\'agina! Y hablando de encabezados, vamos a pasar a otra cosa que nos sirve de mucho al elaborar un documento nuevo.
+
+\subsubsection{Secciones y Cap\'itulos}
+Dividir un documento en diferentes partes suele hacerlo m\'as f\'acil de leer adem\'as de hacerlo m\'as f\'acil de referenciar. \LaTeX\ suele requerir que nosotros indiquemos d\'onde hay cap\'itulos y/o secciones para poder as\'i armar \'indices o sacar referencias. Antes de comenzar vamos a aclarar algo: Las secciones pueden ser utilizadas en cualquier documento. Los cap\'itulos solo pueden ser usados en reportes o libros.\\
+
+En este caso estamos trabajando con un art\'iculo, as\'i que vamos a agregarle diferentes secciones a nuestro documento. Pero para que se note la diferencia, vamos a agregar m\'as texto. Vamos a abrir todos los documentos \emph{ipsum} en nuestro directorio y los vamos a agregar con sus respectivos nombres como secciones (recuerda separar los p\'arrafos):
+
+\begin{Code}
+\begin{verbatim}
+\documentclass[12pt,letterpaper]{article}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\author{Mi Nombre}
+\title{Lorem Ipsum}
+
+\begin{document}
+
+\maketitle
+
+\section{Lorem Ipsum}
+Lorem ipsum dolor sit amet ...
+
+\section{Bacon Ipsum}
+Bacon ipsum dolor sit amet corned beef ...
+
+\section{Cupcacke Ipsum}
+Cupcake ipsum dolor sit amet candy canes ...
+
+\section{Hipster Ipsum}
+Before they sold out swag Pitchfork roof ...
+
+\section{Tuna Ipsum}
+Squaretail; ghost flathead hatchetfish ...
+
+\section{Veggie Ipsum}
+Veggies es bonus vobis, proinde vos postulo ...
+
+\end{document}
+\end{verbatim}
+\end{Code}
+
+Ahora s\'i que se ha vuelto grande nuestro documento! Pero m\'as que eso, notemos algo importante: las \emph{secciones} se colocan como t\'itulos exactamente donde las pusimos. Adem\'as de esto, el encabezado toma ahora el nombre de la \textbf{\'ultima} secci\'on que comienza en esa p\'agina en particular. Es recomendable bajarle el tama\~no de letra a 11 al documento para visualizar mejor estos cambios.\\
+
+Un detalle que vale la pena mencionar es que las secciones no necesariamente tienen que tener un n\'umero. Si creamos una secci\'on mediante \inlinecode{\textbackslash section\{\emph{Nombre de la Secci\'on}\}} esta va a aparecer numerada. Si en vez de eso la creamos mediante \inlinecode{\textbackslash section*\{\emph{Nombre de la Secci\'on}\}} esta no aparecer\'a numerada, sino que solo aparecer\'a el t\'itulo de la misma.\\
+
+En un documento de regular tama\~no, tener secciones a veces no es suficiente. Necesitamos tener divisiones adentro de las secciones. Para este tipo de casos, \LaTeX\ ofrece las sub-secciones, las sub-sub-secciones y las sub-sub-sub-secciones (estas \'ultimas no siempre van a comportarse como se esperar\'ia). Estas obedecen los mismos principios que las secciones: se autonumeran, se colocan como t\'itulos de un segmento del documento, y si se les agrega el asterisco en su creaci\'on, la numeraci\'on no aparecer\'a. Estas se crean de la siguiente manera:
+
+\begin{Code}
+\begin{verbatim}
+\section{Nombre de la seccion}
+\subsection{Nombre de la sub-seccion}
+\subsubsection{Nombre de la sub-sub-seccion}
+\subsubsubsection{Nombre de la sub-sub-sub-seccion}
+\end{verbatim}
+\end{Code}
+
+Usa cada nivel sabiamente. Dividir un documento es bueno, pero dividirlo demasiado puede llevar a problemas de lectura o a que el contenido se vea disminuido. Ahora, ya que hemos visto c\'omo crear, darle forma y escribir en un documento \TeX , vamos a pasar a otro caso un poco diferente. Para esto guarda el trabajo que tengas, ci\'erralo y abre un documento nuevo en \textbf{\TeX Maker}. Ahora vamos a ver lo realmente bonito de \LaTeX .
+
+\subsection{Notaci\'on Cient\'ifica}
+Una de las caracter\'isticas tan especiales de \LaTeX\ es que se puede utilizar para ciencia. No solo por su formalidad y transparencia a la hora de crear documentos (no suceden cosas raras porque el programa lo quiso as\'i), sino porque se puede incluir notaci\'on cient\'ifica en ellos. Esta es una de la razones principales por las que se prefiere utilizar este lenguaje para textos cient\'ificos.\\
+
+Para comenzar, vamos a hacer que nuestro nuevo documento sea un art\'iculo de letra tama\~no 10, m\'argenes sin alterar, en espa\~nol, con un grupo de caracteres que acepte tildes y \~n, sin encabezados bonitos, pero con un t\'itulo: \emph{Notaci\'on Cient\'ifica} y escrito nada m\'as que por nosotros. Cuando ya tengamos esto listo, podemos proceder a seguir leyendo.\\
+
+Bueno, una vez ya tengamos listo un documeto as\'i, vamos a agregarle unos cuantos paquetes extra a nuestro documento. Estos paquetes \textbf{NO} son indispensables, pero ayudan mucho cuando se trata de notaci\'on cient\'ifica. Estos son:
+
+\begin{Code}
+\begin{verbatim}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\end{verbatim}
+\end{Code}
+
+Al agregar esto, nuestro c\'odigo ha de verse algo as\'i:
+
+\begin{Code}
+\begin{verbatim}
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\author{Mi Nombre}
+\title{Notaci\'on Cient\'ifica}
+
+\begin{document}
+
+\maketitle
+
+\end{document}
+\end{verbatim}
+\end{Code}
+
+Ahora, crearemos tres secciones: \emph{Matem\'atica}, \emph{Fisicoqu\'imica} y \emph{An\'alisis}. Vamos a la primera, que en ella vamos a escribir un poco.
+
 \subsection{Im\'agenes y Tablas}
-\subsection{Bibliograf\'ia}
 \subsection{Art\'iculo Cient\'ifico}
+\subsection{Autoensablados: \'Indice y Bibliograf\'ia}
+\subsection{Tesis}
+
 \subsection{Comentarios Finales}
 
 \section{Glosario de comandos sencillos}
