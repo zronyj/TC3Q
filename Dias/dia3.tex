@@ -2,6 +2,9 @@
 \usepackage[latin1]{inputenc}
 \usepackage[spanish]{babel}
 \usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
 \usepackage{color}
 \usepackage{float}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
@@ -100,7 +103,7 @@ Al crear programas nuevos es necesario ir prob\'andolos para asegurarse de que t
 
 \inlinecode{.gitignore} es un archivo ``oculto'', como el directorio de git en nuestro directorio de trabajo, que nos ofrece la habilidad de ignorar ciertos archivos a la hora de registrar un estado del proyecto. C\'omo as\'i? Cada vez que creamos el registro de una nueva revisi\'on de nuestro proyecto, podemos ignorar algunos archivos (e.g. archivos auxiliares o programas semi-terminados) con el fin de solo ir guardando nuestro c\'odigo fuente. Hagamos un ejercicio con esto.\\
 
-En tu directorio del proyecto crea un archivo nuevo y escribe algo en \'el, cualquier cosa. Luego, en la l\'inea de comando, abriremos el archivo con \inlinecode{nano} de la siguiente forma: \inlinecode{nano .gitignore}. All\'i vamos a agregar el nombre de nuestro nuevo archivo, precedido por una diagonal: \inlinecode{/mi\_archivo.txt}. Cerramos, guardamos y expliramos el estado de nuestro proyecto con \inlinecode{git status}. Inmadiatamente nos damos cuenta de que nuestro archivo no ha sido tomado en cuenta, pero \inlinecode{.gitignore} si. Agregamos este \'ultimo al registro de nuestra nueva revisi\'on y corremos \inlinecode{git commit -m "\ \hspace{-1em} Comenzando con .gitignore"} para guardarlo.
+En nuestro directorio del proyecto vamos a crear un archivo nuevo y escribir algo en \'el, cualquier cosa. Luego, en la l\'inea de comando, abriremos el archivo con \inlinecode{nano} de la siguiente forma: \inlinecode{nano .gitignore}. All\'i vamos a agregar el nombre de nuestro nuevo archivo, precedido por una diagonal: \inlinecode{/mi\_archivo.txt}. Cerramos, guardamos y expliramos el estado de nuestro proyecto con \inlinecode{git status}. Inmadiatamente nos damos cuenta de que nuestro archivo no ha sido tomado en cuenta, pero \inlinecode{.gitignore} si. Agregamos este \'ultimo al registro de nuestra nueva revisi\'on y corremos \inlinecode{git commit -m "\ \hspace{-1em} Comenzando con .gitignore"} para guardarlo.
 
 \subsection{Commit, Push, Pull y Log}
 Una de las cosas m\'as interesantes que se pueden llevar a cabo con un sistema como git, es trabajar en grupo en un proyecto en particular. Esto significa que todos estar\'an realizando cambios sobre los mismos archivos y creando o eliminando cosas dentro del mismo proyecto. Es una buena pr\'actica que cada vez que alguien hace alg\'un cambio, se guarde y registre esa revisi\'on. Por ello, a continuaci\'on veremos c\'omo hacer operaciones como: registrar cambios, subir los cambios registrados a nuestra cuenta en GitHub, actualizar el proyecto con cambios de alguien m\'as y ver qu\'e cambios se han hecho en general.
@@ -122,7 +125,7 @@ Y finalmente llegamos al momento en el que todo se une. Todos los commits que he
 \subsubsection{pull}
 Ya que hemos aprendido a registrar cambios y empujar nuestras versiones a la nube, vamos a aprender c\'omo descargar esto para actualizar el proyecto en el que estamos trabajando, si que es este ha sufrido cambios por parte de alguien m\'as. Si se est\'a trabajando en un proyecto conjunto con otras personas, es muy com\'un que haya archivos sujetos a cambio constante por varios integrantes del equipo de desarrollo y por eso, necesitas saber qu\'e es diferente antes de empezar a trabajar.\\
 
-Por eso, si est\'as trabajando en un ambiente con m\'as personas, siempre debes de actualizar tus revisiones primero, i.e. hacer un \emph{pull} o jalar cambios. Para esto, el comando es muy sencillo: \inlinecode{git pull}. Si hace eso ahorita con tus archivos actuales, es muy probable que git solo te diga que todo est\'a actualizado y no hay nada que jalar. Sin embargo, intenta hacerlo, es un buen ejercicio!
+Por eso, si estamos trabajando en un ambiente con m\'as personas, siempre debemos de actualizar nuestras revisiones primero, i.e. hacer un \emph{pull} o jalar cambios. Para esto, el comando es muy sencillo: \inlinecode{git pull}. Si hace eso ahorita con tus archivos actuales, es muy probable que git solo te diga que todo est\'a actualizado y no hay nada que jalar. Sin embargo, intentemos hacerlo, es un buen ejercicio!
 
 \subsubsection{log}
 Saber qu\'e ha pasado con nuestro proyecto a lo largo del tiempo resulta importante cuando sabemos que no solo nosotros hemos hecho cambios sobre \'el. Tambi\'en nos sirve para tener una idea del avance del proyecto. Para hacer una revisi\'on de esto, es muy \'util un peque\~no comando que veremos a continuaci\'on: \inlinecode{git log}. Intenta ingresar esto a tu l\'inea de comado y ver qu\'e te arroja como resultado. Por cierto, para salirte del log, presiona \emph{q}.\\
@@ -416,7 +419,7 @@ Bueno, una vez ya tengamos listo un documeto as\'i, vamos a agregarle unos cuant
 \end{verbatim}
 \end{Code}
 
-Al agregar esto, nuestro c\'odigo ha de verse algo as\'i:
+\noindent Al agregar esto, nuestro c\'odigo ha de verse algo as\'i:
 
 \begin{Code}
 \begin{verbatim}
@@ -437,7 +440,122 @@ Al agregar esto, nuestro c\'odigo ha de verse algo as\'i:
 \end{verbatim}
 \end{Code}
 
-Ahora, crearemos tres secciones: \emph{Matem\'atica}, \emph{Fisicoqu\'imica} y \emph{An\'alisis}. Vamos a la primera, que en ella vamos a escribir un poco.
+Ahora podemos comenzar a utilizar la notaci\'on cient\'ifica en nuestro documento. Como esta puede comprender muchos \'areas, vamos a ir paso a paso como cuando se comienza a aprender matem\'atica. Lo primero que vamos a aprender es a preparar un lugar en nuestro documento d\'onde colocar esta notaci\'on. Si deseamos que los s\'imbolos o notaci\'on aparezcan dentro del texto, como esto: $H_2 CO_3 \longrightarrow^{\hspace{-0.4cm} \Delta}\hspace{0.2cm} H_2 O + CO_2$, entonces utilizamos los signos de dolar al iniciar y finalizar una expresi\'on: \inlinecode{\$ \emph{expresi\'on} \$}. A esta forma de notaci\'on se le llama \emph{inline}. La otra forma de incluir notaci\'on cient\'ifica es declarando un segmento como de ecuaci\'on de esta manera:
+
+\begin{Code}
+\begin{verbatim}
+\begin{equation}
+
+expresion
+
+\end{equation}
+\end{verbatim}
+\end{Code}
+
+\noindent A un segmento as\'i en \LaTeX\ (declarado con un principio y un final) se le llama \emph{ambiente}. El resultado se ver\'a as\'i:
+
+\begin{equation}
+H_2 CO_3 \longrightarrow^{\hspace{-0.4cm} \Delta}\hspace{0.2cm} H_2 O + CO_2
+\end{equation}
+
+Algo que podemos notar de inmediato es que la forma en que se muestra la reacci\'on es ahora m\'as limpia, centrada y (muy importante) numerada. S\'i, \LaTeX\ autonumera nuestras ecuaciones, reacciones o f\'ormulas por defecto. Esto nos permite referirnos a ellas dentro del documento posteriormente. Vamos a crear una nueva secci\'on dentro de nuestro documento de notaci\'on cient\'ifica a la que llamaremos \emph{Operaciones B\'asicas}. En ella vamos a explicarle a alguien m\'as c\'omo se suma, resta, multiplica y divide en \LaTeX . La descripci\'on es cosa nuestra; nos toca ponernos creativos. Lo que s\'i vamos a ver es c\'omo se hacen estas operaciones. Probemos irlas incluyendo dentro de nuestra explicaci\'on de manera \emph{inline} para mantener la continuidad del texto.
+
+\begin{Code}
+\begin{verbatim}
+Sumar:       $ A + B = C $
+Restar:      $ D - E = F $
+Multiplicar: $ G \cdot H = I $
+Dividir:     $ \frac{J}{K} = L $
+\end{verbatim}
+\end{Code}
+
+Al final generemos nuestro PDF para ver c\'omo se ve el resultado. Ahora mostr\'emoselo a nuestro compa\~nero de al lado y discutamos sobre lo que ambos creen que hace cada parte de lo que hemos visto. Una vez terminado esto, vamos a pasar a otra parte m\'as intensa. Vamos a crear otra nueva secci\'on de nuestro documento llamada \emph{\'Algebra}. Aqu\'i vamos a explicar que el uso de notaci\'on cient\'ifica dentro de un texto lo puede hacer m\'as comprensible al lector. Como ejemplo vamos a proponer la f\'ormula de Vieta, la cual nos sirve para calcular las dos ra\'ices de un polinomio de grado dos.
+
+\begin{equation}
+x_{1,2} = \frac{-B \pm \sqrt{B^2 - 4 A C}}{2 A}
+\end{equation}
+ \\
+
+Y que en el caso de que $ B^2 - 4 A C > 0 $ entonces $ x_{1,2} \in \mathbb{R} $, o que en el caso en que $ B^2 - 4 A C = 0 $ entonces $ x \in \mathbb{R} $. Pero si $ B^2 - 4 A C < 0 $ entonces $ x_{1,2} \in \mathbb{C} $. Esta explicaci\'on quiz\'a nos tome un rato, pero para ayudarnos se nos dej\'o aqu\'i la manera en que se representan cada una de estas operaciones y relaciones.
+
+\begin{Code}
+\begin{verbatim}
+Potencias:     $ A^{3} = A \cdot A \cdot A $
+Raiz cuadrada: $ \sqrt{B} = B^{1/2} $
+Raiz radical:  $ \sqrt[n]{C} = C^{1/n} $
+Subindices:    $ D_{2} = $ deuterio molecular
+Mayor igual:   $ E \geq F $
+Menor igual:   $ G \leq H $
+Mayor y menor: $ I > J < K | I = 1, K = 2, J = -5 $
+Mas-menos:     $ \sqrt{4} = \pm 2 $
+Conjuntos:     $ \mathbb{N}, \mathbb{Z}, \mathbb{Q}, \mathbb{I}, \mathbb{R}, \mathbb{C} $
+Pertenece a:   $ 1, 2, 3, \ldots \in \mathbb{N} $
+Para todo:     $ \forall n \in \mathbb{N} | n^{2} \geq n $
+No existe:     $ \frac{x}{0} = \nexists $
+\end{verbatim}
+\end{Code}
+
+Se nos recomienda probar cada una de las expresiones que se nos han dado antes de utilizarla dentro de nuestra explicaci\'on; esto nos dar\'a una mejor idea de c\'omo se ver\'a el resultado o qu\'e significa cada secuencia, palabra y signo. Como antes, al terminar nuestra explicaci\'on, vamos a mostr\'arsela a nuestro compa\~nero de a la par y vamos a corroborar que nuestras explicaciones sean correctas. Por cierto, la secuencia \inlinecode{\textbackslash ldots} es la que nos da tres puntos suspensivos.\\
+
+Antes de pasar a la siguiente secci\'on hay un peque\~no truco que utilizamos en \'algebra que no hemos visto todav\'ia: par\'entesis. Los par\'entesis no son algo complicado en \LaTeX , sin embargo, s\'i se debe saber c\'omo llamarlos, pues de hacerlo mal estos no se comportar\'an como nosotros deseamos. Lo \'unico importante que debemos tomar en cuenta a la hora de usar par\'entesis es lo siguiente:\\
+\noindent\inlinecode{\textbackslash left\#} declara un par\'entesis que ir\'a a la izquierda\\
+\noindent\inlinecode{\textbackslash right\#} declara un par\'entesis que ir\'a a la derecha\\
+
+Claro que en vez del numeral \inlinecode{\#} debe ir el tipo de par\'entesis que deseamos. Los ejemplos claros est\'an a continuaci\'on.
+
+\begin{Code}
+\begin{verbatim}
+(a + b):        $ \left( a + b \right) $
+[x, y]:         $ \left[ x , y \right] $
+<i, j>:         $ \left\langle i , j \right\rangle $
+{1, 2, 3, ...}: $ \left\lbrace 1 , 2 , 3 , \ldots \right\rbrace $
+\end{verbatim}
+\end{Code}
+
+Debemos de tener especial atenci\'on con las llaves y los par\'entesis angulares, porque estos no utilizan un signo en vez del numeral, sino otra secuencia. Fuera de eso, la idea en todos los casos es igual. Agreguemos esto a nuestra explicaci\'on en nuestro documento sobre notaci\'on cient\'ifica y discutamos con otro compa\~nero sobre nuestras conclusiones.\\
+
+A continuaci\'on vamos a crear una secci\'on m\'as en nuestro documento. Esta se llamar\'a \emph{C\'alculo}. En esta secci\'on vamos a profundizar en los \'ultimos toques de matem\'atica. En nuestro documento vamos a explicar dos casos en particular, y luego nos vamos a extender con algunos detalles extra. Lo primero que vamos a explicar es c\'omo escribir la definici\'on de una derivada.
+
+\begin{equation}
+f' \left( x \right) = \lim_{h \to \infty} \frac{f \left( x + h \right) - f \left( x \right) }{h} = \dfrac{d}{d x} f \left( x \right)
+\end{equation}
+ \\
+
+Luego, para complementar un poco m\'as las cosas, pasaremos a explicar c\'omo se escribe una integral desde su definici\'on. Recordemos que $\Delta x = \frac{b - a}{n}$ y que $x_{i}^{*} = a + (\Delta x) \cdot i$. Luego procedemos con la definici\'on:
+
+\begin{equation}
+A = F \left( b \right) - F \left( a \right) = \lim_{n \to \infty} \sum_{i = 1}^{n} \left( f\left(x^{*}_{i}\right) \cdot \Delta x \right) = \int_{a}^{b} f \left( x \right) dx
+\end{equation}
+ \\
+
+Otra vez resultamos con cosas que nos parecen un poco monstruosas, pero no nos dejemos enga\~nar por pas apariencias. La mayor parte de lo que tenemos aqu\'i ya lo sabemos hacer. Lo \'unico nuevo son: los l\'imites, la derivada, la sumatoria y la integral. Esas se construyen de la siguiente manera:
+
+\begin{Code}
+\begin{verbatim}
+Sumatoria: $ \sum_{ i = 0 }^{ n } i = \frac{ n \left( n + 1 \right) }{ 2 } $
+Limite:    $ \lim_{ x \to 0^{+} } \log(x) = - \infty  $
+Derivada:  $ \dfrac{ d }{ d x } f = f' $
+Integral:  $ \int_{ - \infty }^{ \infty } e^{ -x^{2} } dx = \sqrt{ \pi } $
+\end{verbatim}
+\end{Code}
+
+A pesar de que se mostraron entre los signos de dolar, es \textbf{muy} recomendable que estos signos no se utilicen como texto \emph{inline}, sino que dentro del ambiente de ecuaciones; all\'i se aprecian mejor. Para cuando hagamos nuestras pruebas, intentemos hacerlo as\'i. Ahora, entre las nuevas secuencias que hemos visto, la de derivada es una que se parece mucho a la de fracciones, pero tenemos que ponerle atenci\'on a esa \emph{d}; tiene su raz\'on de ir all\'i. Por otra parte, qu\'e pasar\'ia si nuestra derivada es parcial? Pues usamos \inlinecode{\textbackslash partial} en vez de \inlinecode{d} Y si deseamos hacer derivadas en varias dimensiones de una vez, podemos utilizar \inlinecode{\textbackslash nabla}. De esta forma ya podemos escribir cosas como:
+
+\begin{equation}
+\nabla^2 \psi = \dfrac{\partial^2 \psi}{\partial x^2} + \dfrac{\partial^2 \psi}{\partial y^2} + \dfrac{\partial^2 \psi}{\partial z^2}
+\end{equation}
+
+Esto \'ultimo nos lleva a considerar algo: todas las letras griegas existen en \LaTeX . Lo que hay que saber para utilizarlas es su secuencia, que en este caso es el nombre de cada una de ellas. Cuando se desean min\'usculas, la secuencia va toda en min\'usculas. Cuando se desea una may\'uscula, la primera letra de la secuencia debe escribirse en may\'uscula.\\
+
+Finalmente, vamos a crear una secci\'on m\'as en nuestro documento: \emph{Qu\'imica}. Lo primero que hicimos en este segmento vamos a intentar repetirlo aqu\'i: la reacci\'on de descomposici\'on del \'acido carb\'onico. Antes de que nos den el c\'odigo con el que se hace eso, propongamos una forma de hacerlo con lo que ya sabemos.
+
+Reacci\'on
+
+Radio decay
+
+Termo
+
+Cuantica
 
 \subsection{Im\'agenes y Tablas}
 \subsection{Art\'iculo Cient\'ifico}
