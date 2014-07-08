@@ -66,7 +66,7 @@
 \maketitle
 
 \section{Ejercicios con \LaTeX\ }
-Los reportes son una de las cosas con las que m\'as nos topamos tanto en un ambiente acad\'emico, como en uno laboral. Si no estamos tratando de explicar por qu\'e no nos sali\'o el producto en la s\'intesis, estamos buscando c\'omo ligar la evidencia de un an\'alisis y que eso nos lleve a una explicaci\'on. Sin embargo, siempre debemos documentar cada paso. Sin embargo, hay una cosa que suele quitarnos m\'as de nuestro preciado tiempo: el formato. Cuando comenz\'abamos a hacer reportes en los primeros a\~nos fuimos ingenuos y los hicimos todos desde cero. Adem\'as, muchas veces nos los pidieron a hechos a mano. Luego ya no fue as\'i, pero cada instructor o catedr\'atico nos los ped\'ia diferentes. Al final de cuentas siempre result\'abamos haciendo una plantilla para ese laboratorio y la segu\'iamos usando todo el semestre. Si bien nos iba, la plantilla era buena y agregarle cosas no nos arruinaba cosas como la numeraci\'on de las p\'aginas o la colocaci\'on de las im\'agenes, pero si no, nos iba a tomar unos 20 minutos arreglar el problema. Adem\'as de esto, ni nuestros proyectos, ni nuestros reportes se vieron profesionales. Acept\'emoslo, nunca se hab\'ian visto como un art\'iculo cient\'ifico, como un peque\~no manual o como un libro. ``Eso es trabajo de una editorial.''--pensar\'ian algunos. Pero hoy vamos a ver que no, y que hacer trabajos con un acabado de editorial no es nada complicado.\\
+Los reportes son una de las cosas con las que m\'as nos topamos tanto en un ambiente acad\'emico, como en uno laboral. Si no estamos tratando de explicar por qu\'e no nos sali\'o el producto en la s\'intesis, estamos buscando c\'omo ligar la evidencia de un an\'alisis y que eso nos lleve a una explicaci\'on. Adem\'as, siempre debemos documentar cada paso realizado. Sin embargo, hay una cosa que suele quitarnos m\'as de nuestro preciado tiempo: el formato. Cuando comenz\'abamos a hacer reportes en los primeros a\~nos fuimos ingenuos y los hicimos todos desde cero. Adem\'as, muchas veces nos los pidieron a hechos a mano. Luego ya no fue as\'i, pero cada instructor o catedr\'atico nos los ped\'ia diferentes. Al final de cuentas siempre result\'abamos haciendo una plantilla para ese laboratorio y la segu\'iamos usando todo el semestre. Si bien nos iba, la plantilla era buena y agregarle cosas no nos arruinaba cosas como la numeraci\'on de las p\'aginas o la colocaci\'on de las im\'agenes, pero si no, nos iba a tomar unos 20 minutos arreglar el problema. Adem\'as de esto, ni nuestros proyectos, ni nuestros reportes se vieron profesionales. Acept\'emoslo, nunca se hab\'ian visto como un art\'iculo cient\'ifico, como un peque\~no manual o como un libro. ``Eso es trabajo de una editorial.''--pensar\'ian algunos. Pero hoy vamos a ver que no, y que hacer trabajos con un acabado de editorial no es nada complicado.\\
 
 Hace ya varios a\~nos se intent\'o crear un programa que facilitara la impresi\'on de documentos en cualquier tipo de impresora; desde impresoras de matriz hasta impresoras laser. Este programa se hizo llamar \TeX\ y su desarrollo llev\'o a que sea utilizado por editoriales grandes hasta nuestros d\'ias. El ``dialecto'' m\'as utilizado de \TeX\ hoy d\'ia es llamado \LaTeX\ . Este result\'o siendo el lenguaje de programaci\'on adoptado por la comunidad cient\'ifica en muchas partes por sus ventajas para crear plantillas, escribir ecuaciones, numerarlas, insertar bibliograf\'ias, autonumerar p\'aginas, etc. Se dice que es un lenguaje de programaci\'on como HTML, pues se basa en peque\~nas palabras indicando las diferentes partes del documento. Y la idea final es obtener un documento que no solo tenga un contenido ideal, como solemos inclu\'irselos a nuestros proyectos, sino que se vea excepcional sin tener que invertir mucho tiempo en darle formato. Pero para qu\'e explicar lo bien que se puede ver un documento de estos? Es un poco redundante. El documento que estamos viendo fue hecho en \LaTeX\ , al igual que el de ayer, anteayer y el de los dem\'as d\'ias. Pero la idea no es que lo sepamos identificar en un documento, sino que lo sepamos usar. Comencemos, pues, a crear nuestros documentos de una forma diferente!
 
@@ -169,7 +169,7 @@ Todav\'ia vamos a ver aqu\'i un paquete m\'as: encabezados y pies de p\'agina. E
 
 \subsubsection{Encabezado y Pie}
 
-El encabezado y pie de p\'agina suele ser todo un rollo en Microsoft Word. Estos suelen necesitar mucha configuraci\'on y bastante paciencia. En \LaTeX\ el asunto no es tan diferente, pero veremos que existen algunas diferencias que nos facilitar\'an el proceso. Comencemos importando el paquete que nos permitir\'a hacer el encabezado y el pie.\\
+El encabezado y pie de p\'agina suele ser todo un rollo en Microsoft Word. Estos suelen necesitar mucha configuraci\'on y bastante paciencia. En \LaTeX\ el asunto no es tan diferente, pero veremos que existen algunas ventajas que nos facilitar\'an el proceso. Comencemos importando el paquete que nos permitir\'a hacer el encabezado y el pie.\\
 
 \begin{Code}
 \begin{verbatim}
@@ -188,7 +188,9 @@ Lorem ipsum dolor ...
 \end{verbatim}
 \end{Code}
 
-Si ponemos atenci\'on, notaremos que no solo incluimos un paquete, sino que le pedimos un estilo particular a la p\'agina. Lo que hace esto es que construye un estilo de encabezado y pies de p\'agina basados en el n\'umero de la p\'agina y en la secci\'on o cap\'itulo que se halle en esa p\'agina. Ahorita aunque re-armemos nuestro PDF no lo notaremos (solo notaremos una delgada l\'inea en el encabezado), pero en la siguiente secci\'on esto se har\'a evidente.
+Si ponemos atenci\'on, notaremos que no solo incluimos un paquete, sino que le pedimos un estilo particular a la p\'agina. Lo que hace esto es que construye un estilo de encabezado y pies de p\'agina basados en el n\'umero de la p\'agina y en la secci\'on o cap\'itulo que se halle en esa p\'agina. Ahorita aunque re-armemos nuestro PDF no lo notaremos (solo notaremos una delgada l\'inea en el encabezado), pero en la siguiente secci\'on esto se har\'a evidente.\\
+
+Si deseamos cambiar la manera en que est\'an ensamblados el encabezado y el pie de p\'agina, esto se puede hacer. No se cubrir\'a en este documento, puesto que es un poco largo, pero es importante mencionar que se puede hacer y no es nada complicado.
 
 \subsection{Decorando el Documento}
 \subsubsection{T\'itulo}
@@ -274,7 +276,83 @@ En un documento de regular tama\~no, tener secciones a veces no es suficiente. N
 \end{verbatim}
 \end{Code}
 
-Usa cada nivel sabiamente. Dividir un documento es bueno, pero dividirlo demasiado puede llevar a problemas de lectura o a que el contenido se vea disminuido. Ahora, ya que hemos visto c\'omo crear, darle forma y escribir en un documento \TeX , vamos a pasar a otro caso un poco diferente. Para esto guarda el trabajo que tengas, ci\'erralo y abre un documento nuevo en \textbf{\TeX Maker}. Ahora vamos a ver lo realmente bonito de \LaTeX .
+Usa cada nivel sabiamente. Dividir un documento es bueno, pero dividirlo demasiado puede llevar a problemas de lectura o a que el contenido se vea disminuido. Ahora, ya que hemos visto c\'omo crear, darle forma y escribir en un documento \TeX , vamos a pasar a otro caso un poco diferente. Para esto guarda el trabajo que tengas, ci\'erralo y abre un documento nuevo en \textbf{\TeX Maker}. Ahora vamos a ver lo realmente bonito de \LaTeX .\\
+
+\subsubsection{Alineaci\'on de P\'arrafos}
+Un ejercicio muy com\'un cuando estamos tratando de que nuestro documento quede bonito es alinear todo el texto a la izquierda, a la derecha, al centro o en bloque. \LaTeX\ ya alinea el texto en bloque. Los casos especiales son cuando se desea cambiar esto. Para ello existen dos formas de hacerlo:
+
+\begin{Code}
+\begin{verbatim}
+\begin{flushleft}
+Esto se utiliza para hacer todo el texto a la izquierda.
+\end{flushleft}
+\end{verbatim}
+\end{Code}
+
+\begin{Code}
+\begin{verbatim}
+\begin{flushright}
+Y esto se utiliza para hacer todo el texto a la izquierda.
+\end{flushright}
+\end{verbatim}
+\end{Code}
+
+\begin{Code}
+\begin{verbatim}
+\begin{center}
+Tambien esta esta manera en la que todo el texto se coloca centrado.
+\end{center}
+\end{verbatim}
+\end{Code}
+
+Otra cosa que solemos hacer que es especial es usar numeraci\'on o vi\~netas. Esta es otra pr\'actica sencilla, pero debemos tomar en cuenta que cada vez que queremos una entrada nueva, debemos incluir la secuencia \inlinecode{\textbackslash item} El estilo depende de un par\'ametro, que en este caso puede ser una de dos palabras: \inlinecode{itemize} o \inlinecode{enumerate}. Veamos un ejemplo:
+
+\begin{Code}
+\begin{verbatim}
+\begin{enumerate}
+\item Esta es la primera entrada que va precedida por un 1.
+\item Esta es la segunda entrada que va precedida por un 2.
+\item Esta es la tercera entrada.
+\item Y la cuarta ...
+\item etc.
+\end{enumerate}
+\end{verbatim}
+\end{Code}
+
+Si no deseamos n\'umeros sino solo puntos, en vez de \inlinecode{enumerate} colocamos \inlinecode{itemize} Un punto interesante a tomar en cuenta es que si deseamos un segundo nivel de numeraci\'on o vi\~netas, debemos iniciar otro ambiente igual dentro de uno de los \inlinecode{\textbackslash item}s. \LaTeX\ se encargar\'a de cambiar los puntos o la numeraci\'on de manera autom\'atica.
+
+\subsubsection{Embelleciendo el Texto}
+Existen 3 cosas que nos interesan a la hora de querer resaltar algo o distinguir diferentes textos: negritas, cursivas y subrayado. Estas 3 tienen maneras bastante pr\'acticas de colocarse en un texto:
+
+\begin{itemize}
+\item \textbf{negrita}: para esto el texto se coloca dentro de la secuencia \inlinecode{\textbackslash textbf\{\}}
+\item \textit{cursiva}: para esto el texto se coloca dentro de la secuencia \inlinecode{\textbackslash textit\{\}}
+\item \underline{subrayado}: este es diferente, el texto se coloca dentro de la secuencia \inlinecode{\textbackslash underline\{\}}
+\end{itemize}
+
+Sin embargo, para simplificar mucho las cosas, \LaTeX\ provee una manera de enfatizar el texto que se escribe. Esto se hace mediante la secuencia \inlinecode{\textbackslash emph\{\}}. Generalmente se obtiene una cursiva, pero a veces se convierte en negrita, subrayado o texto normal, dependiendo de la situaci\'on.\\
+
+Al final, una cosa que muchas veces nos llama la atenci\'on, aunque no precisamente para documentos formales, es cambiar la fuente. En nuestro caso solo veremos como cambiarla en \emph{todo} el documento para mantener consistencia, no en peque\~nas partes por separado. De hecho, solo mostraremos 3 tipos de fuente para aplicar a todo el documento; no se necesitan m\'as relamente.
+
+\begin{itemize}
+\item \inlinecode{\textbackslash rmdefault} {\rmfamily convierte la fuente de todo el documento a algo como Times New Roman.}
+\item \inlinecode{\textbackslash sfdefault} {\sffamily convierte la fuente de todo el documento a algo como Arial.}
+\item \inlinecode{\textbackslash ttdefault} {\ttfamily convierte la fuente de todo el documento a algo como el c\'odigo que hallamos en las cajas grises.}
+\end{itemize}
+
+Para que todo el documento utilice una de estas fuentes, debemos ingresar uno de los siguientes antes del principio del documento (es decir, antes de \inlinecode{\textbackslash begin\{document\}}).
+
+\begin{Code}
+\begin{verbatim}
+\renewcommand*{\familydefault}{\rmdefault}
+\renewcommand*{\familydefault}{\sfdefault}
+\renewcommand*{\familydefault}{\ttdefault}
+\end{verbatim}
+\end{Code}
+
+Se dice que el primero es m\'as f\'acil de leer en papel, mientras que el segundo es m\'as claro leerlo en pantallas. El tercero es muy similar a lo que hallaremos en una l\'inea de comando, as\'i que utilicemos esto de manera apropiada.\\
+
+A continuaci\'on vamos a ampliar un poco m\'as lo que podemos hacer con texto. En particular, vamos a utilizar aquello para lo que \LaTeX\ es muy bueno y aquello que nos dar\'a una ventaja a la hora de hacer documentos cient\'ificos.
 
 \subsection{Notaci\'on Cient\'ifica}
 Una de las caracter\'isticas tan especiales de \LaTeX\ es que se puede utilizar para ciencia. No solo por su formalidad y transparencia a la hora de crear documentos (no suceden cosas raras porque el programa lo quiso as\'i), sino porque se puede incluir notaci\'on cient\'ifica en ellos. Esta es una de la razones principales por las que se prefiere utilizar este lenguaje para textos cient\'ificos.\\
@@ -482,21 +560,147 @@ CH_{3}(CO)CH_{3} + CH_{3}CH_{2}O^{-} \longrightarrow^{\hspace{-0.4cm}\Delta}\hsp
 Consejo que se nos da para esto: No le tengas miedo a una ecuaci\'on porque sus signos son extra\~nos o porque su tama\~no es grande. Generalmente solo se trata de letras que alguien us\'o como nombre para alguna cantidad, y signos que ayudan a no escribir tanto. Lo importante de ellas es saber qu\'e significan y que, como toda ecuaci\'on, fue hecha para manipularla. Tom\'emonos el tiempo para hacer cada cosa, no nos urge un resultado inmediato. Luego pasamos a la siguiente secci\'on.
 
 \subsection{Im\'agenes y Tablas}
+Una imagen vale m\'as que mil palabras. Y cuando se trata de una gr\'afica o una estructura molecular, son muchas l\'ineas menos en nuestros proyectos o reportes. Incluir una imagen en nuestros documentos puede ayudarnos mucho a explicar un concepto o mostrar el comportamiento de alg\'un juego de datos. En \LaTeX\ la inserci\'on de una imagen puede ser un proceso muy simple, o un poco m\'as elaborado si se desea hacerle alg\'un cambio al colocarla. Pero en general, esto puede ser tan simple como agregar 2 l\'ineas cortas de c\'odigo.\\
 
+Lo primero que se debe de hacer, como en todos los casos en los que se trabaja con algo externo a \LaTeX , es importar un paquete. El paquete que vamos a incluir esta vez es el de gr\'aficos. Para ello colocamos \inlinecode{\textbackslash usepackage\{graphicx\}} al principio de nuestro documento. De esta manera, ya podremos jugar con gr\'aficos e im\'agenes. Algo importante a mencionar es que si estamos generando el PDF de una sola vez, podemos utilizar formatos como PNG, JPG y PDF\footnote{Se puede guardar im\'agenes en PDF. No se prefiere el formato por diferentes motivos, pero s\'i es posible.}. De no ser as\'i, importar im\'agenes puede convertirse en un trabajo un poco m\'as tedioso.\\
+
+Comencemos con el uso de im\'agenes. Vamos a importar una nueva im\'agen en nuestro documento de la secci\'on anterior. Para ello, vamos a ingresar el siguiente c\'odigo en nuestro documento: \inlinecode{\textbackslash includegraphics\{molecule.png\}} Al convertir eso a un PDF notamos que la imagen fue efectivamente incluida en nuestro documento. Sin embargo, puede ser el caso en el que no nos gust\'o el tama\~no en el que fue incluida la im\'agen o deseamos que esta est\'e rotada de alguna manera. Para ello, tenemos una serie de opciones:
+
+\begin{itemize}
+\item \textbf{trim}: Recorta la imagen por los lados. El valor de recorte puede ser dado en \emph{cm} o en \emph{mm}. Se usa de la siguiente manera: \emph{trim=l b r t} en donde en vez de las letras se coloca el valor de recorte. l=izquierda, b=abajo, r=derecha, t=arriba
+\item \textbf{clip}: Al recortar la imagen, esto debe de incluirse y colocarse como verdadero de la siguiente manera: \emph{clip}.
+\item \textbf{scale}: Cambia el tama\~no de la imagen. Por ejemplo, si el valor es 1 la imagen se queda del mismo tama\~no. Si es 2, la imagen duplica su tama\~no. Y si es 0.3, la imagen ser\'a de un tercio del tama\~no original. Se usa de la siguiente manera: \emph{scale=0.6}
+\item \textbf{angle}: Rota la imagen de acuerdo a un valor dado en grados. Se utiliza de la siguiente manera: \emph{angle=90}
+\item \textbf{width}: Modifica el ancho de la imagen. Si no es especifica una altura, se mantendr\'a la proporci\'on de la imagen y se cambiar\'a su tama\~no solo relativo al ancho. Se usa as\'i: \emph{width=4.5cm}.
+\item \textbf{height}: Modifica la altura de la imagen. Si no es especifica el ancho, se mantendr\'a la proporci\'on de la imagen y se cambiar\'a su tama\~no solo relativo a la altura. Se usa as\'i: \emph{height=2.0cm}.
+\end{itemize}
+
+Ahora que ya tenemos las opciones, necesitamos saber d\'onde colocarlas. Veamos unos ejemplos para eso:
+
+\includegraphics[scale=0.3]{img/eppendorf.jpg} \inlinecode{\textbackslash includegraphics[scale=0.3]\{img/eppendorf.jpg\}}\\
+
+Aqu\'i solo incluimos una imagen reducida en tama\~no. Qu\'e pasa si la rotamos?\\
+
+\includegraphics[scale=0.3,angle=90]{img/eppendorf.jpg} \inlinecode{\textbackslash includegraphics[scale=0.3,angle=90]\{img/eppendorf.jpg\}}\\
+
+Perfecto! Ahora sabemos tambi\'en que los \'angulos van en contra de las agujas del reloj. Intemtemos recortarla.\\
+
+\includegraphics[trim=0cm 6.1cm 0cm 0cm, clip ,scale=0.3]{img/eppendorf.jpg} \inlinecode{\textbackslash includegraphics[trim=0cm 6.1cm 0cm 0cm, clip ,scale=0.3]\{img/eppendorf.jpg\}}\\
+
+Como esper\'abamos, el recorte se hizo solo en la parte de abajo y se necesit\'o de \emph{clip} para que se llevara a cabo.  \\
+
+Ahora que ya sabemos c\'omo colocar im\'agenes en nuestro documento, vamos a ver c\'omo ubucarlas mejor y agregarles algunas cosas \'utiles en el \'ambito cient\'ifico. Para esto vamos a incluir otro ambiente a nuestro repertorio:
+
+\begin{Code}
+\begin{verbatim}
+\begin{figure}[lugar]
+
+\end{figure}
+\end{verbatim}
+\end{Code}
+
+\noindent En este caso, el \emph{lugar} puede ser una de las siguientes:
+
+\begin{itemize}
+\item \textbf{h}: colocar la figura aqu\'i, de la mejor manera posible.
+\item \textbf{t}: colocar la figura hasta arriba en la p\'agina, de la mejor manera posible.
+\item \textbf{b}: colocar la figura hasta abajo en la p\'agina, de la mejor manera posible.
+\item \textbf{!}: ignorar ``la mejor manera posible'' y colocar la imagen en donde se est\'a solicitando.
+\end{itemize}
+
+Adem\'as, podemos centrar la imagen o hacerla hacia los lados de la manera m\'as sencilla. Vamos a ver todo ya combinado para tener una mejor idea.
+
+\begin{Code}
+\begin{verbatim}
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.3]{molecule.png}
+\end{figure}
+\end{verbatim}
+\end{Code}
+
+En el caso de querer la imagen hacia la izquierda, podemos utilizar \inlinecode{\textbackslash raggedleft} en vez de \inlinecode{\textbackslash centering} Y en el caso de querer la imagen hacia la derecha, utilizamos \inlinecode{\textbackslash raggedright} Finalmente, una imagen no puede ir en un documento sin una explicaci\'on y alguna forma de referirnos a ella. Es por eso que vamos a incluir lo \'ultimo en nuestras im\'agenes:
+
+\begin{Code}
+\begin{verbatim}
+\begin{figure}[h!]
+\centering
+\caption{Mol\'ecula de cafe\'ina en 3D.}
+\includegraphics[scale=0.3]{molecule.png}
+\label{fig:cafeina}
+\end{figure}
+\end{verbatim}
+\end{Code}
+
+Intentemos colocar esto en nuestro documento, observemos qu\'e pasa al construir el PDF y finalmente discutamos qu\'e es lo que creemos que hace cada parte de este conjunto. Un tip que se nos da es que \inlinecode{\textbackslash label\{fig:cafeina\}} es una forma en la que despu\'es solo tendremos que mencionar a \emph{fig:cafeina} para referirnos a esa imagen. Un ejemplo de esto lo podremos ver si inclumos \inlinecode{\textbackslash ref\{fig:cafeina\}} en alguna parte del texto en nuestro documento y lo convertimos en PDF. (Puede que a veces necesitemos de dos conversiones a PDF antes de que funcione la referencia.)\\
+
+A decir verdad, cualquier cosa que pongamos dentro de una etiqueta \inlinecode{\textbackslash label\{\}} puede funcionar como referencia. Solemos incluir cosas como \emph{fig}, \emph{tab} o \emph{equ} para saber si se trata de una ecuaci\'on, una tabla o una figura y recordarnos mejor de lo que est\'abamos escribiendo. Y s\'i, podemos incluir una etiqueta dentro de las ecuaciones numeradas tambi\'en para poder despu\'es referirnos a ellas.\\
+
+Otra cosa que se nos pide cada vez que hacemos un reporte o un informe es que coloquemos nuestros resultados en tablas. Esta pr\'actica hace que los resultados presentados no se vean tan desordenados, y nos permite referirnos a ellos de maneras m\'as sencillas tambi\'en. Las tablas en \LaTeX\ no suelen ser una tarea tan f\'acil al principio. Estas constan de varios ambientes uno dentro de otro y nos dejan cambiar demasiadas cosas. Algo tan sencillo como esto:
+
+\begin{table}[h!]
+\caption{Temperatura y pH del agua en las muestras del r\'io.}
+\vspace*{2mm}
+\centering
+\begin{tabular}{c c c}
+\hline
+\textbf{Muestras} & \textbf{pH} & \textbf{T /$^{o}$C}\\
+\hline
+1 & 6.6 & 22.5\\
+2 & 6.8 & 21.2\\
+3 & 6.6 & 21.8\\
+\hline
+\end{tabular}
+\label{tab:fakeresultados}
+\end{table}
+
+Se ve as\'i en c\'odigo.
+
+\begin{Code}
+\begin{verbatim}
+\begin{table}[h!]
+\caption{Temperatura y pH del agua en las muestras del r\'io.}
+\vspace*{2mm}
+\centering
+\begin{tabular}{c c c}
+\hline
+\textbf{Muestras} & \textbf{pH} & \textbf{T /$^{o}$C}\\
+\hline
+1 & 6.6 & 22.5\\
+2 & 6.8 & 21.2\\
+3 & 6.6 & 21.8\\
+\hline
+\end{tabular}
+\label{tab:fakeresultados}
+\end{table}
+\end{verbatim}
+\end{Code}
+
+Claro que hay cosas familiares, como la forma de colocar la tabla en el lugar que deseamos con \inlinecode{h!}, la manera de centrar el contenido, la manera de colocar una descripci\'on y la manera de tener una etiqueta para una referencia. Pero tambi\'en hallamos cosas nuevas como \inlinecode{\textbackslash vspace*\{2mm\}}, que deja $2mm$ entre la descripci\'on y la tabla. \inlinecode{\textbackslash hline} que coloca l\'ineas horizontales. Y, claro, el ambiente \inlinecode{tabular}\\
+
+Este \'ultimo es el equivalente a importar las im\'agenes sin nada m\'as, como en el segmento anterior. La idea es declarar un ambiente en donde se especifique la cantidad de columnas y hacia d\'onde estar\'an orientadas al principio: \inlinecode{\{c c c\}}. Se puede utilizar \emph{c} para centrar, \emph{l} para orientar a la izquierda y \emph{r} para la derecha. Finalmente, escribimos el contenido de la tabla separando cada columna con un \inlinecode{\&} y finalizando cada fila con una dobla diagonal inversa, al igual que un p\'arrafo: \inlinecode{\textbackslash\textbackslash}\\
+
+Como ejercicio, intentemos escribir una tabla dentro de nuestro documento, que contenga 4 columnas alineadas a la izquierda, y 5 entradas de datos. Consultemos con nuestra pareja e intentemos cambiar o agregarle algo particular nuestro.
 
 \subsection{Art\'iculo Cient\'ifico}
+Al llegar a este punto ya somos capaces de hacer la mayor parte de cosas que eramos capaces de hacer en cualquier editor de texto m\'as o menos decente. Sin embargo, hay dos cosas que debemos de notar:\\
+
+\noindent La primera es que con \LaTeX\ podemos crear todos nuestros documentos sin tener editor de texto. Podemos escribir una tesis en el Block de Notas de Microsoft Windows que igual se va a ver profesional al convertirlo a PDF.\\
+
+\noindent La segunda es que esto no ha terminado. \LaTeX\ es un lenguaje de estilo, y como tal, permite la creaci\'on de funciones y ambientes nuevos.\\
+
+No vamos a ver c\'omo crear funciones o ambientes nuevos, puesto que eso es un tema para un d\'ia entero. Sin embargo, vamos a hacer uso de uno que han sido dise\~nado para darnos mayor facilidad con algunos aspectos de \LaTeX\ y nos permitir\'a la elaboraci\'on de art\'iculos cient\'ificos en poco tiempo. En nuestra carpeta de documentos se halla uno llamado \emph{plantilla\_reporte.tex}. Abr\'amoslo y estudi\'emoslo un momento. En \'el se van a hallar las instrucciones para hacer los ejercicios de esta secci\'on. 
+
 \subsection{Autoensablados: \'Indice y Bibliograf\'ia}
+Antes de terminar, vamos a ver dos cosas muy importantes a la hora de trabajar con \LaTeX . Una es muy f\'acil, la otra no tanto. Cuando ya hemos terminado un proyecto largo y de repente revisamos en las instrucciones, a veces nos pasa que nos encontramos con las palabras de la muerte: \'indice y bibliograf\'ia. Sin embargo, gracias a lo que ya tenemos hecho en nuestros documentos, agregar el \'indice en \LaTeX\ es algo s\'uper-simple. Vamos antes de la car\'atula o en la primera p\'agina y colocamos la siguiente secuencia: \inlinecode{\textbackslash tableofcontents} Con esto ya tenemos el \'indice. Si deseamos que este no se mezcle con el resto de nuestro contenido y tenga una p\'agina dedicada, despu\'es de \'el agregamos otra secuencia: \inlinecode{\textbackslash newpage} Y eso es todo.\\
+
+En el caso de la bibliograf\'ia si se trata de algo m\'as serio. 
+
 \subsection{Tesis}
 
 \subsection{Comentarios Finales}
 
-\section{Glosario de comandos sencillos}
 
-\begin{small}
-\begin{itemize}
-\item 
-\end{itemize}
-\end{small}
 
 \section*{Licencia}
 

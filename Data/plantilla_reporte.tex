@@ -1,0 +1,92 @@
+%
+% plantilla_reporte.tex
+% 
+% Copyright 2014 Rony J. Letona <rony@zronyj.com>
+% 
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2 of the License, or
+% any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+% MA 02110-1301, USA.
+%
+
+\documentclass[10pt,letterpaper]{article}
+\usepackage{USAC_Reporte}
+
+% ----------------------- Encabezado y Pie de Pagina
+\Encabezado{
+Universidad de San Carlos de Guatemala \\
+Facultad de Ciencias Qu\'imicas y Farmacia \\
+Escuela de Qu\'imica \\
+Unidad de Qu\'imica Computacional \\} % Encabezado izquierdo
+{Rony J. Letona \\
+Mi N\'umero de Carn\'e \\} % Encabezado derecho
+{Laboratorio de Qu\'imica Computacional} % Pie izquierdo
+{\thepage} % Pie derecho
+
+% -----------------------------------------------------------------------
+% Principio del documento
+% -----------------------------------------------------------------------
+
+\begin{document}
+\thispagestyle{fancy}
+
+% ----------------------- Titulo
+\Titulo{Formato de Art\'iculo Cient\'ifico}{Reportes utilizando un formato \LaTeX\ }
+
+% ----------------------- Resumen
+\begin{Resumen}
+Con esta plantilla de resumen se pretende que los estudiantes tengan un formato universal y como los utilizados en la comunidad cient\'ifica de hoy para poder hacer sus reportes sin tanto problema de que se mire bien y adem\'as profesional. Con este archivo se incluye la fuente como archivo \emph{tex} y el paquete de estilo como archivo \emph{sty}.
+\end{Resumen}
+
+\noindent \rule{\linewidth}{0.1mm}
+
+\setlength{\columnsep}{20pt}
+\begin{multicols}{2}
+
+\section*{Antecedentes o Marco Te\'orico}
+% ----------------------- Antecedentes/Marco Teorico
+Para utilizar este formato, lo primero con lo que se debe contar es con un ambiente en donde se pueda compilar \LaTeX\ . Para ello se debe de saber primero en qu\'e sistema operativo se est\'a trabajando (Windows, Linux, Mac OS) y cu\'al es la opci\'on de \LaTeX\ para ese ambiente. Luego, se debe de instalar el paquete o programa y finalmente ya se puede producir documentos en este sistema. Considerando que este no es el objetivo de esta gu\'ia, se proceder\'a a explicar c\'omo fue que se cre\'o y c\'omo funciona este paquete para hacer reportes.\\
+
+La primera idea que se tuvo fue la de crear una plantilla; un formato que permitiera no estar \emph{poniendo bonito} cada reporte que se hiciera para alg\'un curso. Se busc\'o entonces crear un paquete de estilos y una plantilla que adem\'as de cumplir con lo esperado por cada catedr\'atico, se vieran bien y dieran la idea de c\'omo se ve un art\'itulo cient\'ifico. Luego se pens\'o en proponer este formato como algo que todos pudieran usar dentro de la USAC en un blog. Por \'ultimo, se pens\'o en crear un documento que explicara en qu\'e consta y c\'omo funciona cada parte del mismo de manera en que aquellos que todav\'ia no han incursionado en las maravillas de producir documentos en \LaTeX , puedan hacerlo.
+
+\section*{Metodolog\'ia}
+% ----------------------- Metodologia
+Utilizando lo aprendido en el taller, primero se proceder\'a a cambiar el encabezado, colocando all\'i el nombre, carn\'e y departamento del cual depender\'a el reporte. Luego se proceder\'a a cambiar el t\'itulo, poniendo en \'el el nombre de un reporte que deseen hacer. Posteriormente se cambiar\'a el texto en el resumen, describiendo en \'el c\'omo es que el uso de uno de estos documentos es una ventaja o desventaja para cada uno.\\
+
+Habiendo completado la primera parte, se pasar\'a a llenar el segmento de metodolog\'ia, describiendo en \'el c\'omo es que se trabaja con \LaTeX\ a grandes rasgos. A continuaci\'on, en la secci\'on de resultados se pasar\'a a explicar qu\'e ventajas y desventajas puntuales existen en el uso de esta herramienta como alternativa a los editores de texto normales. Finalmente en la discusi\'on se expondr\'a lo que se cree del por qu\'e \LaTeX\ es m\'as o menos complicado en diferentes aspectos comparado con un editor de texto normal. De \'ultimo se colocar\'an las conclusiones de la discusi\'on, revelando en parte las opiniones de cada uno y en las recomendaciones se pondr\'an los aspectos que se crean importantes para alguien que desee aprender \LaTeX\ desde el principio.
+
+
+\section*{Resultados}
+% ----------------------- Resultados
+Aqu\'i se coloca una tabla comparativa para hacer m\'as evidente las diferencias entre \LaTeX\ y los editores de texto.
+
+\section*{Discusi\'on}
+% ----------------------- Discusion
+Aqu\'i debe de explicarse por qu\'e es que cada aspecto anotado en los resultados es relevante y tiene un impacto en la forma en la que se interact\'ua con el texto.
+
+\section*{Conclusiones}
+% ----------------------- Conclusiones
+En forma de afirmaciones, se exclama cada opini\'on que se defendi\'o en la discusi\'on.
+
+\section*{Recomendaciones}
+% ----------------------- Recomendaciones
+Para quien desee incursionar en el uso de \LaTeX , se deja los aspectos que se creen m\'as importantes a tomar en cuenta.
+
+
+\section*{Bibliograf\'ia}
+% ----------------------- Bibliografia
+
+
+\end{multicols}
+
+\end{document}

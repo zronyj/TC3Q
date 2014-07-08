@@ -1,0 +1,122 @@
+%
+% USAC_Reporte.sty
+% 
+% Copyright 2014 Rony J. Letona <rony@zronyj.com>
+% 
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2 of the License, or
+% any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+% MA 02110-1301, USA.
+%
+
+% Hago de este archivo un paquete importable
+\ProvidesPackage{USAC_Reporte}
+
+% -----------------------------------------------------------------------
+% Se importan paquetes
+% -----------------------------------------------------------------------
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry} % Dimensiones
+\usepackage[font=footnotesize,format=plain,labelfont=bf,up,textfont=it,up]{caption} % Nombres de las figuras
+\usepackage[spanish]{babel} % Diccionario utilizado
+\usepackage[utf8]{inputenc} % Paquete de caracteres no se limite unicamente a caracteres latinos
+\usepackage{graphicx} % Paquete de graficas
+\usepackage{wrapfig} % Paquete para empacar las graficas
+\usepackage{amsmath} % Paquetes matematicos
+\usepackage{amsfonts} % Paquetes matematicos
+\usepackage{amssymb} % Paquetes matematicos
+\usepackage{fancyhdr} % Paquete para un acabado de encabezado y pie mas bonitos
+
+\usepackage{multicol} % Paquete para el tratamiento multicolumna
+\usepackage{float} % Graficas, tablas, etc.
+
+% -----------------------------------------------------------------------
+% Se cambia la geometria y el estilo de la hoja
+% -----------------------------------------------------------------------
+\fancyhf{} % Libera todos los encabezados y pies de pagina para que pueda cambiarlos
+
+\geometry{letterpaper} % Establece que el tamano de la hoja debe de ser carta
+\pagestyle{fancyplain} % Establece un estilo "fancy" sencillo
+
+\renewcommand{\headrulewidth}{0.5pt} % Barra horizontal superior de la hoja
+\renewcommand{\footrulewidth}{0.5pt} % Barra horizontal inferior de la hoja
+
+\headsep 20 pt % Espacio despues del encabezado
+%\footskip 10 pt
+
+% -----------------------------------------------------------------------
+% Nuevos comandos
+% -----------------------------------------------------------------------
+\newcommand{\Titulo}[2] % Ensamble de titulo
+{
+	\vspace*{5 mm}
+	\begin{center}
+	\begin{large}
+	#1
+	\end{large}\\
+	\vspace*{2 mm}
+	\begin{LARGE}
+	\textbf{#2}
+	\end{LARGE}
+	\end{center}
+	\vspace*{7 mm}
+}
+
+\newcommand{\Encabezado}[4] % Ensamble del encabezado
+{
+	\lhead{\begin{scriptsize}#1\end{scriptsize} \vspace*{-4 mm} }
+	\rhead{\begin{scriptsize}#2\end{scriptsize} \vspace*{-4 mm} }
+	\lfoot{\begin{footnotesize}#3\end{footnotesize}}
+	\rfoot{\begin{footnotesize}#4\end{footnotesize}}
+}
+
+\newcounter{Contadorgraf} % Contador del comando Graficas
+\setcounter{Contadorgraf}{0}
+
+\newcommand{\Graficas}[3] % Colocador de graficas
+{
+	\stepcounter{Contadorgraf}
+	\begin{figure}[H]
+	\begin{flushleft}
+	\footnotesize \textbf{Gr\'afica \arabic{Contadorgraf}:} \textit{#2}	
+	\includegraphics[width=\columnwidth]{#1}
+	\end{flushleft}
+	\vspace*{-1cm}
+	\end{figure}
+}
+
+\newcounter{Contadortabla} % Contador del comando Tablas
+\setcounter{Contadortabla}{0}
+
+\newenvironment{Tablas}[3] % Coloca y ensambla tablas
+{
+	\par \noindent \stepcounter{Contadortabla} {\flushleft \scriptsize \bf Tabla \arabic{Contadortabla}:} \textit{#1} \small \begin{center} \begin{tabular}{|*{#2}{#3}} 
+}
+{
+	\end{tabular} \end{center}
+}
+
+\newenvironment{Resumen} % Ambiente para el resumen
+{
+	\begin{list}{}
+	{
+		\setlength{\topsep}{0pt}%
+		\setlength{\leftmargin}{1 cm}%
+		\setlength{\rightmargin}{1 cm}%
+		\setlength{\parsep}{\parskip}%
+	}
+	\item
+}
+{
+	\end{list}
+	\vspace*{5 mm}
+}
