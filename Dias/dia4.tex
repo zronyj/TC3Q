@@ -30,6 +30,8 @@
 \usepackage{color}
 \usepackage{float}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{natbib}
+\bibliographystyle{apa}
 \author{Rony J. Letona}
 \title{Taller de Qu\'imica Computacional Aplicada: D\'ia 4}
 \definecolor{light-gray}{gray}{0.90}
@@ -217,7 +219,7 @@ Lorem ipsum dolor ...
 \end{verbatim}
 \end{Code}
 
-Notemos que dentro del documento incluimos una peque\~na palabra nueva: \inlinecode{\textbackslash maketitle} Es justo aqu\'i que el t\'itulo es incluido dentro de nuestro documento. Si no lo incluimos, ninguna de las otras 2 entradas tienen sentido. El resultado, al armar nuestro documento en PDF es algo vistoso, pero cumple con lo que dese\'abamos. Adem\'as, incluye la fecha actual en espa\~nol (otra cosa que sale de usar el paquete para espa\~nol). Es importante darnos cuenta de que al incluir el t\'itulo, el encabezado ya no apareci\'o en esa p\'agina! Y hablando de encabezados, vamos a pasar a otra cosa que nos sirve de mucho al elaborar un documento nuevo.
+Notemos que dentro del documento incluimos una peque\~na palabra nueva: \inlinecode{\textbackslash maketitle} Es justo aqu\'i que el t\'itulo es incluido dentro de nuestro documento. Si no lo incluimos, ninguna de las otras 2 entradas tienen sentido. El resultado al armar nuestro documento en PDF es algo vistoso, pero cumple con lo que dese\'abamos. Adem\'as, incluye la fecha actual en espa\~nol (otra cosa que sale de usar el paquete para espa\~nol). Es importante darnos cuenta de que al incluir el t\'itulo, el encabezado ya no apareci\'o en esa p\'agina! Y hablando de encabezados, vamos a pasar a otra cosa que nos sirve de mucho al elaborar un documento nuevo.
 
 \subsubsection{Secciones y Cap\'itulos}
 Dividir un documento en diferentes partes suele hacerlo m\'as f\'acil de leer adem\'as de hacerlo m\'as f\'acil de referenciar. \LaTeX\ suele requerir que nosotros indiquemos d\'onde hay cap\'itulos y/o secciones para poder as\'i armar \'indices o sacar referencias. Antes de comenzar vamos a aclarar algo: Las secciones pueden ser utilizadas en cualquier documento. Los cap\'itulos solo pueden ser usados en reportes o libros.\\
@@ -276,7 +278,7 @@ En un documento de regular tama\~no, tener secciones a veces no es suficiente. N
 \end{verbatim}
 \end{Code}
 
-Usa cada nivel sabiamente. Dividir un documento es bueno, pero dividirlo demasiado puede llevar a problemas de lectura o a que el contenido se vea disminuido. Ahora, ya que hemos visto c\'omo crear, darle forma y escribir en un documento \TeX , vamos a pasar a otro caso un poco diferente. Para esto guarda el trabajo que tengas, ci\'erralo y abre un documento nuevo en \textbf{\TeX Maker}. Ahora vamos a ver lo realmente bonito de \LaTeX .\\
+Usa cada nivel sabiamente. Dividir un documento es bueno, pero dividirlo demasiado puede llevar a problemas de lectura o a que el contenido se vea disminuido. Ahora, ya que hemos visto c\'omo crear, darle forma y escribir en un documento \TeX , vamos a pasar a otro caso un poco diferente. Para esto guarda el trabajo que tengas, ci\'erralo y abre un documento nuevo en \textbf{\TeX Maker}.\\
 
 \subsubsection{Alineaci\'on de P\'arrafos}
 Un ejercicio muy com\'un cuando estamos tratando de que nuestro documento quede bonito es alinear todo el texto a la izquierda, a la derecha, al centro o en bloque. \LaTeX\ ya alinea el texto en bloque. Los casos especiales son cuando se desea cambiar esto. Para ello existen dos formas de hacerlo:
@@ -694,13 +696,60 @@ No vamos a ver c\'omo crear funciones o ambientes nuevos, puesto que eso es un t
 \subsection{Autoensablados: \'Indice y Bibliograf\'ia}
 Antes de terminar, vamos a ver dos cosas muy importantes a la hora de trabajar con \LaTeX . Una es muy f\'acil, la otra no tanto. Cuando ya hemos terminado un proyecto largo y de repente revisamos en las instrucciones, a veces nos pasa que nos encontramos con las palabras de la muerte: \'indice y bibliograf\'ia. Sin embargo, gracias a lo que ya tenemos hecho en nuestros documentos, agregar el \'indice en \LaTeX\ es algo s\'uper-simple. Vamos antes de la car\'atula o en la primera p\'agina y colocamos la siguiente secuencia: \inlinecode{\textbackslash tableofcontents} Con esto ya tenemos el \'indice. Si deseamos que este no se mezcle con el resto de nuestro contenido y tenga una p\'agina dedicada, despu\'es de \'el agregamos otra secuencia: \inlinecode{\textbackslash newpage} Y eso es todo.\\
 
-En el caso de la bibliograf\'ia si se trata de algo m\'as serio. 
+En el caso de la bibliograf\'ia si se trata de algo m\'as elaborado. Existen varios paquetes para autoensamblar bibliograf\'ias basadas en documentos de texto con la informaci\'on necesaria. Bib\TeX\ es un caso, pero la mayor\'ia de proyectos no han \emph{madurado} lo suficiente como para poderlos llamar est\'andar. En ese caso, vamos a trabajar con una forma de bibliograf\'ia muy sencilla que generalmente se incluye dentro de un documento \LaTeX\ inmediatamente.\\
 
+Un detalle que debemos considerar antes de comenzar a llenar nuestro documento con bibliograf\'ias y citas es que estas pueden tener un estilo particular dado por un paquete. En nuestro caso vamos a incluir un paquete de estilos y vamos a configurar un tipo de citas. Nos toca colocar las siguientes l\'ineas al principio de nuestro documento para cumplir con la consistencia del paquete a utilizar:
+
+\begin{Code}
+\begin{verbatim}
+\usepackage{natbib}
+\bibliographystyle{apa}
+\end{verbatim}
+\end{Code}
+
+
+Ahora vamos a trabajar con nuestro \'ultimo ambiente: \inlinecode{thebibliography} y adem\'as de eso, vamos a crear nuestra primera entrada bibliogr\'afica. Para ello vamos a escoger un libro que seguro todos hemos utilizado antes \citep{bib:mcmurry}. Por ello, nuestro c\'odigo se ver\'a de la siguiente manera:
+
+\begin{Code}
+\begin{verbatim}
+\begin{thebibliography}{99}
+
+\bibitem[McMurry, 1992]{bib:mcmurry}
+    John McMurry.
+    (1992).
+    \emph{Organic Chemistry}.
+    Pacific Grove, California.
+    3rd edition.
+
+\end{thebibliography}
+\end{verbatim}
+\end{Code}
+
+Esto tiene mucha informaci\'on, pero vamos paso a paso. Lo primero extra\~no que notamos es que al crear el ambiente, tambi\'en incluimos \inlinecode{\{99\}} Esto es para dar un m\'aximo de cu\'antas bibliograf\'ias se incluir\'an. De no incluirse esto, \LaTeX\ dar\'a error indicando que algo falta. Lo siguiente que notamos es la secuencia \inlinecode{\textbackslash bibitem[]\{\}} Esta inicia una nueva entrada en la bibliograf\'ia. Entre los corchetes va la manera en la que se desea mostrar la cita, y entre las llaves la etiqueta con la que haremos referencia a esa cita. Lo dem\'as es solo la informaci\'on del libro a manera de leerse m\'as f\'acil; podr\'iamos colocarla en una sola l\'inea.\\
+
+Si ponemos atenci\'on, la bibliograf\'ia es como un ambiente numerado. Las diferencias son que hay que colocar un m\'aximo de entradas, y que cada entrada debe llevar su forma de representar la cita y su etiqueta para citarse. Tomando esto \'ultimo en cuenta, no hemos visto c\'omo citar algo de la bibliograf\'ia. Para ello se utiliza \inlinecode{\textbackslash citep\{\}} En nuestro caso en particular, tendr\'iamos que hacerlo de la siguiente manera: \inlinecode{\textbackslash citep\{bib:mcmurry\}} Con eso ya podemos colocar la cita donde nos plazca. Claro, es preferible incluirla al final de un p\'arrafo. Ahora, para ver c\'omo se ve el resultado de nuestro c\'odigo, podemos analizar la cita que incluimos hace 2 p\'arrafos y las \textbf{Referencias} que se presentan a continuaci\'on\footnote{La palabra \textbf{Referencias} no es una secci\'on que se haya definido en el documento. Esto lo incluye \LaTeX\ como parte de la bibliograf\'ia.}.
+
+\begin{thebibliography}{99}
+
+\bibitem[McMurry, 1992]{bib:mcmurry}
+    McMurry, John.
+    (1992).
+    \emph{Organic Chemistry}.
+    (3rd ed).
+    Pacific Grove, California:
+    Brooks/Cole Publishing Company.
+
+\end{thebibliography}
+\newpage
 \subsection{Tesis}
+Por el momento no existe en muchas partes, pero ser\'ia muy interesante que as\'i como existe un formato para reporte cient\'ifico, existiera el formato de tesis en \LaTeX\ para que solo tuvieramos que llenar. Ser\'ia particular de la facultad a la que pertenecemos y solo necesitar\'iamos de escribir la informaci\'on necesaria sin tener que estar pensando en el formato, la numeraci\'on de las p\'aginas, las figuras, las gr\'aficas, etc. Todo esto se podr\'ia automatizar llegando a un documento de texto y una o dos hojas de estilo. Este es un proyecto que podr\'ia hacerse como ejercicio avanzado para quien desee aventurarse.
 
 \subsection{Comentarios Finales}
+Muchas felicidades, has completado el cuarto d\'ia del taller de QCA. Tu conocimiento ya te permite escribir reportes e informes de una manera m\'as profesional y aceptada por la comunidad cient\'ifica. \LaTeX\ es un tema del que se han escrito hasta libros (utilizando el mismo \LaTeX ); es muy vasto y con muchas posibilidades.\\
 
+Si deseas profundizar m\'as en el uso de \LaTeX , ser\'ia recomendable que comenzaras otra vez desde el principio viendo en qu\'e var\'ian exactamente los diferentes tipos de documento. Luego pasar a ver casos especiales como rotaci\'on de una sola p\'agina, c\'omo utilizar colores en el texto, c\'omo incluir espacios en blanco, c\'omo trabajar con varias columnas, notas al pie, notas al margen, hiperv\'inculos, gr\'aficas autogeneradas, estructuras qu\'imicas autogeneradas, c\'omo lograr que algo se autonumere, etc. hasta terminar con programaci\'on y dise\~no de clases de documento o p\'aginas de estilo. Puedes llegar a hacer todo lo que te imaginas con esto.\\
 
+Felicidades nuevamente, ma\~nana terminamos con la primera semana viendo la introducci\'on a programaci\'on con Python. \'Animo, lo mejor est\'a por venir!
 
 \section*{Licencia}
 
