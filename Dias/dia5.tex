@@ -1,0 +1,189 @@
+%
+% dia5.tex
+% 
+% Copyright 2014 Rony J. Letona <rony@zronyj.com>
+% 
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2 of the License, or
+% any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+% MA 02110-1301, USA.
+%
+
+\documentclass[10pt,letterpaper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{float}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Rony J. Letona}
+\title{Taller de Qu\'imica Computacional Aplicada: D\'ia 5}
+\definecolor{light-gray}{gray}{0.90}
+
+\newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
+
+\newcommand{\inlinecode}[1]{
+\colorbox{light-gray}{\texttt{#1}}
+}
+
+\newsavebox{\selvestebox}
+\newenvironment{Code}
+{
+\begin{lrbox}{\selvestebox}%
+\begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax}
+\fontfamily{\ttdefault}\selectfont
+}
+{\end{minipage}\end{lrbox}%
+\begin{center}
+\colorbox{light-gray}{\usebox{\selvestebox}}
+\end{center}
+}
+
+\newcommand{\Picture}[1]
+{
+	\begin{figure}[H]
+	\begin{flushleft}
+	\includegraphics[width=\columnwidth]{#1}
+	\end{flushleft}
+	\end{figure}
+}
+
+\begin{document}
+\maketitle
+
+\section{Ejercicios de Programaci\'on con Python}
+Para muchos de nosotros, ver la palabra \emph{programaci\'on} ya es motivo suficiente para decir ``Est\'an locos si creen que voy a hacer esto otra vez''. Probablemente ya hemos intentado darle instrucciones a un ordenador en el pasado (posiblemente en el colegio) y no ha sido nada bonito. Sin embargo, ahora no va a ser como en ese entonces.\\
+
+En el taller hemos ido viendo las cosas lento y paso a paso. No nos van a pedir proyectos ni ejercicios traum\'aticos con los que tendremos pesadillas que ni el psic\'ologo querr\'a escuchar. No, esta vez ser\'a mucho m\'as f\'acil y mucho m\'as interesante. Si el programa no corre o se rompe, tranquilos, no pasa nada. Pero para tener todo claro, comencemos con la pregunta de muchos: Para qu\'e programaci\'on?\\
+
+Mucho del software escrito para fines cient\'ificos resulta ser, generalmente, muy espec\'ifico. Este hace una tarea \textbf{muy} bien, pero no permite hacer algunas otras cosas que nos interesan. Sin embargo, mucho del software permite que se le escriba plugins, extensiones o paquetes con los que podemos extender la funcionalidad del programa original. Adem\'as de esto, el poder programar nuestras propias rutinas o pruebas nos da la capacidad de analizar mejor nuestros datos, calcular propiedades espec\'ificas (o a veces nuevas) y llevar a cabo procesos en el orden que nos interesa. En todas las ciencias, esto resulta ser muy pr\'actico.\\
+
+Otra pregunta que tambi\'en puede surgirnos es: Por qu\'e Python como lenguaje de programaci\'on? Hasta hace una d\'ecada m\'as o menos, el lenguaje utilizado para hacer c\'alculos y rutinas en ciencia era Fortran. Este lenguaje, sin embargo, se quedaba atr\'as en lo que se refiere a versatilidad. Solo serv\'ia para c\'alculos y no permit\'ia m\'as. Luego est\'a Pascal o Delphi. Muchos aprendimos a programar en \'el y hasta la fecha se sigue usando para aprender a programar, pero solo para eso; no se utiliza casi nunca en el mundo real. Visual Basic es otro de aquellos lenguajes que algunos aprendimos. Funciona bien casi solo en ambientes Microsoft Windows, lo cual nos limita bastante. Tambi\'en est\'an las alternativas como C y C++. Estos dos, seg\'un muchos educadores, nos confunden m\'as a los estudiantes con la sintaxis de lo que nos pueden servir para aprender la l\'ogica de programaci\'on. El caso es similar con Java, aunque este tiene una ventaja que los anteriores no: un programa corre sobre cualquier sistema operativo; no hace falta compilarlo para cada caso. JavaScript es el famoso lenguaje utilizado en p\'aginas web y, con el nacimiento de Node.JS, ahora se puede utilizar para programas formales que no necesitan un navegador. El problema es que todav\'ia no cuenta con tantos paquetes para extender su funcionalidad. Finalmente, desde el 7 de julio de 2014, es un hecho que la mayor\'ia de universidades de renmbre en Canad\'a, Estados Unidos y varias en Europa utilizan Python como el lenguaje a aprender en sus cursos b\'asicos de programaci\'on para todas las carreras.\\
+
+Las ventajas que tiene Python sobre los dem\'as lenguajes son todas las antes mencionadas: versatilidad, cantidad de paquetes, corre en cualquier plataforma, es f\'acil de aprender y es bastante universal. Adem\'as, existe bastante documentaci\'on para \'el y mucho del software para QC est\'a parcialmente escrito en \'el. Lo \'unico en lo que tiene una clara desventaja es en su velocidad. Sin embargo, para efectos pr\'acticos, esto no importa tanto ya que no trabajaremos con \emph{demasiadas} operaciones y nuestros procesadores ya son capaces de suplir algunas de las deficiencias en velocidad de este lenguaje. Si dese\'aramos trabajar con un lenguaje m\'as r\'apido y que funcione en todas partes, Java es quiz\'a la siguiente mejor opci\'on, aunque la sintaxis nos exigir\'a ser m\'as rigurosos a la hora de escribir nuestros programas.\\
+
+Para poder responder mejor a todas nuestras dudas, comencemos con los ejercicios y vamos a irnos dando cuenta c\'omo es que con pocos comandos e informaci\'on, logramos hacer desde peque\~nos c\'alculos hasta an\'alisis de datos y predicci\'on de propiedades.\\
+
+\section{Operaciones B\'asicas}
+Vamos a comenzar con lo b\'asico. Vamos a abrir nuestra l\'inea de comando, vamos a escribir \inlinecode{python} en ella y vamos a presionar enter. Inmediatamente veremos la interfaz lista para comenzar: \inlinecode{$>>>$} Una cosa que tenemos que tomar en cuenta es que vamos a tener que ir re-aprendiendo a hacer muchas cosas al aprender a programar. Se dice que al aprender a programar, la forma de pensar de una persona cambia un poco. Algo as\'i como cuando aprendemos a ser rigurosos en un an\'alisis.\\
+
+La idea con esta primera parte ser\'a entonces comenzar haciendo ejercicios \textbf{muy} simples. Desde aritm\'etica sencilla hasta almacenar valores en variables. Estas cosas tan sencillas se pueden hacer en calculadoras, pero una cosa que debemos recordar es que un ordenador no es m\'as que eso: una calculadora muy sofisticada. Pero si aprendemos a usarla bien, no habr\'a operaci\'on que no podamos hacer. Comencemos!
+
+\subsection{Aritm\'etica}
+Para comenzar vamos a tomar la operaci\'on m\'as b\'asica que aprendimos: sumar. C\'omo se hace esto? Pues es sencillo, hacemos algo as\'i: \inlinecode{4\ +\ 5} y presionamos enter. Como nos damos cuenta, esto es relativamente f\'acil. Es una buena pr\'actica en programaci\'on dejar espacios a los lados del signo de la operaci\'on; en este caso la suma \inlinecode{+}\\
+
+Intentemos ahora realizar una resta. Atrevidamente podremos pensar de una vez en cosas como ``Y qu\'e pasa si la resta tiene un resultado menor a 0?'' Pues la manera de averiguarlo es probando: \inlinecode{8\ -\ 13} El resultado era lo que esper\'abamos? Sigamos probando.\\
+
+Ahora multipliquemos. Esto tampoco se ve dif\'icil: \inlinecode{14\ *\ 86} De hecho, podemos notar que la velocidad de respuesta es igual que la de una calculadora. Si as\'i lo deseamos, podemos hacer m\'as pruebas que las que aqu\'i estamos poniendo. Por ahora, todo va bien.\\
+
+Llegamos a la divisi\'on. Intentemos lo siguiente entonces: \inlinecode{16\ /\ 3} Obtuvimos una respuesta? Perfecto! La respuesta era la que esper\'abamos? No? Por qu\'e no? Por qu\'e ser\'a que la respuesta no sali\'o como esper\'abamos? Despu\'es de todo esto solo fue una simple divisi\'on de enteros. Ah! All\'i est\'a la clave! Fue una divisi\'on de \emph{enteros}. Eso significa que el ordenador todav\'ia no sabe que estamos trabajando con decimales, as\'i que no los toma en cuenta. C\'omo hacer que esto funcione entonces? Pues indic\'andole que debe de considerar que los n\'umeros pueden tener decimales, as\'i: \inlinecode{16.0\ /\ 3}\\
+
+Ya vimos las 4 operaciones b\'asicas que conocemos. Ahora, recordando algo que vimos el d\'ia 2, vamos a ver c\'omo se calculan los residuos de una divisi\'on de enteros mediante la operaci\'on \emph{m\'odulo}: \inlinecode{\%} Si intentamos una divisi\'on de n\'umeros enteros, como lo es \inlinecode{18\ /\ 7}, vamos a obtener \inlinecode{2} como resultado. Pero sabemos que \inlinecode{7\ *\ 2} no es \inlinecode{18} De la divisi\'on anterior obten\'iamos un residuo que podemos calcular as\'i: \inlinecode{18\ \%\ 7} A primera vista esto no se ve de mucha utilidad, pero al trabajar con listas, arreglos o conjuntos de objetos vamos a ver que nos va a servir.\\
+
+Finalmente, vamos a ver una operaci\'on que no es tan b\'asica, pero nos puede servir mucho. Para evitar estar multiplicando muchas veces el mismo n\'umero, en matem\'atica se crearon las potencias. Una operaci\'on que se ve sencilla, como $3^{5}$ o $2^{7}$ nos toman un momento al hacerlas en la mente, pero resulta que nuestro ordenador lo puede hacer en mil\'esimas de segundo. Intentemos esas dos operaciones! Para la primera, ingresamos \inlinecode{3\ **\ 5} y observamos el resultado. Efectivamente obtuvimos lo que dese\'abamos. Ahora intentemos la segunda: \inlinecode{2\ **\ 7} Tambi\'en obtenemos algo que nos satisface. Pero, qu\'e pasa si intentamos calcular raices o potencias con decimales? Intentemos dos ejemplos: \inlinecode{3.14159265359\ **\ (1/2.0)} y \inlinecode{5\ **\ 2.71828182846} Muy interesante! Con esto notamos que podemos hacer muchas m\'as operaciones. Tomemos nota y enumeremos las operaciones que podemos llevar a cabo con todo lo que acabamos de aprender.
+
+\subsection{Variables}
+Por ahora vamos viendo que el ordenador se comporta como una plataforma que nos permite hacer operaciones matem\'aticas. Por eso, a la hora de escuchar la palabra \emph{variable}, es natural que pensemos que estas son como las que incluimos en las funciones (e.g. \emph{x} en $ f \left( x \right) = x^{2} - x - 1 $). Sin embargo, en el ambiente de un ordenador esto es un poco diferente. Las variables que nosotros conocemos pueden no tener un valor al inicio, como acabamos de ver. Pero al trabajar en un ambiente digital, este requiere n\'umeros, valores y algo s\'olido con qu\'e trabajar. Por ello, podemos pensar que las variables aqu\'i ser\'an solo un lugar d\'onde almacenar datos, lo cual no es nada lejano a la realidad.\\
+
+Un ordenador posee un dispositivo llamado memoria. En ella se almacenan datos de manera vol\'atil (i.e. se borran al apagar el sistema). Desde que arrancamos nuestro ordenador hasta que lo apagamos, la memoria (RAM) est\'a alojando informaci\'on que permite que trabajemos en el momento. Es entonces aquel lugar en donde est\'an nuestros documentos antes de que guardemos cambios. Por eso si nos quedamos sin energ\'ia el\'ectrica, todo se pierde. Aparte es el espacio en el disco duro, el cual nos da la capacidad de almacenar datos de manera permanente. Pero en esta secci\'on vamos a ver un concepto r\'apido que nos servir\'a para comprender c\'omo funcionan las variables y otras cosas m\'as adelante.\\
+
+Volviendo a las variables, estas son entonces un espacio en memoria. Algo como una peque\~na caja $ \square $ en donde se puede almacenar un dato particular. Podemos sacarlo de la caja? Claro! Tambi\'en podemos colocar algo diferente all\'i despu\'es. Como espacio en memoria, puede almacenar lo que sea. Eso s\'i, no pueden haber dos datos en la misma caja, y por ende, no pueden haber dos datos almacenados en la misma variable.\\
+
+Pasemos, pues, a almacenar algunos datos en variables. La forma de hacer esto es escribendo algo as\'i: \inlinecode{a = 5} Presionamos enter y ... nada pas\'o? De hecho, si no ha salido ning\'un error, todo est\'a bien. Lo que pasa es que no hay nada que mostrar. El dato fue almacenado y ya. Si queremos ver lo que hay dentro de la variable, podemos escribir lo siguiente: \inlinecode{print a} Esto nos mostrar\'a o \emph{imprimir\'a} en pantalla aquello que hay en la variable \inlinecode{a} Debe de llamarse \emph{a} o \emph{b} o \emph{c}? No, puede llamarse como nosotros querramos! Lo \'unico que hay que tomar en cuenta en una variable es que su nombre no puede comenzar con un n\'umero, y esta no puede tener caracteres con tildes, di\'eresis, etc. Tampoco e\~nes. Otra cosa importante es que no podemos ponerle dos nombres a una variable. Eso significa que no puede haber espacios en el nombre de una variable. Con esto en mente, intentemos otra cosa: \inlinecode{mi\_segunda\_variable = 1.61803398875} Como podemos ver, esto tambi\'en se vale. Si despu\'es imprimimos el valor de \inlinecode{mi\_segunda\_variable} veremos que todo funciona bien. Intentemos algo m\'as interesante con esto.\\
+
+Vamos a intentar transformar una temperatura de grados Farenheit a Kelvin. Esto implica transformar primero la temperatura de grados Farenheit a grados Celcius, y luego a Kelvin. Para ello, hay 3 n\'umeros importantes que debemos recordar: una pendiente \inlinecode{m = 5.0/9}, un desplacamiento en el eje \emph{x} \inlinecode{d = 32} y un desplazamiento en el eje \emph{y} \inlinecode{b = 273.15} Ahora veamos, la f\'ormula ir\'ia algo as\'i:
+
+\begin{itemize}
+\item De $^o F$ a $^o C$:\hspace*{1cm} $T_{C} = \frac{5}{9} \left( T_{F} - 32 \right) = m \left( T_{F} - d \right)$
+\item De $^o C$ a $K$:\hspace*{1cm} $T_{K} = T_{C} + 273.15 = T_{C} + b$
+\end{itemize}
+
+Si sustituimos una dentro de la otra, nos queda una f\'ormula algo as\'i: $T_{K} = m \left( T_{F} - d \right) + b$. Ahora, si nos dicen que la temperatura hoy es de $73^o F$ lo que hacemos nosotros, habiendo almacenado las variables anteriores, es esto: \inlinecode{m * (73 - d) + b} El resultado sale de inmediato y nos complace saber que lo hicimos bien.\\
+
+Perfecto! Ahora ya sabemos usar variables. Como \'ultimo ejercicio antes de la siguiente secci\'on, intentemos convertir la siguiente temperatura de Kelvin a grados Farenheit y luego a Celsius: $298.45 K$.
+
+\section{Tipos de Datos}
+Diferentes cosas: atomos, moleculas, electrones, etc.
+\subsection{Booleanos}
+Verdadero, Falso, Null, and, or, not
+\subsection{N\'umeros}
+Enteros y reales
+\subsection{Cadenas}
+Creacion, largo y acceso
+Sustituir elementos de una molecula (SMILES)
+\subsection{Listas}
+Creacion, acceso, agregado, removido, sustitucion, largo
+Datos de un analisis
+\subsection{Diccionarios}
+Creacion, acceso
+Tabla periodica de elementos
+\section{Ingresando y Mostrando Datos}
+Interactuar con otras cosas: ampliar el mundo a abrir archivos, dar y recibir datos
+\subsection{Por Parte del Usuario}
+Ingresar numeros, ingresar cadenas, imprimir
+Convertir temperaturas otra vez
+\subsection{Desde Archivos}
+Abrir, cerrar, leer, escribir
+Guardar una molecula (SMILES)
+\section{Funciones y Paquetes}
+Algunas cosas no las podemos hacer solo con esto, vamos a hacerlo muchas veces o es deseable ordenar
+\subsection{Funciones Matem\'aticas}
+Absoluto, suma, minimo, maximo
+Hallar minimo y maximo en archivo con muchos datos
+\subsection{Paquetes}
+import from X import Y, String, Math, NumPy, SciPy
+Hallar pendiente de componentes y punto (vector)
+\subsection{Nuestras Funciones}
+Definir, devolver y ambito de las variables
+Calcular energia libre de Gibbs
+\section{Condiciones y Tareas Repetitivas}
+Necesidad de eleccion dependiendo de un caso particular y de repetir en base a una condicion
+\subsection{Decisiones}
+if elif else
+Unidad de temperatura en energia libre de Gibbs
+\subsection{Repetir mientras llega la Condici\'on}
+while break
+Revisar molecula hasta hallar halogeno (SMILES)
+\subsection{Ciclos}
+for in
+Calcular media y desviacion estandar de una lista de datos
+\section{M\'as All\'a}
+Ahorita solo se lleva lo esencial y basico, las posibilidades son mucho mayores
+\subsection{Nuestros Paquetes}
+Funciones y variables en un archivo = paquete
+Convertir temperaturas en un paquete
+\subsection{Matem\'atica Avanzada}
+Mostrar sympy y numpy
+Calcular derivadas, integrales y resolver una matriz cargada en un archivo
+\subsection{Qu\'imica en el Ordenador}
+Mostrar rdkit
+Cargar molecula como SMILES de archivo, colocar Hs, optimizar en 3D, calcular E y guardar datos
+\section{Paquete para Qu\'imica sin usar Fortran, Java, C o C++}
+Los de ahora no son 100\% Py
+\section{Comentarios Finales}
+Felicidades
+Investigar mas paquetes
+Semana entrante: a jugar con quimica y algoritmos
+
+\section*{Licencia}
+
+\noindent \includegraphics{img/cc_big.png}
+
+\noindent Taller de Qu\'imica Computacional Aplicada by \href{http://github.com/zronyj/TQCA}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
+Based on a work at \url{http://github.com/swcarpentry/bc}.
+
+\end{document}
