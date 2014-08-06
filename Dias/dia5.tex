@@ -117,14 +117,56 @@ Si sustituimos una dentro de la otra, nos queda una f\'ormula algo as\'i: $T_{K}
 Perfecto! Ahora ya sabemos usar variables. Como \'ultimo ejercicio antes de la siguiente secci\'on, intentemos convertir la siguiente temperatura de Kelvin a grados Farenheit y luego a Celsius: $298.45 K$.
 
 \section{Tipos de Datos}
-Diferentes cosas: atomos, moleculas, electrones, etc.
+En qu\'imica, cuando comenzamos a ver de qu\'e est\'a conformada la materia, aprendemos que esta tiene diferentes partes: mol\'eculas, \'atomos, iones, electrones, protones, etc. Aqu\'i sucede algo similar. La informaci\'on en nuestro ordenador se puede descomponer en diferentes partes o \emph{tipos de datos}. Por ahora solo hemos conocido a los n\'umeros enteros y aquellos con punto decimal, pero ahora vamos a comenzar desde un poco m\'as abajo.\\
+
+Ya es cultura general que la informaci\'on en nuestros ordenadores se almacena en forma de unos y ceros, pero esto no es solo cuesti\'on de que si deseamos vamos a ver la informaci\'on codificada as\'i. Lo que tenemos que tomar en cuenta es que estos n\'umeros son c\'odigo binario que codifica a n\'umeros enteros. Estos, a su vez, representan a veces letras y valores num\'ericos o l\'ogicos. Comencemos viendo estos \'ultimos.\\
+
+Al almacenar alg\'un dato en una variable, podemos averiguar qu\'e tipo de dato es el que contiene la variable por medio de un comando sencillo: \inlinecode{type()} Al momento de querer saber de qu\'e tipo de dato se trata, solo aplicamos la funci\'on \textbf{type} a una variable de la manera siguiente: \inlinecode{type(variable)} Conforme vayamos avanzando en este tema, iremos viendo c\'omo es que Python le llama a cada tipo de dato.
+
 \subsection{Booleanos}
-Verdadero, Falso, Null, and, or, not
+Los valores l\'ogicos son solo dos: \emph{verdadero} y \emph{falso}. Si recordamos nuestros cursos de l\'ogica y filosof\'ia, recordamos aquellas tablas de verdad que se nos pon\'ia a hacer para revisar el valor de una proposici\'on. A pesar de que no vamos a hacer tablas de verdad, es bueno recordar c\'omo funcionaban, puesto que aqu\'i vamos a usar muchas de las cosas que all\'i se usaban. Pero bueno, comencemos a ver c\'omo funcionan los valores l\'ogicos.\\
+
+Como ya hab\'iamos mencionado, que exist\'ian solo dos tipos de valor l\'ogico, a los cuales se les denomina \emph{booleanos} por el inventor de estos. Para \textbf{verdadero} vamos a tener \inlinecode{True} y para \textbf{falso} \inlinecode{False}. Estos los podemos colocar en nuestro IDE y vamos a ver que toman un color particular poniendo en evidencia su de que se trata de un valor particular. Pero solos estos no hacen mucho.\\
+
+Algo que siempre se ve de la mano con los valores, son los operadores l\'ogicos. Cuando los conocemos, nos los presentan con nombres un poco complicados como \emph{conjunci\'on}, \emph{disyunci\'on} y \emph{negaci\'on}. En este caso en particular, vamos a verlos en acci\'on de otra forma. Cuando deseamos que dos cosas se cumplan para obtener un resultado verdadero usamos el operador \inlinecode{and}. Cuando deseamos que al menos una de las dos cosas se cumpla para obtener un resultado verdadero usamos \inlinecode{or}. Y cuando deseamos negar un valor en particular, utilizamos \inlinecode{not}. Esto nos va a servir m\'as adelante, cuando querramos tomar decisiones en un programa o una rutina. Para mientras, vamos a ver de d\'onde salen los booleanos.\\
+
+Para tomar una decisi\'on, generalmente revisamos una comparaci\'on de cierto tipo: es esto igual a aquello, es esto m\'as grande que aquello, es esto diferente a aquello, etc. Este tipo de comparaciones se pueden hacer en nuestro ordenador de la siguiente manera:
+
+\begin{enumerate}
+\item Si deseamos revisar si dos cosas son iguales: \inlinecode{a == b}
+\item Si deseamos revisar si esas dos cosas son diferentes: \inlinecode{a != b}
+\item Si deseamos revisar si una cosa es mayor a la otra: \inlinecode{a >\ b}
+\item Si deseamos revisar si esa cosa es menor a la otra: \inlinecode{a <\ b}
+\item Si deseamos revisar si una cosa es mayor o igual a la otra: \inlinecode{a >= b}
+\item Si deseamos revisar si esa cosa es menor o igual a la otra: \inlinecode{a <= b}
+\end{enumerate}
+
+Estas operaciones, al igual que las operaciones matem\'aticas, pueden llevarse a cabo combinadas con m\'as operaciones l\'ogicas. Con esto ya podemos escribir cosas como \inlinecode{(a == 0) and (b != 10)} Claro que para hacer todo eso necesitamos que \textbf{a} y \textbf{b} tengan alg\'un valor, pero ahora sabemos que podemos comparar valores de variables y trabajar con ellos. Y antes de pasar a la siguiente secci\'on, conviene decir que Python reconoce este tipo de dato como \inlinecode{bool}
+
 \subsection{N\'umeros}
-Enteros y reales
+Este tipo de datos ya lo conocemos ... parcialmente. Sabemos que existen los \textit{enteros} (e.g. 1, -4, 7, 0, 23, ...), los cuales en Python son representados por \inlinecode{int} y los utilizamos generalmente para enumerar cosas. Los enteros llegan hasta donde la memoria de nuestro ordenador nos deje. S\'i, resulta que estos tienen un l\'imite, porque despu\'es de cierto n\'umero, la cifra es tan alta que una cajita de la memoria ya no es suficiente.\\
+
+Despu\'es de esos n\'umeros comienzan los n\'umeros \textbf{largos} (e.g. 9223372036854775808L, -9223372036854775809L, ...). Estos son enteros MUY grandes y si ponemos atenci\'on, tienen una L al final denotando su extra\~no tipo. En Python son representados por \inlinecode{long} y solo nos sirven para c\'alculos con cifras muy grandes. Fuera de eso, cualquier \inlinecode{int} nos sirve para tareas cotidianas.\\
+
+Luego tenemos a un tipo de n\'umeros mucho m\'as conocidos: los de \textit{punto flotante}. Los \emph{qu\'e}? Los n\'umeros de punto flotante. Estos n\'umeros son aquellos que tienen decimales (e.g. 0.333333333333, 3.141592653589, ...). Se les llama de punto flotante porque lo que nuestro  ordenador est\'a haciendo realmente, es guardar el n\'umero sin el punto decimal y guardar la posici\'on del punto en otro espacio en memoria. Al llamar a un n\'umero con decimales, nuestro ordenador va por el n\'umero, y coloca el punto decimal, como flotando, en la posici\'on indicada. Un dato importante a tomar en cuenta es que Python solo trabaja con 12 decimales, y este tipo de dato es representado por \inlinecode{float}\\
+
+Finalmente, tenemos a un tipo de n\'umero con el que uno no se topa muy seguido: los \textit{n\'umeros complejos}\\(e.g. 3 + 4i, -7 - 2i, ...). S\'i, Python puede manejar n\'umeros complejos represent\'andolos como \inlinecode{complex}, solo que en vez de utilizar una \textbf{\^{i}}, se utiliza una \textbf{j} para denotar la parte imaginaria del n\'umero. El uso de los n\'umeros complejos no es algo que se haga muy seguido en el campo de la qu\'imica. De hecho, solo se utilizan casi para c\'alculos cu\'anticos, y a\'un esos los evitamos muchas veces.
+
 \subsection{Cadenas}
-Creacion, largo y acceso
-Sustituir elementos de una molecula (SMILES)
+Despu\'es de ver que podemos almacenar valores de \emph{verdadero}, \emph{falso} y varios n\'umeros, es solo natural que alguien pregunte: ``Y c\'omo se trabaja con texto?'' El texto es un tipo de dato muy particular. Este es una estructura que consta de muchas peque\~nas partes: las letras. Por ser una estructura alargada y que consta de elementos que la unen, a los fragmentos de texto se les denomin\'o cadenas. En ingl\'es se les conoce como \emph{strings}, por pensar en el mismo principio, pero con un cord\'on.\\
+
+Las cadenas se representan en Python como \inlinecode{str}, y para crearlas, colocamos el texto que deseamos entre comillas o ap\'ostrofes. Intentemos con un ejemplo: Vamos a guardar el texto \textit{Hola mundo!} en una variable. Para ello vamos a ingresar \inlinecode{mi\_variable = 'Hola mundo!'} Solamente! No hay que hacer nada extra\~no o diferente. Ahora, si deseamos mostrar lo que guardamos, solo imprimimos lo que hay en la variable: \inlinecode{print mi\_variable}\\
+
+Perfecto, ya podemos guardar texto. Ahora veamos qu\'e m\'as se puede hacer con \'el, pero intentando entrar ya un poco en qu\'imica. Asumamos, pues, que yo puedo representar a un hidrocarburo como una estructura de Lewis, ignorando sus hidr\'ogenos y sin representar a los enlaces. Si estamos hablando de una cadena de 6 \'atomos de carbono, el resultado ser\'ia as\'i: \inlinecode{hexano = 'CCCCCC'} Como podemos ver, estamos representando a un hidrocarburo con una simple cadena de texto. Qu\'e pasa si deseamos saber cu\'antas letras tiene la cadena? Pues utilizamos una funci\'on para ello: \inlinecode{len(hexano)}\\
+
+Una cosa importante que tambi\'en es conveniente saber es que las cadenas se pueden sumar. Lo que se est\'a haciendo realmente, es concatenarlas. Si de nuestra mol\'ecula anterior queremos hacer un octano, solo nos hacen falta dos carbonos. Entonces, podemos decir que \inlinecode{octano = hexano + 'CC'} Y de esta manera ya tenemos una nueva cadena con nuevos elementos.\\
+
+Intentemos crear otra mol\'ecula: \inlinecode{dietileter = 'CCOCC'} En esta ya incluimos otro \'atomo diferente del carbono. Resulta que deseamos obtener solo ese \'atomo. Para ello tenemos que tomar en cuenta que las cadenas numeran sus caracteres del 0 en adelante. C\'omo as\'i? En este caso, por ejemplo, tendr\'iamos que cada letra se puede representar con el sub\'indice que vemos aqu\'i: $\underset{0}{C} \underset{1}{C} \underset{2}{O} \underset{3}{C} \underset{4}{C}$. Entonces, para referirnos al ox\'igeno en la f\'ormula, lo hacemos de la siguiente manera \inlinecode{dietileter[2]}\\
+
+Otra cosa que podemos hacer es referirnos a segmentos de una mol\'ecula. Si deseamos mostrar todo lo que est\'a despu\'es del ox\'igeno de la mol\'ecula anterior, podemos escribir \inlinecode{dietileter[3:]} O si deseamos lo anterior al ox\'igeno \inlinecode{dietileter[:2]} Notemos ahora que en esto \'ultimo, incluimos al ox\'igeno en nuestra selecci\'on, pero al ejecutar el comando, este no se muestra en el resultado. Esto se debe a que Python no considera al \'ultimo elemento al que nos referimos. Como un \'ultimo ejercicio, vamos a mostrar a un azufre en vez de un ox\'igeno utilizando solo lo que hemos visto hasta ahora: \inlinecode{print dietileter[:2] + 'S' + dietileter[3:]}\\
+
+Antes de proseguir, solo vamos a aclarar algo. Esta forma de representar mol\'eculas a trav\'es de letras es un formato internacional llamado SMILES (\textbf{S}implified \textbf{M}olecular-\textbf{I}nput \textbf{L}ine-\textbf{E}ntry \textbf{S}ystem). Los dobles enlaces se representan con un signo \inlinecode{=}, los triples enlaces con \inlinecode{\#} y para formar ciclos, se numeran los \'atmos que cerrar\'an ese ciclo. Un benceno se ver\'ia entonces de la siguiente manera: \inlinecode{benceno = 'C1=CC=CC=C1'}
+
 \subsection{Listas}
 Creacion, acceso, agregado, removido, sustitucion, largo
 Datos de un analisis
