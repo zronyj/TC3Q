@@ -29,6 +29,7 @@
 \usepackage{amssymb}
 \usepackage{color}
 \usepackage{float}
+\usepackage{upquote}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \author{Rony J. Letona}
 \title{Taller de Qu\'imica Computacional Aplicada: D\'ia 5}
@@ -72,7 +73,7 @@ En el taller hemos ido viendo las cosas lento y paso a paso. No nos van a pedir 
 
 Mucho del software escrito para fines cient\'ificos resulta ser, generalmente, muy espec\'ifico. Este hace una tarea \textbf{muy} bien, pero no permite hacer algunas otras cosas que nos interesan. Sin embargo, mucho del software permite que se le escriba plugins, extensiones o paquetes con los que podemos extender la funcionalidad del programa original. Adem\'as de esto, el poder programar nuestras propias rutinas o pruebas nos da la capacidad de analizar mejor nuestros datos, calcular propiedades espec\'ificas (o a veces nuevas) y llevar a cabo procesos en el orden que nos interesa. En todas las ciencias, esto resulta ser muy pr\'actico.\\
 
-Otra pregunta que tambi\'en puede surgirnos es: Por qu\'e Python como lenguaje de programaci\'on? Hasta hace una d\'ecada m\'as o menos, el lenguaje utilizado para hacer c\'alculos y rutinas en ciencia era Fortran. Este lenguaje, sin embargo, se quedaba atr\'as en lo que se refiere a versatilidad. Solo serv\'ia para c\'alculos y no permit\'ia m\'as. Luego est\'a Pascal o Delphi. Muchos aprendimos a programar en \'el y hasta la fecha se sigue usando para aprender a programar, pero solo para eso; no se utiliza casi nunca en el mundo real. Visual Basic es otro de aquellos lenguajes que algunos aprendimos. Funciona bien casi solo en ambientes Microsoft Windows, lo cual nos limita bastante. Tambi\'en est\'an las alternativas como C y C++. Estos dos, seg\'un muchos educadores, nos confunden m\'as a los estudiantes con la sintaxis de lo que nos pueden servir para aprender la l\'ogica de programaci\'on. El caso es similar con Java, aunque este tiene una ventaja que los anteriores no: un programa corre sobre cualquier sistema operativo; no hace falta compilarlo para cada caso. JavaScript es el famoso lenguaje utilizado en p\'aginas web y, con el nacimiento de Node.JS, ahora se puede utilizar para programas formales que no necesitan un navegador. El problema es que todav\'ia no cuenta con tantos paquetes para extender su funcionalidad. Finalmente, desde el 7 de julio de 2014, es un hecho que la mayor\'ia de universidades de renmbre en Canad\'a, Estados Unidos y varias en Europa utilizan Python como el lenguaje a aprender en sus cursos b\'asicos de programaci\'on para todas las carreras.\\
+Otra pregunta que tambi\'en puede surgirnos es: Por qu\'e Python como lenguaje de programaci\'on? Hasta hace una d\'ecada m\'as o menos, el lenguaje utilizado para hacer c\'alculos y rutinas en ciencia era Fortran. Este lenguaje, sin embargo, se quedaba atr\'as en lo que se refiere a versatilidad. Solo serv\'ia para c\'alculos y no permit\'ia m\'as. Luego est\'a Pascal o Delphi. Muchos aprendimos a programar en \'el y hasta la fecha se sigue usando para aprender a programar, pero solo para eso; no se utiliza casi nunca en el mundo real. Visual Basic es otro de aquellos lenguajes que algunos aprendimos. Funciona bien casi solo en ambientes Microsoft Windows, lo cual nos limita bastante. Tambi\'en est\'an las alternativas como C y C++. Estos dos, seg\'un muchos educadores, nos confunden m\'as a los estudiantes con la sintaxis de lo que nos pueden servir para aprender la l\'ogica de programaci\'on. El caso es similar con Java, aunque este tiene una ventaja que los anteriores no: un programa corre sobre cualquier sistema operativo; no hace falta compilarlo para cada caso. JavaScript es el famoso lenguaje utilizado en p\'aginas web y, con el nacimiento de Node.JS, ahora se puede utilizar para programas formales que no necesitan un navegador. El problema es que todav\'ia no cuenta con tantos paquetes para extender su funcionalidad. Finalmente, desde el 7 de julio de 2014, es un hecho que la mayor\'ia de universidades de renombre en Canad\'a, Estados Unidos y varias en Europa utilizan Python como el lenguaje a aprender en sus cursos b\'asicos de programaci\'on para todas las carreras.\\
 
 Las ventajas que tiene Python sobre los dem\'as lenguajes son todas las antes mencionadas: versatilidad, cantidad de paquetes, corre en cualquier plataforma, es f\'acil de aprender y es bastante universal. Adem\'as, existe bastante documentaci\'on para \'el y mucho del software para QC est\'a parcialmente escrito en \'el. Lo \'unico en lo que tiene una clara desventaja es en su velocidad. Sin embargo, para efectos pr\'acticos, esto no importa tanto ya que no trabajaremos con \emph{demasiadas} operaciones y nuestros procesadores ya son capaces de suplir algunas de las deficiencias en velocidad de este lenguaje. Si dese\'aramos trabajar con un lenguaje m\'as r\'apido y que funcione en todas partes, Java es quiz\'a la siguiente mejor opci\'on, aunque la sintaxis nos exigir\'a ser m\'as rigurosos a la hora de escribir nuestros programas.\\
 
@@ -112,7 +113,7 @@ Vamos a intentar transformar una temperatura de grados Farenheit a Kelvin. Esto 
 \item De $^o C$ a $K$:\hspace*{1cm} $T_{K} = T_{C} + 273.15 = T_{C} + b$
 \end{itemize}
 
-Si sustituimos una dentro de la otra, nos queda una f\'ormula algo as\'i: $T_{K} = m \left( T_{F} - d \right) + b$. Ahora, si nos dicen que la temperatura hoy es de $73^o F$ lo que hacemos nosotros, habiendo almacenado las variables anteriores, es esto: \inlinecode{m * (73 - d) + b} El resultado sale de inmediato y nos complace saber que lo hicimos bien.\\
+Si sustituimos una dentro de la otra, nos queda una f\'ormula as\'i: $T_{K} = m \left( T_{F} - d \right) + b$. Ahora, si nos dicen que la temperatura hoy es de $73^o F$ lo que hacemos nosotros, habiendo almacenado las variables anteriores, es esto: \inlinecode{m * (73 - d) + b} El resultado sale de inmediato y nos complace saber que lo hicimos bien.\\
 
 Perfecto! Ahora ya sabemos usar variables. Como \'ultimo ejercicio antes de la siguiente secci\'on, intentemos convertir la siguiente temperatura de Kelvin a grados Farenheit y luego a Celsius: $298.45 K$.
 
@@ -155,32 +156,160 @@ Finalmente, tenemos a un tipo de n\'umero con el que uno no se topa muy seguido:
 \subsection{Cadenas}
 Despu\'es de ver que podemos almacenar valores de \emph{verdadero}, \emph{falso} y varios n\'umeros, es solo natural que alguien pregunte: ``Y c\'omo se trabaja con texto?'' El texto es un tipo de dato muy particular. Este es una estructura que consta de muchas peque\~nas partes: las letras. Por ser una estructura alargada y que consta de elementos que la unen, a los fragmentos de texto se les denomin\'o cadenas. En ingl\'es se les conoce como \emph{strings}, por pensar en el mismo principio, pero con un cord\'on.\\
 
-Las cadenas se representan en Python como \inlinecode{str}, y para crearlas, colocamos el texto que deseamos entre comillas o ap\'ostrofes. Intentemos con un ejemplo: Vamos a guardar el texto \textit{Hola mundo!} en una variable. Para ello vamos a ingresar \inlinecode{mi\_variable = 'Hola mundo!'} Solamente! No hay que hacer nada extra\~no o diferente. Ahora, si deseamos mostrar lo que guardamos, solo imprimimos lo que hay en la variable: \inlinecode{print mi\_variable}\\
+Las cadenas se representan en Python como \inlinecode{str}, y para crearlas, colocamos el texto que deseamos entre comillas o ap\'ostrofes. Intentemos con un ejemplo: Vamos a guardar el texto \textit{Hola mundo!} en una variable. Para ello vamos a ingresar \inlinecode{mi\_variable = "Hola mundo!"} Solamente! No hay que hacer nada extra\~no o diferente. Ahora, si deseamos mostrar lo que guardamos, solo imprimimos lo que hay en la variable: \inlinecode{print mi\_variable}\\
 
-Perfecto, ya podemos guardar texto. Ahora veamos qu\'e m\'as se puede hacer con \'el, pero intentando entrar ya un poco en qu\'imica. Asumamos, pues, que yo puedo representar a un hidrocarburo como una estructura de Lewis, ignorando sus hidr\'ogenos y sin representar a los enlaces. Si estamos hablando de una cadena de 6 \'atomos de carbono, el resultado ser\'ia as\'i: \inlinecode{hexano = 'CCCCCC'} Como podemos ver, estamos representando a un hidrocarburo con una simple cadena de texto. Qu\'e pasa si deseamos saber cu\'antas letras tiene la cadena? Pues utilizamos una funci\'on para ello: \inlinecode{len(hexano)}\\
+Perfecto, ya podemos guardar texto. Ahora veamos qu\'e m\'as se puede hacer con \'el, pero intentando entrar ya un poco en qu\'imica. Asumamos, pues, que yo puedo representar a un hidrocarburo como una estructura de Lewis, ignorando sus hidr\'ogenos y sin representar a los enlaces. Si estamos hablando de una cadena de 6 \'atomos de carbono, el resultado ser\'ia as\'i: \inlinecode{hexano = "\ \hspace{-2mm}CCCCCC"} Como podemos ver, estamos representando a un hidrocarburo con una simple cadena de texto. Qu\'e pasa si deseamos saber cu\'antas letras tiene la cadena? Pues utilizamos una funci\'on para ello: \inlinecode{len(hexano)}\\
 
-Una cosa importante que tambi\'en es conveniente saber es que las cadenas se pueden sumar. Lo que se est\'a haciendo realmente, es concatenarlas. Si de nuestra mol\'ecula anterior queremos hacer un octano, solo nos hacen falta dos carbonos. Entonces, podemos decir que \inlinecode{octano = hexano + 'CC'} Y de esta manera ya tenemos una nueva cadena con nuevos elementos.\\
+Una cosa importante que tambi\'en es conveniente saber es que las cadenas se pueden sumar. Lo que se est\'a haciendo realmente, es concatenarlas. Si de nuestra mol\'ecula anterior queremos hacer un octano, solo nos hacen falta dos carbonos. Entonces, podemos decir que \inlinecode{octano = hexano + "\ \hspace{-2mm}CC"} Y de esta manera ya tenemos una nueva cadena con nuevos elementos.\\
 
-Intentemos crear otra mol\'ecula: \inlinecode{dietileter = 'CCOCC'} En esta ya incluimos otro \'atomo diferente del carbono. Resulta que deseamos obtener solo ese \'atomo. Para ello tenemos que tomar en cuenta que las cadenas numeran sus caracteres del 0 en adelante. C\'omo as\'i? En este caso, por ejemplo, tendr\'iamos que cada letra se puede representar con el sub\'indice que vemos aqu\'i: $\underset{0}{C} \underset{1}{C} \underset{2}{O} \underset{3}{C} \underset{4}{C}$. Entonces, para referirnos al ox\'igeno en la f\'ormula, lo hacemos de la siguiente manera \inlinecode{dietileter[2]}\\
+Intentemos crear otra mol\'ecula: \inlinecode{dietileter = "\ \hspace{-2mm}CCOCC"} En esta ya incluimos otro \'atomo diferente del carbono. Resulta que deseamos obtener solo ese \'atomo. Para ello tenemos que tomar en cuenta que las cadenas numeran sus caracteres del 0 en adelante. C\'omo as\'i? En este caso, por ejemplo, tendr\'iamos que cada letra se puede representar con el sub\'indice que vemos aqu\'i: $\underset{0}{C} \underset{1}{C} \underset{2}{O} \underset{3}{C} \underset{4}{C}$. Entonces, para referirnos al ox\'igeno en la f\'ormula, lo hacemos de la siguiente manera \inlinecode{dietileter[2]}\\
 
-Otra cosa que podemos hacer es referirnos a segmentos de una mol\'ecula. Si deseamos mostrar todo lo que est\'a despu\'es del ox\'igeno de la mol\'ecula anterior, podemos escribir \inlinecode{dietileter[3:]} O si deseamos lo anterior al ox\'igeno \inlinecode{dietileter[:2]} Notemos ahora que en esto \'ultimo, incluimos al ox\'igeno en nuestra selecci\'on, pero al ejecutar el comando, este no se muestra en el resultado. Esto se debe a que Python no considera al \'ultimo elemento al que nos referimos. Como un \'ultimo ejercicio, vamos a mostrar a un azufre en vez de un ox\'igeno utilizando solo lo que hemos visto hasta ahora: \inlinecode{print dietileter[:2] + 'S' + dietileter[3:]}\\
+Otra cosa que podemos hacer es referirnos a segmentos de una mol\'ecula. Si deseamos mostrar todo lo que est\'a despu\'es del ox\'igeno de la mol\'ecula anterior, podemos escribir \inlinecode{dietileter[3:]} O si deseamos lo anterior al ox\'igeno \inlinecode{dietileter[:2]} Notemos ahora que en esto \'ultimo, incluimos al ox\'igeno en nuestra selecci\'on, pero al ejecutar el comando, este no se muestra en el resultado. Esto se debe a que Python no considera al \'ultimo elemento al que nos referimos. Como un \'ultimo ejercicio, vamos a mostrar a un azufre en vez de un ox\'igeno utilizando solo lo que hemos visto hasta ahora: \inlinecode{print dietileter[:2] + "S"\ + dietileter[3:]}\\
 
-Antes de proseguir, solo vamos a aclarar algo. Esta forma de representar mol\'eculas a trav\'es de letras es un formato internacional llamado SMILES (\textbf{S}implified \textbf{M}olecular-\textbf{I}nput \textbf{L}ine-\textbf{E}ntry \textbf{S}ystem). Los dobles enlaces se representan con un signo \inlinecode{=}, los triples enlaces con \inlinecode{\#} y para formar ciclos, se numeran los \'atmos que cerrar\'an ese ciclo. Un benceno se ver\'ia entonces de la siguiente manera: \inlinecode{benceno = 'C1=CC=CC=C1'}
+Antes de proseguir, solo vamos a aclarar algo. Esta forma de representar mol\'eculas a trav\'es de letras es un formato internacional llamado SMILES (\textbf{S}implified \textbf{M}olecular-\textbf{I}nput \textbf{L}ine-\textbf{E}ntry \textbf{S}ystem). Los dobles enlaces se representan con un signo \inlinecode{=}, los triples enlaces con \inlinecode{\#} y para formar ciclos, se numeran los \'atmos que cerrar\'an ese ciclo. Un benceno se ver\'ia entonces de la siguiente manera: \inlinecode{benceno = "\ \hspace{-2mm}C1=CC=CC=C1"}
 
 \subsection{Listas}
-Creacion, acceso, agregado, removido, sustitucion, largo
-Datos de un analisis
+Despu\'es de las cadenas, las listas son otro tipo de datos que nos permitir\'a hacer cosas muy interesantes. Las listas nos permiten guardar una serie de datos dentro de ellas. Son como las celdas en las que colocamos informaci\'on en Microsoft Excel, por ejemplo. Otra forma de verlo es como una tira c\'omica. Dentro de cada cuadro se halla una parte importante de la historia: informaci\'on.\\
+
+Las listas en Python se representan como \inlinecode{list}. Para crear una lista colocamos diferentes piezas de informaci\'on separadas por comas dentro de dos corchetes. Supongamos que tenemos los datos de 5 repeticiones de una titulaci\'on \'acido/base. Para crear una lista con esta informaci\'on, vamos a escribir lo siguiente:
+
+\begin{Code}
+repeticiones = [22.3, 22.2, 22.4, 22.3, 22.1]
+\end{Code}
+
+Por supuesto, no solo se tiene que tratar de n\'umeros. Podemos colocar cadenas a la par de n\'umeros enteros, complejos a la par de flotantes y hasta otras listas dentro de nuestra lista. Como ejercicio, intentemos colocar un dato de cada tipo de los que hemos visto en nuestra lista. Veamos qu\'e sucede y finalmente, veamos lo que hizo nuestro compa\~nero de al lado y lo que result\'o.\\
+
+Volviendo al ejemplo de una titulaci\'on, nos dicen que el cuarto dato estaba mal ingresado. Contrario a lo que pasa con las cadenas, los valores en una lista \emph{s\'i} se pueden cambiar individualmente. C\'omo hacemos esto? Pues es bastante sencillo. Las listas, al igual que las cadenas se accesan as\'i: \inlinecode{repeticiones[3]} Debemos tomar en cuenta que como en nuestro ordenador todas las cosas comienzan con 0, el cuarto dato se halla entonces en la posici\'on 3. El dato que quieren que coloquemos en vez de \inlinecode{22.3} es \inlinecode{22.4}. Entonces, la operaci\'on para cambiar el cuarto dato se ver\'ia de la siguiente manera: \inlinecode{repeticiones[3] = 22.4} Eso fue sencillo en comparaci\'on a cambiar el ox\'igeno por azufre en una cadena. En este caso, solo cambiamos el dato directamente.\\
+
+Otro par de similitudes entre las listas y las cadenas es que se puede obtener su tama\~no de la misma manera: \inlinecode{len(repeticiones)} Tambi\'en podemos mostrar partes de la lista: \inlinecode{repeticiones[2:4]} Pero una cosa que cambia un poco es el agregado y la eliminaci\'on de alg\'un dato. S\'i se pueden agregar datos si sumamos dos listas. Sin embargo, para agregar datos en una lista, hay otras dos formas que nos facilitan esto. Veamos cada caso:
+
+\begin{Code}
+\# Sumando listas\\
+repeticiones + [25.5]
+
+\# Agregando datos al final\\
+repeticiones.append(25.5)
+
+\# Agregando datos en alguna parte en particular\\
+repeticiones.insert(2, 25.5)
+\end{Code}
+
+Intentemos hacer esto con nuestra lista y veamos qu\'e es lo que pasa en cada caso. Al final, discutamos con nuestro compa\~nero de al lado lo que creemos que sucedio en cada caso.\\
+
+Por supuesto, despu\'es de haberle agregado datos falsos a nuestra lista, queremos quit\'arselos. Despu\'es de todo, no tiene mucho sentido tener datos falsos en un an\'alisis. Para eso, tenemos 2 maneras de hacerlo. La primera quita el dato en la posici\'on que indicamos. El segundo quita la primera vez que aparece el dato que indicamos. Veamos el ejemplo:
+
+\begin{Code}
+\# Quitando el dato por su posicion\\
+repeticiones.pop(2)
+
+\# Quitando el dato que indicamos\\
+repeticiones.remove(25.5)
+\end{Code}
+
+Nuevamente, hagamos esto con nuestra lista y veamos qu\'e pasa. Finalmente discutamos con nuestro compa\~nero de al lado a ver qu\'e sucedi\'o con nuestra lista.\\
+
+M\'as adelante vamos a ver que las listas nos van a servir para mucho m\'as que solo ver los datos en una fila. Podremos extraer mucha m\'as informaci\'on de ellos cuando aprendamos otro par de trucos.
+
 \subsection{Diccionarios}
-Creacion, acceso
-Tabla periodica de elementos
+El \'ultimo tipo de dato que vamos a ver son los \emph{diccionarios}. Ahora, estos no son como los diccionarios que conocemos hasta ahora. El concepto, sin embargo, es similar: utilizamos una palabra para hallar informaci\'on sobre ella. Poni\'endonos m\'as t\'ecnicos, un diccionario en Python es igual a una lista, pero en vez de n\'umeros para referirnos a la posici\'on de los datos, utilizamos cadenas para hacerlo. En otras palabras, podemos ponerle nombre a cada casilla. Veamos, pues, c\'omo hacer esto.\\
+
+En Python, los diccionarios se representan como \inlinecode{dict}. Y como este es un taller de QC, intentaremos construir el diccionario m\'as utilizado por nosotros en nuestra carrera. Los diccionarios se construyen con llaves en vez de corchetes a diferencia de las listas. Adem\'as de eso, para colocarle nombre a cada casilla, incluimos una cadena con el nombre antes del valor, seguido de dos puntos.
+
+\begin{Code}
+tabla = $\lbrace$ "H": 1.0079, "He": 4.0026, "Li": 6.94, "Be": 9.0122, "B": 10.81, "\ \hspace{-2mm}C": 12.011, "N": 14.007, "\ \hspace{-2mm}O": 15.9994, "F": 18.998 $\rbrace$
+\end{Code}
+
+Nos quedaremos con los primeros 9 elementos, ya que incluir los 112 es un poco tedioso. Nos disponemos ahora a ver c\'omo tomar los datos de nuestro diccionario. Para ello vamos a buscar el peso at\'omico del carbono: \inlinecode{tabla["\ \hspace{-2mm}C"]} Ahora nos damos cuenta de que en vez de buscar una entrada en particular en el diccionario, vamos a buscar una casilla por su nombre. Esto nos facilita almacenar m\'as informaci\'on! No solo estamos guardando el s\'imbolo del elemento, sino su peso at\'omico, y adem\'as somos capaces de buscar sin necesidad de recordar en qu\'e orden estaba todo almacenado.\\
+
+Siguiendo la manera en que trabajamos con las listas, vamos a ver c\'omo agregar datos y quitarlos en los diccionarios. Vale la pena decir que quitar datos se hace de la misma manera que con las listas: con \inlinecode{pop()}. No obstante, en vez de utilizar un n\'umero indicando la casilla, utilizamos el nombre de la casilla. Para agregar datos dentro del diccionario, lo \'unico que debemos hacer es referirnos a una casilla como si ya estuviera creada. En este caso agregaremos el ne\'on: \inlinecode{tabla["Ne"] = 20.180} Eso es todo! Como los diccionarios no tienen un orden, no importa d\'onde coloquemos el dato ni de d\'onde lo quitemos.\\
+
+Finalmente, los diccionarios tienen una caracter\'istica que vale la pena mencionar: si deseamos solo las ``llaves'' del diccionario (es decir, lo nombres de cada casilla), podemos pedirlas as\'i: \inlinecode{tabla.keys()} Esto nos devuelve una lista con los nombres de cada casilla (por si se nos olvidan).\\
+
+Los diccionarios son un tipo de dato muy particular de Python que, si los aprendemos a usar bien, pueden ayudarnos mucho. No los olvidemos e intentemos aprovechar de esta ventaja, porque estos nos pueden facilitar muchas otras cosas y ahorrarnos tiempo en el futuro.
+
 \section{Ingresando y Mostrando Datos}
-Interactuar con otras cosas: ampliar el mundo a abrir archivos, dar y recibir datos
+Hemos aprendido qu\'e tipos de datos existen en Python y qu\'e se puede hacer con ellos. Sin embargo, todo esto lo hemos visto probando directamente en la l\'inea de comando. Cuando pensamos en programas, son cosas independientes que corren al click de un \'icono y funcionan de inmediato. Esa es nuestra siguiente meta en nuestro aprendizaje.\\
+
+Lo que nos toca ahorita es ver c\'omo hacer que nuestro ordenador corra varios comandos seguidos, nos pida datos, nos muestre resultados y haga operaciones sin necesidad de que nosotros le ingresemos cada cosa a la vez. Tambi\'en veremos c\'omo hacer que nuestro ordenador lea los datos de un archivo, que los interprete y que haga algo con ellos. Finalmente, escribir datos en un archivo tambi\'en puede ser una opci\'on cuando se trata de mostrar resultados y guardarlos a la vez. La idea es que nuestro ordenador comience a hacer cosas por nosotros sin que se lo estemos diciendo siempre y sin estarlo supervisando en cada paso.
+
 \subsection{Por Parte del Usuario}
-Ingresar numeros, ingresar cadenas, imprimir
-Convertir temperaturas otra vez
+Ahora que ya sabemos con qu\'e cosas se pueden trabajar, veamos c\'omo comenzar a hacer una rutina o \textit{script}. Para esto vamos a salirnos de Python en la l\'inea de comando ingresando \inlinecode{quit()}. Dejando la l\'inea de comando abierta, vamos a crear una nueva carpeta \textit{Scripts} dentro de nuestra carpeta de documentos. Luego vamos a abrir un editor de texto y vamos a guardar el archivo en blanco como \textit{bienvenida.py} en la carpeta reci\'en creada.\\
+
+Consideremos ahora que vamos a escribir una rutina. Lo primero que debemos preguntarnos es ``C\'omo se supone que funciona una rutina?'' O en otras palabras, debemos preguntarnos c\'omo la vamos a hacer funcionar despu\'es de haberla escrito. Para hacer que nuestra rutina o script funcione, debemos de decirle a Python que corra el archivo en donde se halla lo que escribimos. Esto lo hacemos escribiendo \inlinecode{python bienvenida.py} Claro, ahorita no va a pasar nada si lo hacemos, porque no hay nada en el archivo, pero m\'as adelante, esta es la manera de ir viendo lo que hace el c\'odigo que hemos escrito. Pasemos entonces a crear nuestra primera rutina.\\
+
+En el editor de texto, vamos a escribir lo siguiente:
+
+\begin{Code}
+print "Hola mundo!"\\
+nombre = raw\_input("\ \hspace{-2mm}Ingresa, por favor, tu nombre: ")\\
+print "Hola", nombre + "\ \hspace{-2mm}! Como estas?"
+\end{Code}
+
+Intentemos correr nuestra peque\~na rutina y ver qu\'e pasa. Despu\'es de ver el resultado, comenta con tu compa\~nero de al lado: Qu\'e crees que pas\'o? Qu\'e cosas de las que hemos visto antes acabas de utilizar? Qu\'e hace la funci\'on \inlinecode{raw\_input()}? Qu\'e cosa nueva acabamos de aprender a hacer? Tomemos nota de esto y sigamos.\\
+
+Otra funci\'on que nos permite hacer algo similar a \inlinecode{raw\_input()} es solamente \inlinecode{input()}. Estas dos funciones tienen una diferencia en particular. \inlinecode{raw\_input()} toma cualquier cosa que ingresemos y lo convierte en una cadena. No importa si ingresamos n\'umeros, listas, etc. todo ser\'a una cadena. En el caso de \inlinecode{input()}, este solo admite n\'umeros enteros. Cualquier otra cosa que le ingresemos nos dar\'a un error. Sobre esto \'ultimo hablaremos m\'as adelante. Por ahora, vamos a ver c\'omo hacer algo interesante con lo que hemos aprendido.\\
+
+Cerremos nuestro archivo \textit{bienvenida.py} y abramos uno nuevo. Esta vez vamos a hacer una rutina que haga algo productivo. Vamos a crear un archivo llamado \textit{temperaturas.py} en nuestra carpeta de \textit{Scripts}. En \'el vamos a intentar hacer una peque\~na rutina en la que ingresaremos una temperatura y esta nos ser\'a devuelta en otras unidades. Veamos, pues, c\'omo hacer esto.\\
+
+\noindent Lo primero que haremos ser\'a dar la bienvenida a nuestro script. Para eso ingresaremos algo como esto (el texto lo podemos cambiar si as\'i lo deseamos):
+
+\begin{Code}
+print "********** Convertidor **********"
+\end{Code}
+
+\noindent Luego, deseamos dar las opciones de qu\'e tipo de conversi\'on se puede hacer, as\'i que seguimos mostrando cosas en pantalla:
+
+\begin{Code}
+print "********** Convertidor **********"\\
+print "1. F -> C \textbackslash t  2. C -> F"\\
+print "3. C -> K \textbackslash t  5. K -> F"\\
+print "7. F -> K \textbackslash t 11. K -> F"
+\end{Code}
+
+\noindent Ahora pediremos al usuario ingresar una opcion para calcular la temperatura y luego, la cifra que desea calcular:
+
+\begin{Code}
+print "********** Convertidor **********"\\
+print "1. F -> C \textbackslash t  2. C -> F"\\
+print "3. C -> K \textbackslash t  5. K -> F"\\
+print "7. F -> K \textbackslash t 11. K -> F"\\
+opcion = input("\ \hspace{-2mm}Ingrese el numero de operacion que desea realizar: ")\\
+temperatura = raw\_input("\ \hspace{-2mm}Ingrese la temperatura a ser calculada: ")
+\end{Code}
+
+\noindent Ya con esto nos queda transformar la temperatura en un n\'umero y hacer el c\'alculo. Para ello vamos a hacer un truco interesante. Como no conocemos todav\'ia ninguna manera en la que podamos escoger alguna de las operaciones vamos a calcular todas, pero vamos a devolver solo la que nos interesa. C\'omo? Con dos operaciones matem\'aticas. Veamos c\'omo se ve nuestro c\'odigo ya terminado:
+
+\begin{Code}
+print "********** Convertidor **********"\\
+print "2. F -> C \textbackslash t  3. C -> F"\\
+print "5. C -> K \textbackslash t  7. K -> C"\\
+print "11. F -> K \textbackslash t 13. K -> F"\\
+opcion = input("\ \hspace{-2mm}Ingrese el numero de operacion que desea realizar: ")\\
+temperatura = raw\_input("\ \hspace{-2mm}Ingrese la temperatura a ser calculada: ")\\
+temperatura = float(temperatura)\\
+print (1 - opcion \% 2) * ("Temperatura en grados C: "\ +\ str((temperatura - 32) * 5.0/9))\\
+print (1 - opcion \% 3) * ("Temperatura en grados F: "\ +\ str(temperatura * 9.0/5\ +\ 32))\\
+print (1 - opcion \% 5) * ("Temperatura en grados K: "\ +\ str(temperatura\ +\ 273.15))\\
+print (1 - opcion \% 7) * ("Temperatura en grados C: "\ +\ str(temperatura - 273.15))\\
+print (1 - opcion \% 11) * ("Temperatura en grados K: "\ +\ str((temperatura - 32) * 5/9\ +\ 273.15))\\
+print (1 - opcion \% 13) * ("Temperatura en grados F: "\ +\ str((temperatura - 273.15) * 9.0/5\ +\ 32))
+\end{Code}
+
+Veamos qu\'e pasa aqu\'i. Convertimos la temperatura de una cadena a un n\'umero utilizando \inlinecode{float()} Es importante tomar nota de esto! Podemos convertir un tipo de datos en el otro mediante este tipo de operaci\'on. Luego comenzamos a mostrar cosas en pantalla con \inlinecode{print} A continuaci\'on tenemos una operaci\'on algo extra\~na de la que hablaremos al final. El resultado de esta se multiplica por una cadena a la cual estamos sumando otra cadena. S\'i, la segunda parte es una cadena tambi\'en, porque a pesar de que el resultado de la operaci\'on matem\'atica sea un n\'umero, estamos usando la funci\'on \inlinecode{str()} para convertirlo en una cadena. En otras palabras, estamos combinando el resultado con la presentaci\'on de este en una sola cadena. Hasta all\'i vamos bien. Ahora s\'i, por qu\'e estamos multiplicando una cadena con otro valor de una operaci\'on extra\~na?\\
+
+Veamos detenidamente la operaci\'on un momento. Si consideramos que \inlinecode{opcion} puede tomar solo los valores 2, 3, 5, 7, 11 o 13, entonces notamos que las operaciones de m\'odulo van a dar como resultado 0 si los n\'umeros a ambos lados del operador son iguales, o alg\'un n\'umero entero de 1 en adelante cuando se trate de n\'umeros diferentes. Eso significa que \inlinecode{(1 - opcion \% n)} va a ser igual a 1 cuando \inlinecode{opcion} sea igual a \inlinecode{n}. Si no, ser\'a 0 o alg\'un n\'umero negativo. Perfecto! Y esto c\'omo afecta a nuestra cadena de al lado? Pues es sencillo. Si una cadena la multiplicamos por alg\'un entero positivo, se va a repetir ese n\'umero de veces. En el caso de multiplicarla por 0 o alg\'un n\'umero negativo, desaparecer\'a. Esto, ya vi\'endolo en nuestro peque\~no script, se traduce en: Solo se mostrar\'a el resultado de la operaci\'on escogida.\\
+
+Antes de continuar a la siguiente parte, analicemos que en este script solo hemos tomado datos, mostrado datos, calculado con un poco de aritm\'etica y propiedades de cadenas. Pensemos c\'omo podr\'iamos optimizar nuestro script para que no hayan tantas cosas que se repitan una y otra vez dentro de \'el\footnote{Considerando lo que vimos en la secci\'on 2.2, pensemos qu\'e pasar\'ia al convertir muchas cosas en variables.}. Adem\'as, comentemos con nuestro compa\~nero de al lado lo que hemos aprendido y c\'omo entendimos que funcionaba el script. Tomemos nota de nuestros hallazgos y d\'emonos un momento antes de continuar.
+
 \subsection{Desde Archivos}
 Abrir, cerrar, leer, escribir
 Guardar una molecula (SMILES)
+\section{Errores}
+Lanzarle un str a un input o intentar parsear un str a un float
+\subsection{Errores de Sintaxis}
+escribir mal un comando
+\subsection{Errores en Tiempo de Corrida}
+division entre 0
 \section{Funciones y Paquetes}
 Algunas cosas no las podemos hacer solo con esto, vamos a hacerlo muchas veces o es deseable ordenar
 \subsection{Funciones Matem\'aticas}
