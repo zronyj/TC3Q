@@ -158,7 +158,7 @@ Despu\'es de ver que podemos almacenar valores de \emph{verdadero}, \emph{falso}
 
 Las cadenas se representan en Python como \inlinecode{str}, y para crearlas, colocamos el texto que deseamos entre comillas o ap\'ostrofes. Intentemos con un ejemplo: Vamos a guardar el texto \textit{Hola mundo!} en una variable. Para ello vamos a ingresar \inlinecode{mi\_variable = "Hola mundo!"} Solamente! No hay que hacer nada extra\~no o diferente. Ahora, si deseamos mostrar lo que guardamos, solo imprimimos lo que hay en la variable: \inlinecode{print mi\_variable}\\
 
-Perfecto, ya podemos guardar texto. Ahora veamos qu\'e m\'as se puede hacer con \'el, pero intentando entrar ya un poco en qu\'imica. Asumamos, pues, que yo puedo representar a un hidrocarburo como una estructura de Lewis, ignorando sus hidr\'ogenos y sin representar a los enlaces. Si estamos hablando de una cadena de 6 \'atomos de carbono, el resultado ser\'ia as\'i: \inlinecode{hexano = "\ \hspace{-2mm}CCCCCC"} Como podemos ver, estamos representando a un hidrocarburo con una simple cadena de texto. Qu\'e pasa si deseamos saber cu\'antas letras tiene la cadena? Pues utilizamos una funci\'on para ello: \inlinecode{len(hexano)}\\
+Perfecto, ya podemos guardar texto. Ahora veamos qu\'e m\'as se puede hacer con \'el, pero intentando entrar ya un poco en qu\'imica. Asumamos, pues, que podemos representar a un hidrocarburo como una estructura de Lewis, ignorando sus hidr\'ogenos y sin representar a los enlaces. Si estamos hablando de una cadena de 6 \'atomos de carbono, el resultado ser\'ia as\'i: \inlinecode{hexano = "\ \hspace{-2mm}CCCCCC"} Como podemos ver, estamos representando a un hidrocarburo con una simple cadena de texto. Qu\'e pasa si deseamos saber cu\'antas letras tiene la cadena? Pues utilizamos una funci\'on para ello: \inlinecode{len(hexano)}\\
 
 Una cosa importante que tambi\'en es conveniente saber es que las cadenas se pueden sumar. Lo que se est\'a haciendo realmente, es concatenarlas. Si de nuestra mol\'ecula anterior queremos hacer un octano, solo nos hacen falta dos carbonos. Entonces, podemos decir que \inlinecode{octano = hexano + "\ \hspace{-2mm}CC"} Y de esta manera ya tenemos una nueva cadena con nuevos elementos.\\
 
@@ -230,12 +230,12 @@ Los diccionarios son un tipo de dato muy particular de Python que, si los aprend
 \section{Ingresando y Mostrando Datos}
 Hemos aprendido qu\'e tipos de datos existen en Python y qu\'e se puede hacer con ellos. Sin embargo, todo esto lo hemos visto probando directamente en la l\'inea de comando. Cuando pensamos en programas, son cosas independientes que corren al click de un \'icono y funcionan de inmediato. Esa es nuestra siguiente meta en nuestro aprendizaje.\\
 
-Lo que nos toca ahorita es ver c\'omo hacer que nuestro ordenador corra varios comandos seguidos, nos pida datos, nos muestre resultados y haga operaciones sin necesidad de que nosotros le ingresemos cada cosa a la vez. Tambi\'en veremos c\'omo hacer que nuestro ordenador lea los datos de un archivo, que los interprete y que haga algo con ellos. Finalmente, escribir datos en un archivo tambi\'en puede ser una opci\'on cuando se trata de mostrar resultados y guardarlos a la vez. La idea es que nuestro ordenador comience a hacer cosas por nosotros sin que se lo estemos diciendo siempre y sin estarlo supervisando en cada paso.
+Lo que nos toca ahorita es ver c\'omo hacer que nuestro ordenador corra varios comandos seguidos, nos pida datos, nos muestre resultados y haga operaciones sin necesidad de que nosotros le ingresemos cada cosa a la vez. Tambi\'en veremos c\'omo hacer que nuestro ordenador lea los datos de un documento, que los interprete y que haga algo con ellos. Finalmente, escribir datos en un documento tambi\'en puede ser una opci\'on cuando se trata de mostrar resultados y guardarlos a la vez. La idea es que nuestro ordenador comience a hacer cosas por nosotros sin que se lo estemos diciendo siempre y sin estarlo supervisando en cada paso.
 
 \subsection{Por Parte del Usuario}
-Ahora que ya sabemos con qu\'e cosas se pueden trabajar, veamos c\'omo comenzar a hacer una rutina o \textit{script}. Para esto vamos a salirnos de Python en la l\'inea de comando ingresando \inlinecode{quit()}. Dejando la l\'inea de comando abierta, vamos a crear una nueva carpeta \textit{Scripts} dentro de nuestra carpeta de documentos. Luego vamos a abrir un editor de texto y vamos a guardar el archivo en blanco como \textit{bienvenida.py} en la carpeta reci\'en creada.\\
+Ahora que ya sabemos con qu\'e cosas se pueden trabajar, veamos c\'omo comenzar a hacer una rutina o \textit{script}. Para esto vamos a salirnos de Python en la l\'inea de comando ingresando \inlinecode{quit()}. Dejando la l\'inea de comando abierta, vamos a crear un nuevo directorio \textit{Scripts} dentro de nuestro directorio de documentos. Luego vamos a abrir un editor de texto y vamos a guardar el documento en blanco como \textit{bienvenida.py} en el directorio reci\'en creado.\\
 
-Consideremos ahora que vamos a escribir una rutina. Lo primero que debemos preguntarnos es ``C\'omo se supone que funciona una rutina?'' O en otras palabras, debemos preguntarnos c\'omo la vamos a hacer funcionar despu\'es de haberla escrito. Para hacer que nuestra rutina o script funcione, debemos de decirle a Python que corra el archivo en donde se halla lo que escribimos. Esto lo hacemos escribiendo \inlinecode{python bienvenida.py} Claro, ahorita no va a pasar nada si lo hacemos, porque no hay nada en el archivo, pero m\'as adelante, esta es la manera de ir viendo lo que hace el c\'odigo que hemos escrito. Pasemos entonces a crear nuestra primera rutina.\\
+Consideremos ahora que vamos a escribir una rutina. Lo primero que debemos preguntarnos es ``C\'omo se supone que funciona una rutina?'' O en otras palabras, debemos preguntarnos c\'omo la vamos a hacer funcionar despu\'es de haberla escrito. Para hacer que nuestra rutina o script funcione, debemos de decirle a Python que corra el documento en donde se halla lo que escribimos. Esto lo hacemos escribiendo \inlinecode{python bienvenida.py} Claro, ahorita no va a pasar nada si lo hacemos, porque no hay nada en el documento, pero m\'as adelante, esta es la manera de ir viendo lo que hace el c\'odigo que hemos escrito. Pasemos entonces a crear nuestra primera rutina.\\
 
 En el editor de texto, vamos a escribir lo siguiente:
 
@@ -249,7 +249,7 @@ Intentemos correr nuestra peque\~na rutina y ver qu\'e pasa. Despu\'es de ver el
 
 Otra funci\'on que nos permite hacer algo similar a \inlinecode{raw\_input()} es solamente \inlinecode{input()}. Estas dos funciones tienen una diferencia en particular. \inlinecode{raw\_input()} toma cualquier cosa que ingresemos y lo convierte en una cadena. No importa si ingresamos n\'umeros, listas, etc. todo ser\'a una cadena. En el caso de \inlinecode{input()}, este solo admite n\'umeros enteros. Cualquier otra cosa que le ingresemos nos dar\'a un error. Sobre esto \'ultimo hablaremos m\'as adelante. Por ahora, vamos a ver c\'omo hacer algo interesante con lo que hemos aprendido.\\
 
-Cerremos nuestro archivo \textit{bienvenida.py} y abramos uno nuevo. Esta vez vamos a hacer una rutina que haga algo productivo. Vamos a crear un archivo llamado \textit{temperaturas.py} en nuestra carpeta de \textit{Scripts}. En \'el vamos a intentar hacer una peque\~na rutina en la que ingresaremos una temperatura y esta nos ser\'a devuelta en otras unidades. Veamos, pues, c\'omo hacer esto.\\
+Cerremos nuestro documento \textit{bienvenida.py} y abramos uno nuevo. Esta vez vamos a hacer una rutina que haga algo productivo. Vamos a crear un documento llamado \textit{temperaturas.py} en nuestro directorio de \textit{Scripts}. En \'el vamos a intentar hacer una peque\~na rutina en la que ingresaremos una temperatura y esta nos ser\'a devuelta en otras unidades. Veamos, pues, c\'omo hacer esto.\\
 
 \noindent Lo primero que haremos ser\'a dar la bienvenida a nuestro script. Para eso ingresaremos algo como esto (el texto lo podemos cambiar si as\'i lo deseamos):
 
@@ -266,7 +266,7 @@ print "3. C -> K \textbackslash t  5. K -> F"\\
 print "7. F -> K \textbackslash t 11. K -> F"
 \end{Code}
 
-\noindent Ahora pediremos al usuario ingresar una opcion para calcular la temperatura y luego, la cifra que desea calcular:
+\noindent Ahora pediremos al usuario ingresar una opci\'on para calcular la temperatura y luego, la cifra que desea calcular:
 
 \begin{Code}
 print "********** Convertidor **********"\\
@@ -297,24 +297,142 @@ print (1 - opcion \% 13) * ("Temperatura en grados F: "\ +\ str((temperatura - 2
 
 Veamos qu\'e pasa aqu\'i. Convertimos la temperatura de una cadena a un n\'umero utilizando \inlinecode{float()} Es importante tomar nota de esto! Podemos convertir un tipo de datos en el otro mediante este tipo de operaci\'on. Luego comenzamos a mostrar cosas en pantalla con \inlinecode{print} A continuaci\'on tenemos una operaci\'on algo extra\~na de la que hablaremos al final. El resultado de esta se multiplica por una cadena a la cual estamos sumando otra cadena. S\'i, la segunda parte es una cadena tambi\'en, porque a pesar de que el resultado de la operaci\'on matem\'atica sea un n\'umero, estamos usando la funci\'on \inlinecode{str()} para convertirlo en una cadena. En otras palabras, estamos combinando el resultado con la presentaci\'on de este en una sola cadena. Hasta all\'i vamos bien. Ahora s\'i, por qu\'e estamos multiplicando una cadena con otro valor de una operaci\'on extra\~na?\\
 
-Veamos detenidamente la operaci\'on un momento. Si consideramos que \inlinecode{opcion} puede tomar solo los valores 2, 3, 5, 7, 11 o 13, entonces notamos que las operaciones de m\'odulo van a dar como resultado 0 si los n\'umeros a ambos lados del operador son iguales, o alg\'un n\'umero entero de 1 en adelante cuando se trate de n\'umeros diferentes. Eso significa que \inlinecode{(1 - opcion \% n)} va a ser igual a 1 cuando \inlinecode{opcion} sea igual a \inlinecode{n}. Si no, ser\'a 0 o alg\'un n\'umero negativo. Perfecto! Y esto c\'omo afecta a nuestra cadena de al lado? Pues es sencillo. Si una cadena la multiplicamos por alg\'un entero positivo, se va a repetir ese n\'umero de veces. En el caso de multiplicarla por 0 o alg\'un n\'umero negativo, desaparecer\'a. Esto, ya vi\'endolo en nuestro peque\~no script, se traduce en: Solo se mostrar\'a el resultado de la operaci\'on escogida.\\
+Veamos detenidamente la operaci\'on un momento. Si consideramos que \inlinecode{opcion} puede tomar solo los valores 2, 3, 5, 7, 11 o 13\footnote{Por qu\'e escogimos esos n\'umeros? Leamos hasta el siguiente p\'arrafo y pensemos por qu\'e esos n\'umeros y no otros.}, entonces notamos que las operaciones de m\'odulo van a dar como resultado 0 si los n\'umeros a ambos lados del operador son iguales, o alg\'un n\'umero entero de 1 en adelante cuando se trate de n\'umeros diferentes. Eso significa que \inlinecode{(1 - opcion \% n)} va a ser igual a 1 cuando \inlinecode{opcion} sea igual a \inlinecode{n}. Si no, ser\'a 0 o alg\'un n\'umero negativo. Perfecto! Y esto c\'omo afecta a nuestra cadena de al lado? Pues es sencillo. Si una cadena la multiplicamos por alg\'un entero positivo, se va a repetir ese n\'umero de veces. En el caso de multiplicarla por 0 o alg\'un n\'umero negativo, desaparecer\'a. Esto, ya vi\'endolo en nuestro peque\~no script, se traduce en: Solo se mostrar\'a el resultado de la operaci\'on escogida.\\
 
 Antes de continuar a la siguiente parte, analicemos que en este script solo hemos tomado datos, mostrado datos, calculado con un poco de aritm\'etica y propiedades de cadenas. Pensemos c\'omo podr\'iamos optimizar nuestro script para que no hayan tantas cosas que se repitan una y otra vez dentro de \'el\footnote{Considerando lo que vimos en la secci\'on 2.2, pensemos qu\'e pasar\'ia al convertir muchas cosas en variables.}. Adem\'as, comentemos con nuestro compa\~nero de al lado lo que hemos aprendido y c\'omo entendimos que funcionaba el script. Tomemos nota de nuestros hallazgos y d\'emonos un momento antes de continuar.
 
-\subsection{Desde Archivos}
-Abrir, cerrar, leer, escribir
-Guardar una molecula (SMILES)
+\subsection{Desde Documentos}
+Continuando con la idea de tomar datos y enviar datos fuera del script, ahora vamos a intentar escribir dos rutinas m\'as peque\~nas que la anterior en las que vamos a crear un documento de texto desde nuestro script, y luego vamos a leer el contenido del mismo documento con otro script. Esto nos puede ser muy \'util a la hora de generar resultados de un c\'alculo largo o para interpretar los datos generados por otro programa. Procedamos con un par de ideas sencillas.\\
+
+Vamos a guardar una mol\'ecula en formato SMILES en un documento de texto (como los que hacemos con el block de notas en windows). Para ello vamos a crear un peque\~no script \textit{escribiendo.py} en nuestro directorio \textit{Scripts}. En \'el vamos a escribir lo siguiente:
+
+\begin{Code}
+molecula = raw\_input("\ \hspace{-2mm}Ingresa una molecula en formato SMILES: ")\\
+documento = open("molecula.smiles", "w")\\
+documento.write(molecula)\\
+documento.close()
+\end{Code}
+
+Eso es todo! Veamos qu\'e hace cada parte de nuestro nuevo script. Al principio solo le pedimos al usuario que nos de una mol\'ecula (i.e. informaci\'on que podamos guardar en un documento). Luego abrimos un documento de nombre \textit{molecula.smiles} en modo \emph{escritura}: por eso escribimos la \inlinecode{"w"}. Luego, pedimos que a \inlinecode{documento} (la variable que representa nuestro documento nuevo) se le escriba la cadena que tenemos guardada en \inlinecode{molecula} Finalmente, rompemos la conecci\'on entre la variable \inlinecode{documento} y \textit{molecula.smiles} cerrando el documento. De esta forma, la mol\'ecula queda guardada.\\
+
+Antes de continuar, vamos a correr nuestro script y a almacenar alguna mol\'ecula en SMILES. Recordemos lo que hemos aprendido antes sobre este sistema para representar mol\'eculas. Posteriormente veamos que la mol\'ecula se haya guardado e intentemos visualizarla con alg\'un programa como Avogadro o PyMOL. Si no sabemos c\'omo hacer esto, preguntemos a nuestro compa\~nero de al lado o a quien nos est\'a dando el taller.\\
+
+Para continuar, vamos a leer nuestra nueva mol\'ecula y vamos a mostrarla en pantalla. Este script ser\'a todav\'ia m\'as f\'acil que el anterior. Primero vamos a abrir el documento SMILES, luego vamos a leer lo que hay en \'el, vamos a cerrar el documento y luego vamos a mostrar en pantalla lo que hab\'ia all\'i. Veamos el c\'odigo.
+
+\begin{Code}
+documento = open("molecula.smiles", "\ \hspace{-2mm}r")\\
+informacion = documento.readlines()\\
+documento.close()\\
+print informacion
+\end{Code}
+
+Vamos a guardar nuestro script y correrlo. Qu\'e pas\'o? Funcion\'o como esper\'abamos? Comentemos con nuestro compa\~nero de al lado.\\
+
+Despu\'es de eso pensemos un momento: Podr\'iamos hacer que el usuario escoja el nombre del documento a abrirse? Podr\'iamos hacer que el usuario le ponga el nombre al documento? Qu\'e otras cosas podr\'iamos hacer ahora que ya sabemos c\'omo guardar informaci\'on en documentos y leerla? Pensemos en todas las posibilidades ahora y tomemos nota para despu\'es.
+
 \section{Errores}
-Lanzarle un str a un input o intentar parsear un str a un float
-\subsection{Errores de Sintaxis}
-escribir mal un comando
-\subsection{Errores en Tiempo de Corrida}
-division entre 0
+Esta es una de las partes que a muchas personas no les gusta. Cuando de repente algo no funciona como se esperaba y resultamos con una de dos: mucho texto incomprensible de lo que solo interpretamos que cometimos un error, o que el resultado que esper\'abamos no aparezca. Ambos casos suelen desanimarnos o molestarnos mucho. Pero en este caso, como estamos aprendiendo y la idea es cometer errores, podemos sentirnos tranquilos si algo as\'i sucede. Este tema es, de hecho, hasta evitado a veces en cursos o talleres porque se llega a creer que no vale la pena ver errores. Sin embargo, un aspecto clave de hacer cosas a nivel anal\'itico y de calidad en QC es saber qu\'e error se cometi\'o, en d\'onde y por qu\'e. Finalmente, debemos ser capaces de corregirlo, optimizar nuestro script y hacer que este sea lo mejor que se pueda.\\
+
+En esta secci\'on vamos a ver la anatom\'ia de un error en Python, qu\'e errores podemos esperar cometer y c\'omo hallar aquellos que no rompen nuestro script, pero tampoco dicen que haya un error en alguna parte. Pero vamos por pasos. Lo primero que debemos entender es que nuestro ordenador, a pesar de ser muy capaz, no posee inteligencia como tal. Este solo hace lo que nosotros le pedimos hacer y no o es capaz de proponer algo o pensar en soluciones a problemas. Esto nos lleva a que necesitamos varias reglas generales para poder indicarle qu\'e hacer; este no sabr\'a qu\'e es lo que deseamos. Estas reglas son una sintaxis que no podemos dejar de utilizar. Si lo hacemos, el ordenador no har\'a lo que nosotros queremos que haga y nos frustraremos.\\
+
+Para este punto del taller, es posible y muy probable que ya hayamos cometido alg\'un error o que hayamos visto uno al menos. Pero para no recurrir a posibles casos pasados, veamos uno de verdad. En una l\'inea de comando con Python abierto ingresemos: \inlinecode{print "Hola mundo"\ \hspace{-2mm}!} Resulta que corremos eso porque se nos pas\'o el orden de las cosas por teclearlas r\'apido, y el resultado es este: \inlinecode{\color{red} SyntaxError: invalid syntax} Y pues, claro! Colocamos un caracter en donde no iba. Pero nada se ha arruinado, todo sigue funcionando en nuestro ordenador y el sol sigue brillando afuera. Qu\'e sucedi\'o entonces? Realmente es un sencillo. Python se detuvo donde hall\'o un error de sintaxis, advirti\'o qu\'e tipo de error era al mostr\'arnoslo y se qued\'o all\'i. Nos toca arreglarlo. Pero qu\'e pasa cuando el error ya es un script y no en la l\'inea de comando? Veamos esos casos.\\
+
+Vamos a ejecutar un script que tenemos en nuestro directorio de documentos. Este se llama \textit{errores.py} y nos va a ir mostrando paso a paso los tipos de error con los que nos podemos ir topando\footnote{Solo vamos a ver los errores m\'as comunes que podemos cometer. Hay muchos otros tipos de error, pero no los cubriremos aqu\'i.}. Adem\'as de ejecutar el script, lo vamos a abrir con un editor de texto y ver qu\'e pasa en cada parte. Vamos a ir uno por uno entendiendo los errores.\\
+
+\subsection{Error de Sintaxis}
+Este ser\'a el primer error que aparecer\'a al ejecutar el script. Si nos damos cuenta, es el mismo error que antes. Pero esta vez, a la hora de aparecer en la l\'inea de comando, obtuvimos m\'as informaci\'on que antes. Esta vez apareci\'o lo siguiente:
+
+\begin{Code}
+{\color{red} \hspace*{4mm} File "\ \hspace{-2mm}errores.py", line 2\\
+\hspace*{8mm} print "\ \hspace{-2mm}Error de\ ".\ "\ \hspace{-2mm}sintaxis."\\
+\hspace*{63mm}\^\\
+SyntaxError: invalid syntax}
+\end{Code}
+
+Vamos a ver l\'inea por l\'ina qu\'e es lo que el error nos est\'a diciendo. En la primera l\'inea nos explica que el error se halla en el script \textit{errores.py} y, dentro de este, en la l\'inea 2. En la segunda l\'inea se nos muestra la l\'inea de c\'odigo donde sucedi\'o el error. En la tercera se nos intenta dar una idea de d\'onde se halla el error. Esta parte no siempre es precisa; a veces se nos indica realmente donde sucedi\'o el error, y a veces no tanto. En la l\'inea final solo se nos muestra qu\'e tipo de error es.\\
+
+Con respecto de esto \'ultimo, podemos decir que un error de sintaxis es, generalmente, cuando escribimos algo de manera incorrecta. Nuestro ordenador entonces nos advierte sobre esto y nos toca corregirlo. Para continuar, vamos a eliminar las dos l\'ineas del script \textit{errores.py} en donde se hallaba el error de sintaxis, vamos a guardarlo y vamos a volverlo a correr.
+
+\subsection{Error de Nombre}
+Esta vez obtuvimos un error diferente. Este se nos dice que es un error de nombre cuando leemos la \'ultima l\'inea. De hecho, se nos dice de una vez cu\'al fue el error: hay una variable que no est\'a definida. Al revisar el resto de la informaci\'on sobre el error, nos damos cuenta de que este cambi\'o un poco con respecto del anterior.
+
+\begin{Code}
+{\color{red}Traceback (most recent call last):\\
+\hspace*{4mm} File "\ \hspace{-2mm}errores.py", line 2, in <module>\\
+\hspace*{8mm} print "mi\_variable"\\
+NameError: name `mi\_variable' is not defined}
+\end{Code}
+
+La primera l\'inea solo nos avisa que Python no solo se ha topado con el error, sino que lo ha buscado. Esto solo significa que cuando hall\'o que el script se refiri\'o a una variable, esta fue \emph{buscada} por todo el script y como no se hall\'o, hubo un error. Lo dem\'as ya lo hemos visto antes: indicaciones sobre el script y la l\'inea donde se halla el error y la muestra de esa l\'inea.\\
+
+Entonces, en resumen, podemos decir que un error de nombre se da generalmente cuando nos referimos a algo que no existe. Para continuar borremos esas l\'ineas y volvamos a correr el script.
+
+\subsection{Error de Divisi\'on entre Cero}
+El siguiente error que vemos es algo que desde nuestros primeros cursos de matem\'atica en el colegio nos advirtieron que no se pod\'ia hacer: Uno no puede dividir entre cero; eso est\'a prohibido. Este error se parece mucho m\'as al anterior, y es que Python intent\'o buscarle sentido a lo que hicimos, pero no se lo hall\'o. Veamos el error.
+
+\begin{Code}
+{\color{red}Traceback (most recent call last):\\
+\hspace*{4mm} File "\ \hspace{-2mm}errores.py", line 3, in <module>\\
+\hspace*{8mm} otro\_numero = algun\_numero / 0\\
+ZeroDivisionError: integer division or modulo by zero}
+\end{Code}
+
+Vemos que hubo una b\'usqueda, se nos indica el script, la l\'inea y se nos muestra la l\'inea de c\'odigo con el error. Finalmente, se nos advierte qu\'e tipo de error es y lo que significa. Este tipo de error nos aparecer\'a al dividir entre 0 o al intentar calcular el m\'odulo de un n\'umero entre 0. Eliminemos las l\'ineas necesarias del script, volv\'amoslo a correr y sigamos avanzando.
+
+\subsection{Error de Tipo}
+
+\begin{Code}
+{\color{red}Traceback (most recent call last):\\
+\hspace*{4mm} File "\ \hspace{-2mm}errores.py", line 4, in <module>\\
+\hspace*{8mm} resultado = lista\_a * lista\_b\\
+TypeError: can't multiply sequence by non-int of type `list'}
+\end{Code}
+
+En este error nos damos cuenta de que se trata de tipos. Y claro, un error de tipo se da cuando intentamos alguna operaci\'on sobre tipos de datos que no la permiten. La anatom\'ia del error es la misma que antes, solo que la \'ultim l\'inea nos explica qu\'e es lo que pasa. De nuevo, eliminemos las l\'ineas necesarias para quitar este error del script, volv\'amoslo a correr y continuemos.
+
+\subsection{Error de Atributo}
+En el caso de estos errores ya solo vamos a enfocarnos en la \'ultima l\'inea. Como nos hemos dado cuenta, ya entendimos qu\'e es lo que tienen las dem\'as y la informaci\'on que nos dan.
+
+\begin{Code}
+{\color{red} AttributeError: `str' object has no attribute `append'}
+\end{Code}
+
+Este error nos aparece cuando intentamos utilizar alguna funci\'on de un objeto o tipo de dato que no posee tal funci\'on. En este caso, intentamos agregarle un elemento a una cadena como lo har\'iamos a una lista. Esto, como vemos, no se puede hacer. Eliminemos lo necesario del script y volvamos a correr.
+
+\subsection{Error de Valor}
+
+\begin{Code}
+{\color{red} ValueError: could not convert string to float: esto es texto}
+\end{Code}
+
+Si observamos bien el script, est\'abamos intentando transformar una cadena con texto adentro en un n\'umero. Eso no se puede hacer. Y por eso se nos advierte que hay un error de valor. Este tipo de error generalmente aparece cuando intentamos alguna transformaci\'on de un tipo de datos en otro que no es permitido. Continuemos eliminando l\'ineas y volviendo a correr.
+
+\subsection{Error de \'Indice}
+
+\begin{Code}
+{\color{red} IndexError: list index out of range}
+\end{Code}
+
+Este es uno de los errores m\'as comunes que vamos a cometer. Sucede cuando intentamos referirnos a un \'indice inexistente de una lista. En otras palabras, enviamos a nuestro ordenador a buscar una direcci\'on que no existe. Es muy f\'acil de cometer, porque generalmente (como veremos m\'as adelante) vamos cambiando la cantidad de datos en una lista. Una idea para no cometer este error es siempre revisar el tama\~no de la lista antes de accesarla. Continuemos igual que antes para llegar al \'ultimo tipo de error que vamos a ver.
+
+\subsection{Error de Entrada y Salida de Datos (IO)}
+
+\begin{Code}
+{\color{red} IOError: [Errno 2] No such file or directory: `algun\_documento.txt'}
+\end{Code}
+
+Ya hab\'iamos visto de qu\'e se trata la entrada y salida de datos: leer informaci\'on de alguna parte y enviarla/guardarla. En este caso, intentamos abrir un documento que no existe buscando leer de \'el. Nuestro ordenador inmediatamente nos advierte que ese documento no existe con un error de IO (\textbf{I}nput - \textbf{O}utput).
+
+\subsection{Quitando Insectos}
+Cuando corremos nuestro script y resulta que no hay errores, pero no obtenemos resultado o el resultado no es lo que esper\'abamos, existe una manera hallar el problema. Este proceso se llama \emph{debuggeo} (o \emph{debugging} en ingl\'es), que significa quitar insectos.\\
+
+Hay ambientes de desarrollo integrados (IDEs) que ya hacen esto por nosotros. Sin embargo, en el caso de no contar con uno, o no querer usarlo porque para lo que estamos haciendo un IDE es mucho, la manera m\'as sencilla de hallar d\'onde se halla el problema, es imprimiendo el valor de las variables importantes (o todas, de ser necesario) en los pasos cr\'iticos del script. As\'i podremos ver qu\'e valor est\'a tomando cada una y hallar si todas se est\'an comportando como se debe. De hallar una que no tenga el valor deseado, sabremos que el error est\'a antes de la l\'inea en la que se imprimi\'o el valor de la variable. As\'i podemos revisar el c\'odigo que se halla antes y corregir el error.
+
 \section{Funciones y Paquetes}
 Algunas cosas no las podemos hacer solo con esto, vamos a hacerlo muchas veces o es deseable ordenar
 \subsection{Funciones Matem\'aticas}
 Absoluto, suma, minimo, maximo
-Hallar minimo y maximo en archivo con muchos datos
+Hallar minimo y maximo en documentos con muchos datos
 \subsection{Paquetes}
 import from X import Y, String, Math, NumPy, SciPy
 Hallar pendiente de componentes y punto (vector)
@@ -335,14 +453,14 @@ Calcular media y desviacion estandar de una lista de datos
 \section{M\'as All\'a}
 Ahorita solo se lleva lo esencial y basico, las posibilidades son mucho mayores
 \subsection{Nuestros Paquetes}
-Funciones y variables en un archivo = paquete
+Funciones y variables en un documento = paquete
 Convertir temperaturas en un paquete
 \subsection{Matem\'atica Avanzada}
 Mostrar sympy y numpy
-Calcular derivadas, integrales y resolver una matriz cargada en un archivo
+Calcular derivadas, integrales y resolver una matriz cargada en un documento
 \subsection{Qu\'imica en el Ordenador}
 Mostrar rdkit
-Cargar molecula como SMILES de archivo, colocar Hs, optimizar en 3D, calcular E y guardar datos
+Cargar molecula como SMILES de documento, colocar Hs, optimizar en 3D, calcular E y guardar datos
 \section{Paquete para Qu\'imica sin usar Fortran, Java, C o C++}
 Los de ahora no son 100\% Py
 \section{Comentarios Finales}
@@ -355,6 +473,5 @@ Semana entrante: a jugar con quimica y algoritmos
 \noindent \includegraphics{img/cc_big.png}
 
 \noindent Taller de Qu\'imica Computacional Aplicada by \href{http://github.com/zronyj/TQCA}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
-Based on a work at \url{http://github.com/swcarpentry/bc}.
 
 \end{document}
