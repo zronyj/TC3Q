@@ -428,6 +428,59 @@ Cuando corremos nuestro script y resulta que no hay errores, pero no obtenemos r
 
 Hay ambientes de desarrollo integrados (IDEs) que ya hacen esto por nosotros. Sin embargo, en el caso de no contar con uno, o no querer usarlo porque para lo que estamos haciendo un IDE es mucho, la manera m\'as sencilla de hallar d\'onde se halla el problema, es imprimiendo el valor de las variables importantes (o todas, de ser necesario) en los pasos cr\'iticos del script. As\'i podremos ver qu\'e valor est\'a tomando cada una y hallar si todas se est\'an comportando como se debe. De hallar una que no tenga el valor deseado, sabremos que el error est\'a antes de la l\'inea en la que se imprimi\'o el valor de la variable. As\'i podemos revisar el c\'odigo que se halla antes y corregir el error.
 
+\section{Condiciones y Tareas Repetitivas}
+Una de las cosas m\'as \'utiles al estar creando un script o programa es la capacidad de nuestro ordenador de elegir un camino a seguir. Si nos damos cuenta atentamente, en el script que calculaba temperaturas, dise\~namos algo que nos permit\'ia elegir: depende del n\'umero ingresado, entonces se nos muestra algo. Pero esa forma de hacerlo se siente un tanto complicada. De hecho, en nuestro script hicimos todos los c\'alculos y, la verdad, no era necesario hacerlos todos. Solo el que necesit\'abamos. Por eso, ahora veremos una forma en la que nuestro ordenador puede elegir un camino a seguir dependiendo de alguna circunstancia.\\
+
+Por otra parte, otra cosa que puede hacer nuestro ordenador, y que nos ayudar\'a mucho en un futuro, es el hecho de poder repetir un proceso varias veces sin que nosotros tengamos que pedirle que lo vuelva a hacer cada vez. Esto es muy \'util en el caso en el que trabajemos con listas o con diccionarios. Tambi\'en lo ser\'a cuando calculemos algunas cosas como promedios o sumas de muchos datos. Esto lo veremos un poco despu\'es de las decisiones, porque este tipo de comando \emph{c\'iclico} se basa muchas veces en condiciones.
+
+\subsection{Decisiones}
+Comencemos con algo sencillo. Una decisi\'on es una especie de bifurcaci\'on o encrucijada que nos propone dos o m\'as caminos a seguir. Para mantener las cosas sencillas, vamos a pensar en un camino que se divide en dos. Si se trata de un caso as\'i, nuestra pregunta, naturalmente, ser\'ia algo del tipo: ``Y ahora, para d\'onde?'' Inmediatamente comenzamos a buscar alguna condici\'on que se cumpla para escoger un camino: ``Si X cosa se cumple, me voy por el primer camino. Si no, me voy por el otro.'' Esa condici\'on puede ser: que el camino sea menos dif\'icil, que el camino me lleve a donde quiero, etc. La cosa es que hay una condici\'on que puede ser \emph{verdadera} o \emph{falsa} que determina nuestra decisi\'on.\\
+
+Vamos a traducir esto al lenguaje de nuestro ordenador. Tenemos entonces que si una condici\'on (una comparaci\'on de valores) resulta en \emph{verdadero} o \emph{falso} (un booleano), entonces algo va a pasar. Veamos un ejemplo en particular. Si la variable \inlinecode{var} es mayor a 10, entonces vamos a ejecutar \inlinecode{print "var es MAYOR a 10"}. Si no, vamos a ejecutir \inlinecode{print "var es menor a 10"} Entonces, nuestro c\'odigo se va a ver algo as\'i.
+
+\begin{Code}
+if var == 10:\\
+\hspace*{5mm} print "var es MAYOR a 10"\\
+else:\\
+\hspace*{5mm} print "var es menor a 10"
+\end{Code}
+
+Claro, antes de ejecutar esto hay que darle un valor a \inlinecode{var}, pero en general, vemos que esto funciona. Debemos notar, sin embargo, que dejamos 4 espacios antes de cada comando despu\'es de la condici\'on. A esto se le llama indentaci\'on. La regla es: \textit{Todo aquello que dependa de la condici\'on para ser ejecutado, va indentado.} La verdad, es una forma de ordenar nuestro c\'odigo para que el ordenador sepa qu\'e debe de correr, cu\'ando y en qu\'e condiciones. Veamos nuestro script de las temperaturas nuevamente para ver eso y, adem\'as, una implementaci\'on de cuando pueden haber varios caminos a seguir.
+
+\begin{Code}
+print "********** Convertidor **********"\\
+print "1. F -> C \textbackslash t 2. C -> F"\\
+print "3. C -> K \textbackslash t 4. K -> C"\\
+print "5. F -> K \textbackslash t 6. K -> F"\\
+b = 32\\
+f = 5.0/9\\
+a = 273.15\\
+opcion = input("\ \hspace{-2mm}Ingrese el numero de operacion que desea realizar: ")\\
+temperatura = raw\_input("\ \hspace{-2mm}Ingrese la temperatura a ser calculada: ")\\
+temperatura = float(temperatura)\\
+print "Temperatura en grados",\\
+if opcion == 1:\\
+\hspace*{5mm} print "\ \hspace*{-2mm}C:", (temperatura - b) * f\\
+elif opcion == 2:\\
+\hspace*{5mm} print "F:", temperatura * 1/f\ +\ b\\
+elif opcion == 3:\\
+\hspace*{5mm} print "K:", temperatura\ +\ a\\
+elif opcion == 4:\\
+\hspace*{5mm} print "\ \hspace*{-2mm}C:", temperatura - a\\
+elif opcion == 5:\\
+\hspace*{5mm} print "K:", (temperatura - b) * f\ +\ a\\
+elif opcion == 6:\\
+\hspace*{5mm} print "F:", (temperatura - a) * 1/f\ +\ b
+\end{Code}
+
+Esto, aunque se vea m\'as largo, es m\'as eficiente y mucho m\'as autoexplicativo. Comentemos con nuestro compa\~nero de al lado qu\'e creemos que hace el comando \inlinecode{if}, el comando \inlinecode{elif} y el comando \inlinecode{else} Posteriormente comentemos sobre por qu\'e es que este c\'odigo resulta m\'as eficiente que el anterior que ten\'iamos y m\'as f\'acil de entender. Finalmente tomemos nota de lo que acabamos de aprender y tomemos un momento para pensar en qu\'e casos es esto importante\footnote{Notemos que ahora utilizamos n\'umeros del 1 al 6.}.
+
+\subsection{Repetir mientras llega la Condici\'on}
+while break
+Revisar molecula hasta hallar halogeno (SMILES)
+\subsection{Repetir sobre Elementos de una Lista}
+for in
+Calcular media y desviacion estandar de una lista de datos
 \section{Funciones y Paquetes}
 Algunas cosas no las podemos hacer solo con esto, vamos a hacerlo muchas veces o es deseable ordenar
 \subsection{Funciones Matem\'aticas}
@@ -439,17 +492,6 @@ Hallar pendiente de componentes y punto (vector)
 \subsection{Nuestras Funciones}
 Definir, devolver y ambito de las variables
 Calcular energia libre de Gibbs
-\section{Condiciones y Tareas Repetitivas}
-Necesidad de eleccion dependiendo de un caso particular y de repetir en base a una condicion
-\subsection{Decisiones}
-if elif else
-Unidad de temperatura en energia libre de Gibbs
-\subsection{Repetir mientras llega la Condici\'on}
-while break
-Revisar molecula hasta hallar halogeno (SMILES)
-\subsection{Ciclos}
-for in
-Calcular media y desviacion estandar de una lista de datos
 \section{M\'as All\'a}
 Ahorita solo se lleva lo esencial y basico, las posibilidades son mucho mayores
 \subsection{Nuestros Paquetes}
