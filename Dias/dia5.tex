@@ -436,13 +436,13 @@ Por otra parte, otra cosa que puede hacer nuestro ordenador, y que nos ayudar\'a
 \subsection{Decisiones}
 Comencemos con algo sencillo. Una decisi\'on es una especie de bifurcaci\'on o encrucijada que nos propone dos o m\'as caminos a seguir. Para mantener las cosas sencillas, vamos a pensar en un camino que se divide en dos. Si se trata de un caso as\'i, nuestra pregunta, naturalmente, ser\'ia algo del tipo: ``Y ahora, para d\'onde?'' Inmediatamente comenzamos a buscar alguna condici\'on que se cumpla para escoger un camino: ``Si X cosa se cumple, me voy por el primer camino. Si no, me voy por el otro.'' Esa condici\'on puede ser: que el camino sea menos dif\'icil, que el camino me lleve a donde quiero, etc. La cosa es que hay una condici\'on que puede ser \emph{verdadera} o \emph{falsa} que determina nuestra decisi\'on.\\
 
-Vamos a traducir esto al lenguaje de nuestro ordenador. Tenemos entonces que si una condici\'on (una comparaci\'on de valores) resulta en \emph{verdadero} o \emph{falso} (un booleano), entonces algo va a pasar. Veamos un ejemplo en particular. Si la variable \inlinecode{var} es mayor a 10, entonces vamos a ejecutar \inlinecode{print "var es MAYOR a 10"}. Si no, vamos a ejecutir \inlinecode{print "var es menor a 10"} Entonces, nuestro c\'odigo se va a ver algo as\'i.
+Vamos a traducir esto al lenguaje de nuestro ordenador. Tenemos entonces que si una condici\'on (una comparaci\'on de valores) resulta en \emph{verdadero} o \emph{falso} (un booleano), entonces algo va a pasar. Veamos un ejemplo en particular. Si la variable \inlinecode{var} es mayor a 10, entonces vamos a ejecutar \inlinecode{print "var es MAYOR a 10"}. Si no, vamos a ejecutir \inlinecode{print "var es menor a  o igual10"} Entonces, nuestro c\'odigo se va a ver algo as\'i.
 
 \begin{Code}
-if var == 10:\\
+if var >\ 10:\\
 \hspace*{5mm} print "var es MAYOR a 10"\\
 else:\\
-\hspace*{5mm} print "var es menor a 10"
+\hspace*{5mm} print "var es menor o igual a 10"
 \end{Code}
 
 Claro, antes de ejecutar esto hay que darle un valor a \inlinecode{var}, pero en general, vemos que esto funciona. Debemos notar, sin embargo, que dejamos 4 espacios antes de cada comando despu\'es de la condici\'on. A esto se le llama indentaci\'on. La regla es: \textit{Todo aquello que dependa de la condici\'on para ser ejecutado, va indentado.} La verdad, es una forma de ordenar nuestro c\'odigo para que el ordenador sepa qu\'e debe de correr, cu\'ando y en qu\'e condiciones. Veamos nuestro script de las temperaturas nuevamente para ver eso y, adem\'as, una implementaci\'on de cuando pueden haber varios caminos a seguir.
@@ -476,8 +476,43 @@ elif opcion == 6:\\
 Esto, aunque se vea m\'as largo, es m\'as eficiente y mucho m\'as autoexplicativo. Comentemos con nuestro compa\~nero de al lado qu\'e creemos que hace el comando \inlinecode{if}, el comando \inlinecode{elif} y el comando \inlinecode{else} Posteriormente comentemos sobre por qu\'e es que este c\'odigo resulta m\'as eficiente que el anterior que ten\'iamos y m\'as f\'acil de entender. Finalmente tomemos nota de lo que acabamos de aprender y tomemos un momento para pensar en qu\'e casos es esto importante\footnote{Notemos que ahora utilizamos n\'umeros del 1 al 6.}.
 
 \subsection{Repetir mientras llega la Condici\'on}
-while break
-Revisar molecula hasta hallar halogeno (SMILES)
+Bueno, ahora que ya entendimos las condiciones un poco, podemos comenzar a jugar con otras cosas m\'as interesantes. Hasta ahora hemos utilizado algo de la forma: ``Si X condici\'on se cumple, entonces Y cosa sucede.'' Pero, qu\'e pasar\'a cuando en vez de \emph{si}, utilizamos \emph{mientras}? La frase se ver\'ia algo as\'i: ``Mientras X condici\'on se cumpla, entonces Y cosa sucede.'' A pesar de que el cambio se ve sencillo, el significado acaba de cambiar radicalmente. En el caso anterior, evalu\'abamos la condici\'on una vez. Ahora, evaluamos la condici\'on repetidas veces hasta que esta se deje de cumplir.\\
+
+Veamos esto ya en c\'odigo. La idea ahora es hallar una palabra que represente ese ``mientras''. Para eso, nuestro ordenador nos ofrece \inlinecode{while}. Ahora, antes de intentar cualquier cosa, recordemos que un script o una rutina se detiene presionando las teclas \inlinecode{Ctrl} y \inlinecode{C} al mismo tiempo. Ahora procedamos a probar qu\'e hace un \inlinecode{while}.
+
+\begin{Code}
+while var <\ 10:\\
+\hspace*{5mm} print "Vuelta!"
+\end{Code}
+
+De nuevo recordemos que si no le asignamos un valor a \inlinecode{var}, entonces obtendremos un error. Al correr esto, es posible que tengamos que detener el script, porque ... no hay mecanismo en que \'el pare solo; seguir\'a repitiendo lo mismo por siempre.\\
+
+Cuando ya estemos listos para continuar, vamos a ver un ejemplo un poco m\'as aplicado. Vamos a tomar una mol\'ecula en SMILES y vamos a ver si hallamos un hal\'ogeno en ella. Para eso necesitamos ir de letra en letra a lo largo de la cadena con la mol\'ecula y detenernos justo cuando hallemos \textbf{F}, \textbf{Cl}, \textbf{Br} o \textbf{I}. Pensemos entonces: necesitamos que el usuario ingrese la cadena, que algo vaya avanzando letra por letra de manera \emph{c\'iclica} y en el camino identificar si esa letra pertenece a un hal\'ogeno. Lo primero que vamos a necesitar entonces es una variable \inlinecode{contador} que vaya contando cada vuelta que da el \inlinecode{while} y nos vaya ayudando a accesar cada letra en la cadena. Luego, necesitaremos una serie de condiciones para revisar si la letra que estamos accesando en la cadena pertenece a un hal\'ogeno. Notemos puede tratarse de dos letras! Veamos pues el c\'odigo de nuestro script.
+
+\begin{Code}
+molecula = raw\_input("Por favor ingrese molecula en formato SMILES: ")\\
+contador = 0\\
+while contador <\ len(molecula):\\
+\hspace*{5mm} letra = molecula[contador]\\
+\hspace*{5mm} if letra == "F":\\
+\hspace*{13mm} print "Hay un halogeno!"\\
+\hspace*{13mm} break\\
+\hspace*{5mm} elif letra == "\ \hspace*{-2mm}C":\\
+\hspace*{13mm} if molecula[contador\ +\ 1] == "l":\\
+\hspace*{21mm} print "Hay un halogeno!"\\
+\hspace*{21mm} break\\
+\hspace*{5mm} elif letra == "B":\\
+\hspace*{13mm} if molecula[contador\ +\ 1] == "\ \hspace*{-2mm}r":\\
+\hspace*{21mm} print "Hay un halogeno!"\\
+\hspace*{21mm} break\\
+\hspace*{5mm} elif letra == "\ \hspace*{-2mm}I":\\
+\hspace*{13mm} print "Hay un halogeno!"\\
+\hspace*{13mm} break\\
+\hspace*{5mm} contador = contador + 1
+\end{Code}
+
+Primero, intentemos correr esto para ver que realmente hace lo que se supone que debe de hacer. Aqu\'i tenemos una mol\'ecula en SMILES para probar: CC(C)CC(C\#N)C(C(C)C)C(=O)CSC(F)C(N)=O. Una vez hayamos probado nuestro script, vamos a proceder a estudiarlo. Hay una palabra nueva que no hab\'iamos visto antes: \inlinecode{break} Esta nos sirve para detener el ciclo \inlinecode{while} en el caso que sea necesario. Luego, con nuestro compa\~nero de al lado discutamos qu\'e creemos que hace cada parte. Hay dos cosas a las que debemos ponerle mucha atenci\'on: la indentaci\'on y la variable \emph{contador}. Qu\'e le pasa a la variable \inlinecode{contador} en cada ciclo? Para qu\'e nos sirve y c\'omo es que lo hace? Qu\'e hace la variable \inlinecode{letra}? Por qu\'e tenemos un \inlinecode{if} metido dentro de un \inlinecode{elif}\footnote{Para qu\'e nos sirve revisar otra vez la mol\'ecula? Que acaso es importante la siguiente letra despu\'es de la que estamos revisando en un momento dado?}? Tomemos nota de todo lo que aprendamos e intentamos pensar en c\'omo podr\'iamos optimizar m\'as este c\'odigo tambi\'en\footnote{Hay algo que se repita de igual manera muchas veces?}. Preguntemos por \inlinecode{if} con m\'as de una condici\'on.
+
 \subsection{Repetir sobre Elementos de una Lista}
 for in
 Calcular media y desviacion estandar de una lista de datos
