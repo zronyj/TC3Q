@@ -514,19 +514,177 @@ while contador <\ len(molecula):\\
 Primero, intentemos correr esto para ver que realmente hace lo que se supone que debe de hacer. Aqu\'i tenemos una mol\'ecula en SMILES para probar: CC(C)CC(C\#N)C(C(C)C)C(=O)CSC(F)C(N)=O. Una vez hayamos probado nuestro script, vamos a proceder a estudiarlo. Hay una palabra nueva que no hab\'iamos visto antes: \inlinecode{break} Esta nos sirve para detener el ciclo \inlinecode{while} en el caso que sea necesario. Luego, con nuestro compa\~nero de al lado discutamos qu\'e creemos que hace cada parte. Hay dos cosas a las que debemos ponerle mucha atenci\'on: la indentaci\'on y la variable \emph{contador}. Qu\'e le pasa a la variable \inlinecode{contador} en cada ciclo? Para qu\'e nos sirve y c\'omo es que lo hace? Qu\'e hace la variable \inlinecode{letra}? Por qu\'e tenemos un \inlinecode{if} metido dentro de un \inlinecode{elif}\footnote{Para qu\'e nos sirve revisar otra vez la mol\'ecula? Que acaso es importante la siguiente letra despu\'es de la que estamos revisando en un momento dado?}? Tomemos nota de todo lo que aprendamos e intentamos pensar en c\'omo podr\'iamos optimizar m\'as este c\'odigo tambi\'en\footnote{Hay algo que se repita de igual manera muchas veces?}. Preguntemos por \inlinecode{if} con m\'as de una condici\'on.
 
 \subsection{Repetir sobre Elementos de una Lista}
-for in
-Calcular media y desviacion estandar de una lista de datos
-\section{Funciones y Paquetes}
-Algunas cosas no las podemos hacer solo con esto, vamos a hacerlo muchas veces o es deseable ordenar
-\subsection{Funciones Matem\'aticas}
-Absoluto, suma, minimo, maximo
-Hallar minimo y maximo en documentos con muchos datos
+Por el momento, debemos admitir que es un poco tedioso tener una condici\'on, un contador y asegurarse de parar el ciclo cada vez que una condici\'on se cumple. Bueno, lo de las condiciones es un poco inevitable, pero las otras dos cosas podemos cambiarlas. Existe otra herramienta, en vez de \inlinecode{while}, que no solo repite, sino que puede ir iterando sobre los elementos de una lista. C\'omo as\'i? Pues no es tan complicado. Si tenemos, por ejemplo, una lista de la siguiente forma: \inlinecode{[1, 2, 3, 4, 5]} esta nueva herramienta va a permitirnos que se realicen instrucciones con los 5 elementos de la lista. Es como tener un \inlinecode{while} con un contador, pero sin la necesidad de ir sum\'andole al contador o ir revisando una condici\'on. En vez de eso, nuestra herramienta va utilizando los elementos de la lista que le demos. Veamos un ejemplo:
+
+\begin{Code}
+for i in [8, 7, 9, -1, 3.1415, "\ \hspace*{-2mm}abc"]:\\
+\hspace*{5mm}print i
+\end{Code}
+
+Corramos estas dos peque\~nas l\'ineas y analicemos qu\'e es lo que acaba de pasar. Posteriormente discutamos con nuestro compa\~nero de al lado.\\
+
+Algo importante que vale la pena mencionar es que una lista la podemos generar de la siguiente manera: \inlinecode{range(n)} donde \textbf{n} es la cantidad de elementos que deseamos en la lista: una lista del 0 a \textbf{n}. Tambi\'en podemos hacer cosas como \inlinecode{range(5,20)} lo cual nos genera una lista de n\'umeros enteros del 5 al 19. O tambi\'en podemos hacer algo como \inlinecode{range(20,4,-5)} generando as\'i una lista de la siguiente forma: \inlinecode{[20, 15, 10, 5]}. Intentemos hacer algo interesante con esta nueva forma de hacer procesos c\'iclicos.\\
+
+Supongamos que tenemos una lista de datos como esta:
+\begin{Code}
+datos = [6.66, 9.751, 10.112, 10.03, 9.01, 13.948, 13.33, 6.096, 7.585, 11.914, 13.037, 4.872, 7.315, 9.24, 11.266, 9.276, 11.228, 11.629, 9.298, 15.026, 3.772, 11.131, 7.46, 8.193, 15.686, 8.428, 1.019, 10.978, 7.13, 11.602, 7.683, 13.229, 14.394, 7.0, 10.243, 11.1, 8.642, 11.586, 9.933, 7.703, 9.753, 13.589, 2.959, 9.956, 13.172, 7.277, 9.216, 15.341, 15.295, 8.211]
+\end{Code}
+Ahora vamos a calcular la media y la desviaci\'on est\'andar de estos 50 datos. Generalmente esto es un proceso muy largo de hacer en una calculadora, pero en este caso intentaremos simplificarlo. Para estar claros, en este proceso necesitaremos el tama\~no de la lista, la suma todas las entradas en la lista, la media y la suma de la diferencia de los cuadrados. Para tener una mejor idea, solo repasemos brevemente la f\'ormula para media y desviaci\'on est\'andar de un conjunto de datos $X$.
+
+\begin{equation}
+\bar{x} = \frac{\sum_{i = 1}^{N} \left( x_i \right)}{N}
+\end{equation}
+
+\begin{equation}
+\sigma_x = \sqrt{\frac{\sum_{i = 1}^{N} \left( x_i - \bar{x} \right)^2}{N - 1}}
+\end{equation}
+
+Ahora que ya recordamos c\'omo calcular la media y la descviaci\'on, vamos a proceder a calcular las cosas que anotamos antes. Primero, la suma de todos los n\'umeros en la lista:
+
+\begin{Code}
+suma = 0\\
+for i in datos:\\
+\hspace*{4mm} suma += i
+\end{Code}
+
+Como siempre, estudiemos el c\'odigo, y posteriormente discut\'amoslo. Hay una cosa en particular que puede llamarnos la atenci\'on: \inlinecode{suma += i} Esta operaci\'on es equivalente a escribir \inlinecode{suma = suma + i} Pero lo escribimos de una manera m\'as compacta para no redundar tanto. Ahora procedamos a determinar la cantidad de los datos y la media:
+
+\begin{Code}
+n = len(datos)\\
+media = suma / n
+\end{Code}
+
+Perfecto! Ya tenemos la media de los datos en 5 l\'ineas simples de c\'odigo. Ahora vamos a calcular la suma de las diferencias al cuadrado, y finalmente la desviaci\'on est\'andar.
+
+\begin{Code}
+cuadrados = 0\\
+for j in datos:\\
+\hspace*{4mm} cuadrados += (j - media)**2\\
+desviacion = (cuadrados / (n - 1))**0.5
+\end{Code}
+
+Genial! Con 4 l\'ineas m\'as, ya hemos calculado la desviaci\'on est\'andar. Analizemos qu\'e es lo que significa este c\'odigo, compar\'emoslo con las f\'ormulas y concluyamos.\\
+
+Ahora, antes de pasar a la siguiente secci\'on, hay dos cosas que debemos tomar en cuenta. La primera es que la \emph{funci\'on} \inlinecode{range(n)} puede generarnos una lista de n\'umeros enteros, pero la \emph{funci\'on} \inlinecode{xrange(n)} solo la genera dentro de ciclos \inlinecode{for} sin almacenarla en la memoria de nuestro ordenador. Esto significa que si usamos \inlinecode{xrange(n)} dentro de los ciclos \inlinecode{for}, nuestras rutinas ser\'an m\'as r\'apidas.\\
+
+La segunda cosa a la que debemos de notar es que al calcular la suma de todos los n\'umeros de una lista, como lo hicimos en el ejercicio anterior, escribir un ciclo \inlinecode{for} puede ser todav\'ia tedioso para algunos. Por eso, Python cuenta con una \emph{funci\'on} que nos simplifica ese proceso: \inlinecode{sum(lista)}. Para entender mejor esta \emph{funci\'on}, consideremos esto: \inlinecode{suma = sum(datos)} Esta \'ultima operaci\'on nos evita las primeras 3 l\'ineas del ejericio anterior.
+
+\section{Paquetes y Funciones}
+Hemos llegado a un punto en el que podemos hacer bastantes cosas ya. Si consideramos que en estad\'istica, las operaciones no pasan de sumas, restas, multiplicaciones, divisiones y operaciones con potencias, nos damos cuenta de que ya podemos hacer an\'alisis estad\'isticos bastante decentes. Sin embargo, hay otras serie de operaciones que nos hacen falta para poder hacer matem\'atica de la manera en que conocemos. Nos faltan funciones como \emph{seno}, \emph{coseno}, \emph{tangente}, \emph{logaritmos}, \emph{exponenciales}, etc. Para eso vamos a aprender que existen colecciones de funciones guardadas en \textbf{paquetes}, los cuales podemos simplemente importar y utilizar.\\
+
+Pero qu\'e pasa cuando queremos hacer algo muy espec\'ifico que no est\'a en ning\'un paquete? Una funci\'on personalizada o muy espec\'ifica? O qu\'e pasa cuando cierto segmento de instrucciones lo tenemos que usar varias veces en diferentes parte de nuestro c\'odigo? Para ello es muy conveniente el poder crear nosotros nuestras propias funciones, y m\'as a\'un, nuestros propios paquetes. Esto tambi\'en lo vamos a ver r\'apidamente, y veremos que es mucho m\'as f\'acil de lo que hemos visto hasta ahora.
+
 \subsection{Paquetes}
-import from X import Y, String, Math, NumPy, SciPy
-Hallar pendiente de componentes y punto (vector)
+Trabajar con paquetes resulta, en la mayor parte de lenguajes de programaci\'on, una tarea bastante sencilla. En Python, sin embargo, hay que tomar en cuenta que llamarlos (para poder usarlos) se puede hacer de dos formas y el resultado de esto es un poco diferente. Estas dos formas son:
+
+\begin{enumerate}
+\item Llamar a las funciones de un paquete para que estas se integren a nuestra rutina y no nos volvamos a recordar del paquete. Esto tambi\'en nos permite llamar exclusivamente a algunas funciones de un paquete.
+\item Llamar el paquete de una forma en la que siempre nos tenemos que referir primero al paquete y despu\'es a las funciones dentro de \'el. Esta forma hace que importemos \emph{todo} lo que hay dentro del paquete.
+\end{enumerate}
+
+Veamos el primer caso. En una l\'inea de comando Python vamos a ingresar el siguiente comando:\\
+\inlinecode{from math import log e} De esta forma estamos importando el logaritmo natural y la constante exponencial \textbf{e} a esta sesi\'on. Ahora, podemos escribir algo como \inlinecode{log(e)} que nos deber\'ia dar \inlinecode{1.0} como resultado. Analicemos ahora lo que hicimos. La palabra \inlinecode{from} se\~nala el paquete del cu\'al vamos a sacar nuestras funciones o constantes. El paquete que se\~nalamos en este caso es el paquete \textbf{math}. La palabra \inlinecode{import} es la que hace toda la acci\'on de llamar a las funciones que deseamos del paquete. Finalmente, le solicitamos a Python que solo llame a la funci\'on \textbf{log} y a la constante \textbf{e}.\\
+
+Eso fue bastante sencillo. Las funciones quedan libres, como la funci\'on \inlinecode{sum()} que hab\'iamos visto en la secci\'on anterior. Todo est\'a bien. Un dato curioso a considerar es que si deseamos importar todas las funciones y constantes de un paquete, no es necesario saberlas de memoria. En vez de listarlas despu\'es de \inlinecode{import} solo colocamos un asterisco para referirnos a todo lo que hay en el paquete. El resultado en el caso del paquete \textbf{math} se ver\'ia as\'i: \inlinecode{from math import *}.\\
+
+Ahora analicemos el segundo caso. Este resulta, para muchos, como una forma m\'as ordenada de hacer las cosas, puesto que debemos recordar al paquete de donde sali\'o cada funci\'on. Repitiendo lo mismo que hicimos en el ejercicio anterior, vamos a importar el paquete \textbf{math}, pero de la \emph{otra} manera: \inlinecode{import math}. En este caso la palabra \inlinecode{import} va a importar todo el contenido de un paquete. Entonces, con lo que acabamos de hacer, importamos el paquete math completo; no podemos solicitar solo algunas funciones si lo hacemos as\'i. Ahora para utilizar las funciones como en el ejemplo anterior escribimos: \inlinecode{math.log(math.e)}. Como nos damos cuenta, tenemos que referirnos al paquete \emph{cada vez} que vamos a utilizar una funci\'on del mismo.\\
+
+Esta forma de importar paquete es un poco m\'as ordenada, puesto que tenemos que saber de qu\'e paquete viene cada una. Un dato curioso de esta forma es que si no queremos utilizar el nombre original del paquete, lo podemos cambiar. Para hacer esto, vamos a escribir \inlinecode{import math as matematica}. Ahora, si deseamos utilizar funciones del paquete \textbf{math}, podemos referirnos a ellas como \inlinecode{matematica.log(matematica.e)}.
+
+\subsection{Usando Funciones}
+Antes de proceder a jugar con funciones de otros paquetes, recordemos las funciones que ya tiene Python. Hemos visto que existe \inlinecode{sum()} para sumar todos los elementos de una lista. Pero tambi\'en existen \inlinecode{min()} y \inlinecode{max()} para extraer el elemento m\'as peque\~no y m\'as grande de una lista respectivamente. Ahora, sin embargo, hemos expandido nuestra capacidad de hacer operaciones con funciones espec\'ificas para matem\'atica.\\
+
+Las funciones del paquete \textbf{math}, a pesar de ser pocas, resultan muy \'utiles. Para averiguar todas las funciones que trae el paquete, podemos ingresar \inlinecode{dir(math)} si es que importamos el paquete con \inlinecode{import math}. Como podemos ver, tenemos muchas funciones que pueden sernos muy \'utiles: seno, coseno, tangente, logaritmo natural, logaritmo base 10, el factorial, la funci\'on gamma, etc. Hay muchas cosas que podemos utilizar para hacer c\'alculos m\'as complejos. C\'alculos como cu\'ales? Intentaremos un ejemplo de an\'alisis inorg\'anico.\\
+
+Intentaremos calcular algo m\'as interesante utilizando una de estas funciones: el logaritmo base 10. Existe una ecuaci\'on en qu\'imica anal\'itica que nos sirve para calcular el pH de un buffer cuando contamos con la concentraci\'on del \'acido y de su forma como sal. Comencemos asumiendo que tenemos un buffer de acetatos. La constante $K_a $ es de $ 1.8 \cdot 10^{-5}$ y resulta que deseamos saber el pH al cual est\'a una soluci\'on. Siguiendo la ecuaci\'on de Henderson-Hasselbalch, podemos calcular esto f\'acilmente.
+
+\begin{equation}
+pH = pK_a + \log \left( \frac{\left[A^-\right]}{\left[HA\right]} \right)
+\end{equation}
+
+Entonces, si tenemos que $\left[HA\right] = 0.1 M$ y que $\left[A^-\right] = 0.025 M$, calcular esto en Python se ver\'ia de la siguiente forma:
+
+\begin{Code}
+from math import log10\\
+K = 1.8E-5\\
+A = 0.025\\
+HA = 0.1\\
+print "pH =", -1 * log10(K) + log10(A/HA)
+\end{Code}
+
+Como vemos, las funciones las podemos utilizar dentro de operaciones matem\'aticas y tantas veces como deseamos. Resulta entonces muy sencillo dise\~nar scripts que calculen datos mediante operaciones matem\'aticas m\'as complejas. Sin embargo, hay veces que estas funciones no son suficientes. Los paquetes nos proveen de una gran cantidad de funciones, pero no todas las que necesitamos. Para eso vamos a crear nosotros nuestras propias funciones.
+
 \subsection{Nuestras Funciones}
-Definir, devolver y ambito de las variables
-Calcular energia libre de Gibbs
+Cuando deseamos \emph{crear} una nueva funci\'on en la clase de matem\'atica, generalmente decimos que vamos a \emph{definirla}. Por esta misma raz\'on, a la hora de de crear una funci\'on en Python, vamos a utilizar la palabra \inlinecode{def} Adem\'as de esto le tenemos que poner alg\'un nombre a nuestra funci\'on. En este caso, el nombre es totalmente libre de poner, al igual que el nombre de las variables. Finalmente, debemos especificar qu\'e datos le vamos a dar a nuestra variable para que funcione. Adem\'as, al final de la funci\'on podemos hacer que esta nos devuelva (o no) otro dato o datos con la palabra \inlinecode{return}. Ve\'amoslo real: vamos a crear una funci\'on \textbf{media} que nos calcular\'a la media de todos los datos en una lista.
+
+\begin{Code}
+def media(una\_lista):\\
+\hspace*{4mm} suma = float(sum(una\_lista))\\
+\hspace*{4mm} largo = len(una\_lista)\\
+\hspace*{4mm} return suma / largo
+\end{Code}
+
+Si ingresamos esto en Python, nos daremos cuenta de que no pasa nada. Esto se debe a que solo creamos una funci\'on. Por ahora ella existe igual que una variable; no har\'a nada a menos de que la llamemos y la hagamos funcionar. Un par de detalles a notar es que ingresamos una lista inexistente llamda \inlinecode{una\_lista}. Esta lista no es una variable exactamente. Esta solo est\'a se\~nalando el lugar donde ir\'a el dato que le vamos a ingresar a la funci\'on. En otras palabras, cuando llamemos \inlinecode{media([2.54,2.57,2.53,2.54,2.56,2.56])} entonces \inlinecode{una\_lista} ser\'a igual a \inlinecode{[2.54,2.57,2.53,2.54,2.56,2.56]} y todas las operaciones aplicadas a \inlinecode{una\_lista} se le aplicar\'an a la lista de datos. El otro detalle a considerar es que dentro de la funci\'on definimos algunas variables. Estas solo existen dentro de la funci\'on, no afuera. Si intentamos llamar a \inlinecode{suma} fuera de la funci\'on, Python nos advertir\'a que la variable no existe.\\
+
+Ahora que ya hemos hecho nuestra primera funci\'on, intentemos hacer lo mismo con la desviaci\'on est\'andar. Debemos de recordar que para eso necesitamos calcular la media, as\'i que el siguiente segmento de c\'odigo debe de ir justo despu\'es del anterior en el mismo documento.
+
+\begin{Code}
+def desviacion\_est(una\_lista):\\
+\hspace*{4mm} med = media(una\_lista)\\
+\hspace*{4mm} cuadrados = [(i - med)**2 for i in una\_lista]\\
+\hspace*{4mm} varianza = sum(cuadrados) / ( len(una\_lista) - 1 )\\
+\hspace*{4mm} return varianza**0.5
+\end{Code}
+
+Ahora ya podemos calcular la desviaci\'on est\'andar con una sola funci\'on. Esto es bastante conveniente, porque ya no tenemos que escribir tanto y adem\'as, nuestro c\'odigo se va volviendo m\'as f\'acil de entender. Algo importante a notar es que utilizamos nuestra funci\'on para calcular medias \emph{dentro} de esta nueva funci\'on\footnote{Utilizar funciones dentro de funciones s\'i se puede hacer. Utilizar variables de afuera, dentro de una funci\'on no se puede hacer a menos de que se coloquen dentro de los par\'entesis de la funci\'on; como \textit{argumentos}.}. Hay una cosa extra\~na que utilizamos en esta \'ultima funci\'on que vale la pena que revisemos. Utilizamos un \inlinecode{for} dentro de corchetes, sin utilizar dos puntos, y poniendo la operaci\'on que normalmente va debajo del \inlinecode{for} antes de \'el. Esta es otra forma de crear listas de manera m\'as r\'apida y en una sola l\'inea. Comenta con tu compa\~nero de al lado sobre las funciones que hemos ido creando y c\'omo podr\'iamos hacerlas m\'as eficientes y mejores. Por ahora, vamos a crear dos funciones m\'as para que veamos dos \'ultimos puntos importantes.\\
+
+Es posible crear funciones que no devulevan ning\'un dato o valor, sino que muestren o solo guarden algo. Esto no es nada extra\~no. Generalmente podemos crear funciones que nos muestren algo de manera gr\'afica\footnote{O m\'as o menos gr\'afica haciendo uso de s\'imbolos ASCII.} o que guarden datos en un archivo. Todo esto sin devolver nada. Intentaremos hacer ahora una funci\'on que no devuelva nada, sino que nos muestre los datos de una lista de listas (una matriz o tabla). Para ello se nos presenta aqu\'i la funci\'on y la idea es que la veamos, la estudiemos, la ejecutemos y analicemos lo que hace.
+
+\begin{small}
+\begin{Code}
+def tabla(datos, tiene\_titulos):\\
+\hspace*{4mm} titulos = "|"\\
+\hspace*{4mm} if tiene\_titulos:\\
+\hspace*{11mm} segunda\_linea = "|"\\
+\hspace*{11mm} tiene\_segunda\_linea = False\\
+\hspace*{11mm} for nombre in datos[0]:\\
+\hspace*{18mm} largo = len(nombre)\\
+\hspace*{18mm} if largo >\ 18:\\
+\hspace*{25mm} tiene\_segunda\_linea = True\\
+\hspace*{25mm} titulos += "\ "\ + nombre[:18] + "\ |"\\
+\hspace*{25mm} segunda\_linea += "\ "\ * (37 - largo) + nombre[18:] + "\ |"\\
+\hspace*{18mm} else:\\
+\hspace*{25mm} titulos += "\ "\ *\ (19 - largo) + nombre + "\ |"\\
+\hspace*{25mm} segunda\_linea += "\ "\ * 19 + "\ |"\\
+\hspace*{11mm} print titulos\\
+\hspace*{11mm} if tiene\_segunda\_linea:\\
+\hspace*{18mm} print segunda\_linea\\
+\hspace*{11mm} print "\ \hspace*{-2mm}-"\ *\ len(segunda\_linea)\\
+\hspace*{11mm} datos = datos[1:]\\
+\hspace*{4mm} else:\\
+\hspace*{11mm} print "\ \hspace*{-2mm}-"\ *\ (21 * len(datos[0]) + 1)\\
+\hspace*{4mm} for linea in datos:\\
+\hspace*{11mm} fila = "|"\\
+\hspace*{11mm} for dato in linea:\\
+\hspace*{18mm} dato = str(dato)\\
+\hspace*{18mm} fila += "\ "\ *\ (19 - len(dato)) + dato + "\ |"\\
+\hspace*{11mm} print fila
+\end{Code}
+\end{small}
+
+\newpage
+
+Como recomendaci\'on para probar esta funci\'on, ser\'ia interesante tomar la siguiente idea:
+
+\begin{Code}
+muestreo = [["\ \hspace*{-2mm}id", "\ \hspace*{-2mm}Energias", "No. de atomos"],[1, -42.93, 16],[2, -37.24, 14],[3, -39.27, 16],[4, -40.12, 15]]\\
+tabla(muestreo, True)
+\end{Code}
+
+Con esto podemos ver mejor y m\'as claramente lo que estamos tratando de hacer. Despu\'es de analizarla y entenderla, busquemos discutirla con nuestro compa\~nero de al lado e intercambiar opiniones.\\
+
+Finalmente, hay dos cosas que debemos de tomar en cuenta. Primero, que hay funciones que nos ayudan a visualizar cosas. Estas quiz\'a no produzcan una salida que podamos usar dentro de nuestro ordenador, pero s\'i algo que nos servir\'a a nosotros para interpretar lo que est\'a pasando. Y segundo, que son generalmente las partes gr\'aficas de un programa las que m\'as tiempo nos quitar\'an al programarlas; estas ser\'an bastante largas.
+
 \section{M\'as All\'a}
 Ahorita solo se lleva lo esencial y basico, las posibilidades son mucho mayores
 \subsection{Nuestros Paquetes}
