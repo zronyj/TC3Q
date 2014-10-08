@@ -681,12 +681,43 @@ muestreo = [["\ \hspace*{-2mm}id", "\ \hspace*{-2mm}Energias", "No. de atomos"],
 tabla(muestreo, True)
 \end{Code}
 
-Con esto podemos ver mejor y m\'as claramente lo que estamos tratando de hacer. Despu\'es de analizarla y entenderla, busquemos discutirla con nuestro compa\~nero de al lado e intercambiar opiniones.\\
+Con esto podemos ver mejor y m\'as claramente lo que estamos tratando de hacer. Despu\'es de analizarla y entenderla, busquemos discutirla con nuestro compa\~nero de al lado e intercambiar opiniones. Quiz\'a no nos d\'e tiempo de discutir cada detalle y aspecto, pero intentemos hablar de la idea general de la funci\'on y las estructuras que vemos en ella. Notemos tambi\'en la falta de un \inlinecode{return} y c\'omo esto la vuelve diferente a las que hemos visto antes.\\
 
-Finalmente, hay dos cosas que debemos de tomar en cuenta. Primero, que hay funciones que nos ayudan a visualizar cosas. Estas quiz\'a no produzcan una salida que podamos usar dentro de nuestro ordenador, pero s\'i algo que nos servir\'a a nosotros para interpretar lo que est\'a pasando. Y segundo, que son generalmente las partes gr\'aficas de un programa las que m\'as tiempo nos quitar\'an al programarlas; estas ser\'an bastante largas.
+Entonces, hay dos cosas que debemos de tomar en cuenta. Primero, que hay funciones que nos ayudan a visualizar cosas. Estas quiz\'a no produzcan una salida que podamos usar dentro de nuestro ordenador, pero s\'i algo que nos servir\'a a nosotros para interpretar lo que est\'a pasando. Y segundo, que son generalmente las partes gr\'aficas de un programa las que m\'as tiempo nos quitar\'an al programarlas; estas ser\'an bastante largas.\\
+
+Para terminar la parte de funciones, vamos a hacer un ejercicio de qu\'imica anal\'itica. Conocemos que existen \'acidos d\'ebiles y que estos se disocian parcialmente en agua. Sin embargo, la cantidad del \'acido d\'ebil o de su base conjugada en el medio depende mucho del pH. Vamos a estudiar una funci\'on que nos va a generar todas las concentraciones de \'acidos d\'ebiles y bases conjugadas para toda la escala de pH. Al graficar estos datos en Miscrosoft Excel o LibreOffice Calc vamos a obtener lo que se conoce como un diagrama de especiaci\'on. Pero para poder ver los datos en una hoja de c\'alculo, debemos guardar estos datos en un archivo. Veamos ahora la funci\'on, prob\'emosla y analicemos qu\'e est\'a haciendo y c\'omo.
+
+\begin{Code}
+def especiacion(*args):\\
+\hspace*{6mm} f = open("diagrama.csv","w")\\
+\hspace*{6mm} for i in xrange(0,141,5):\\
+\hspace*{13mm} spec = len(args) + 1\\
+\hspace*{13mm} ctrl = [0]*spec\\
+\hspace*{13mm} for j in xrange(spec):\\
+\hspace*{21mm} if j >\ 1:\\
+\hspace*{28mm} ctrl[j] = args[j-1]*ctrl[j-1]/(args[j-1] + 10**(i*-0.1))\\
+\hspace*{28mm} ctrl[j-1] -= ctrl[j]\\
+\hspace*{21mm} elif j == 1:\\
+\hspace*{28mm} ctrl[j] = args[j-1]/(args[j-1] + 10**(i*-0.1))\\
+\hspace*{28mm} ctrl[j-1] -= ctrl[j]\\
+\hspace*{21mm} else:\\
+\hspace*{28mm} ctrl[j] = 1\\
+\hspace*{13mm} result = str(i*0.1)\\
+\hspace*{13mm} for k in ctrl:\\
+\hspace*{21mm} result += " " + str(k)\\
+\hspace*{13mm} f.write(result + "\textbackslash n")\\
+\hspace*{6mm} f.close()
+\end{Code}
+
+Para ejecutarla, podemos hacerlo de la siguiente forma: \inlinecode{especiacion(1.8E-5)} lo cual calcular\'a la cantidad de \'acido ac\'etico y acetato a diferente pH. Tambi\'en podemos probarla as\'i: \inlinecode{especiacion(7.5E-3, 6.2E-8, 4.8E-13)} Esto resultar\'a en el c\'alculo de las especies de fosfatos a diferente pH. Estudiemos la funci\'on y coment\'emosla con nuestro compa\~nero de al lado. Nuevamente, no nos enfoquemos en cada detalle, sino en comprender la idea general.\\
+
+Existen tres cosas importantes en esta funci\'on que acabamos de ver. La primera es que, al igual que la funci\'on que nos mostraba tablas de datos, esta no devuelve nada que le sirva a nuestro ordenador; todo lo almacena en un archivo. La segunda es la manera en que colocamos los par\'ametros de la funci\'on\footnote{El nombre de la variable que vamos a usar dentro de la funci\'on. O mejor dicho, el nombre de la variable que va a almacenar a nuestros argumentos.}. Al haber colocaldo un asterisco antes del par\'ametro, la funci\'on ahora toma cualquier cantidad de argumentos. Puede ser uno, pueden ser 3, pueden ser 5 o 10, no importa. El asunto es que nuestra funci\'on es capaz de trabajar con cualquier n\'umero de argumentos, porque al incluir un asterisco, lo que pasar\'a es que Python crear\'a una lista con todo lo que coloquemos como argumentos y la funci\'on trabajar\'a con esa lista. La tercera es que si no escribimos nombres de variables significativos (que se entiendan por personas) y si no documentamos bien nuestro c\'odigo, \textbf{nadie} lo entender\'a. La idea no es que escribamos c\'odigo que funcione, sino que escribamos c\'odigo que funciona en nuestro ordenador, pero pueda ser comprendido por personas.
 
 \section{M\'as All\'a}
-Ahorita solo se lleva lo esencial y basico, las posibilidades son mucho mayores
+Hasta ahora solo hemos visto bastantes cosas ya. Podemos hacer operaciones matem\'aticas, tareas repetitivas, tomar decisiones, tomar datos, leer datos, escribir datos y mostrarlos. Podemos trabajar con paquetes, con diferentes tipos de datos y somos capaces de hallar errores. Es bastante, y sin embargo, ahorita solo hemos visto lo esencial y basico.\\
+
+A continuaci\'on vamos a cambiar un poco la din\'amica del taller. Vamos a ir viendo un ejemplo de diferentes cosas que se pueden hacer con Python. No nos preocupemos si no entendemos todo el c\'odigo a\'un. Esto es solo para formarnos una idea de lo que se puede hacer. Las posibilidades son, realmente, mucho mayores.
+
 \subsection{Nuestros Paquetes}
 Funciones y variables en un documento = paquete
 Convertir temperaturas en un paquete
