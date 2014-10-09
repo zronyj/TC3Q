@@ -1,14 +1,22 @@
+# Importamos la funcion que deseamos
 from tablas import *
-f = open("Agua_Ati_20140224.csv")
-datos = []
-for linea in f.readlines():
-    datos.append(linea)
 
+# Abrimos el documento del que queremos sacar los datos
+f = open("Agua_Ati_20140224.csv")
+
+# Nos preparamos para recibir los datos en una lista
+datos = []
+
+# Leemos cada linea del documento y lo agregamos a la lista
+for linea in f.readlines():
+    datos.append(linea[:-1])
+
+# Nos preparamos para recibir los datos ya procesados en una lista
 datos2 = []
+
+# Leemos cada elemento (cadena) de la lista anterior, y lo separamos (donde hay coma) por palabras
 for entrada in datos:
     datos2.append(entrada.split(","))
 
-for ultimo in datos2:
-    ultimo[len(ultimo) - 1] = ultimo[len(ultimo) - 1][:-1]
-
+# Visualizamos todos los datos que habia en el documento
 tabla(datos2, True)

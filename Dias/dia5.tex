@@ -638,7 +638,7 @@ def desviacion\_est(una\_lista):\\
 
 Ahora ya podemos calcular la desviaci\'on est\'andar con una sola funci\'on. Esto es bastante conveniente, porque ya no tenemos que escribir tanto y adem\'as, nuestro c\'odigo se va volviendo m\'as f\'acil de entender. Algo importante a notar es que utilizamos nuestra funci\'on para calcular medias \emph{dentro} de esta nueva funci\'on\footnote{Utilizar funciones dentro de funciones s\'i se puede hacer. Utilizar variables de afuera, dentro de una funci\'on no se puede hacer a menos de que se coloquen dentro de los par\'entesis de la funci\'on; como \textit{argumentos}.}. Hay una cosa extra\~na que utilizamos en esta \'ultima funci\'on que vale la pena que revisemos. Utilizamos un \inlinecode{for} dentro de corchetes, sin utilizar dos puntos, y poniendo la operaci\'on que normalmente va debajo del \inlinecode{for} antes de \'el. Esta es otra forma de crear listas de manera m\'as r\'apida y en una sola l\'inea. Comenta con tu compa\~nero de al lado sobre las funciones que hemos ido creando y c\'omo podr\'iamos hacerlas m\'as eficientes y mejores. Por ahora, vamos a crear dos funciones m\'as para que veamos dos \'ultimos puntos importantes.\\
 
-Es posible crear funciones que no devulevan ning\'un dato o valor, sino que muestren o solo guarden algo. Esto no es nada extra\~no. Generalmente podemos crear funciones que nos muestren algo de manera gr\'afica\footnote{O m\'as o menos gr\'afica haciendo uso de s\'imbolos ASCII.} o que guarden datos en un archivo. Todo esto sin devolver nada. Intentaremos hacer ahora una funci\'on que no devuelva nada, sino que nos muestre los datos de una lista de listas (una matriz o tabla). Para ello se nos presenta aqu\'i la funci\'on y la idea es que la veamos, la estudiemos, la ejecutemos y analicemos lo que hace.
+Es posible crear funciones que no devulevan ning\'un dato o valor, sino que muestren o solo guarden algo. Esto no es nada extra\~no. Generalmente podemos crear funciones que nos muestren algo de manera gr\'afica\footnote{O m\'as o menos gr\'afica haciendo uso de s\'imbolos ASCII.} o que guarden datos en un documento. Todo esto sin devolver nada. Intentaremos hacer ahora una funci\'on que no devuelva nada, sino que nos muestre los datos de una lista de listas (una matriz o tabla). Para ello se nos presenta aqu\'i la funci\'on y la idea es que la veamos, la estudiemos, la ejecutemos y analicemos lo que hace.
 
 \begin{small}
 \begin{Code}
@@ -685,7 +685,7 @@ Con esto podemos ver mejor y m\'as claramente lo que estamos tratando de hacer. 
 
 Entonces, hay dos cosas que debemos de tomar en cuenta. Primero, que hay funciones que nos ayudan a visualizar cosas. Estas quiz\'a no produzcan una salida que podamos usar dentro de nuestro ordenador, pero s\'i algo que nos servir\'a a nosotros para interpretar lo que est\'a pasando. Y segundo, que son generalmente las partes gr\'aficas de un programa las que m\'as tiempo nos quitar\'an al programarlas; estas ser\'an bastante largas.\\
 
-Para terminar la parte de funciones, vamos a hacer un ejercicio de qu\'imica anal\'itica. Conocemos que existen \'acidos d\'ebiles y que estos se disocian parcialmente en agua. Sin embargo, la cantidad del \'acido d\'ebil o de su base conjugada en el medio depende mucho del pH. Vamos a estudiar una funci\'on que nos va a generar todas las concentraciones de \'acidos d\'ebiles y bases conjugadas para toda la escala de pH. Al graficar estos datos en Miscrosoft Excel o LibreOffice Calc vamos a obtener lo que se conoce como un diagrama de especiaci\'on. Pero para poder ver los datos en una hoja de c\'alculo, debemos guardar estos datos en un archivo. Veamos ahora la funci\'on, prob\'emosla y analicemos qu\'e est\'a haciendo y c\'omo.
+Para terminar la parte de funciones, vamos a hacer un ejercicio de qu\'imica anal\'itica. Conocemos que existen \'acidos d\'ebiles y que estos se disocian parcialmente en agua. Sin embargo, la cantidad del \'acido d\'ebil o de su base conjugada en el medio depende mucho del pH. Vamos a estudiar una funci\'on que nos va a generar todas las concentraciones de \'acidos d\'ebiles y bases conjugadas para toda la escala de pH. Al graficar estos datos en Miscrosoft Excel o LibreOffice Calc vamos a obtener lo que se conoce como un diagrama de especiaci\'on. Pero para poder ver los datos en una hoja de c\'alculo, debemos guardar estos datos en un documento. Veamos ahora la funci\'on, prob\'emosla y analicemos qu\'e est\'a haciendo y c\'omo.
 
 \begin{Code}
 def especiacion(*args):\\
@@ -711,22 +711,157 @@ def especiacion(*args):\\
 
 Para ejecutarla, podemos hacerlo de la siguiente forma: \inlinecode{especiacion(1.8E-5)} lo cual calcular\'a la cantidad de \'acido ac\'etico y acetato a diferente pH. Tambi\'en podemos probarla as\'i: \inlinecode{especiacion(7.5E-3, 6.2E-8, 4.8E-13)} Esto resultar\'a en el c\'alculo de las especies de fosfatos a diferente pH. Estudiemos la funci\'on y coment\'emosla con nuestro compa\~nero de al lado. Nuevamente, no nos enfoquemos en cada detalle, sino en comprender la idea general.\\
 
-Existen tres cosas importantes en esta funci\'on que acabamos de ver. La primera es que, al igual que la funci\'on que nos mostraba tablas de datos, esta no devuelve nada que le sirva a nuestro ordenador; todo lo almacena en un archivo. La segunda es la manera en que colocamos los par\'ametros de la funci\'on\footnote{El nombre de la variable que vamos a usar dentro de la funci\'on. O mejor dicho, el nombre de la variable que va a almacenar a nuestros argumentos.}. Al haber colocaldo un asterisco antes del par\'ametro, la funci\'on ahora toma cualquier cantidad de argumentos. Puede ser uno, pueden ser 3, pueden ser 5 o 10, no importa. El asunto es que nuestra funci\'on es capaz de trabajar con cualquier n\'umero de argumentos, porque al incluir un asterisco, lo que pasar\'a es que Python crear\'a una lista con todo lo que coloquemos como argumentos y la funci\'on trabajar\'a con esa lista. La tercera es que si no escribimos nombres de variables significativos (que se entiendan por personas) y si no documentamos bien nuestro c\'odigo, \textbf{nadie} lo entender\'a. La idea no es que escribamos c\'odigo que funcione, sino que escribamos c\'odigo que funciona en nuestro ordenador, pero pueda ser comprendido por personas.
+Existen tres cosas importantes en esta funci\'on que acabamos de ver. La primera es que, al igual que la funci\'on que nos mostraba tablas de datos, esta no devuelve nada que le sirva a nuestro ordenador; todo lo almacena en un documento. La segunda es la manera en que colocamos los par\'ametros de la funci\'on\footnote{El nombre de la variable que vamos a usar dentro de la funci\'on. O mejor dicho, el nombre de la variable que va a almacenar a nuestros argumentos.}. Al haber colocaldo un asterisco antes del par\'ametro, la funci\'on ahora toma cualquier cantidad de argumentos. Puede ser uno, pueden ser 3, pueden ser 5 o 10, no importa. El asunto es que nuestra funci\'on es capaz de trabajar con cualquier n\'umero de argumentos, porque al incluir un asterisco, lo que pasar\'a es que Python crear\'a una lista con todo lo que coloquemos como argumentos y la funci\'on trabajar\'a con esa lista. La tercera es que si no escribimos nombres de variables significativos (que se entiendan por personas) y si no documentamos bien nuestro c\'odigo, \textbf{nadie} lo entender\'a. La idea no es que escribamos c\'odigo que funcione, sino que escribamos c\'odigo que funciona en nuestro ordenador, pero pueda ser comprendido por personas.
+
+\subsection{Nuestros Paquetes}
+Despu\'es de alg\'un tiempo, es com\'un que nos hallemos con decenas, si no cientos de documentos con peque\~nos scripts o programas que nos permit\'ian hacer algo en particular. Si nos portamos un poco m\'as ordenados, vamos colocando diferentes documentos en carpetas separ\'andolos por sus funciones o por lo que hacen. Pero igual, esto sigue siendo un poco de desastre, porque cada vez que necesitamos una funci\'on vamos a tener que ir a ese documento, copiarla, pegarla en donde estamos trabajando y luego utilizarla. Para evitar el desorden y el copiar y pegar, vamos a aprender a crear nuestros propios paquetes.\\
+
+Un paquete no es m\'as que un documento con muchas funciones. As\'i de sencillo! No tenemos que complicarnos m\'as. Si dise\~namos muchas funciones para hacer operaciones de estad\'istica o de \'algebra, lo \'unico que debemos hacer es colocar todas esas funciones en un documento, guardarlo y ya: ese es nuestro nuevo paquete. Para utilizarlo solo debemos tener ese documento en el mismo lugar que el documento que vamos a estar trabajando. Finalmente, importamos con el nombre del documento. Veamos un ejemplo para entender mejor.\\
+
+Vamos a tener nuestras tres funciones de estad\'istica. Una para calcular la media, una para la desviaci\'on est\'andar y una para la mediana.
+
+\begin{Code}
+def media(*datos):\\
+\hspace*{6mm} return sum(datos)/len(float(datos))\\
+\ \\
+def des\_std(*datos):\\
+\hspace*{6mm} m = media(datos)\\
+\hspace*{6mm} diferencia\_cuadrados = sum([(i - m)**2 for i in datos])\\
+\hspace*{6mm} varianza = diferencia\_cuadrados / (len(datos) - 1)\\
+\hspace*{6mm} return varianza**0.5\\
+\ \\
+def mediana(*datos):\\
+\hspace*{6mm} largo = len(datos)\\
+\hspace*{6mm} centro = largo / 2\\
+\hspace*{6mm} if largo \% 2 == 0:\\
+\hspace*{13mm} return media(datos[centro - 1], datos[centro])\\
+\hspace*{6mm} else:\\
+\hspace*{13mm} return datos[centro - 1]
+\end{Code}
+
+Esto lo vamos a guardar en un documento llamado \emph{estadisticos.py}. Posteriormente, vamos a crear otro documento a la par de este en donde vamos a incluir las siguientes 4 l\'ineas:
+
+\begin{Code}
+import estadisticos as stat\\
+muestreo = [6.66, 9.751, 10.112, 10.03, 9.01, 13.948, 13.33, 6.096, 7.585, 11.914, 13.037, 4.872, 7.315, 9.24, 11.266, 9.276, 11.228, 11.629, 9.298, 15.026, 3.772, 11.131, 7.46, 8.193, 15.686, 8.428, 1.019, 10.978, 7.13, 11.602, 7.683, 13.229, 14.394, 7.0, 10.243, 11.1, 8.642, 11.586, 9.933, 7.703, 9.753, 13.589, 2.959, 9.956, 13.172, 7.277, 9.216, 15.341, 15.295, 8.211]\\
+print "La media de los datos es:", stat.media(muestreo)\\
+print "La desviacion estandar de los datos es:", stat.des\_std(muestreo)\\
+print "La mediana de los datos es:", stat.mediana(muestreo)\\
+\end{Code}
+
+Como nos podemos dar cuenta, esto simplifica muchas cosas. Podemos importar cualquier cantidad de paquetes de Python o creados por nosotros y hacer con ellos lo que se nos ocurra. Es por eso que a continuaci\'on vamos a mostrar realmente la capacidad de los paquetes de Python.
 
 \section{M\'as All\'a}
-Hasta ahora solo hemos visto bastantes cosas ya. Podemos hacer operaciones matem\'aticas, tareas repetitivas, tomar decisiones, tomar datos, leer datos, escribir datos y mostrarlos. Podemos trabajar con paquetes, con diferentes tipos de datos y somos capaces de hallar errores. Es bastante, y sin embargo, ahorita solo hemos visto lo esencial y basico.\\
+Hasta ahora solo hemos visto bastantes cosas ya. Podemos hacer operaciones matem\'aticas, tareas repetitivas, tomar decisiones, solicitar y leer datos, escribir datos y mostrarlos. Podemos trabajar con paquetes, con diferentes tipos de datos y somos capaces de hallar errores. Es bastante, y sin embargo, ahorita solo hemos visto lo esencial y b\'asico.\\
 
 A continuaci\'on vamos a cambiar un poco la din\'amica del taller. Vamos a ir viendo un ejemplo de diferentes cosas que se pueden hacer con Python. No nos preocupemos si no entendemos todo el c\'odigo a\'un. Esto es solo para formarnos una idea de lo que se puede hacer. Las posibilidades son, realmente, mucho mayores.
 
-\subsection{Nuestros Paquetes}
-Funciones y variables en un documento = paquete
-Convertir temperaturas en un paquete
 \subsection{Matem\'atica Avanzada}
-Mostrar sympy y numpy
-Calcular derivadas, integrales y resolver una matriz cargada en un documento
+Comencemos nuevamente con lo b\'asico. En las ciencias siempre recurrimos a la matem\'atica como lenguaje para nuestros modelos. Hasta ahora hemos visto c\'omo trabajar con n\'umeros. Pero no ser\'ia interesante poder trabajar con \'algebra y c\'alculo? Intentemos replicar el siguiente ejemplo.
+
+\begin{Code}
+from sympy import * \# Importamos el paquete de matematica simbolica\\
+x = Symbol("x") \# Declaramos a x como un simbolo\\
+f = x**3 - 5*x**2 + 3*x + sin(x) \# Definimos una funcion matematica
+\end{Code}
+
+Hasta ahora todo bien. De hecho, eso de trabajar con s\'imbolos suena prometedor. Nos da la idea de que vamos a poder escribir expresiones algebr\'aicas. Eso es, de hecho, cierto. Pero esta vez vamos a ir m\'as all\'a. Probemos entonces las siguientes 4 cosas.
+
+\begin{Code}
+diff(f, x) \# Derivamos la funcion f con respecto de x\\
+integrate(f, x) \# Integramos la funcion f con respecto de x de manera indefinida\\
+integrate(f, (x, 0, 3)) \# Integramos la funcion f con respecto de x desde 0 hasta 3\\
+f.series(x, 0, 10) \# Calculamos la expansion de f como serie de potencias
+\end{Code}
+
+Claro, en el tercer caso no nos deja muy contentos que el resultado no sea num\'erico. Pero para eso hay una soluci\'on tambi\'en. El tercer paso lo podemos re-escribir de la siguiente manera: \inlinecode{integrate(f, (x,0,3)).evalf()} Esto nos deber\'ia de llevar a nuestro resultado esperado. Para evaluar qu\'e tan buena aproximaci\'on es el cuarto caso, podemos sustituir $x$ por un n\'umero. Primero veamos qu\'e pasa con la funci\'on: \inlinecode{f.subs(x, 2).evalf()} Ahora pasaremos con la expansi\'on en series de potencias. Pero, si nos damos cuenta, existe un t\'ermino al final de la serie que no nos interesa ahora\footnote{Se trata de un t\'ermino de Landau que representa el resto de la serie valuada en 0.}. Para ello vamos a quitarlo con otra funci\'on y luego evaluar:\\
+\inlinecode{f.series(x, 0, 10).removeO().subs(x, 2).evalf()}\\
+
+Poder hacer c\'alculo ya nos permite resolver muchos de aquellos problemas de optimizaci\'on que ten\'iamos. En especial si mencionamos que el paquete \emph{SymPy} tambi\'en nos permite hacer \'algebra b\'asica, resolver ecuaciones y resolver ecuaciones diferenciales. Este paquete contiene cientos, si no miles de funciones que nos permiten hacer muchas operaciones diferentes. Pero no nos limitaremos a este paquete nada m\'as. El paquete \emph{NumPy} nos permite trabajar con arreglos de datos con mucha mayor velocidad a la normal.\\
+
+Un ejemplo cl\'asico en qu\'imica es cuando deseamos balancear una reacci\'on y decidimos utilizar matrices (porque queremos que nuestro ordenador haga el trabajo y no nosotros). Entonces, si tenemos un problema as\'i:
+
+\begin{equation}
+a C_5 H_{12} O + b O_2 \longrightarrow c CO_2 + d H_2 O
+\end{equation}
+
+La idea ser\'a hallar los coeficientes $a, b, c$ y $d$. Para eso planteamos el sistema de ecuaciones:
+
+\begin{eqnarray}
+C: & 5 \cdot a + 0 \cdot b = 1 \cdot c + 0 \cdot d\\
+H: & 12 \cdot a + 0 \cdot b = 0 \cdot c + 2 \cdot d\\
+O: & 1 \cdot a + 2 \cdot b = 2 \cdot c + 1 \cdot d
+\end{eqnarray}
+
+Y aqu\'i es precisamente donde todo se pone interesante en el ordenador. Pasamos todos los coeficientes con $c$ del lado izquierdo de la ecuaci\'on y procedemos a calcular como una matriz de la forma:
+
+\begin{equation}
+\left|
+\begin{matrix}
+5 & 0 & -1 & 0\\
+12 & 0 & 0 & 2\\
+1 & 2 & -2 & 1
+\end{matrix}
+\right|
+\end{equation}
+
+En donde la \'ultima columna de la matriz es el vector de soluciones. Procedemos entonces a pasar esto a nuestro ordenador y dejar que \'el calcule todo.
+
+\begin{Code}
+from numpy import *\\
+from numpy.linalg import *\\
+mat = array([[5, 0, -1], [12, 0, 0], [1, 2, -2]])\\
+vec = array([[0],[2],[1]])\\
+solve(mat, vec)
+\end{Code}
+
+Claro, el resultado no nos va a dar algo bonito de entrada; este tiene decimales que no nos gustan en coeficientes de reaciones. Por ello, lo vamos a multiplicar por algunos n\'umeros hasta que lleguemos a enteros. Finalmente vamos a hallar, en forma de vector, que los coeficientes que busc\'abamos est\'an para $a, b$ y $c$. En el caso de $d$, pues es claro: $d$ es el producto de los n\'umeros por los que multiplicamos el vector de resultado. Perfecto! Resolvimos un sistema de ecuaciones de 3x3 en segundos y sin mayor problema.\\
+
+\emph{NumPy} es, claramente, capaz de hacer mucho m\'as. Calcula valores y vectores propios, inversas, transpuestas, etc. La ventaja es su velocidad de operaciones para arreglos. Pero bien, debemos aclarar que estos dos paquetes son parte de un proyecto m\'as grande llamado \emph{SciPy} para c\'alculos cient\'ificos. Este tambi\'en cuenta con paquetes para algoritmos, matem\'atica avanzada, visualizaci\'on de datos (hacer gr\'aficas), etc. La idea ser\'a investigarlos y ver qu\'e podemos hacer con ellos. Pero por ahora, vamos a enfocarnos en qu\'imica.
+
 \subsection{Qu\'imica en el Ordenador}
-Mostrar rdkit
-Cargar molecula como SMILES de documento, colocar Hs, optimizar en 3D, calcular E y guardar datos
+Hasta ahora lo m\'as interesante que hab\'iamos hecho a nivel molecular era jugar con el formato SMILES. Esta vez, sin embargo, vamos a hacer otra serie de operaciones con nuestra mol\'ecula. Ahora s\'i haremos algo m\'as que representarla.
+
+\begin{footnotesize}
+\begin{Code}
+\# Importamos un paquete para herramientas de quimica\\
+from rdkit import Chem\\
+\ \\
+\# Importamos mas herramientas\\
+from rdkit.Chem import AllChem \\
+\ \\
+\# Creamos nuestra molecula en SMILES\\
+paracetamol = "\ \hspace*{-2mm}CC(=O)NC1=CC=C(O)C=C1"\\
+\ \\
+\# La convertimos en molecula para poderla trabajar\\
+mol = Chem.MolFromSmiles(paracetamol)\\
+\ \\
+\# Le agregamos los hidrogenos que nos hacen falta\\
+mol\_2 = Chem.AddHs(mol)\\
+\ \\
+\# Calculamos coordenadas iniciales para una molecula\\
+AllChem.EmbedMolecule(mol\_2)\\
+\ \\
+\# Establecemos los parametros necesarios para determinar la energia de la molecula\\
+ff = AllChem.UFFGetMoleculeForceField(mol\_2)\\
+\ \\
+\# Hallamos la conformacion mas estable de la molecula\\
+ff.Minimize()\\
+\ \\
+\# Solicitamos el valor de energia de la molecula\\
+ff.CalcEnergy()\\
+\ \\
+\# Guardamos nuestra molecula con sus coordenadas 3D en otro formato\\
+Chem.MolToMolFile(mol\_2, "\ \hspace*{-2mm}acetaminofen.mol")
+\end{Code}
+\end{footnotesize}
+
+Como nos podemos dar cuenta, nuestro ordenador ya hace muchas cosas por nosotros: agregar hidrogenos, hallar la conformaci\'on m\'as estable y calcular la energ\'ia (en kJ/mol) de esa mol\'ecula. Claro, esa energ\'ia es muy relativa; fue calculada para esa mol\'ecula nada m\'as y no deber\'iamos usarla como par\'ametro termodin\'amico est\'andar, por ejemplo.\\
+
+Adem\'as de esto, \emph{RDKit} puede calcular las cargas parciales de cada \'atomo, el coeficiente de partici\'on octanol/agua, huellas digitales moleculares, \'indices de similitud entre mol\'eculas, puede hallar subestructuras, etc. Este paquete todav\'ia es un trabajo en progreso, por lo que podemos hallar peque\~nos errores en el programa de vez en cuando. Pero en general, ya nos deja hacer muchas cosas.\\
+
+Otros paquetes para qu\'imica que vale la pena sean mencionados son: \emph{PyQuante} para mec\'anica cu\'antica, \emph{Indigo} que es similar a \emph{RDKit}, \emph{OpenBabel} que nos permite casi cualquier transformaci\'on de formatos adem\'as de algunas herramientas, \emph{MMTK} que ofrece herramientas para trabajos un poco m\'as pesados, y claro, \emph{Cinfony} que combina a muchos de estos paquetes en uno solo.
+
 \section{Paquete para Qu\'imica sin usar Fortran, Java, C o C++}
 Los de ahora no son 100\% Py
 \section{Comentarios Finales}
