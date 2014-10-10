@@ -428,6 +428,30 @@ Cuando corremos nuestro script y resulta que no hay errores, pero no obtenemos r
 
 Hay ambientes de desarrollo integrados (IDEs) que ya hacen esto por nosotros. Sin embargo, en el caso de no contar con uno, o no querer usarlo porque para lo que estamos haciendo un IDE es mucho, la manera m\'as sencilla de hallar d\'onde se halla el problema, es imprimiendo el valor de las variables importantes (o todas, de ser necesario) en los pasos cr\'iticos del script. As\'i podremos ver qu\'e valor est\'a tomando cada una y hallar si todas se est\'an comportando como se debe. De hallar una que no tenga el valor deseado, sabremos que el error est\'a antes de la l\'inea en la que se imprimi\'o el valor de la variable. As\'i podemos revisar el c\'odigo que se halla antes y corregir el error.
 
+\subsection{Capturando Errores}
+Algunas veces no vamos a saber si una parte de nuestro c\'odigo va a generar un error. Esto suele pasar cuando dependemos de que un usuario interact\'ue con nuestro programa o script. Para evitar que nuestro script se rompa y nos veamos en un aprieto, existe una forma de que nuestro ordenador \emph{pruebe} ejecutar un comando, y si este da un error, tome otra v\'ia como alternativa.\\
+
+Supongamos que necesitamos que un usuario ingrese un n\'umero entero. Para ello utilizamos el siguiente c\'odigo: \inlinecode{opcion = input("Por favor ingrese un numero del 1 al 10: ")} El usuario puede no hacer caso e ingresar un n\'umero con decimales, o peor a\'un, texto. Esto nos generar\'ia un error. Por esta raz\'on decidimos hacer una prueba.
+
+\begin{Code}
+try:\\
+\hspace*{4mm} opcion = input("Por favor ingrese un numero del 1 al 10: ")\\
+except \textit{Excpetion} as e:\\
+\hspace*{4mm} print "Se ha producido un error:", e\\
+\hspace*{4mm} print "Ha ingresado una opci\'on no-valida."
+\end{Code}
+
+Si nos damos cuenta, capturamos el error (si es que se produce uno) y almacenamos sus caracter\'isticas en la variable \inlinecode{e}. De no producirse el error, el c\'odigo solo se seguir\'a ejecutando sin entrar al \inlinecode{except}. Algo que vale la pena mencionar es sobre la palabra \inlinecode{\textit{Exception}}. Esta palabra nos permite capturar cualquier error. Pero si deseamos capturar un error en particular, podemos colocar alguno de los tipos de error que hab\'iamos estado viendo hasta ahora. Eso s\'i, si el error producido en el \inlinecode{try:} es diferente al que se est\'a esperando en el \inlinecode{except}, el error no ser\'a capturado y nuestro script se romper\'a. E.g.
+
+\begin{Code}
+try:\\
+\hspace*{4mm} 1 / 0\\
+except \textit{IOError} as e:\\
+\hspace*{4mm} print "Se ha producido un error:", e
+\end{Code}
+
+Esto, por seguro, producir\'a un error que no ser\'a capturado. El error esperado es de entrada o salida de datos, y el error producido es de divisi\'on entre cero. Por esta raz\'on, hay que tener mucho cuidado con el tipo de error que se est\'a esperando\footnote{Y para aquellos que piensen en usar \textit{Exception} siempre, consideren que depende del tipo de error es la medida que podemos tomar despu\'es en nuestro script.}.
+
 \section{Condiciones y Tareas Repetitivas}
 Una de las cosas m\'as \'utiles al estar creando un script o programa es la capacidad de nuestro ordenador de elegir un camino a seguir. Si nos damos cuenta atentamente, en el script que calculaba temperaturas, dise\~namos algo que nos permit\'ia elegir: depende del n\'umero ingresado, entonces se nos muestra algo. Pero esa forma de hacerlo se siente un tanto complicada. De hecho, en nuestro script hicimos todos los c\'alculos y, la verdad, no era necesario hacerlos todos. Solo el que necesit\'abamos. Por eso, ahora veremos una forma en la que nuestro ordenador puede elegir un camino a seguir dependiendo de alguna circunstancia.\\
 
@@ -447,6 +471,7 @@ else:\\
 
 Claro, antes de ejecutar esto hay que darle un valor a \inlinecode{var}, pero en general, vemos que esto funciona. Debemos notar, sin embargo, que dejamos 4 espacios antes de cada comando despu\'es de la condici\'on. A esto se le llama indentaci\'on. La regla es: \textit{Todo aquello que dependa de la condici\'on para ser ejecutado, va indentado.} La verdad, es una forma de ordenar nuestro c\'odigo para que el ordenador sepa qu\'e debe de correr, cu\'ando y en qu\'e condiciones. Veamos nuestro script de las temperaturas nuevamente para ver eso y, adem\'as, una implementaci\'on de cuando pueden haber varios caminos a seguir.
 
+\begin{small}
 \begin{Code}
 print "********** Convertidor **********"\\
 print "1. F -> C \textbackslash t 2. C -> F"\\
@@ -472,6 +497,7 @@ elif opcion == 5:\\
 elif opcion == 6:\\
 \hspace*{5mm} print "F:", (temperatura - a) * 1/f\ +\ b
 \end{Code}
+\end{small}
 
 Esto, aunque se vea m\'as largo, es m\'as eficiente y mucho m\'as autoexplicativo. Comentemos con nuestro compa\~nero de al lado qu\'e creemos que hace el comando \inlinecode{if}, el comando \inlinecode{elif} y el comando \inlinecode{else} Posteriormente comentemos sobre por qu\'e es que este c\'odigo resulta m\'as eficiente que el anterior que ten\'iamos y m\'as f\'acil de entender. Finalmente tomemos nota de lo que acabamos de aprender y tomemos un momento para pensar en qu\'e casos es esto importante\footnote{Notemos que ahora utilizamos n\'umeros del 1 al 6.}.
 
@@ -672,8 +698,6 @@ def tabla(datos, tiene\_titulos):\\
 \end{Code}
 \end{small}
 
-\newpage
-
 Como recomendaci\'on para probar esta funci\'on, ser\'ia interesante tomar la siguiente idea:
 
 \begin{Code}
@@ -863,11 +887,16 @@ Adem\'as de esto, \emph{RDKit} puede calcular las cargas parciales de cada \'ato
 Otros paquetes para qu\'imica que vale la pena sean mencionados son: \emph{PyQuante} para mec\'anica cu\'antica, \emph{Indigo} que es similar a \emph{RDKit}, \emph{OpenBabel} que nos permite casi cualquier transformaci\'on de formatos adem\'as de algunas herramientas, \emph{MMTK} que ofrece herramientas para trabajos un poco m\'as pesados, y claro, \emph{Cinfony} que combina a muchos de estos paquetes en uno solo.
 
 \section{Paquete para Qu\'imica sin usar Fortran, Java, C o C++}
-Los de ahora no son 100\% Py
+Una desventaja de todos estos paquetes para matem\'atica y qu\'imica es que est\'an solo parcialmente escritos en Python. Otras partes de los mismos est\'an escritos en C, C++, Fortran o Java. Eso los hace m\'as dif\'iciles para nosotros, porque no podemos ver el c\'odigo fuente y adaptarlo a nuestras necesidades. Un proyecto en donde se hiciera un paquete para qu\'imica 100\% en Python ser\'ia una iniciativa totalmente nueva que ayudar\'ia mucho en el proceso de ense\~nanza. Despu\'es de todo, la teor\'ia para todos estos procesos ya est\'a planteada. Y si el problema es de velocidad de operaciones, existe el proyecto \emph{PyPy} que nos ayuda con eso.
+
+\newpage
+
 \section{Comentarios Finales}
-Felicidades
-Investigar mas paquetes
-Semana entrante: a jugar con quimica y algoritmos
+Muchas felicidades! Has completado el quinto d\'ia del Taller de QCA. Ahora est\'as en la capacidad de crear rutinas peque\~nas, trabajar con lo que te ingrese un usuario, con el contenido de un documento, hacer tareas repetitivas, guardar datos, mostrarlos, hacer operaciones matem\'aticas y trabajar con texto. Adem\'as de ello, ya sabes que tu ordenador puede hacer \'algebra, c\'alculo y hasta \'algebra lineal. Pero lo m\'as importante es que ya comenzaste a ver que tambi\'en se pueden hacer cosas con qu\'imica.\\
+
+Python es un lenguaje muy utilizado por la comunidad cient\'ifica por su capacidad para hacer scripts con \'el, as\'i como su capacidad de hacer programas enteros con \'el. La ventaja es siempre que es bastante f\'acil de aprender y de trabajar con \'el. Por eso mismo, ser\'ia muy conveniente que profundizaras m\'as en los paquetes que ya mencionamos aqu\'i, as\'i como en otros paquetes que te permiten hacer muchas m\'as cosas. Desde hacer juegos, hasta programar servidores. Desde dise\~nar ventanitas para ver cosas, hasta visualizar mol\'eculas en 3D. Desde trabajar con bases de datos desde Python, hasta hacer operaciones en m\'as de 2 procesadores a la vez. Python puede hacer todo esto, solo te toca aprender c\'omo. Los usos que le puedes dar a esto son casi infinitos.\\
+
+De nuevo felicitaciones por haber terminado este d\'ia; es el m\'as fuerte de toda la semana. La semana entrante comenzaremos otra vez de manera un poco m\'as f\'acil, pero tomando en cuenta todo lo que aprendimos esta semana. Esta vez ya comenzaremos a ver cosas que se hacen en qu\'imica computacional. As\'i que repasa un poco y rel\'ajate en el fin de semana. Esto que viene es la mejor parte!
 
 \section*{Licencia}
 
