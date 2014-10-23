@@ -1,0 +1,138 @@
+%
+% dia6.tex
+% 
+% Copyright 2014 Rony J. Letona <rony@zronyj.com>
+% 
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2 of the License, or
+% any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+% MA 02110-1301, USA.
+%
+
+\documentclass[10pt,letterpaper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{float}
+\usepackage{upquote}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Rony J. Letona}
+\title{Taller de Qu\'imica Computacional Aplicada: D\'ia 6}
+\definecolor{light-gray}{gray}{0.90}
+
+\newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
+
+\newcommand{\inlinecode}[1]{
+\colorbox{light-gray}{\texttt{#1}}
+}
+
+\newsavebox{\selvestebox}
+\newenvironment{Code}
+{
+\begin{lrbox}{\selvestebox}%
+\begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax}
+\fontfamily{\ttdefault}\selectfont
+}
+{\end{minipage}\end{lrbox}%
+\begin{center}
+\colorbox{light-gray}{\usebox{\selvestebox}}
+\end{center}
+}
+
+\newcommand{\Picture}[1]
+{
+	\begin{figure}[H]
+	\begin{flushleft}
+	\includegraphics[width=\columnwidth]{#1}
+	\end{flushleft}
+	\end{figure}
+}
+
+\begin{document}
+\maketitle
+
+\section{Paquetes, Algoritmos y Objetos}
+Al terminar un curso de programaci\'on que no nos gust\'o, generalmente nos sentimos aliviados y decidimos jam\'as volver a ver c\'odigo en nuestras vidas. Es m\'as, compadecemos al pobre amigo nuestro que decide meterse a estudiar cursos avanzados o la carrera de ingenier\'ia en sistemas. Pero muchas veces el problema m\'as grande no es que nos hayan dado mal el curso, sino que jam\'as nos mostraron que los principios de este se pod\'ian aplicar a algo en nuestra vida diaria. Por eso, esta vez, vamos a intentar darle prop\'osito a todo lo que hemos aprendido. Esta vez ya no vamos a enfocarnos en usar bien las cosas. Eso ya vamos a asumir que lo hacemos. Ahora nos vamos a enfocar en ver qu\'e podemos crear con eso que hemos aprendido. Para ello vamos a comenzar buscando realizar tareas de matem\'atica mediante algunos paquetes. Luego vamos a aprender sobre algoritmos y c\'omo los podemos usar para tareas desde ordenar listas, hasta hallar la conformaci\'on m\'as estable de una mol\'ecula. Finalmente vamos a ver qu\'e significa eso de \emph{Programaci\'on Orientada a Objetos} y c\'omo es que, aunque no nos hayamos dado cuenta, ya la estamos usando. Comencemos con algo conocido de la vez pasada.
+
+\section{Haciendo un poco de Matem\'atica: Paquetes (otra vez)}
+El \'ultimo d\'ia que nos vimos terminamos mostrando una serie de paquetes que podemos usar para hacer una serie de operaciones matem\'aticas de diferente tipo. Hoy vamos a entender un poco mejor sobre c\'omo podemos hacer un mejor uso de ellos y por qu\'e es conveniente usarlos a veces. Por ahora nos vamos a enfocar en resolver algunos problemas de matem\'atica que suelen molestarnos a veces cuando estamos llevando alg\'un curso.
+
+\subsection{SciPy}
+SciPy no es un gran paquete que todo lo puede, a pesar de ser uno de los paquetes m\'as famosos para hacer c\'alculos a nivel cient\'ifico en Python. Este s\'i es un paquete en s\'i mismo, pero generalmente es acompa\~nado por los paquetes SymPy y NumPy. En este caso en particular no vamos a entrar en detalle de lo que podemos hacer con SciPy, pero s\'i lo que se puede hacer con los otros dos. Estos dos \'ultimos son m\'as interesantes y c\'omodos cuando vamos a hacer c\'alculos cotidianamente. Comencemos con algo de matrices.
+
+\subsubsection{NumPy}
+Una matriz resulta generalmente de un sistema de ecuaciones que deseamos resolver. 
+
+Trabajo con imagenes
+\subsubsection{SymPy}
+algebra
+Ecuaciones
+EDs
+Limites, Derivadas, Integrales, Series
+\subsection{MatPlotLib}
+Líneas
+Ejes
+Tipos de grafica
+\section{Optimizando: Algoritmos}
+Que es y los criterios que debe cumplir
+\subsection{Hallando el M\'aximo en una Lista}
+Sencillo
+\subsection{Ordenando una Lista de Datos}
+Quick Sort
+\subsection{Bisecci\'on}
+Para hallar la raiz de 3
+\subsection{M\'etodo de Newton}
+Otra vez la raiz de 3
+\subsection{M\'etodo de MonteCarlo}
+Integrando
+\subsection{Algoritmo de Metr\'opolis}
+Hallando estabilidad termica
+\subsection{Algoritmo de Anillamiento Simulado}
+Hallando estabilidad en general
+\subsection{Algoritmo Gen\'etico}
+Hallando la descendencia mas apta
+\subsection{Red Neural Artificial}
+Aprendiendo patrones
+\section{Ordenando Ideas: Programaci\'on Orientada a Objetos}
+Que es un objeto y formas en que podemos representarlo
+\subsection{Clases}
+Atomo, Molecula: Estructura especial en python
+\subsection{M\'etodos}
+Numero de atomos, peso molecular, etc.
+\subsection{Herencia}
+Propiedades de un atomo pasan a molecula
+\subsection{Polimorfismo}
+creando alcanos en automatico o definiendolos bien con smiles
+\section{Extras}
+algunas cosas no son necesarias, pero si convenientes
+\subsection{Recursi\'on}
+ni idea
+\subsection{Programaci\'on Funcional}
+ni idea
+\section{Paquetes de Qu\'imica y Estad\'istica para An\'alisis}
+\section{Comentarios Finales}
+felicidades, vamos por la quimica
+
+\section*{Licencia}
+
+\noindent \includegraphics{img/cc_big.png}
+
+\noindent Taller de Qu\'imica Computacional Aplicada by \href{http://github.com/zronyj/TQCA}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
+Based on a work at \url{http://github.com/swcarpentry/bc}.
+
+\end{document}
