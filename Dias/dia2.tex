@@ -262,7 +262,7 @@ CREATE TABLE Lugares (\\
 Las diferencias no son muchas. Vale la pena mencionar que con \inlinecode{VARCHAR} le podemos colocar un l\'imite a la cantidad de caracteres a almacenarse para que la base de datos no ocupe espacio de m\'as. \inlinecode{TEXT} por otra parte, no pone l\'imite y a este se le puede ingresar cantidades muy grandes de texto. El tipo de dato \inlinecode{REAL} especifica que los datos en ese campo son n\'umeros reales. Y fuera de eso, no hay muchas diferencias con la tabla anterior. Intentemos crear la \'ultima tabla.\\
 
 \begin{Code}
-CREATE TABLE Lugares (\\
+CREATE TABLE Muestreo (\\
 \hspace*{5mm}mid INTEGER NOT NULL,\\
 \hspace*{5mm}perona INTEGER NOT NULL,\\
 \hspace*{5mm}lugar INTEGER NOT NULL,\\
@@ -274,8 +274,8 @@ CREATE TABLE Lugares (\\
 \hspace*{5mm}pH REAL,\\
 \hspace*{5mm}fecha DATE,\\
 \hspace*{5mm}PRIMARY KEY(mid),\\
-\hspace*{5mm}FOREIGN KEY(persona) REFERENCE Personas(pid),\\
-\hspace*{5mm}FOREIGN KEY(lugar) REFERENCE Lugares(lid)\\
+\hspace*{5mm}FOREIGN KEY(persona) REFERENCES Personas(pid),\\
+\hspace*{5mm}FOREIGN KEY(lugar) REFERENCES Lugares(lid)\\
 );
 \end{Code}
 
