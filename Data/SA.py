@@ -70,6 +70,7 @@ def scalar_mul(s, v):
 	return nv
 
 # Algoritmo de anillamiento simulado
+@profile
 def simulated_annealing(parts, lim, tempi, steps, optfunc, temp_prog=0):
 	particles = []
 	temp_funt = []

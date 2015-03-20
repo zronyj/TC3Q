@@ -1,0 +1,163 @@
+%
+% dia7.tex
+% 
+% Copyright 2015 Rony J. Letona <rony@zronyj.com>
+% 
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2 of the License, or
+% any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+% MA 02110-1301, USA.
+%
+
+\documentclass[10pt,letterpaper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{float}
+\usepackage{upquote}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Rony J. Letona}
+\title{Taller de Qu\'imica Computacional Aplicada: D\'ia 7}
+\definecolor{light-gray}{gray}{0.90}
+
+\newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
+
+\newcommand{\inlinecode}[1]{
+\colorbox{light-gray}{\texttt{#1}}
+}
+
+\newsavebox{\selvestebox}
+\newenvironment{Code}
+{
+\begin{lrbox}{\selvestebox}%
+\begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax}
+\fontfamily{\ttdefault}\selectfont
+}
+{\end{minipage}\end{lrbox}%
+\begin{center}
+\colorbox{light-gray}{\usebox{\selvestebox}}
+\end{center}
+}
+
+\newcommand{\Picture}[1]
+{
+	\begin{figure}[H]
+	\begin{flushleft}
+	\includegraphics[width=\columnwidth]{#1}
+	\end{flushleft}
+	\end{figure}
+}
+
+\begin{document}
+\maketitle
+
+\section{Bioinform\'atica}
+Despu\'es de haber conocido un poco de lo b\'asico en ciencias de la computaci\'on y c\'omo estas se aplican a m\'etodos num\'ericos y matem\'atica, ya vamos teniendo una base m\'as s\'olida sobre c\'omo tratar con nuestro ordenador. Ya no nos da miedo trabajar con la terminal, ya entendemos de qu\'e nos hablan cuando se refieren a base de datos, ya sabemos hacer peque\~nos scripts en un lenguaje de programaci\'on no tan complicado, etc. La diferencia la podemos sentir ya. Ahora vamos a comenzar con las diferentes disciplinas cient\'ificas que utilizan el poder de nuestro ordenador para lograr resultados.\\
+
+Lo primero es un algoritmo muy particular que se utiliza en la rama hermana de \textbf{bioinform\'atica}. Esta rama de la biolog\'ia se enfoca mucho en obtener, almacenar e interpretar informaci\'on gen\'etica y prot\'eica. Por ello, mucho se enfoca en formas de b\'usqueda, alineaci\'on y de comparaci\'on de secuencias de bases de ADN o de amino\'acidos. El algoritmo que vamos a ver hoy hace dos de esas tres cosas: busca y compara segmentos de secuencias. Comencemos con este.\\
+
+\subsection{BLAST}
+El algoritmo BLAST (\textbf{B}asic \textbf{L}ocal \textbf{A}lignment \textbf{S}earch \textbf{T}ool) es el resultado de varios intentos de intentar comparar secuencias de ADN y de amino\'acidos de manera r\'apida y eficiente. Vamos a verlo a detalle con un ejemplo.\\
+
+BLAST primero descarta las regiones de baja complejidad de una secuencia. Estas son las regiones en las que algunos pocos elementos se presentan de maneras repetitivas. En nuestro caso vamos a obviar esa parte, porque no vamos a trabajar con secuencias tan complicadas.\\
+
+El coraz\'on del algoritmo es una matriz\footnote{Revisar la matriz BLOSUM62, qu\'e compara y su relaci\'on con el algoritmo BLAST.} que nos ayuda a interpretar la prioridad que le vamos a asignar a cada amino\'acido o cada base nitrogenada. Para hacer el ejemplo sencillo, vamos a trabajar con ADN. En ese caso, vamos a dise\~nar nuestra matriz en donde comparamos una secuencia de referencia con una secuencia de prueba$^{*}$ de la siguiente forma:
+
+\begin{equation*}
+\begin{matrix}
+ & \vert & A^{*} & C^{*} & G^{*} & T^{*}\\
+\hline
+A & \vert & \textbf{1} & -1 & -1 & -1\\
+C & \vert & -1 & \textbf{1} & -1 & -1\\
+G & \vert & -1 & -1 & \textbf{1} & -1\\
+T & \vert & -1 & -1 & -1 & \textbf{1}
+\end{matrix}
+\end{equation*}
+
+Esta peque\~na matriz nos dice que si las bases nitrogenadas son iguales en ambas secuencias que estamos comparando, entonces el valor de la comparaci\'on es 1, si no, es de -1. La idea es entonces ir comparando las bases nitrogendas e ir sumando el resultado de las comparaciones: la primera con la primera, la segunda con la segunda, etc. Si el resultado de esa suma supera cierto umbral, se toma como que las cadenas de ADN son similares. Si no lo supera, la descarta. Sin embargo, hacer eso con cada base ser\'ia un proceso muy tardado.\\
+
+Para resolver este problema, utilizamos otra estrategia: dividimos nuestra secuencia en \emph{palabras} de 3 o 4 letras (al comparar ADN las palabras son de 11 letras generalmente). Eesto significa que, si tenemos una secuencia $\underset{0}{G} \underset{1}{A} \underset{2}{T} \underset{3}{G} \underset{4}{C} \underset{5}{A}$, las palabras que 4 letras que podr\'iamos formar son: $\underset{0}{G} \underset{1}{A} \underset{2}{T} \underset{3}{G}$, $\underset{1}{A} \underset{2}{T} \underset{3}{G} \underset{4}{C}$ y $\underset{2}{T} \underset{3}{G} \underset{4}{C} \underset{5}{A}$. Ahora que ya tenemos dividida la cadena en palabras, podemos proceder a ordenar y ver qu\'e tanto se repiten las palabras. Esta es una de las diferencias entre el algoritmo BLAST y su antecesor FASTA. En el caso del \'ultimo, todas las palabras son importantes y se revisan. En el caso de BLAST, solo toma en cuenta las palabras m\'as importantes seg\'un la cantidad de veces que aparece en la secuencia y el \emph{score} obtenido de compararse con la matriz de la que hablamos anteriormente. Veamos esto por pasos.\\
+
+Primero comenzamos con la parte m\'as sencilla: Revisamos la cantidad de veces que aparece la palabra en cada secuencia y las anotamos. Luego ordenamos las palabras por la cantidad de veces que aparecieron. Finalmente, revisamos si las palabras de la secuencia de prueba aparecen en la secuencia de referencia.\\
+
+Entonces, en resumen, vamos a dividir la secuencia en palabras. Luego vamos a ver qu\'e tanto se repiten las palabras que hallamos y a hacer una lista de ellas. Las ordenamos y comparamos las palabras de la secuencia de prueba con la de referencia. El paso que determina la diferencia entre BLAST y FASTA va entre el ordenado y la comparaci\'on. Lo que haremos es escoger solo las palabras que tengan muchas apariciones. Cu\'anto es \emph{muchas}? Un umbral que nosotros decidamos. Esto va a depender mucho de la longitud de la secuencia. Podr\'iamos tener un valor relativo al tama\~no de la secuencia, pero en este caso lo vamos a definir nosotros como un valor fijo para mantener las cosas simples.\\
+
+Una vez hecho todo esto, toca realmente comparar las dos secuencias. Para ello comenzamos a buscar palabra por palabra de la secuencia de prueba para compararla con la secuencia de referencia. Al comparar una palabra, buscamos la palabra en la secuencia de referencia, la encontramos y luego vamos revisando, hacia la derecha y la izquierda, las letras alrededor de la palabra en las secuencias. Al ir haciendo esto, vamos comparando utilizando la matriz que definimos al principio. La idea es seguir creciendo hacia los lados mientras el \emph{score} sea m\'as alto que cierto umbral. Si el \emph{score} baja, guardamos la regi\'on que encaj\'o con un \emph{score} mayor al umbral todav\'ia, y regresamos a seguir revisando con la siguiente palabra. Al final, vamos a tener un listado con todas las regiones de las secuencias que se parecen! Ahora es donde se pone interesante.\\
+
+De listado que obtuvimos, vamos a escoger solo los mjores resultados. Es decir, los segmentos que tengan el \emph{score} m\'as alto. La idea es que podamos visualizar estos resultados (en nuestro caso). En el caso de los servidores en internet que utilizan BLAST para buscar en grandes bases de datos, solo se basan en el \emph{score} m\'as alto para revisar cu\'al de todas las secuencias en la base de datos es la m\'as parecida a nuestra secuencia de prueba. Al final lo que obtendr\'iamos de una b\'usqueda as\'i es la secuencia que m\'as se parece a la nuestra. Pero en nuestro caso, solo deseamos verlas una al lado de la otra. Por eso, vamos a dise\~nar una peque\~na funci\'on para poder visualizar el resultado.\\
+
+Este es, entonces, un buen momento para revisar el archivo \emph{BLAST (attempt).ipynb} y repasar todo lo que hemos dicho ac\'a. Luego, vamos a probar con las secuencias que se nos ocurran para ver c\'omo reacciona el algoritmo. Cuando logremos explicar, en nuestras palabras, lo que hace cada funci\'on en el algoritmo, c\'omo es que todo se integra, y hallemos al menos una manera de optimizarlo, podemos pasar a la siguiente secci\'on.
+
+\subsection{An\'alisis de Secuencias}
+Una parte importante de la bioinform\'atica implica analizar pol\'imeros como prote\'inas o enzimas. Esta vez lo vamos a hacer de manera visual y utilizando UCSF Chimera. Para ello vamos a necesitar 1 enzima, la cual vamos a buscar y descargar en \href{http://www.rcsb.org/pdb/home/home.do}{RCSB PDB}. En particular, queremos la prote\'ina con c\'odigo: \textbf{1PXX}. Vamos a descargar el archivo con extensi\'on \emph{.pdb} simple y lo vamos a guardar en nuestra carpeta de datos.\\
+
+A continuaci\'on vamos a abrir UCSF Chimera y vamos a abrir la prote\'ina. Al abrirla, observ\'emosla, veamos qu\'e tiene de especial, algo que nos llame la atenci\'on, si identificamos un sitio activo, etc. Cuando ya hayamos revisado un poco, vamos a ir a \emph{Tools}, \emph{Sequence} y \emph{BLAST Protein}. All\'i vamos a escoger la secuencia \textbf{1PXX}, cadena A, y vamos a hacer click en \emph{Apply}. As\'i vamos a ver c\'omo es que BLAST va hallando todas las prote\'inas que se le parecen a esta secuencia. Es importante notar que entre los resultados va a aparecer nuestra prote\'ina \textbf{1PXX} y otra prote\'ina con c\'odigo \textbf{4FM5}, las cuales vamos a utilizar en un momento.\\
+
+Ahora que ya vimos c\'omo funciona BLAST en la vida real, vamos a ver algunas propiedades de nuestra prote\'ina \textbf{1PXX} y la \textbf{4FM5} hallada con BLAST. Esto es, qu\'e tanto se parecen entre ellas. Primero vamos a escoger las prote\'inas \textbf{1PXX} y \textbf{4FM5} halladas con BLAST, y luego vamos ir a \emph{Load Structure}. En unos segundos vamos a ver c\'omo es que las nuevas prote\'inas aparecen superpuestas de manera casi perfecta. Lo que no se ve muy bien es nuestra prote\'ina original. Para ello, la vamos a quitar de la pantalla. Nos vamos a \emph{Favorites}, \emph{Model Panel}, seleccionamos nuestra prote\'ina, y presionamos \emph{close} de entre las opciones que se nos presentan. Ahora, con el af\'an de centrar nuestros dos nuevos modelos, vamos a \emph{Actions}, y luego a \emph{Focus}. Ahora estamos listos para comenzar el an\'alisis.\\
+
+Cerramos todas las ventanas de di\'alogo que ten\'iamos abiertas y vamos nuevamente a \emph{Tools}, \emph{Sequence} y esta vez pasamos a \emph{Sequence}. All\'i seleccionamos la cadena A de la prote\'ina \textbf{1PXX} y hacemos click en \emph{OK}. A continuaci\'on nos aparecer\'a una ventana con la secuencia aminoac\'idica completa de la prote\'ina que escogimos. Hay algunas regiones, sin embargo, que est\'an en cajas con diferentes colores. Qu\'e pasar\'a si hacemos click en ellas? O mejor a\'un, qu\'e significar\'an que tengan diferentes colores? Intent\'emoslo y veamos qu\'e descubrimos. Como un tip, ir a \emph{Select}, \emph{Clear selection} puede servirnos.\\
+
+Continuando, una cosa que puede llamar nuestra atenci\'on es comparar qu\'e tanto se parecen las dos prote\'inas en su secuencia aminoac\'idica. Se podr\'a hacer esto? En la ventana donde tenemos la secuencia de amino\'acidos, vamos a ir a \emph{Edit}, luego a \emph{Add sequence ...}, y ya en la ventana vamos a escoger la pesta\~na \emph{From structure}. All\'i vamos a escoger la secuencia \textbf{4FM5} cadena A, y haremos click en \emph{OK}. Despu\'es de unos segundos, habremos notado que ahora tenemos las dos secuencias una sobre la otra y separadas a modo de hacer m\'as comprensible el an\'alisis entre las dos. Resulta interesante muchas veces notar que las cajas de colores no coinciden muchas veces, a pesar de que la secuencia de amino\'acidos es similar. Esto se debe a algunas diferencias en la posici\'on de los \'atomos de las prote\'inas; en algunos casos forman una estructura especial, y en otros no.\\
+
+Finalmente, vamos a determinar si realmente la identidad de los amino\'acidos de ambas secuencias es la misma. En otras palabras, vamos a ver qu\'e tanto se parecen las dos secuencias. Para ello hacemos click en \emph{Info} y en \emph{Percent Identity}. Seleccionamos las dos cadenas que deseamos comparar y hacemos click en \emph{Apply} para ver el porcentaje en el que se parecen ambas cadenas. Esta cifra aparecer\'a en la esquina inferior izquierda de la ventana donde vemos las secuencias de amino\'acidos. Qu\'e sucedi\'o con el n\'umero que obtuvimos? Nos parece satisfactorio el resultado obtenido? Y para dejar una inquietud: qu\'e pasar\'ia si, escogiendo \emph{otra} prote\'ina de la lista de resultados de BLAST, hacemos lo mismo? Intent\'emoslo y veamos qu\'e sucede. Posteriormente, comentemos con nuestro compa\~nero a ver qu\'e opini\'on resulta teniendo despu\'es de realizar esta prueba.\\
+
+La cantidad de herramientas que nos da \textit{Chimera} para seguir trabajando es inmensa. Exploremos qu\'e m\'as es lo que podemos ir haciendo con este programa. Generalmente lo utilizamos para eliminar residuos o agua que ha quedado en la estructura 3D de las prote\'inas. Vamos a seguir en este ambiente, pero vamos a pasar a otro tema para continuar.
+
+\subsection{Docking}
+El docking molecular es una t\'ecnica que, si bien es sencilla y relativamente r\'apida, no es la m\'as efectiva para hallar resultados contundentes en investigaci\'on. Se utiliza m\'as como una t\'ecnica exploratoria para revisar si existe la posibilidad de un acoplamiento o no. En nuestro caso vamos a tratar de realizar un docking del esomeprazole en nuestra prote\'ina \textbf{2YN9}, que por cierto es una enzima de la bomba de protones.\\
+
+TODO
+
+\subsection{Tareas Repetitivas}
+El docking, la tarea que acabamos de realizar, es muy sencilla cuando se trata de \emph{una sola} mol\'ecula. Pero qu\'e pasa si tenemos que calcular 5000? Considerando que cada mol\'ecula se va a tardar un promedio de 5 minutos, y que no deseamos hacerlo solo en nuestros tiempos libres, pues terminar\'iamos muchos meses despu\'es. Automatizar el proceso se ve como una buena opci\'on.\\
+
+Poniendo todos nuestros conocimientos en pr\'actica, vamos a intentar realizar un docking de nuestras 5 mol\'eculas sobre la prote\'ina \textbf{2XZB}. Para ello habr\'ia que realizar dos tareas claves: La primera es preparar nuestras mol\'eculas como \textit{pdbqt}s. La segunda es preparar un archivo de entrada. Contrario a ayer, hoy vamos a intentar realizar el proceso con AutoDock Vina. Las ventajas de Vina es que no solo es m\'as r\'apido, sino que puede utilizar m\'as de un solo procesador de nuestro ordenador. Pero comencemos con lo primero.\\
+
+Las mol\'eculas en formato \textit{pdbqt} nos fueron enviadas con este documento. Ahora lo que nos queda hacer es praparar un archivo de entrada. Este archivo no es tan complicado, solo hay que especificarle algunos par\'ametros. Creamos un nuevo archivo de nombre \emph{esome.conf} y le escribimos esto adentro:
+
+\begin{Code}
+receptor = 2XZB.pdbqt\\
+ligand = esomeprazole.pdbqt\\
+out = esome.pdbqt\\
+log = esome.log\\
+center\_x = 10\\
+center\_y = 0\\
+center\_z = -50\\
+size\_x = 50\\
+size\_y = 50\\
+size\_z = 50\\
+cpu = 2\\
+exhaustiveness = 8\\
+num\_modes = 10\\
+energy\_range = 3
+\end{Code}
+
+Para entender mejor esto, vayamos por pasos. Primero estamos dici\'endole al programa qui\'enes van a ser los involucrados en el docking: el receptor y el ligando. Luego le decimos d\'onde deseamos colocar los resultados del docking (\emph{esome.pdbqt}), y un archivo donde vayamos dejando el r\'ecord de todo lo que ha pasado (\emph{esome.log}). A continuaci\'on definimos el centro de la caja dentro de la que haremos el docking en sus coordenadas $x$, $y$ y $z$. Despu\'es definimos el tama\~no de la caja en las 3 dimensiones. Establecemos la cantidad de procesadores que deseamos utilizar, la cantidad de resultados que deseamos tener y el rango de energ\'ias en el que deseamos hallar todos los resultados. Eso es todo! Para correr esto en AutoDock Vina, lo \'unico que debemos hacer en la l\'inea de comando es escribir: \inlinecode{vina --config esome.conf}\\
+
+Ahora que ya vimos c\'omo hacer esto con una mol\'ecula, pensemos c\'omo lo podr\'iamos hacer para todas utilizando un script peque\~no en la misma l\'inea de comando. Y mejor a\'un, pensemos c\'omo generar todos los archivos de configuraci\'on con Python. Eso ser\'ia una tarea repetitiva interesante tambi\'en.\\
+
+Para visualizar los resultados, podemos abrir nuestra prote\'ina en UCSF Chimera y luego ir a \emph{Tools}, \emph{Surface/Binding Analysis}, \emph{ViewDock}. All\'i especificamos d\'onde est\'a nuestro archivo de salida (\emph{esome.pdbqt}) y vamos a comenzar a ver los resultados.
+
+\section*{Licencia}
+
+\noindent \includegraphics{img/cc_big.png}
+
+\noindent Taller de Qu\'imica Computacional Aplicada by \href{http://github.com/zronyj/TQCA}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
+Based on a work at \url{http://pythonforbiologists.com/} and \url{http://www.moleculardescriptors.eu/}.
+
+\end{document}

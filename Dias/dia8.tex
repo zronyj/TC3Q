@@ -1,0 +1,115 @@
+%
+% dia8.tex
+% 
+% Copyright 2014 Rony J. Letona <rony@zronyj.com>
+% 
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2 of the License, or
+% any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+% MA 02110-1301, USA.
+%
+
+\documentclass[10pt,letterpaper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{float}
+\usepackage{upquote}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Rony J. Letona}
+\title{Taller de Qu\'imica Computacional Aplicada: D\'ia 8}
+\definecolor{light-gray}{gray}{0.90}
+
+\newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
+
+\newcommand{\inlinecode}[1]{
+\colorbox{light-gray}{\texttt{#1}}
+}
+
+\newsavebox{\selvestebox}
+\newenvironment{Code}
+{
+\begin{lrbox}{\selvestebox}%
+\begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax}
+\fontfamily{\ttdefault}\selectfont
+}
+{\end{minipage}\end{lrbox}%
+\begin{center}
+\colorbox{light-gray}{\usebox{\selvestebox}}
+\end{center}
+}
+
+\newcommand{\Picture}[1]
+{
+	\begin{figure}[H]
+	\begin{flushleft}
+	\includegraphics[width=\columnwidth]{#1}
+	\end{flushleft}
+	\end{figure}
+}
+
+\begin{document}
+\maketitle
+
+\section{Qu\'imica Computacional}
+
+\subsection{Mec\'anica Molecular}
+Vamos a comenzar con algo sencillo. Vamos a abrir el programa Avogadro y desde all\'i vamos a abrir una de las mol\'eculas que nos dieron ayer: \textit{esomeprazole.mol} Al momento de abrir la mol\'ecula, tom\'emonos el tiempo de apreciarla en 3 dimensiones. Son pocas las veces que realmente tenemos la oportunidad de hacer algo as\'i. Notemos los sitios quirales, enlaces simples y dobles, etc.\\
+
+Cuando ya la hayamos estudiado un poco, vamos a proceder a optimizar su energ\'ia por medio de \textbf{Mec\'anica Molecular}.  Para ello nos vamos a ir a \emph{Extensions} y vamos a configurar el campo de fuerzas en \emph{Molecular Mechanics} \emph{Setup Force Field}. Este vamos a colocarlo con 5000 iteraciones, campo MMFF94, algoritmo Steepest Descent y convergencia en $1 \cdot 10^{-9}$. Guardamos cambios y volvemos a \emph{Extensions} para hacer click en \emph{Optimize Geometry}.\\
+
+Cuando el proceso ya haya terminado, veremos que nuestra mol\'ecula est\'a en mejor estado. Luego vamos a calcular su energ\'ia haciendo click en \emph{Extensions}, \emph{Molecular Mechanics}, \emph{Calculate Energy}. Veremos que el resultado nos aparece de inmediato. Al final ser\'a muy conveniente guardar nuestras mol\'eculas en formato \emph{.mol2}.\\
+
+La mec\'anica molecular, por su forma sencilla de c\'alculo, es r\'apida. Esto nos permite ir descubriendo diferentes cosas de ella al ir probando. Como ejercicio, repitamos el procedimiento anterior con los campos de fuerza: Ghemical y UFF. Tomemos nota de lo que vemos y continuemos.
+
+\subsection{Estado S\'olido}
+
+\subsection{Mec\'anica Cu\'antica}
+Los c\'alculos de mec\'anica cu\'antica son mucho m\'as finos que los anteriores, porque ya consideran a los electrones. Esto es importante, puesto que son ellos los responsables de las reacciones y de la qu\'imica de las sustancias. Veremos que las propiedades que se pueden calcular con este m\'etodo son muchas m\'as.\\
+
+Habiendo optimizado nuestra mol\'ecula con Avogadro, utilizando MMFF94, vamos a ir a \emph{Extensions} otra vez. All\'i vamos a hacer click en \emph{GAMESS} y luego en \emph{Input Generator}. Nuestro c\'alculo, para no hacernos tantas bolas, va a tener las siguientes caracter\'isticas\footnote{Para saber qu\'e significan estas caracter\'isticas, pregunt\'emosle a nuestros catedr\'aticos que dan los cursos de Fisicoqu\'imica. Por ahora solo escogimos algunas que nos hacen el trabajo m\'as r\'apido.}:
+
+\begin{itemize}
+\item Calculate: \textit{Frequencies}
+\item With: \textit{RHF}, \textit{6-31G}
+\item In: \textit{Gas}
+\item Multiplicity: \textit{Singlet}
+\item Charge: \textit{Neutral}
+\end{itemize}
+
+Finalmente hacemos click en \emph{Generate} y guardamos un peque\~no archivo con extensi\'on \emph{.inp}. En \'el van los ingredientes y la receta que va a usar nuestro ordenador para cocinar las propiedades que deseamos. Ahora, para pedirle a nuestro ordenado que corra esto, vamos a ir a la l\'inea de comando y vamos a correr Firefly de la siguiente manera:
+
+\begin{Code}
+\$ FF7.1G/firefly -f -i ruta/al/archivo/esomeprazole.inp -o ruta/al/archivo/esomeprazole.out
+\end{Code}
+
+El archivo \emph{.out} es el que Firefly va a generar, as\'i que no entremos en p\'anico por no tenerlo a mano. Las banderas significan lo siguiente. \inlinecode{-f}: forzar, \inlinecode{-i}: input, \inlinecode{-o}: output. El c\'alculo puede tomar un rato. En el \'interin vamos a hacer otras cosas, pero no nos preocupemos si el c\'alculo se tarda.\\
+
+Cuando el c\'alculo ya haya terminado, vamos a observar que tenemos un archivo de extensi\'on \emph{.out} en nuestra carpeta donde est\'abamos trabajando. Lo importante est\'a al final de este archivo. Abr\'amoslo y veamos qu\'e encontramos al final. Discutamos un poco con nuestro compa\~nero de al lado sobre la utilidad de esto.\\
+
+Un buen ejercicio para estar llevando a cabo cuando podamos ser\'a cambiar la parte donde dec\'ia \emph{Frequencies} a las dem\'as alternativas que nos da Avogadro. La idea ser\'a ver qu\'e pasa en cada caso y por qu\'e.
+
+\subsection{Din\'amica Molecular}
+
+\section*{Licencia}
+
+\noindent \includegraphics{img/cc_big.png}
+
+\noindent Taller de Qu\'imica Computacional Aplicada by \href{http://github.com/zronyj/TQCA}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
+
+\end{document}
