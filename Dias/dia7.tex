@@ -169,9 +169,9 @@ En este punto, lo \'unico que queda es revisar un poco las opciones para visuali
 Felicidades! Terminamos nuestro primer docking. Antes de seguir con la siguiente secci\'on, ser\'ia muy conveniente que discutamos con todos sobre el procedimiento que acabamos de hacer. Qu\'e acabamos de simular? Para qu\'e nos puede servir? Por qu\'e es que este procedimiento no es exacto o no representa bien a la realidad? Qu\'e ventajas/desventajas nos puede dar en un estudio? Y finalmente, en qu\'e tipo de estudio podr\'iamos utilizar esto? Tomemos nuestro tiempo para discutir esto y llegar a una opini\'on.
 
 \subsubsection{Utilizando una L\'inea de Comando}
-El docking resulta una tarea muy sencilla cuando se trata de \emph{una sola} mol\'ecula. Pero qu\'e pasa si tenemos que calcular 5000? Considerando que cada mol\'ecula se va a tardar un promedio de 5 minutos, y que no deseamos hacerlo solo en nuestros tiempos libres, pues terminar\'iamos algunas semanas (si no meses) despu\'es. Automatizar el proceso se ve como una buena opci\'on. Pero c\'omo podr\'iamos hacer eso?\\
+El docking resulta una tarea muy sencilla cuando se trata de \emph{una sola} mol\'ecula. Pero qu\'e pasa si tenemos que calcular 5000? Considerando que cada mol\'ecula se va a tardar un promedio de 5 minutos, y que no deseamos hacerlo solo en nuestros tiempos libres, pues terminar\'iamos algunas semanas (si no meses) despu\'es. Automatizar el proceso se ve como una buena opci\'on. Pero c\'omo podr\'iamos hacer eso? Primero necesitamos desprendernos de la interfaz de Chimera.\\
 
-Poniendo todos nuestros conocimientos en pr\'actica, vamos a intentar realizar un docking de nuestras 5 mol\'eculas sobre la prote\'ina \textbf{1PXX}. Para ello habr\'ia que realizar dos tareas claves: La primera es preparar nuestras mol\'eculas como \textit{pdbqt}s. La segunda es preparar un archivo de configuraci\'on. Comencemos con lo primero.\\
+Poniendo todos nuestros conocimientos en pr\'actica, vamos a intentar realizar un docking de nuestra mol\'ecula de ibuprofeno sobre la prote\'ina \textbf{1PXX}. Para ello habr\'ia que realizar dos tareas claves: La primera es preparar nuestras mol\'eculas como \textit{pdbqt}s. La segunda es preparar un archivo de configuraci\'on. Comencemos con lo primero.\\
 
 Las mol\'eculas las tenemos en dos formatos distintos: \emph{mol2} y \emph{pdb}. Lo primero que debemos hacer es convertirlas a formato \emph{pdbqt}. Por ahora, vamos a hacer esto con un programa llamado OpenBabel que llamaremos desde la l\'inea de comando. Vamos a abrir una l\'inea de comando y vamos a ir a donde tenemos nuestras mol\'eculas. Cuando ya estemos all\'i, vamos a escribir: \inlinecode{babel -imol2 ibuprofen.mol2 -opdbqt ibuprofen.pdbqt}. Si nos damos cuenta, lo que estamos haciendo es llamando el programa y d\'andole como entrada la mol\'ecula en un formato, y dici\'endole en qu\'e formato la queremos despu\'es. Para ver mejor esto, vamos a convertir la prote\'ina. Para ello vamos a ingresar lo siguiente: \inlinecode{babel -ipdb 1PXX.pdb -opdbqt 1PXX.pdbqt} Con esto ya tenemos convertidas las dos mol\'eculas que deseamos. Ahora lo que nos queda hacer es praparar un archivo de entrada. Este archivo no es tan complicado, solo hay que especificarle algunos par\'ametros. Creamos un nuevo archivo de nombre \emph{dock.conf} y le escribimos esto adentro:
 
@@ -198,7 +198,85 @@ Para visualizar los resultados, podemos abrir nuestra prote\'ina en UCSF Chimera
 
 \subsection{Tareas Repetitivas}
 
-Ahora que ya vimos c\'omo hacer esto con una mol\'ecula, pensemos c\'omo lo podr\'iamos hacer para todas utilizando un script peque\~no en la misma l\'inea de comando. Y mejor a\'un, pensemos c\'omo generar todos los archivos de configuraci\'on con Python. Eso ser\'ia una tarea repetitiva interesante tambi\'en. Comencemos por esa.\\
+Ahora que ya vimos c\'omo hacer esto con una mol\'ecula, pensemos c\'omo lo podr\'iamos hacer para todas utilizando un script peque\~no en la misma l\'inea de comando. Y mejor a\'un, pensemos c\'omo generar todos los archivos de configuraci\'on con Python. Eso ser\'ia una tarea repetitiva interesante tambi\'en. Pero antes de eso habr\'ia que convertir todas las mol\'eculas ligando a \emph{pdbqt}. Comencemos por all\'i.\\
+
+Todas las mol\'eculas ligando tienen extensi\'on \emph{mol2}, y las queremos en formato \emph{pdbqt}. As\'i que, en esencia, el comando ser\'ia algo como: \inlinecode{babel -imol2 \emph{molecula}.mol2 -opdbqt \emph{molecula}.pdbqt} en donde \emph{molecula} va a ser lo que cambie en cada caso. Ahora, lo que necesitamos es un ciclo que nos vuelva ese proceso autom\'atico. Para ello vamos a escribir lo siguiente:
+
+\begin{Code}
+for m in \$(ls *mol2)\\
+do\\
+babel -imol2 \$m -opdbqt \$\{m\%.*\}.pdbqt\\
+done
+\end{Code}
+
+La expresi\'on entre llaves y con el signo de porcentaje es solo una manera de pedirle a la l\'inea de comando que quite aquello que tiene un punto y cualquier texto despu\'es, del nombre del archivo que est\'a recibiendo de \inlinecode{m}. Entonces, con este peque\~no pedazo de c\'odigo, hemos transformado todas nuestras mol\'eculas en archivos con formato \emph{pdbqt}. Llevamos el primer paso.\\
+
+Ahora pensemos c\'omo hacer que un script de Python nos produzca todos los archivos de configuraci\'on. En primer lugar necesitamos que Python sepa qu\'e archivos son y nos d\'e los nombres. Para ello podemos utilizar el paquete \inlinecode{os}. Para comenzar podemos saber el directorio donde nos encontramos con la siguiente expresi\'on: \inlinecode{os.getcwd()} Para obtener una lista con los nombres de todos los archivos en un directorio, podemos usar la expresi\'on \inlinecode{os.listdir(\emph{directorio})} Juntando esto, podemos comenzar con lo siguiente:
+
+\begin{Code}
+import os\\
+archivos = os.listdir(os.getcwd())
+\end{Code}
+
+Ahora necesitamos ir archivo por archivo revisando que los que vamos a usar, sean solo los ligandos. Para ello vamos a apovecharnos del hecho de que solo los ligandos ten\'ian formato \emph{mol2} anteriormente. En ese caso, podemos hablar de un ciclo y de una condici\'on. Estos, agregados a lo que ya llev\'abamos se ver\'ian algo as\'i.
+
+\begin{Code}
+import os\\
+archivos = os.listdir(os.getcwd())\\
+for mol in archivos:\\
+\hspace*{6mm}if mol[-4:] == "mol2":
+\end{Code}
+
+Ahora necesitamos crear un archivo de configuraci\'on. Ser\'ia conveniente utilizar los nombres de las mismas mol\'eculas como los nombres de los archivos de configuraci\'on. En ese caso, vamos a agregar una l\'inea m\'as a lo que llevamos de c\'odigo: \inlinecode{with open(mol[:-4] + ".conf") as arch:} Aqu\'i solo especificamos que abrimos un archivo con el nombre de la mol\'ecla, pero con extensi\'on \emph{conf}. El siguiente paso es escribirle los datos necesarios. El receptor, nuestra prote\'ina \textbf{1PXX}, es el mismo as\'i como su sitio activo y los par\'ametros de b\'usqueda. Entonces, de lo que vimos en la secci\'on anterior, vamos a copiar casi todo como una cadena grande\footnote{Una cadena grande y continua en Python se delimita con tres commillas dobles al inicio y al final.} y vamos a sustituir solo aquellos valores que nos interesan. El c\'odigo se ver\'ia entonces algo as\'i:
+
+\begin{footnotesize}
+\begin{Code}
+import os\\
+plantilla = "\ \hspace*{-1.5mm}"\ \hspace*{-1.5mm}"\ \hspace*{-1.5mm}receptor = 1PXX.pdbqt\\
+ligand = \{0\}.pdbqt\\
+out = \{0\}\_resultados.pdbqt\\
+log = \{0\}.log\\
+center\_x = 27\\
+center\_y = 25\\
+center\_z = 15\\
+size\_x = 20\\
+size\_y = 20\\
+size\_z = 20\\
+cpu = 2\\
+exhaustiveness = 8\\
+num\_modes = 10\\
+energy\_range = 3"\ \hspace*{-1.5mm}"\ \hspace*{-1.5mm}"\\
+archivos = os.listdir(os.getcwd())\\
+for mol in archivos:\\
+\hspace*{6mm}if mol[-4:] == "mol2":\\
+\hspace*{12mm}with open(mol[:-5] + ".conf", "w") as arch:\\
+\hspace*{18mm}arch.write(plantilla.format(mol[:-5]))
+\end{Code}
+\end{footnotesize}
+
+Vale la pena resaltar algunos puntos al llegar aqu\'i. El primero es que los valores a sustituir los colocamos con \inlinecode{\{0\}} para que, con el comando \inlinecode{.format(\emph{sustituto})}, pudieramos cambiar todos a la vez. Tambi\'en vale la pena observar que la manera en que abrimos un archivo para escritura esta vez fue diferente a como lo hab\'iamos visto antes. Aqu\'i no es necesario cerrar el archivo, puesto que esto se hace en autom\'atico al salir de la condici\'on \inlinecode{with}. Este peque\~no script de 20 l\'ineas puede generar todos los archivos de configuraci\'on para AutoDock Vina, sean 5 o 5000, en cuesti\'on de segundos! Ahora ya tenemos todo listo. Solo nos queda correr todos los dockings de forma autom\'atica.\\
+
+El \'ultmo paso para realizar todos los dockings es casi igual al primero. Hay que hacer que un comando en particular se repita muchas veces. El comando es f\'acil: \inlinecode{vina --config \emph{archivo.conf}} en donde \emph{archivo.conf} es el nombre del archivo de configuraci\'on. Entonces lo que nos queda por hacer es listar a todos los archivos de configuraci\'on y hacer un ciclo sobre ellos. Tomando lo mismo que hicimos para transformar las mol\'eculas de un formato a otro, el c\'odigo para esto se ver\'ia as\'i:
+
+\begin{Code}
+for c in \$(ls *.conf)\\
+do\\
+vina --config c\\
+done
+\end{Code}
+
+Al ejecutar esto, podemos esperar bastante tiempo, puesto que cada docking tomar\'a unos segundos y ahorita se comenzar\'an a hacer en serie. Los resultados si habr\'ia que verlos uno a uno, a menos de que querramos dise\~nar un script que extraiga solo alguna informaci\'on en particular de cada archivo de salida. Eso quedar\'a a criterio de cada uno si alg\'un d\'ia lo llegamos a necesitar. Pero por ahora, podr\'iamos dejar a nuestro ordenador corriendo los dockings y despreocuparnos de \'el hasta que termine.\\
+
+Cuando ya hayamos terminado con el proceso, ser\'ia muy conveniente ver cu\'al de las mol\'eculas que acoplamos a la prote\'ina tuvo la menor energ\'ia. Como dato especial, las mol\'eculas propuestas aqu\'i son analg\'esicos que act\'uan precisamente sobre esta prote\'ina con la que estamos trabajando. Una menor energ\'ia podr\'ia significar un efecto m\'as prolongado de ese analg\'esico y/o un mejor efecto del mismo. Claro, el efecto est\'a sujeto a muchos otros factores cin\'eticos, pero eso ya es tema de discusi\'on para otra ocasi\'on.
+
+\subsection{M\'as all\'a}
+El campo de la bioinform\'atica no solo se reduce a estos temas. Este es mucho m\'as vasto y comprende otras disciplinas que no se discutieron aqu\'i. La b\'usqueda de secuencias se torna interesante cuando se hallan variaciones en ellas. Estas son mutaciones que pueden interpretarse de muchas maneras. De esta forma ya se han hallado segmentos de ADN que codifican enfermedades o alguna caracter\'istica muy especial en alguna especie, y saber interpretar esa informaci\'on es un tema para posgrado. Con el an\'alisis de las secuencias de amino\'acidos o ADN tambi\'en se puede inferir rutas de evoluci\'on y ensamblar \'arboles filogen\'eticos. El docking o acoplamiento molecular puede llevarse a cabo entre un receptor y un ligando, o entre dos prote\'inas, dos mol\'eculas de mediano tama\~no, etc. La t\'ecnica es famosa por utilizarse en qu\'imica medicinal, pero tambi\'en ha sido utilizada en el dise\~no inteligente de agentes para control de plagas, predicci\'on de biodegradabilidad de sustancias, an\'alisis de la funcionalidad de prote\'inas mutadas, etc. Las opciones son muchas.\\
+
+Otro aspecto a tomar en cuenta es que el software descrito en este documento es la opci\'on gratuita m\'as accesible. Pero para cada una de las tareas realizadas existen muchos otros paquetes de software que hacen lo mismo o algo similar. Depende de qu\'e es lo que busquemos o qu\'e tan fino necesitemos un c\'alculo es que debemos escoger el software. En este caso particular no es recomendable escribir un nuevo paquete (a menos de que se haga con fines did\'acticos), porque las opciones ya son bastantes y son buenas. Lo que debemos buscar es en d\'onde implementar uno de estos c\'alculos para enriquecer los resultados de alg\'un estudio que estemos haciendo. Podemos verlo, entonces, como una t\'ecnica de laboratorio que nos provee de m\'as informaci\'on.
+
+\subsection{Comentarios Finales}
+
+
 
 \section*{Licencia}
 
