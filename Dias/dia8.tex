@@ -67,44 +67,59 @@
 \maketitle
 
 \section{Qu\'imica Computacional}
+La qu\'imica tiene, directa o indirectamente, al electr\'on como objeto de estudio. Si bien se preocupa por \'atomos y mol\'eculas, jam\'as se entra a discutir mucho sobre el n\'ucleo de los primeros. Es por eso es que al hablar de qu\'imica computacional, tenemos que pensar en que hay diferentes formas de abordar problemas, pero la manera m\'as fina siempre ser\'a si consideramos a los electrones en nuestros c\'alculos y aproximaciones.\\
+
+Para comprender un poco mejor cada aspecto, vamos a ir revisando las teor\'ias desde la m\'as sencilla (y por eso, r\'apida), hasta la m\'as compleja (y por eso, lenta). Debemos considerar que cada vez que introducimos un \'atomo m\'as o una part\'icula m\'as a nuestro sistema, el c\'alculo tomar\'a m\'as tiempo. Otro aspecto a tomar en cuenta es que por muy fino que sea, todo c\'alculo hecho as\'i es solo una aproximaci\'on. La parte experimental es necesaria si se desea corroborar la veracidad del resultado.\\
+
+A continuaci\'on vamos a revisar algunas cosas que podemos hacer al utilizar las diferentes teor\'ias, algoritmos y programas. Esto no es todo lo que se puede hacer! Como buenas herramientas, podemos ir haciendo uso de ellas para la tarea que necesitemos. No solo para lo que vamos a ver aqu\'i (una bureta puede utilizarse para otras cosas adem\'as de valoraciones volum\'etricas). Finalmente, es importante tomar en cuenta que todo el software que vamos a usar y todos los algoritmos est\'an a nuestra disposici\'on porque son los m\'as utilizados. Si deseamos alterar algo, se puede (nada est\'a escrito en piedra) pero requiere de bastante trabajo.
 
 \subsection{Mec\'anica Molecular}
-Vamos a comenzar con algo sencillo. Vamos a abrir el programa Avogadro y desde all\'i vamos a abrir una de las mol\'eculas que nos dieron ayer: \textit{esomeprazole.mol} Al momento de abrir la mol\'ecula, tom\'emonos el tiempo de apreciarla en 3 dimensiones. Son pocas las veces que realmente tenemos la oportunidad de hacer algo as\'i. Notemos los sitios quirales, enlaces simples y dobles, etc.\\
+La mec\'anica molecular se refiere a la teor\'ia en la que los \'atomos los tomamos como esferas r\'igidas con cierta masa y carga. Los enlaces los tomamos como resortes con cierta constante de elasticidad. Entonces, las mol\'eculas son sistemas de resortes y esferitas. Claro, con las leyes de Newton, Hook y Coulomb podemos determinar la energ\'ia de todo el sistema. Al combinar estas leyes como \emph{f\'ormulas} y a\~nadirle t\'erminos que tomen en consideraci\'on las fuerzas de Van der Waals y puentes de hidr\'ogeno, resultar\'iamos con una funci\'on enorme a la que llamaremos \emph{campo de fuerzas}\footnote{Un \emph{campo de fuerzas} es una funci\'on matem\'atica muy grande en la que introducimos las coordenadas y las cargas de todos los \'atomos, y esta nos devuelve el valor de energ\'ia de esa mol\'ecula.}.\\
+
+Existen muchos campos de fuerzas, puesto que se ha buscado hallar esas constantes de elasticidad, de rotaci\'on, para puentes de hidr\'ogeno, fuerzas de Van der Waals, etc. de muchas maneras! Se han buscado de manera emp\'irica mediante calorimetr\'ia, mediante espectroscop\'ia, y hasta de maneras te\'oricas bas\'andose en mec\'anica cu\'antica. Conviene entonces estudiar de d\'onde salieron algunos de estos campos de fuerza y su especialidad. Algunos nombres que dejaremos aqu\'i son: MM2, MM3, MM4, AMBER, CHARMM, GROMOS, OPLS, MMFF y UFF. Hoy vamos a trabajar con \href{http://open-babel.readthedocs.org/en/latest/Forcefields/mmff94.html}{MMFF94}, \href{http://open-babel.readthedocs.org/en/latest/Forcefields/ghemical.html}{Ghemical} y \href{http://open-babel.readthedocs.org/en/latest/Forcefields/uff.html}{UFF}. Si deseamos saber m\'as sobre estos campos de fuerza, podemos revisar lo que dice el proveedor de este paquete en internet, haciendo click en cada uno de ellos.
+
+\subsubsection{Optimizaci\'on y Energ\'ia}
+Vamos a comenzar con algo sencillo. Vamos a abrir el programa Avogadro y desde all\'i vamos a abrir una de las mol\'eculas que nos dieron ayer: \textit{dexketoprofen.mol2} Al momento de abrir la mol\'ecula, tom\'emonos el tiempo de apreciarla en 3 dimensiones. Son pocas las veces que realmente tenemos la oportunidad de hacer algo as\'i. Notemos los sitios quirales, enlaces simples y dobles, etc.\\
 
 Cuando ya la hayamos estudiado un poco, vamos a proceder a optimizar su energ\'ia por medio de \textbf{Mec\'anica Molecular}.  Para ello nos vamos a ir a \emph{Extensions} y vamos a configurar el campo de fuerzas en \emph{Molecular Mechanics} \emph{Setup Force Field}. Este vamos a colocarlo con 5000 iteraciones, campo MMFF94, algoritmo Steepest Descent y convergencia en $1 \cdot 10^{-9}$. Guardamos cambios y volvemos a \emph{Extensions} para hacer click en \emph{Optimize Geometry}.\\
+
+Lo que acabamos de hacer es hallar la conformaci\'on de menor energ\'ia (la m\'as \emph{estable}) mediante un algoritmo similar al de Newton-Raphson. Le pedimos a Avogadro que no terminara en 500 repeticiones del algoritmo, sino en 5000. Finalmente le pedimos que considerara que ya pod\'ia dar por terminado el proceso si el \'ultimo valor de energ\'ia calculado y el anterior a ese variaban por menos de $10^{-9}$ unidades. Entonces, la funci\'on de la que est\'abamos buscando el m\'inimo era el campo de fuerzas, y el m\'etodo se llama Steepest Descent\footnote{El algoritmo es conocido por este nombre, pero su nombre real es \emph{Gradient descent}. Se basa en el uso de gradientes (derivadas) para ir hallando el punto m\'inimo.}.\\
 
 Cuando el proceso ya haya terminado, veremos que nuestra mol\'ecula est\'a en mejor estado. Luego vamos a calcular su energ\'ia haciendo click en \emph{Extensions}, \emph{Molecular Mechanics}, \emph{Calculate Energy}. Veremos que el resultado nos aparece de inmediato. Al final ser\'a muy conveniente guardar nuestras mol\'eculas en formato \emph{.mol2}.\\
 
 La mec\'anica molecular, por su forma sencilla de c\'alculo, es r\'apida. Esto nos permite ir descubriendo diferentes cosas de ella al ir probando. Como ejercicio, repitamos el procedimiento anterior con los campos de fuerza: Ghemical y UFF. Tomemos nota de lo que vemos y continuemos.
 
-\subsection{Estado S\'olido}
+\subsubsection{Conformaciones}
+Uno de los usos m\'as comunes de la MM (adem\'as de preparar mol\'eculas antes de trabajarlas con MC) es el an\'alisis de conformaciones. Esto se hace tambi\'en viendo la energ\'ia de lo que tengamos en pantalla. Y se puede decir as\'i, porque quiz\'a no se trate de una sola mol\'ecula! El \emph{docking} que vimos el d\'ia anterior utiliza un campo de fuerzas para calcular la energ\'ia del complejo que se est\'a formando. Tambi\'en se puede utilizar la misma t\'ecnica para ver la energ\'ia de un nanoencapsulado; a ver qu\'e tan viable es sintetizarlo. Pero esta vez no vamos a hacer algo tan complejo.\\
+
+Vamos a comenzar abriendo Avogadro y dibujando, con la herramienta del lapiz \emph{Draw Tool} (F8), un ciclohexano. Tom\'emonos nuestro tiempo para hacerlo. La peque\~na estrella azul a la par del lapiz, \emph{Navigation Tool} (F9), nos permite girar nuestra mol\'ecula en 3 dimensiones para poderla visualizar mejor. Ahora vamos a proceder a minimizarla, pero haciendo uso de otra herramienta: la \emph{Auto Optimization Tool}. Para ello, vamos a ir a la \textbf{E} que se halla 5 posiciones a la derecha de la estrella azul. Hacemos click all\'i y nos aseguramos que \emph{Tool Settings...} se halle seleccionado. A la izquierda deber\'ia de aparecer opciones como las que hab\'iamos visto antes. Seleccionamos a MMFF94 como nuestro campo de fuerzas, en \emph{Steps per Update} aumentamos el n\'umero a 8, y de algoritmo seleccionamos \emph{Steepest Descent}. Inmediatamente hacemos click en \emph{Start} y observamos como nuestro ciclohexano comienza a tomar la conformaci\'on m\'as estable en tiempo real. Hasta podemos ver la energ\'ia que posee nuestra mol\'ecula!\\
+
+Por ahora todo va bien. Lo m\'as probable es que nuestro ciclohexano vaya a resultar con una conformaci\'on de silla (usemos \emph{Navigation Tool} para ver esto) y una energ\'ia cercana a $-14.909\ kJ/mol$. Pero esto no es todo lo que podemos hacer. Ahora vamos a seleccionar la herramienta con una manita \emph{Manipulation Tool} (F10) y vamos a intentar arrastrar una de las esquinas del ciclohexano a modo de formar la conformaci\'on de bote. Esto puede tomarnos un rato, as\'i que no desesperemos. Podemos intentar arrastrar los hidr\'ogenos si eso nos facilita el proceso. La idea es llegar a la conformaci\'on de bote.\\
+
+Una vez hayamos logrado esto, revisemos la energ\'ia. La conformaci\'on le resulta estable a Avogadro, ya que qued\'o sin variar mucho en una posici\'on, pero la energ\'ia ahora es cercana a $9.9175\ kJ/mol$! La energ\'ia en este caso es m\'as alta! Entonces comprendemos que la conformaci\'on de silla es m\'as estable que la de bote! De hecho, podemos ver que la mol\'ecula toma una conformaci\'on que no es exactamente un bote sim\'etrico, porque este \'ultimo no es tampoco estable. Este sutil detalle es algo que no se menciona en casi ning\'un libro.\\
+
+Si nos ponemos a pensar un momento, con esta forma, podemos evaluar conformaciones y evaluar su energ\'ia en tiempo real, viendo si una conformaci\'on es estable o no. La MM resulta entonces como una forma de aproximar energ\'ias de una mol\'ecula, evaluar conformaciones, evaluar qu\'e tan factible es la formaci\'on de un complejo, docking, etc. Queda a nuestra imaginaci\'on lo que podemos hacer con ella. Despu\'es de todo, es una herramienta para hacer c\'alculos r\'apidos.
 
 \subsection{Mec\'anica Cu\'antica}
-Los c\'alculos de mec\'anica cu\'antica son mucho m\'as finos que los anteriores, porque ya consideran a los electrones. Esto es importante, puesto que son ellos los responsables de las reacciones y de la qu\'imica de las sustancias. Veremos que las propiedades que se pueden calcular con este m\'etodo son muchas m\'as.\\
+La mec\'anica cu\'antica tiene fama de ser un campo poco comprendido y muy discutido entre cient\'ificos. Generalmente es el tema m\'as abstracto en qu\'imica, y uno de los m\'as oscuros en f\'isica. En este caso, no vamos a entrar a detalles sobre la ecuaci\'on de Schr\"odinger, funciones de onda, resolver ecuaciones diferenciales, matrices, etc. Nos vamos a enfocar en los usos de la MC en qu\'imica y el provecho que podemos sacarle. Debemos tomar en cuenta que los c\'alculos en MC son mucho m\'as finos que los anteriores en MM, porque ya consideran a los electrones. Esto es importante, puesto que son ellos los responsables de las reacciones y de la qu\'imica de las sustancias. Veremos que las propiedades que se pueden calcular con este m\'etodo son muchas m\'as. Para esto, vamos a realizar 4 c\'alculos en total.\\
 
-Habiendo optimizado nuestra mol\'ecula con Avogadro, utilizando MMFF94, vamos a ir a \emph{Extensions} otra vez. All\'i vamos a hacer click en \emph{GAMESS} y luego en \emph{Input Generator}. Nuestro c\'alculo, para no hacernos tantas bolas, va a tener las siguientes caracter\'isticas\footnote{Para saber qu\'e significan estas caracter\'isticas, pregunt\'emosle a nuestros catedr\'aticos que dan los cursos de Fisicoqu\'imica. Por ahora solo escogimos algunas que nos hacen el trabajo m\'as r\'apido.}:
+Vale la pena decir que para esta parte, vamos a estar utilizando varios programas. \textbf{Avogadro} nos servir\'a para ciertas tareas que implican dibujar las estructuras y prepar algunos archivos de entrada (como los del docking). Luego, el programa que \emph{realmente} calcula las propiedades mediante MC se llama \textbf{Firefly}, aunque antes se le conoc\'ia como PC-GAMESS. Finalmente, para visualizar los resultados de los c\'alculos, vamos a utilizar \textbf{wxMacMolPlt}. Todo esto es necesario, porque estamos utilizando solo software libre. Los paquetes comerciales generalmente hacen todo lo que vamos a hacer, en un solo ambiente.
 
-\begin{itemize}
-\item Calculate: \textit{Frequencies}
-\item With: \textit{RHF}, \textit{6-31G}
-\item In: \textit{Gas}
-\item Multiplicity: \textit{Singlet}
-\item Charge: \textit{Neutral}
-\end{itemize}
+\subsubsection{Optimizaci\'on y Energ\'ia de Punto Fijo}
 
-Finalmente hacemos click en \emph{Generate} y guardamos un peque\~no archivo con extensi\'on \emph{.inp}. En \'el van los ingredientes y la receta que va a usar nuestro ordenador para cocinar las propiedades que deseamos. Ahora, para pedirle a nuestro ordenado que corra esto, vamos a ir a la l\'inea de comando y vamos a correr Firefly de la siguiente manera:
 
-\begin{Code}
-\$ FF7.1G/firefly -f -i ruta/al/archivo/esomeprazole.inp -o ruta/al/archivo/esomeprazole.out
-\end{Code}
+\subsubsection{Termodin\'amica y Frecuencias en IR}
 
-El archivo \emph{.out} es el que Firefly va a generar, as\'i que no entremos en p\'anico por no tenerlo a mano. Las banderas significan lo siguiente. \inlinecode{-f}: forzar, \inlinecode{-i}: input, \inlinecode{-o}: output. El c\'alculo puede tomar un rato. En el \'interin vamos a hacer otras cosas, pero no nos preocupemos si el c\'alculo se tarda.\\
+\subsubsection{Estados de Transici\'on y Reacciones}
 
-Cuando el c\'alculo ya haya terminado, vamos a observar que tenemos un archivo de extensi\'on \emph{.out} en nuestra carpeta donde est\'abamos trabajando. Lo importante est\'a al final de este archivo. Abr\'amoslo y veamos qu\'e encontramos al final. Discutamos un poco con nuestro compa\~nero de al lado sobre la utilidad de esto.\\
+\subsubsection{Orbitales}
 
-Un buen ejercicio para estar llevando a cabo cuando podamos ser\'a cambiar la parte donde dec\'ia \emph{Frequencies} a las dem\'as alternativas que nos da Avogadro. La idea ser\'a ver qu\'e pasa en cada caso y por qu\'e.
 
 \subsection{Din\'amica Molecular}
+
+\subsubsection{Minimizaci\'on}
+
+\subsubsection{Equilibrio}
 
 \section*{Licencia}
 
