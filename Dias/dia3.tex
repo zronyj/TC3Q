@@ -66,153 +66,44 @@
 \maketitle
 
 \section{Ejercicios con el Sistema de Control de Revisi\'on - Git}
-Al comenzar a trabajar en un proyecto en computaci\'on, generalmente se trabaja con archivos sencillos de texto. Estos tienen el c\'odigo que escribimos y al compilarlos/interpretarlos y ejecutarlos, resultan en programas. Todo funciona as\'i. A veces el c\'odigo en los archivos es comprensible, a veces no lo es porque no es para que lo entendamos nosotros sino el ordenador. Sin embargo, a todos nos ha pasado que borramos un archivo importante o que cambiamos algo que no deb\'iamos de cambiar y no hay manera de recuperarlo. Desde documentos como reportes de laboratorio hasta cartas, siempre nos pasa en alguna ocasi\'on que perdemos informaci\'on importante. Para ello se dise\~n\'o una alternativa.\\
+Al comenzar a trabajar en un proyecto en computaci\'on, generalmente se trabaja con archivos sencillos de texto, como hemos visto anteriormente. Estos tienen el c\'odigo que escribimos y al compilarlos/interpretarlos y ejecutarlos, resultan en programas. Todo funciona as\'i. A veces el c\'odigo en los archivos es comprensible, a veces no lo es porque no es para que lo entendamos nosotros sino el ordenador. Sin embargo, a todos nos ha pasado que borramos un archivo importante o que cambiamos algo que no deb\'iamos de cambiar y no hay manera de recuperarlo. Desde documentos como reportes de laboratorio hasta cartas, siempre nos pasa en alguna ocasi\'on que perdemos informaci\'on importante. Para ello se dise\~n\'o una alternativa.\\
 
 Git es la soluci\'on m\'as eficiente para ello. Es un sistema en el que cada revisi\'on o versi\'on de un archivo se va guardando gradualmente, se lleva registro de cu\'ales cambios se hicieron y de cu\'ando se hicieron. Es el cuaderno de laboratorio digital! No nos salvar\'a una tarea si repentinamente desconectamos el ordenador o se interrumpe la energ\'ia el\'ectrica. Es un sistema para llevar autom\'aticamente registro del trabajo realizado. Lo usan grandes empresas, as\'i como peque\~nas iniciativas en sus proyectos. Y no se tiene que limitar a software, puede tratarse de libros, art\'iculos, bases de datos peque\~nas y cualquier otra cosa que sufra cambios con el tiempo o requiera ser compartida. Por ello, y por otras razones que veremos m\'as adelante, vamos a hacer algunos ejercicios con el sistema git.
 
-\subsection{Configuraci\'on de Git}
-Lo primero que debemos hacer con una nueva pieza de software es configurarla. Por ello, vamos a aprender sobre algunas de las cosas importantes que debemos tener para comenzar. Es importante que nuestro trabajo tenga nuestro nombre y que d\'e una direcci\'on para contactarnos en caso de que alguien desee hacerlo. Adem\'as de eso, es importante que git nos pueda ofecer un editor de texto para hacer cambios en los registros de cada revisi\'on. Comencemos pues con el c\'odigo.\\
-
-Abre una l\'inea de comando e ingresa lo siguiente. Claro, cambia el nombre por el tuyo y la direcci\'on de email por la tuya tambi\'en.
-
-\begin{Code}
-git config --global user.name "Tu Nombre"\\
-git config --global user.email "tu\_direccion\_de@email.com"\\
-git config --global color.ui "\ \hspace*{-1em} auto"\\
-git config --global core.editor "nano"
-\end{Code}
-
-Con esto ya configuramos git; no necesitamos hacer esto otra vez en nuestro ordenador. Para revisar lo que ingresamos, podemos escribir \inlinecode{git config --list}. Revisando r\'apidamente lo que hicimos, porque no vamos a entrar mucho en detalle, debemos notar que cada comando de git se escribe de la siguiente forma \inlinecode{git \emph{verbo}}. Al principio se anuncia que vamos a trabajar con git, luego el \emph{verbo} especifica lo que vamos a hacer. Lo dem\'as ya son par\'ametros. Ahora procederemos a practicar un poco con git.
-\pagebreak
-\subsection{Creando y Clonando un Repositorio}
-Como cualquier nuevo proyecto en un laboratorio, vamos a inaugurarlo con un cuaderno nuevo: vamos a crear un repositorio nuevo localmente. Para ello crearemos un nuevo directorio y luego iniciaremos git dentro de \'el.
-
-\begin{Code}
-mkdir "Mi Proyecto"\\
-cd "Mi Proyecto"\\
+\section{Creando un repositorio}
 git init
-\end{Code}
 
-Si observamos el contenido del directorio con \inlinecode{ls}, notaremos que no hay nada aparentemente en \'el. Sin embargo, si ingresamos el comando \inlinecode{ls -a} para mostrar \emph{todos} los contenidos en el directorio (hasta los ocultos), nos daremos cuenta de que existe ahora un directorio \inlinecode{.git} en donde se ir\'a guardando el registro de cada revisi\'on de nuestro trabajo.\\
+\section{Clonando un repositorio}
+git clone
 
-Otra forma de hacer esto, y de hecho la m\'as c\'omoda, es crear un repositorio en GitHub y luego clonarlo a nuestro ordenador. Antes de comenzar con esta parte, aseg\'urate de tener una cuenta en GitHub. Luego, vamos a crear un nuevo repositorio presionando el bot\'on de ``New repository'' que sale al presionar el \textbf{+} en la esquina superior derecha.\\
+\section{Diferentes directorios de trabajo}
+WD, Index (stage), HEAD
 
-\Picture{img/github1.png}
+\section{Actualizando directorios: add \& commit}
+add
+commit
 
-Luego vamos a crear un nuevo proyecto. Este va a contener todos los archivos y peque\~nos ejercicios que vamos a ir realizando durante todo el taller. Es por ello que lo vamos a nombrar \textbf{TQCA-ej}. Claro que podemos ponerle cualquier nombre, pero en este caso caso solo buscamos un lugar para llevar registro de todo el taller. Inmediatamente despu\'es hay un espacio para colocar la descripci\'on del proyecto. Coloca all\'i lo que desees. Luego nos damos cuenta de que podemos tenerlo como p\'ublico (a la vista del mundo) o privado (tenerlo privado implica el cobro de una mensualidad). Imagino que vamos a tenerlo p\'ublico. A continuaci\'on se nos ofrece la posibilidad de incluir un archivo README. Este es una forma de instructivo sobre qu\'e es y c\'omo funciona el proyecto. Adem\'as, permite que el proyecto sea clonado. Por ello, vamos a activar la casilla. Finalmente se puede activar el tener un archivo \inlinecode{.gitignore}, el cual no vamos a tener ahorita, y una licencia. El tema de las licencias lo tocaremos m\'as adelante en el taller, por lo que esto tambi\'en lo podemos dejar sin crear.\\
+\section{Enviar cambios a la nube: push}
+push
 
-\Picture{img/github2.png}
+\section{Ramas}
+checkout -b (crear)
+checkout
+checkout -d (borra)
+checkout origin
 
-Finalmente ingresamos a nuestro nuevo repositorio y vemos que en \'el se hallan varias cosas como el nombre, los archivos en \'el, la descripci\'on y una serie de opciones al lado derecho. A nosotros ahora nos interesa la opci\'on que dice \emph{\textbf{HTTPS} clone URL} en la esquina inferior derecha. Vamos a hacer click en el bot\'on al final del campo de texto. Ahora, despu\'es de nuestra vuelta por GitHub, vamos a iniciar el proyecto en nuestro ordenador. Para ello vamos a clonar el proyecto de GitHub de la siguiente manera: en la l\'inea de comando escribe \inlinecode{git clone} y pega la direcci\'on que acabas de copiar. Al presionar Enter, te dar\'as cuenta de que el proyecto se habr\'a copiado a un nuevo directorio con el nombre del proyecto. Ahora ya puedes trabajar tu proyecto de GitHub en tu ordenador.
+\section{Actualizar y fusionar: pull \& merge}
+pull
+merge (rama)
 
-\subsection{Estado, Diferencias e Ignorados}
-Entre las operaciones b\'asicas que se pueden hacer \emph{antes} de guardar un registro, est\'an la revisi\'on del estado del mismo, las diferencias halladas en los archivos del proyecto y qu\'e archivos no se deben de tomar en cuenta en el registro de una revisi\'on. Quiz\'a ahorita no sea tan evidente el uso de estas funciones, pero a la hora de ya estar trabajando en un proyecto y de tener que llevar registro de varias revisiones por varias personas trabajando en el mismo proyecto, estas funciones comienzan a tornarse muy \'utiles en la manipulaci\'on de git.
+\section{Revisar cambios: diff \& status}
+diff
+status
 
-\subsubsection{status}
-Para comenzar con esta parte, ser\'ia conveniente que copiaras todos los archivos que has producido anteriormente en el directorio del proyecto. As\'i podremos demostrar el uso de diferentes t\'ecnicas en git que nos permitir\'an trabajar mejor con las revisiones. Ahora, despu\'es de haberlos copiado, nos disponemos a revisar qu\'e dice git de estos cambios. Para ello ingresamos en la l\'inea de comando \inlinecode{git status}.\\
+\section{Reemplazar cambios locales: checkout, fetch y \& reset}
+checkout -- (archivo)
 
-Lo que git nos dice ahora es que hay nuevos archivos que no han sido agregados al registro de esa revisi\'on. Esto significa que s\'i son parte del proyecto, pero git no sabe si debe de registrarlos y \emph{seguirlos}. Inmediatamente se nos dice tambi\'e c\'omo se agregan estos a esta revisi\'on: \inlinecode{git add \emph{nombre\_del\_archivo.ext}}. Si dese\'aramos agregar m\'as de un archivo, podemos solo agregar el nombre del archivo despu\'es del primero as\'i: \inlinecode{git add \emph{archivo1.txt} \emph{archivo2.txt} \emph{archivo3.txt}} Ahora vamos a volver a correr \inlinecode{git status} para revisar qu\'e ha pasado. Nos topamos con que los arhivos que hemos agregado ya est\'an listos para ser registrados.\\
-
-Finalmente, vamos a guardar este registro. Por ahora solo lo haremos sin mayor explicaci\'on; m\'as adelante comprenderemos en su totalidad qu\'e es lo que hace el siguiente comando. Ingresa en la l\'inea de comando lo siguiente: \inlinecode{git commit -m "Probando agregar archivos"} y listo. Con esto hemos creado el registro de nuestra primera revisi\'on en git con los archivos que hemos agregado.
-
-\subsubsection{diff}
-Una cosa es agregar y quitar archivos. Otra cosa es editarlos. Vamos a ingresar a alguno de nuestros archivos y vamos a cambiar algo peque\~no en \'el. Busca alg\'un dato que puedas cambiar, sin miedo, y c\'ambialo. Ahora, vamos a volver a repetir lo del ejercicio anterior: \inlinecode{git status} Como era de esperarse, se nos indica que uno de nuestros archivos ha sido modificado. Ahora, veremos en qu\'e ha cambiado. Para eso corremos el nuevo comando: \inlinecode{git diff}\\
-
-Esto es m\'as interesante. Se nos dice qu\'e l\'ineas han cambiado en nuestro archivo. De hecho, se nos indica con un signo $-$ el estado anterior de esa l\'inea, y con un signo $+$ el nuevo estado de la misma. Podemos ir viendo, entonces, qu\'e cambios hemos hecho y d\'onde. Tambi\'en se nos dice en qu\'e archivo, si nos fijamos en las primeras l\'ineas de resultado. Si deseamos dejar esos cambios, agregamos el archivo con \emph{add}, como hab\'iamos visto antes. Si no, lo ignoramos.
-
-\subsubsection{.gitignore}
-Al crear programas nuevos es necesario ir prob\'andolos para asegurarse de que todo funcione bien. Cada vez que un programa se traduce al lenguaje de la compu y se ``ensambla'', se crean varios archivos auxiliares o de soporte, adem\'as del programa en versi\'on ya terminada. Claro, esto es importante a la hora de hacer pruebas, pero generalmente no queremos agregarlo a nuestra revisi\'on, ya que lo importante para nosotros es el c\'odigo fuente: lo que nosotros hemos escrito. Para ello, git nos ofrece un peque\~no truco: \inlinecode{.gitignore}\\
-
-\inlinecode{.gitignore} es un archivo ``oculto'', como el directorio de git en nuestro directorio de trabajo, que nos ofrece la habilidad de ignorar ciertos archivos a la hora de registrar un estado del proyecto. C\'omo as\'i? Cada vez que creamos el registro de una nueva revisi\'on de nuestro proyecto, podemos ignorar algunos archivos (e.g. archivos auxiliares o programas semi-terminados) con el fin de solo ir guardando nuestro c\'odigo fuente. Hagamos un ejercicio con esto.\\
-
-En nuestro directorio del proyecto vamos a crear un archivo nuevo y escribir algo en \'el, cualquier cosa. Luego, en la l\'inea de comando, abriremos el archivo con \inlinecode{nano} de la siguiente forma: \inlinecode{nano .gitignore}. All\'i vamos a agregar el nombre de nuestro nuevo archivo, precedido por una diagonal: \inlinecode{/mi\_archivo.txt}. Cerramos, guardamos y expliramos el estado de nuestro proyecto con \inlinecode{git status}. Inmadiatamente nos damos cuenta de que nuestro archivo no ha sido tomado en cuenta, pero \inlinecode{.gitignore} si. Agregamos este \'ultimo al registro de nuestra nueva revisi\'on y corremos \inlinecode{git commit -m "\ \hspace{-1em} Comenzando con .gitignore"} para guardarlo.
-
-\subsection{Commit, Push, Pull y Log}
-Una de las cosas m\'as interesantes que se pueden llevar a cabo con un sistema como git, es trabajar en grupo en un proyecto en particular. Esto significa que todos estar\'an realizando cambios sobre los mismos archivos y creando o eliminando cosas dentro del mismo proyecto. Es una buena pr\'actica que cada vez que alguien hace alg\'un cambio, se guarde y registre esa revisi\'on. Por ello, a continuaci\'on veremos c\'omo hacer operaciones como: registrar cambios, subir los cambios registrados a nuestra cuenta en GitHub, actualizar el proyecto con cambios de alguien m\'as y ver qu\'e cambios se han hecho en general.
-
-\subsubsection{commit}
-Algo que ya hemos hecho con anteriorirdad, aunque no hemos entendido muy bien qu\'e es lo que hace, es registrar cambios o \emph{commitear} cambios (dado que no existe una traducci\'on exacta para este verbo). La acci\'on de este comando es sencilla: est\'a guardando \textbf{solo los cambios realizados} en el proyecto. Esto lo hace en el directorio oculto que tiene nuestro proyecto. Sin embargo, esto solo sucede localmente! Los cambios solo se guardan en nuestro ordenador. Para que estos pasen a GitHub, veremos otro comando m\'as. La ventaja es que antes de empujar cambios a GitHub, podemos hacer cualquier cantidad de commits. Veamos qu\'e se requiere y c\'omo se hace esto.\\
-
-El comando es relativamente sencillo cuando uno lo ve: \inlinecode{git commit}. Solo eso? S\'i, en esencia, s\'i. Si queremos entender qu\'e pasar\'a despu\'es, debemos entender algunas cosas sobre este comando. Cada vez que registramos un cambio nuevo, git nos pide que agreguemos un mensaje. La idea es explicar a grandes rasgos qu\'e se hizo, c\'omo y por qu\'e. Hay dos formas de incluir este mensaje:
-\begin{enumerate}
-\item Esperando que despu\'es de correr \inlinecode{git commit}, git inicie \inlinecode{nano} en donde escribiremos el mensaje.
-\item Agregando, despu\'es de \inlinecode{git commit}, la bandera \inlinecode{-m} y nuestro mensaje entre comillas.
-\end{enumerate}
-
-Ahorita no hemos hecho ning\'un cambio en nuestros datos, as\'i que, intenta editar y cambiar el archivo que hab\'ias editado en la secci\'on de \textbf{diff} y vamos a realizar alg\'un otro cambio que podamos registrar. Cuando ya todo est\'e listo, vamos a correr \inlinecode{git commit}, vamos a ingresar un mensaje en \inlinecode{nano} y vamos a finalizar cerrando y guardando. Comenta, qu\'e ventajas y desventajas hay de usar la primera o la segunda forma?
-
-\subsubsection{push}
-Y finalmente llegamos al momento en el que todo se une. Todos los commits que hemos estado realizando, los hemos hecho localmente. Nos toca entonces empujar todas estas revisiones a GitHub. Para ello vamos a ingresar el siguiente comando: \inlinecode{git push} y lo vamos a correr. Si no hab\'ia cambios pendientes de registrar, se nos pedir\'a un usuario y una clave. Estos son los de GitHub. Finalmente, todos los cambios se guardar\'an en la nube y quedar\'an disponibles para colaboradores o usuarios de datos o el software en el que estamos trabajando.
-
-\subsubsection{pull}
-Ya que hemos aprendido a registrar cambios y empujar nuestras versiones a la nube, vamos a aprender c\'omo descargar esto para actualizar el proyecto en el que estamos trabajando, si que es este ha sufrido cambios por parte de alguien m\'as. Si se est\'a trabajando en un proyecto conjunto con otras personas, es muy com\'un que haya archivos sujetos a cambio constante por varios integrantes del equipo de desarrollo y por eso, necesitas saber qu\'e es diferente antes de empezar a trabajar.\\
-
-Por eso, si estamos trabajando en un ambiente con m\'as personas, siempre debemos de actualizar nuestras revisiones primero, i.e. hacer un \emph{pull} o jalar cambios. Para esto, el comando es muy sencillo: \inlinecode{git pull}. Si hace eso ahorita con tus archivos actuales, es muy probable que git solo te diga que todo est\'a actualizado y no hay nada que jalar. Sin embargo, intentemos hacerlo, es un buen ejercicio!
-
-\subsubsection{log}
-Saber qu\'e ha pasado con nuestro proyecto a lo largo del tiempo resulta importante cuando sabemos que no solo nosotros hemos hecho cambios sobre \'el. Tambi\'en nos sirve para tener una idea del avance del proyecto. Para hacer una revisi\'on de esto, es muy \'util un peque\~no comando que veremos a continuaci\'on: \inlinecode{git log}. Intenta ingresar esto a tu l\'inea de comado y ver qu\'e te arroja como resultado. Por cierto, para salirte del log, presiona \emph{q}.\\
-
-El \emph{log} es como el \'indice de nuestro cuaderno de laboratorio. En este se encuentran todos los commits hechos con un n\'umero particular: su identificador o \emph{id}. La identificaci\'on es importante! Cada commit tiene un \emph{id} que lo identifica, permiti\'endole a GitHub o a nuestro ordenador saber cu\'al es cu\'al. M\'as adelante veremos para qu\'e nos puede ser \'util.
-
-\subsection{Ramas, Merge y Fork}
-Hasta ahora hemos revisado nuestro proyecto por cambios, hemos registrado los cambios de una revisi\'on, hemos empujado esa informaci\'on, descargado actualizaciones y revisado el \'indice del proyecto. Git, sin embargo, permite hacer algunas cosas mucho m\'as interesantes. Una de ellas es la capacidad de trabajar en una versi\'on del proyecto independientemente del resto de \'el. Otra es integrar esos cambios independientes al proyecto principal. Y finalmente, otra ser\'ia copiar un proyecto entero para modificarlo, sin la necesidad de descargar todo y crear algo nuevo en GitHub. Revisemos cada una de estas opciones.
-
-\subsubsection{branch}
-Deseamos trabajar en un script de nuestro proyecto, pero trabajar en \'el implica hacer que funcione de otra forma por completo. Eso implica hacer cambios que afectan grandemente al proyecto, porque lo m\'as probable es que algunas personas del proyecto ya dependan de que ese script funcione. C\'omo hacemos eso conservando la habilidad de ir guardando registro de revisiones? Pues, se crea una rama. Una rama es como otro camino que seguiremos desde una revisi\'on espec\'ifica. C\'omo as\'i? Partiendo de un commit en particular, vamos a seguir por \emph{otro} camino que tendr\'a el desarrollo de una caracter\'istica en particular. Este desarrollo se estar\'a llevando a cabo en paralelo al desarrollo principal del proyecto, pero no lo tocar\'a. Esto es una rama, o \inlinecode{branch}. La representaci\'on gr\'afica de esto se ve algo as\'i.
-
-\Picture{img/branch.png}
-
-Aqu\'i podemos ver que cada peque\~no c\'irculo en las l\'ineas son commits, y notamos c\'omo es que 3 ramas se desprenden del proyecto principal (la l\'inea negra). La idea entonces es poder desarrollar una caracter\'istica en particular sin necesidad de arruinar el resto del proyecto. Lo primero que intentaremos ser\'a revisar qu\'e ramas existen y luego crearemos una nueva.\\
-
-Para revisar qu\'e ramas existen, el comando es sencillo: \inlinecode{git branch}. Esto nos mostrar\'a la rama \inlinecode{*master}, que por el momento es la \'unica que existe. Ahora intentaremos crear una nueva rama y nos cambiarnos a ella. Para ello, vamos a ingresar lo siguiente en nuestra l\'inea de comando: \inlinecode{git branch \emph{nombre\_rama}}. Esto crear\'a la rama nueva. Para pasarnos a ella, ingresamos: \inlinecode{git checkout \emph{nombre\_rama}}. De esa forma no solo creamos la rama, sino nos situamos en ella. Para fines de practicidada, estos dos comandos se pueden fusionar en uno solo: \inlinecode{git checkout -b \emph{nombre\_rama}}. Despu\'es de haber hecho esto, piensa: C\'omo te regresas a la rama principal?
-
-\subsubsection{merge}
-Y qu\'e pasa cuando terminamos de modificar lo que quer\'iamos, nuestro nuevo c\'odigo funciona y lo queremos incluir en la rama principal de nuestro proyecto? En este caso, debemos de hacer que nuestra rama se una al proyecto principal. Para git, esto se hace con el comando \inlinecode{merge}. La idea es colocarnos en una rama particular y decirle a git que esta debe de unirse a otra rama que especificamos. La representaci\'on gr\'afica de esto se puede notar al observar c\'omo las ramas de colores verde, azul y algunas l\'ineas negras se unen a la l\'inea negra principal con una peque\~na flecha.\\
-
-\Picture{img/merge.png}
-
-As\'i que tomando eso en cuenta, solo parece l\'ogico que el comando completo sea algo as\'i \inlinecode{git merge master}.Con esto \'ultimo unir\'iamos nuestra nueva rama a la rama principal. Debemos de tener cuidado, pues es com\'un que el c\'odigo sobre el que estabamos trabajando vaya a haber sido modificado en el tiempo en que nosotros trabajamos en la rama. En ese caso, git nos advertir\'a que eso pas\'o y nos dar\'a la opci\'on de escoger una opci\'on. Eso, sin embargo, lo veremos m\'as adelante.
-
-\subsubsection{fork}
-Se da a veces el caso en el que alg\'un proyecto nos parece muy interesante. Por ejemplo, Linux es un proyecto que se trabaja con git. Algunas personas lo hallan muy interesante y desear\'ian crear una versi\'on personalizada y espec\'ifica de Linux para alguna necesidad. C\'omo hacer esto? Hacer una rama del proyecto principal de Linux no parece una buena idea; las ramas sirven para contribuir al proyecto. No, nosotros deseamos algo independiente. Para ello se dice que se hace un \inlinecode{fork} (as\'i como tenedor en ingl\'es). Y pues, la idea es hacer una replica exacta del repositorio de Linux dentro de nuestra cuenta personal de git. Esto nos ahorrar\'a descargar el proyecto entero, crear un repositorio en nuestra cuenta, registrarlo con el proyecto que descargamos y volver a empujar todo a la nube. En vez de eso, en GitHub, solo hacemos click al bot\'on del proyecto que deseamos copiar. Nada m\'as.
-
-\Picture{img/fork.png}
-
-\subsection{GUI y Situaciones Comunes}
-Acept\'emoslo, la l\'inea de comando nos permite hacer muchas cosas, pero tenemos que memorizar muchas palabras y no resulta nada pr\'actica muchas veces. Por qu\'e no existen soluciones m\'as gr\'aficas? Con campos de texto, botones, deslizadores, ventanas, etc.? Pues ... la verdad es que s\'i existen. Facilitan mucho el trabajo y nos ayudan a poder desarrollar m\'as r\'apidamente. Por qu\'e no las usamos muy seguido? Porque nos limitan mucho; no nos ofrecen muchas de las opciones que hemos aprendido hasta ahora en el taller. Sin embargo, como nuestro objetivo no es ser programadores, sino saber usar un ordenador para hacer qu\'imica, vamos a dar una breve introducci\'on a \emph{un} ambiente gr\'afico para git: Cola.
-
-\subsubsection{Cola Git}
-Esta interfaz para git es relativamente sencilla e intuitiva. Al abrirla, hallamos que solo nos expondr\'a una ventana con 3 botones: \textbf{Abrir}, \textbf{Clonar} y \textbf{Cerrar}.
-
-\Picture{img/cola1.png}
-
-\textbf{Abrir} se refiere a apuntar a Cola a un directorio que ha sido iniciado o clonado de un proyecto git. Entonces Cola reconocer\'a esto y nos dir\'a en una ventana m\'as grande: qu\'e archivos han cambiado, nos ofrecer\'a agregarlos al commit, y si hacemos click en uno de ellos, en la parte inferior nos mostrar\'a qu\'e ha cambiado en ellos desde la \'ultima vez que se ha hecho commit. Desde ac\'a tambi\'en se puede realizar commits, se puede jalar y se puede empujar cambios.
-
-\Picture{img/cola2.png}
-
-Como ejercicio, intenta cambiar alg\'un archivo, realiza un commit y empuja cambios desde Cola.
-
-\textbf{Clonar} se refiere a clonar un repositorio; un proyecto. Cola inmediatamente te pide una direcci\'on web de d\'onde descargar el proyecto, te pregunta a qu\'e directorio lo deseas descargar y te da la opci\'on de descargarlo a trav\'es de \'el.\\
-
-Si lo notas, todo lo que puedes hacer con Cola, lo puedes hacer desde la l\'inea de comando. En el caso de Cola, puedes hacerlo quiz\'a m\'as r\'apido, pero la l\'inea de comando te permite hacer m\'as cambios y con mucho m\'as control.
-
-\subsubsection{Deseo ver c\'omo estaban mis archivos en una revisi\'on particular}
-No es tan com\'un como las dos siguientes, pero sin embargo, nos pasa. Deseamos ver qu\'e hab\'iamos escrito en determinado punto del proyecto o c\'omo se ve\'ia un archivo en particular porque ``entonces funcionaba, y ahora no''. Para hacer esto se trabaja de manera muy similar a las ramas, pero con un truco leve. Lo primero que debemos saber es el \emph{id} del commit que queremos revisar. Para eso es \'util usar \inlinecode{git log}. Una vez hallado el \emph{id}, entonces procedemos a situarnos en ese punto del proyecto mediante: \inlinecode{git checkout <id-commit>}. De esta forma llegamos a \textbf{ESE} momento en particular.\\
-
-Ahora, resulta \'util hacer esto, pero ... y c\'omo regresamos? Aqu\'i vale la pena mencionar nuevamente el caso de la cabeza del proyecto: \inlinecode{HEAD}. Nosotros podemos navegar entre diferentes puntos del proyecto refiri\'endonos solamente a d\'onde se halla la cabeza o a qu\'e distancia de la cabeza se halla alg\'un commit. Para regresar a la cabeza, el comando es sencillo: \inlinecode{git checkout HEAD}. Sin embargo, mencionamos lo dem\'as, porque para movernos a un commit en particular, a veces no es necesario el \emph{id}. El commit anterior a la cabeza se llama \inlinecode{HEAD$\sim$1}, el anterior a ese \inlinecode{HEAD$\sim$2}, el anterior a ese \inlinecode{HEAD$\sim$3} y as\'i sucesivamente. De esta manera, si deseamos retroceder 5 pasos, solo debemos de ingresar \inlinecode{HEAD$\sim$5} a la l\'inea de comando y \emph{voil\'a}, hemos llegado!
-
-\subsubsection{Hice commit de cambios que no deseo en GitHub}
-Para este problema, existen dos soluciones. La primera es responsabilizarse por el error y dejarlo all\'i para la posteridad. La segunda es decirle a git que ignore eso y borre lo que acabas de registrar. Si se dice que la \emph{cabeza} del sistema de revisiones es el \'ultimo commit en haber sido agregado, esta acci\'on de ignorar lo que acabas de hacer y borrar todo desde cierto punto en adelante se conoce como mover la cabeza hasta X punto (en donde X es el identificador del commit hecho). Hacer esto es \textbf{MUY} peligroso y no se recomienda, porque se perder\'an los cambios de todos a partir del commit escogido como nueva cabeza. Sin embargo, esta es una pregunta com\'un y por eso dejaremos el c\'digo para hacerlo: \inlinecode{git reset --hard <id-commit>} Si ya empujaste los cambios que no deseabas a GitHub, hay algunas maneras de eliminar los commits hechos, pero no se cubrir\'an aqu\'i.
-
-\subsubsection{Ambos editamos el mismo archivo en el mismo lugar}
-Es com\'un, aunque a pocos les guste, que dos personas cambien el mismo archivo al mismo tiempo. Una intenta hacer \inlinecode{pull} antes de registrar cambios y resulta que BAM! hay un choque! Git nos avisa que el mismo archivo ha sido editado en las mismas l\'ineas. Que desastre! Y ahora, qu\'e debemos hacer? Pues la verdad, este asunto se resuelve de una manera bastante simple. Git nos permite ignorar cambios, o escoger cu\'al deseamos mantener y cual desechar. Hay herramientas especializadas para esto como KDiff. Este programa nos permite ver el c\'odigo antes de ser editado, la edici\'on de una persona, y la nuestra a modo de ver los cambios y escoger cu\'ales se quedan.
-
-\subsection{Comentarios Finales}
-Si observamos bien, no hicimos ning\'un ejercicio grande y especial con git. Esto se debe a que este sistema no sirve para hacer algo muy interesante dentro de un proyecto, m\'as que organizarlo y mantener copias de seguridad de cada paso en el desarrollo de un proyecto. M\'as adelante en el taller, vamos a continuar utilizando git a modo de ir guardando nuestros avances y practicar su uso.\\
-
-Por ahora, felicidades! Has completado la introducci\'on al uso de un sistema de control de revisiones. Si deseas profundizar en el tema, se te recomienda hacerlo. Saber usar a mayor profundidad las ventajas que te ofrece git es algo de lo que jam\'as te arrepentir\'as. Y pues claro, llevar un registro decente y ordenado es una buena pr\'actica en toda ciencia.\\
-
-Felicidades de nuevo, y \'animo! Ma\~nana toca aprender a utilizar una herramienta que har\'a que tus reportes nunca vuelvan a ser iguales.
+\section{Comentarios finales}
 
 \newpage
 
