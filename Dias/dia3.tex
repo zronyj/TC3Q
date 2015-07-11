@@ -76,14 +76,7 @@ Lo primero que haremos ser\'a crear un repositorio. Esto \'ultimo es un lugar en
 La otra manera de comenzar un repositorio es accesando a una p\'agina como \href{https://github.com/}{GitHub}, \href{https://gitlab.com/}{GitLab}, \href{https://mercurial.selenic.com/}{Mercurial}, \href{https://bitbucket.org/}{BitBucket}, \href{http://sourceforge.net/}{SourceForge}, \href{http://www.codeplex.com/}{CodePlex}, etc. y creando un usuario en ella. Es conveniente mencionar que GitHub es la m\'as famosa, aunque de las anteriormente expuestas quiz\'a GitLab es la mejor para nuestros fines. Por eso, vamos a ir a GitLab, crearemos un usuario y seguiremos las instrucciones para crear un proyecto nuevo. Idealmente si nuestro proyecto tiene un nombre f\'acil y lo hacemos p\'ublico para que todos lo puedan ver y trabajar en \'el. Cuando nuestro repositorio ya est\'e creado, vamos a proveer quien nos est\'a dando el taller con nuestro usuario, y luego vamos a continuar.
 
 \section{Clonando un repositorio}
-Una vez logramos crear un repositorio en la nube, es momento de sincronizarlo con nuestro ordenador. Para ello vamos a ver que el proyecto que creamos en GitLab nos ofrece una direcci\'on \emph{HTTPS}. Vamos a copiar esta direcci\'on y vamos a escrbir lo siguiente en nuestra Terminal: \inlinecode{git clone} y luego vamos a pegar la direcci\'on que acabamos de copiar. Presionaremos enter y veremos como es que git crea una copia del proyecto en nuestro ordenador. Claro, como no hay nada en el proyecto a\'un, git nos advertir\'a de esto y solo crear\'a la carpeta.\\
-
-Ahora que ya hemos comenzado, vamos a ver realmente para qu\'e es que nos sirve git. Para ello vamos a comenzar con un proyecto en particular y vamos a irlo desarrollando poco a poco entre todos los presentes.
-
-\section{Proyecto}
-El proyecto en el que vamos a trabajar ya est\'a creado en un repositorio de GitLab. Por esta raz\'on solo vamos a clonar el proyecto de esta direcci\'on: https://gitlab.com/zronyj/TQCA\_ej.git Al ya haber clonado el proyecto, entraremos en la carpeta correspondiente y comenzaremos a trabajar. Lo primero que haremos ser\'a entrar a la carpeta \textbf{Users} y crear un documento de texto que contenga nuestro nombre completo, nuestra fecha de cumplea\~nos y si somos estudiantes, catedr\'aticos o investigadores en una l\'inea diferente cada cosa. Luego vamos a guardar este documento bajo el siguiente nombre: \emph{apellidoNombre.txt} en donde el apellido y el nombre son \textbf{tu} apellido y \textbf{tu} nombre. Finalmente nos saldremos de la carpeta \textbf{Users} y quedaremos listos para el siguiente paso.\\
-
-Crear funciones repartidas.
+Una vez logramos crear un repositorio en la nube, es momento de sincronizarlo con nuestro ordenador. Para ello vamos a ver que el proyecto que creamos en GitLab nos ofrece una direcci\'on \emph{HTTPS}. Vamos a copiar esta direcci\'on y vamos a escrbir lo siguiente en nuestra Terminal: \inlinecode{git clone} y luego vamos a pegar la direcci\'on que acabamos de copiar. Presionaremos enter y veremos como es que git crea una copia del proyecto en nuestro ordenador. Claro, como no hay nada en el proyecto a\'un, git nos advertir\'a de esto y solo crear\'a la carpeta. Ahora que ya hemos comenzado, vamos a ver realmente para qu\'e es que nos sirve git. 
 
 \section{Diferentes directorios de trabajo}
 WD, Index (stage), HEAD
@@ -111,6 +104,22 @@ status
 
 \section{Reemplazar cambios locales: checkout, fetch y \& reset}
 checkout -- (archivo)
+
+Para ello vamos a comenzar con un proyecto en particular y vamos a irlo desarrollando poco a poco entre todos los presentes.
+
+\section{Proyecto}
+El proyecto en el que vamos a trabajar ya est\'a creado en un repositorio de GitLab. Por esta raz\'on solo vamos a clonar el proyecto de esta direcci\'on: https://gitlab.com/zronyj/TQCA\_ej.git Al ya haber clonado el proyecto, entraremos en la carpeta correspondiente y comenzaremos a trabajar. Lo primero que haremos ser\'a entrar a la carpeta \textbf{Users} y crear un documento de texto que contenga nuestro nombre completo, nuestra fecha de cumplea\~nos y si somos estudiantes, catedr\'aticos o investigadores en una l\'inea diferente cada cosa. Luego vamos a guardar este documento bajo el siguiente nombre: \emph{apellidoNombre.txt} en donde el apellido y el nombre son \textbf{tu} apellido y \textbf{tu} nombre. Finalmente nos saldremos de la carpeta \textbf{Users} y quedaremos listos para el siguiente paso.\\
+
+En los d\'ias anteriores hemos visto algunos principios b\'aiscos para programar rutinas o peque\~nos programas. Hoy vamos a comenzar con uno que nos va a servir para ejemplificar el uso de git. Nos vamos a dividir en 4 grupos y vamos a intentar hacer 4 programas sencillos; uno por grupo. De esta manera vamos a entender mejor c\'omo es que funciona git. Los programas son:
+
+\begin{enumerate}
+\item \textbf{Fisicoqu\'imica:} peque\~no programa al que le demos la entalp\'ia, entrop\'ia y temperatura (en Kelvin) de los productos y de los reactivos de una reacci\'on, y este nos muestre las diferencias calculadas entre reactivos y productos para entalp\'ia $\Delta H$, entrop\'ia $\Delta S$ y energ\'ia libre de Gibbs $\Delta G$. Como dato importante, esta f\'ormula puede ser \'util: $\Delta G = \Delta H - T \cdot \Delta S$ Y para calcular diferencias, solo basta con una simple resta: $\Delta H = H_{prods} - H_{reacts}$
+\item \textbf{An\'alisis:} peque\~no programa que calcula el pH de una soluci\'on de \'acido ac\'etico solo introduci\'endole el volumen de \'acido ac\'etico agregado $V_{HAc}$, la concentraci\'on del mismo $\left[ HAc \right]$ y el volumen de agua sobre el que se est\'a agregando $V_{H_2 O}$. Como datos importantes, este equilibrio viene dado por: $K = \frac{\left[ H^+ \right] \left[ Ac^- \right]}{\left[ HAc \right]}$ Para calcular concentraciones a vol\'umenes nuevos, se hace esto: $\left[ HAc \right]_{nueva} = \frac{\left[ HAc \right] \cdot V_{HAc}}{V_{H_2 O} + V_{HAc}}$ Y el pH se calcula de esta manera: $pH = - \log_{10} \left( \left[ H^+ \right] \right)$ La constante es $K = 1.77 \cdot 10^{-5}$
+\item \textbf{Org\'anica:} peque\~no programa que calcula la cantidad de insaturaciones en una mol\'ecula, dada la f\'ormula. La mol\'ecula puede tener hal\'ogenos, ox\'igeno y/o nitr\'ogeno. Como dato importante, la f\'ormula para hacer esto se ve de la siguiente manera: $IDH = C - \frac{H}{2} + \frac{N}{2} + 1$ en donde $C$ es el n\'umero de \textbf{c}arbonos, $H$ es el n\'umero de \textbf{h}idr\'ogenos o \textbf{h}al\'ogenos y $N$ es el n\'umero de \textbf{n}itr\'ogenos. El programa tiene que aceptar el ingreso de los elementos uno por uno.
+\item \textbf{Inorg\'anica:} peque\~no programa que calcula la densidad de un metal basado en el volumen de la unidad cristalina m\'as peque\~na. Para ello se indica si la unidad es c\'ubica simple (\emph{PCC}), c\'ubica centrada en el cuerpo (\emph{BCC}) o c\'ubica centrada en las caras (\emph{FCC}). Como dato importante se ha de mencionar que la f\'ormula para calcular el volumen de la PCC es: $V_{PCC} = \left( 2 r \right)^3$, la f\'ormula para calcular la BCC es: $V_{BCC} = \left( \frac{4 \sqrt{3} r}{3} \right)^3$ y la f\'ormula para calcular FCC es $V_{FCC} = \left( 2 \sqrt{2} r \right)^3$. Claro, $r$ es el radio at\'omico del metal del que deseamos calcular. En la PCC hay 1 \'atomo del metal en cuesti\'on. En la BCC hay 2 \'atomos. Y en la FCC hay 4 \'atomos. Y claro, la densidad es siempre: $\rho = \frac{m}{V}$
+\end{enumerate}
+
+No nos vayamos a complicar la vida haciendo estos programas, la idea es mantener la simplicidad. 
 
 \section{Comentarios finales}
 
