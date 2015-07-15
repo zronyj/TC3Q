@@ -79,14 +79,76 @@ La otra manera de comenzar un repositorio es accesando a una p\'agina como \href
 Una vez logramos crear un repositorio en la nube, es momento de sincronizarlo con nuestro ordenador. Para ello vamos a ver que el proyecto que creamos en GitLab nos ofrece una direcci\'on \emph{HTTPS}. Vamos a copiar esta direcci\'on y vamos a escrbir lo siguiente en nuestra Terminal: \inlinecode{git clone} y luego vamos a pegar la direcci\'on que acabamos de copiar. Presionaremos enter y veremos como es que git crea una copia del proyecto en nuestro ordenador. Claro, como no hay nada en el proyecto a\'un, git nos advertir\'a de esto y solo crear\'a la carpeta. Ahora que ya hemos comenzado, vamos a ver realmente para qu\'e es que nos sirve git. 
 
 \section{Diferentes directorios de trabajo}
-WD, Index (stage), HEAD
+Git, m\'as que un sistema para ir guardando copias de seguridad, es un sistema para ir guardando diferentes versiones de un trabajo y en colaboraci\'on. C\'omo es eso? Cada cambio grande que vamos haciendo, lo vamos guardando y poni\'endole un mensaje de qu\'e es lo que logramos en ese momento. Para llevar esto a cabo, git segmenta todo en 3 supuestos \textit{directorios}. El primero es donde estamos trabajando y guardando nuestro trabajo; un directorio normal al que llamamos \emph{directorio de trabajo}. Luego est\'a el \textit{directorio} a donde vamos agregando las cosas que vamos guardar como versi\'on: el directorio \emph{index} o \emph{stage}\footnote{Por este nombre es que se dice \emph{staging} a los archivos que vamos guardando poco a poco.}. Luego est\'a el \'ultimo directorio que contiene a los archivos y documentos que deseamos declarar como una versi\'on nueva completa. Es como un grupo de archivos y documentos que, al ser terminados, se van guardando como un cambio completo, con un mensaje determinado y con cierto n\'umero de versi\'on. A esto se le llama \emph{HEAD}. Finalmente, cuando mandamos todo esto a la nube, hablamos de que sincronizamos o \emph{empujamos} nuestro trabajo al repositorio. La idea ahora ser\'a ir comprendiendo c\'omo trasladamos la informaci\'on de un directorio a otro para ayudarnos en nuestro trabajo.
+
+Colocar dibujitos aqui.
 
 \section{Actualizando directorios: add \& commit}
-add
-commit
+Para dar una buena idea de c\'omo usar git, vamos a hacer un proyecto simple. En un nuevo repositorio, clonado a nuestro ordenador, vamos a crear un documento nuevo: \textit{gases.py} Ahora, este documento est\'a en nuestro directorio de trabajo o \textbf{w}orking \textbf{d}irectory (WD). Digamos que deseamos pasar este documento de WD a stage. En ese caso, solo escribimos \inlinecode{git add gases.py} en nuestra terminal\footnote{Asegur\'emonos de estar \emph{dentro} del directorio creado con git al clonar el repositorio.} y ya vamos a haber pasado de WD a stage. Esto se puede hacer con cada nuevo documento o archivo, pero si se va a agregar varios simult\'aneamente, la expresi\'on \inlinecode{git add --all} jam\'as puede ser sobrevalorada.\\
+
+Continuando con nuestro peque\~no proyecto, vamos a abrir el documento \textit{gases.py} y vamos a escribir un poco en \'el. Este peque\~no programa nos servir\'a para calcular alguna variable seg\'un el principio de los gases ideales, al prove\'ersele lo dem\'as. Lo primero que debemos hacer es pensar en qu\'e necesitamos en el programa. Evidentemente vamos a requerir:
+
+\begin{itemize}
+\item Una funci\'on que le solicite los datos al usuario.
+\item Una funci\'on que calcule el resultado de la operaci\'on solicitada.
+\item El programa principal con alguna manera de representar los resultados.
+\end{itemize}
+
+Entonces, la primera funci\'on se puede ver as\'i:
+
+\begin{Code}
+def datos():\\
+\hspace*{8mm}print("*** Gases Ideales ***")\\
+\hspace*{8mm}print("\ \ \ \ \ P\ V=n\ R\ T")\\
+\hspace*{8mm}print("\ \ \ \ \ 1\ 2\ 3\ \ \ 4")\\
+\hspace*{8mm}opcion = input("Seleccionar variable a calcularse:\ ")\\
+\hspace*{8mm}if opcion >\ 4 or opcion <\ 1:\\
+\hspace*{16mm}print("\ \hspace*{-2mm}Opcion invalida!")\\
+\hspace*{16mm}return -1, 0, 0, 0\\
+\hspace*{8mm}if not (opcion == 1):\\
+\hspace*{16mm}presion = float(raw\_input("\ \hspace*{-2mm}Ingresar presion en atmosferas:\ "))\\
+\hspace*{8mm}else:\\
+\hspace*{16mm}presion = 0\\
+\hspace*{8mm}if not (opcion == 2):\\
+\hspace*{16mm}volumen = float(raw\_input("\ \hspace*{-2mm}Ingresar volumen en litros:\ "))\\
+\hspace*{8mm}else:\\
+\hspace*{16mm}volumen = 0\\
+\hspace*{8mm}if not (opcion == 3):\\
+\hspace*{16mm}moles = float(raw\_input("\ \hspace*{-2mm}Ingresar cantidad de materia en moles:\ "))\\
+\hspace*{8mm}else:\\
+\hspace*{16mm}moles = 0\\
+\hspace*{8mm}if not (opcion == 4):\\
+\hspace*{16mm}temperatura = float(raw\_input("\ \hspace*{-2mm}Ingresar temperatura en Kelvin:\ "))\\
+\hspace*{8mm}else:\\
+\hspace*{16mm}temperatura = 0\\
+\hspace*{8mm} return opcion, presion, volumen, moles, temperatura
+\end{Code}
+
+Con esto vamos a tener ya la funci\'on que nos captura los datos del usuario y nos los tiene listos para ser calculados. Ahora es un buen momento para a\~nadir los cambios al stage a trav\'es de \inlinecode{git add gases.py} Sin embargo, es un buen momento para guardar esto de una manera m\'as profunda, porque realmente esta fue una funci\'on larga. Lo que haremos ahora ser\'a enviar los cambios a HEAD. Eso implica que estos cambios ya merecen un peque\~no mensaje sobre lo que hemos hecho. Es por esto que vamos a proceder de la siguiente manera.\\
+
+Primero vamos a escribir lo siguiente en la terminal: \inlinecode{git commit -m 'Guardando mi primera funci\'on'} Luego vamos a ver c\'omo es que git guarda todo en HEAD. Es un proceso simple que solo muestra algunos de los pasos realizados al hacer \emph{commit} de los cambios. De esta manera git ya tiene algo parecido a una \textit{copia de seguridad} en su directorio reservado. Lo que haremos ahora ser\'a escribir otra funci\'on: la funci\'on que calcula.
+
+\begin{Code}
+def calcular(opc, P, V, n, T):\\
+\hspace*{8mm}R = 0.0821\\
+\hspace*{8mm}if opc == 1:\\
+\hspace*{16mm}return n * R * T / V\\
+\hspace*{8mm}elif opc == 2:\\
+\hspace*{16mm}return n * R * T / P\\
+\hspace*{8mm}elif opc == 3:\\
+\hspace*{16mm}return P * V / (R * T)\\
+\hspace*{8mm}elif opc == 4:\\
+\hspace*{16mm}return P * V / (R * n)\\
+\hspace*{8mm}else:\\
+\hspace*{16mm}return "\ \hspace*{-1.5mm}Opcion mal ingresada."
+\end{Code}
+
+Perfecto! Con esto ya tenemos una funci\'on que al ingresarle las opciones, nos calcula la variable faltante. Es importante que al terminar de escribirla, nuestro instinto sea el de guardar nuestro trabajo, a\~nadirlo a \textit{stage} y luego a \textit{HEAD}. Para ello vamos a volver a escribir \inlinecode{git add gases.py} y despu\'es de ejecutar ese comando, vamos a escribir el siguiente: \inlinecode{git commit} Si nos damos cuenta, al ejecutar este comando, git abre un editor de texto (que ya deber\'iamos de conocer) para escribir nuestro mensaje all\'i. La ventaja es clara: nos podemos extender, usar caracteres raros, tener varias l\'ineas, etc. Es mucho m\'as c\'omodo escribirlo aqu\'i. Una vez hayamos escrito un mensaje para nuestra nueva funci\'on, vamos a presionar \textbf{Ctrl} + \textbf{X}, luego \textbf{Y} para aceptar los cambios, y finalmente \textbf{Enter} para aceptar el nombre que git le est\'a dando al archivo en el que va nuestro mensaje.\\
+
+Si nos damos cuenta, este proceso de agregar y hacer \emph{commit} a cada funci\'on que terminamos es un proceso repetitivo que debemos ir haciendo peri\'odicamente para no perder nuestros avances. Tambi\'en nos sirve para ir catalogando cada parte del c\'odigo a manera de saber qu\'e se hizo en qu\'e momento y c\'omo. Antes de terminar con nuestro peque\~no programa, vamos a ver c\'omo enviamos cambios a la nube.
 
 \section{Enviar cambios a la nube: push}
-push
+Esta parte es quiz\'a la m\'as interesante para muchos.
 
 \section{Ramas}
 checkout -b (crear)
