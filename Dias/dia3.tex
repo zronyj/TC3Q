@@ -161,7 +161,13 @@ Esta parte es quiz\'a la m\'as interesante para muchos. Generalmente git se qued
 \item Todo queda en una plataforma de m\'as f\'acil acceso y m\'as universal: internet.
 \end{itemize}
 
+Existen dos maneras de hacer esto. Una es si el repositorio lo creamos en internet y lo clonamos despu\'es a nuestro ordenador. El otro es cuando deseamos enviar cambios de un repositorio creado en nuestro ordenador, a un repositorio remoto ya existente en GitLab o GitHub.\\
 
+Para la primera lo que debemos escribir es lo siguiente: \inlinecode{git push origin master} Lo que queremos decir con esto es que vamos a empujar los cambios, a los que ya hicimos commit, al \emph{origen} del repositorio. Eso de \emph{master} vamos a entenderlo dentro de poco. Al ejecutar este comando, el servicio en l\'inea nos pedir\'a nuestras credenciales y con esto ya podremos subir cambios al repositorio, actualizando as\'i toda la informaci\'on en internet.\\
+
+Para el segundo caso, lo que debemos escribir es de la siguiente manera: \inlinecode{git remote add origin \emph{server}}, en donde \emph{server} es la direcci\'on del repositorio (como la que usamos para clonarlo). Al hacer esto, el servicio tambi\'en nos pedir\'a credenciales. Este m\'etodo se usa muy poco debido a que generalmente es m\'as f\'acil clonar un repositorio y mantenerlo actualizado.\\
+
+Perfecto! Ahora ya sabemos c\'omo mantener conectado todo. Vamos a empujar los cambios de nuestro peque\~no proyecto y a continuaci\'on veremos c\'omo trabajar en colaboraci\'on con m\'as personas de una manera m\'as ordenada.
 
 \section{Ramas}
 checkout -b (crear)
