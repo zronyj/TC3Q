@@ -76,7 +76,10 @@ Lo primero que haremos ser\'a crear un repositorio. Esto \'ultimo es un lugar en
 La otra manera de comenzar un repositorio es accesando a una p\'agina como \href{https://github.com/}{GitHub}, \href{https://gitlab.com/}{GitLab}, \href{https://mercurial.selenic.com/}{Mercurial}, \href{https://bitbucket.org/}{BitBucket}, \href{http://sourceforge.net/}{SourceForge}, \href{http://www.codeplex.com/}{CodePlex}, etc. y creando un usuario en ella. Es conveniente mencionar que GitHub es la m\'as famosa, aunque de las anteriormente expuestas quiz\'a GitLab es la mejor para nuestros fines. Por eso, vamos a ir a GitLab, crearemos un usuario y seguiremos las instrucciones para crear un proyecto nuevo. Idealmente si nuestro proyecto tiene un nombre f\'acil y lo hacemos p\'ublico para que todos lo puedan ver y trabajar en \'el. Cuando nuestro repositorio ya est\'e creado, vamos a proveer quien nos est\'a dando el taller con nuestro usuario, y luego vamos a continuar.
 
 \section{Clonando un repositorio}
-Una vez logramos crear un repositorio en la nube, es momento de sincronizarlo con nuestro ordenador. Para ello vamos a ver que el proyecto que creamos en GitLab nos ofrece una direcci\'on \emph{HTTPS}. Vamos a copiar esta direcci\'on y vamos a escrbir lo siguiente en nuestra Terminal: \inlinecode{git clone} y luego vamos a pegar la direcci\'on que acabamos de copiar. Presionaremos enter y veremos como es que git crea una copia del proyecto en nuestro ordenador. Claro, como no hay nada en el proyecto a\'un, git nos advertir\'a de esto y solo crear\'a la carpeta. Ahora que ya hemos comenzado, vamos a ver realmente para qu\'e es que nos sirve git. 
+Una vez logramos crear un repositorio en la nube, es momento de sincronizarlo con nuestro ordenador. Para ello vamos a ver que el proyecto que creamos en GitLab nos ofrece una direcci\'on \emph{HTTPS}. Vamos a copiar esta direcci\'on y vamos a escrbir lo siguiente en nuestra Terminal: \inlinecode{git clone} y luego vamos a pegar la direcci\'on que acabamos de copiar. Presionaremos enter y veremos como es que git crea una copia del proyecto en nuestro ordenador. Claro, como no hay nada en el proyecto a\'un, git nos advertir\'a de esto y solo crear\'a la carpeta. Ahora que ya hemos comenzado, vamos a ver realmente para qu\'e es que nos sirve git.
+
+\section{Configurando a git}
+Ahora viene una parte muy importante. Esta parte no la podemos ignorar o vamos a tener muchos problemas adelante. Debemos decirle a git qui\'en es el responsable en esta carpeta y el correo electr\'onico al que debe de referirse. Para eso, con la Terminal, debemos colocarnos \emph{dentro} de la carpeta en donde vamos a trabajar. Ya all\'i, escribiremos esto en la terminal: \inlinecode{git config user.name "\textbf{Su nombre y apellido}"} De esta forma ya especificamos el nombre de quien est\'a trabajando all\'i. Ahora nos toca especificar un correo electr\'onico. Para ello escribiremos esto: \inlinecode{git config user.email \textbf{su\_correo@electronico.com}} Con esto ya hecho, al momento de guardar cambios, no habr\'a tanto problema. La idea es que siempre se pueda identificar qui\'en hizo qu\'e y c\'omo avanz\'o.
 
 \section{Diferentes directorios de trabajo}
 Git, m\'as que un sistema para ir guardando copias de seguridad, es un sistema para ir guardando diferentes versiones de un trabajo y en colaboraci\'on. C\'omo es eso? Cada cambio grande que vamos haciendo, lo vamos guardando y poni\'endole un mensaje de qu\'e es lo que logramos en ese momento. Para llevar esto a cabo, git segmenta todo en 3 supuestos \textit{directorios}. El primero es donde estamos trabajando y guardando nuestro trabajo; un directorio normal al que llamamos \emph{directorio de trabajo}. Luego est\'a el \textit{directorio} a donde vamos agregando las cosas que vamos guardar como versi\'on: el directorio \emph{index} o \emph{stage}\footnote{Por este nombre es que se dice \emph{staging} a los archivos que vamos guardando poco a poco.}. Luego est\'a el \'ultimo directorio que contiene a los archivos y documentos que deseamos declarar como una versi\'on nueva completa. Es como un grupo de archivos y documentos que, al ser terminados, se van guardando como un cambio completo, con un mensaje determinado y con cierto n\'umero de versi\'on. A esto se le llama \emph{HEAD}. Finalmente, cuando mandamos todo esto a la nube, hablamos de que sincronizamos o \emph{empujamos} nuestro trabajo al repositorio. La idea ahora ser\'a ir comprendiendo c\'omo trasladamos la informaci\'on de un directorio a otro para ayudarnos en nuestro trabajo.
@@ -148,7 +151,17 @@ Perfecto! Con esto ya tenemos una funci\'on que al ingresarle las opciones, nos 
 Si nos damos cuenta, este proceso de agregar y hacer \emph{commit} a cada funci\'on que terminamos es un proceso repetitivo que debemos ir haciendo peri\'odicamente para no perder nuestros avances. Tambi\'en nos sirve para ir catalogando cada parte del c\'odigo a manera de saber qu\'e se hizo en qu\'e momento y c\'omo. Antes de terminar con nuestro peque\~no programa, vamos a ver c\'omo enviamos cambios a la nube.
 
 \section{Enviar cambios a la nube: push}
-Esta parte es quiz\'a la m\'as interesante para muchos.
+Esta parte es quiz\'a la m\'as interesante para muchos. Generalmente git se queda en ir creando copias y versiones de nuestro trabajo en progreso, pero todo cambia y se vuelve mejor cuando lo sincronizamos con la nube. En otras palabras, lo vamos a enviar a un servidor en donde tendremos todo ordenado y listo. Las ventajas de esto son varias:
+
+\begin{itemize}
+\item Tendremos una copia de nuestro trabajo aunque algo malo le pase a nuestro ordenador.
+\item Muchas otras personas podr\'an colaborar con nosotros en el proyecto que estamos haciendo.
+\item Podemos trabajar en el mismo proyecto desde diferentes ordenadores y lugares.
+\item Podremos visualizar de mejor manera los cambios realizados por nosotros u otras personas.
+\item Todo queda en una plataforma de m\'as f\'acil acceso y m\'as universal: internet.
+\end{itemize}
+
+
 
 \section{Ramas}
 checkout -b (crear)
