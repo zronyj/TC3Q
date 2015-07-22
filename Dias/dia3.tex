@@ -135,13 +135,13 @@ Primero vamos a escribir lo siguiente en la terminal: \inlinecode{git commit -m 
 def calcular(opc, P, V, n, T):\\
 \hspace*{8mm}R = 0.0821\\
 \hspace*{8mm}if opc == 1:\\
-\hspace*{16mm}return n * R * T / V\\
+\hspace*{16mm}return "La presion es:\ "\ + str(n * R * T / V)\\
 \hspace*{8mm}elif opc == 2:\\
-\hspace*{16mm}return n * R * T / P\\
+\hspace*{16mm}return "\ \hspace*{-1.5mm}El volumen es:\ "\ + str(n * R * T / P)\\
 \hspace*{8mm}elif opc == 3:\\
-\hspace*{16mm}return P * V / (R * T)\\
+\hspace*{16mm}return "Los moles son:\ "\ + str(P * V / (R * T))\\
 \hspace*{8mm}elif opc == 4:\\
-\hspace*{16mm}return P * V / (R * n)\\
+\hspace*{16mm}return "La temperatura es:\ "\ + str(P * V / (R * n))\\
 \hspace*{8mm}else:\\
 \hspace*{16mm}return "\ \hspace*{-1.5mm}Opcion mal ingresada."
 \end{Code}
@@ -170,7 +170,20 @@ Para el segundo caso, lo que debemos escribir es de la siguiente manera: \inline
 Perfecto! Ahora ya sabemos c\'omo mantener conectado todo. Vamos a empujar los cambios de nuestro peque\~no proyecto y a continuaci\'on veremos c\'omo trabajar en colaboraci\'on con m\'as personas de una manera m\'as ordenada.
 
 \section{Ramas}
-checkout -b (crear)
+Una forma de ver el trabajo que hemos realizado es como un hilo al que le vamos agregando nudos; cada nudo es un commit. La idea entonces es ir extendiendo el hilo agreg\'andole un nuevo nudo cada vez. Esta parece ser una manera muy l\'ogica y ordenada de llevar los cambios vamos realiando. Sin embargo, esto nos permite hacer cambios m\'as variados.\\
+
+Supongamos que dos personas comienzan a trabajar en dos partes de un programa. En ese caso ambas van a estar empujando cambios al repositorio, agregando nudos al hilo. El problema es que esto puede llevar a confusiones. De hecho, se vuelve mucho m\'as complicado cuando no se trata de 2 personas, sino de 20. Para estos casos es que vamos a\~nadir un hilo adicional al hilo principal que ya llev\'abamos. Este lo vamos a atar a un nudo en particular (generalmente el \'ultimo que se ha empujado) y en ese ya se puede ir agregando nudos. Si lo consideramos de esta forma, nuestro hilo se va a haber bifurcado en una \emph{rama}. Trabajar cada persona en una rama suele simplificar el desarrollo de un programa o un proyecto, porque se sabe qu\'e cambios son de qui\'en y se puede revisar los avances de una persona exclusivamente. Veamos c\'omo hacer esto ya en nuestro ordenador.\\
+
+Trabajar con ramas suele ser una tarea sencilla. Si uno se cambia de rama, los documentos y archivos que uno halla al abrir la carpeta del proyecto ser\'an los de \textbf{esa} rama. Esto suena interesante, pero c\'omo se hace en git? Primero necesitar\'iamos crear una rama. Para ello, vamos a escribir \inlinecode{git checkout -b Alternativa} De esta forma habremos creado una rama de nombre \textbf{Alternativa} y nos habremos cambiado a ella. Para notar c\'omo es que las cosas cambian, vamos a terminar nuestro peque\~no programa anterior. Para ello vamos a escribir lo siguiente al final de lo que ya llev\'abamos:
+
+\begin{Code}
+o, p, v, n, t = datos()\\
+resultado = calcular(o, p, v, n, t)\\
+print resultado
+\end{Code}
+
+Despu\'es de esto, vamos a agregar cambios, hacer commit y subir cambios. Recordando un poco, lo que debemos hacer es: \inlinecode{git add gases.py} Luego seguimos con: \inlinecode{git commit -m 'Terminando el programa'} Y finalmente llegamos a subir todo con: \inlinecode{git push origin Alternativa} Notemos esto \'ultimo! El comando para subir nuestros cambios a la nube ya no es igual. Ahora estamos dici\'endole a git que deseamos empujar a una rama en particular. Esto es muy importante, puesto que si no se hace as\'i, esos cambios no ser\'an subidos en la nueva rama seg\'un GitLab.\\
+
 checkout
 checkout -d (borra)
 checkout origin
