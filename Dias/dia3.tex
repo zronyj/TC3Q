@@ -184,12 +184,22 @@ print resultado
 
 Despu\'es de esto, vamos a agregar cambios, hacer commit y subir cambios. Recordando un poco, lo que debemos hacer es: \inlinecode{git add gases.py} Luego seguimos con: \inlinecode{git commit -m 'Terminando el programa'} Y finalmente llegamos a subir todo con: \inlinecode{git push origin Alternativa} Notemos esto \'ultimo! El comando para subir nuestros cambios a la nube ya no es igual. Ahora estamos dici\'endole a git que deseamos empujar a una rama en particular. Esto es muy importante, puesto que si no se hace as\'i, esos cambios no ser\'an subidos en la nueva rama seg\'un GitLab.\\
 
-checkout
-checkout -d (borra)
-checkout origin
+Ahora que ya hemos subido cambios, vamos a volver a la rama original. Primero vamos a cerrar todos los documentos y archivos que tenemos abiertos. Luego iremos a la Terminal y escribiremos \inlinecode{git checkout origin} As\'i habremos regresado a donde est\'abamos. Para comprobar esto, vamos a intentar abrir nuestro programa. Es el mismo que acabamos de hacer? Hay alg\'un cambio? Si hallamos el cambio, felicidades! Esa es la rama original en la que \textit{no} hemos terminado el programa. Vamos a terminar el programa aqu\'i, pero de otra forma, as\'i podemos ir viendo c\'omo es que trabaja git con diferentes ramas.\\
+
+Para hacer un cambio leve y no alterar todo, vamos a terminar nuestro programa de otra manera. Agreguemos el siguiente c\'odigo al final de nuestro programa!
+
+\begin{Code}
+o, p, v, n, t = datos()\\
+print calcular(o, p, v, n, t)
+\end{Code}
+
+Guardemos esto y luego, con git, vamos a agregarlo a stage, hacer commit y empujar cambios. Al empujar, recordemos que no estamos trabajando en la nueva rama, por lo que el comando ser\'a como antes: \inlinecode{git push origin master} Intentemos revisar en GitLab lo que ha pasado hasta ahora. Es importante notar el cambio de ramas, y las diferencias en el programa. Intentemos ahora cambiar de rama y revisar si los cambios se hicieron bien. Discutamos esto con nuestro compa\~nero de al lado.
 
 \section{Actualizar y fusionar: pull \& merge}
-pull
+Hasta este momento hemos visto c\'omo ir agregando cosas a nuestro repositorio e ir avanzando. Tambi\'en entendimos que no solo una persona puede trabajar en el respositorio, sino que varias pueden hacerlo a la vez en una sola rama o en varias. El problema ahora ser\'ia: C\'omo tomar en cuenta los cambios de alguien en una versi\'on final? O mejor a\'un! C\'omo actualizo yo mi repositorio local (el que tenego en mi ordenador) con los cambios de alguien m\'as? Pues para eso hay otros comandos que nos pueden servir.\\
+
+Supongamos que estamos trabajando con alguien m\'as. Nosotros comenzamos el repositorio, empujamos algo varias veces y luego dejamos el trabajo para seguir al d\'ia siguiente. Sin embargo, nuestro compa\~nero hace algunos otros cambios en la misma rama durante la noche y los empuja al repositorio. Al d\'ia siguiente, los cambios nuestros y de nuestro compa\~nero est\'an en el repositorio en la nube, pero no en nuestro repositorio local. Lo que nos toca hacer es actualizar nuestro repositorio local. Para ello vamos a utilizar el siguiente comando: \inlinecode{git pull} Solamente eso! Al ejecutar este comando vamos a haber actualizado nuestro ordenador con todos los cambios que se hallan en la nube.
+
 merge (rama)
 
 \section{Revisar cambios: diff \& status}
@@ -202,7 +212,7 @@ checkout -- (archivo)
 Para ello vamos a comenzar con un proyecto en particular y vamos a irlo desarrollando poco a poco entre todos los presentes.
 
 \section{Proyecto}
-El proyecto en el que vamos a trabajar ya est\'a creado en un repositorio de GitLab. Por esta raz\'on solo vamos a clonar el proyecto de esta direcci\'on: https://gitlab.com/zronyj/TQCA\_ej.git Al ya haber clonado el proyecto, entraremos en la carpeta correspondiente y comenzaremos a trabajar. Lo primero que haremos ser\'a entrar a la carpeta \textbf{Users} y crear un documento de texto que contenga nuestro nombre completo, nuestra fecha de cumplea\~nos y si somos estudiantes, catedr\'aticos o investigadores en una l\'inea diferente cada cosa. Luego vamos a guardar este documento bajo el siguiente nombre: \emph{apellidoNombre.txt} en donde el apellido y el nombre son \textbf{tu} apellido y \textbf{tu} nombre. Finalmente nos saldremos de la carpeta \textbf{Users} y quedaremos listos para el siguiente paso.\\
+El proyecto en el que vamos a trabajar ya est\'a creado en un repositorio de GitLab. Por esta raz\'on solo vamos a clonar el proyecto de esta direcci\'on: \href{https://gitlab.com/zronyj/TQCA\_ej.git}{https://gitlab.com/zronyj/TQCA\_ej.git} Al ya haber clonado el proyecto, entraremos en la carpeta correspondiente y comenzaremos a trabajar. Lo primero que haremos ser\'a entrar a la carpeta \textbf{Users} y crear un documento de texto que contenga nuestro nombre completo, nuestra fecha de cumplea\~nos y si somos estudiantes, catedr\'aticos o investigadores en una l\'inea diferente cada cosa. Luego vamos a guardar este documento bajo el siguiente nombre: \emph{apellidoNombre.txt} en donde el apellido y el nombre son \textbf{tu} apellido y \textbf{tu} nombre. Finalmente nos saldremos de la carpeta \textbf{Users} y quedaremos listos para el siguiente paso.\\
 
 En los d\'ias anteriores hemos visto algunos principios b\'aiscos para programar rutinas o peque\~nos programas. Hoy vamos a comenzar con uno que nos va a servir para ejemplificar el uso de git. Nos vamos a dividir en 4 grupos y vamos a intentar hacer 4 programas sencillos; uno por grupo. De esta manera vamos a entender mejor c\'omo es que funciona git. Los programas son:
 
