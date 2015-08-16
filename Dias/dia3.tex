@@ -127,7 +127,9 @@ def datos():\\
 \hspace*{8mm} return opcion, presion, volumen, moles, temperatura
 \end{Code}
 
-Con esto vamos a tener ya la funci\'on que nos captura los datos del usuario y nos los tiene listos para ser calculados. Ahora es un buen momento para a\~nadir los cambios al stage a trav\'es de \inlinecode{git add gases.py} Sin embargo, es un buen momento para guardar esto de una manera m\'as profunda, porque realmente esta fue una funci\'on larga. Lo que haremos ahora ser\'a enviar los cambios a HEAD. Eso implica que estos cambios ya merecen un peque\~no mensaje sobre lo que hemos hecho. Es por esto que vamos a proceder de la siguiente manera.\\
+Con esto vamos a tener ya la funci\'on que nos captura los datos del usuario y nos los tiene listos para ser calculados. Muchas veces al dejar el proyecto en el que estamos por unos minutos, se nos puede olvidar si hicimos cambios o no, y en d\'onde. Existe un peque\~no comando para determinar si hay cambios y en qu\'e archivos o documentos est\'an. Este es \inlinecode{git status}. Si ejecutamos este comando, sabremos exactamente qu\'e fue alterado. Intent\'emoslo y veamos qu\'e es lo que nos dice git.\\
+
+Ahora que ya entendimos en d\'onde hay cambios es un buen momento para a\~nadir estos al stage a trav\'es de \inlinecode{git add gases.py} Sin embargo, vamos a aprovechar para guardar esto de una manera m\'as profunda, porque realmente esta fue una funci\'on larga. Lo que haremos ahora ser\'a enviar los cambios a HEAD. Eso implica que estos cambios ya merecen un peque\~no mensaje sobre lo que hemos hecho. Es por esto que vamos a proceder de la siguiente manera.\\
 
 Primero vamos a escribir lo siguiente en la terminal: \inlinecode{git commit -m 'Guardando mi primera funci\'on'} Luego vamos a ver c\'omo es que git guarda todo en HEAD. Es un proceso simple que solo muestra algunos de los pasos realizados al hacer \emph{commit} de los cambios. De esta manera git ya tiene algo parecido a una \textit{copia de seguridad} en su directorio reservado. Lo que haremos ahora ser\'a escribir otra funci\'on: la funci\'on que calcula.
 
@@ -179,18 +181,18 @@ Trabajar con ramas suele ser una tarea sencilla. Si uno se cambia de rama, los d
 \begin{Code}
 o, p, v, n, t = datos()\\
 resultado = calcular(o, p, v, n, t)\\
-print resultado
+print(resultado)
 \end{Code}
 
 Despu\'es de esto, vamos a agregar cambios, hacer commit y subir cambios. Recordando un poco, lo que debemos hacer es: \inlinecode{git add gases.py} Luego seguimos con: \inlinecode{git commit -m 'Terminando el programa'} Y finalmente llegamos a subir todo con: \inlinecode{git push origin Alternativa} Notemos esto \'ultimo! El comando para subir nuestros cambios a la nube ya no es igual. Ahora estamos dici\'endole a git que deseamos empujar a una rama en particular. Esto es muy importante, puesto que si no se hace as\'i, esos cambios no ser\'an subidos en la nueva rama seg\'un GitLab.\\
 
-Ahora que ya hemos subido cambios, vamos a volver a la rama original. Primero vamos a cerrar todos los documentos y archivos que tenemos abiertos. Luego iremos a la Terminal y escribiremos \inlinecode{git checkout origin} As\'i habremos regresado a donde est\'abamos. Para comprobar esto, vamos a intentar abrir nuestro programa. Es el mismo que acabamos de hacer? Hay alg\'un cambio? Si hallamos el cambio, felicidades! Esa es la rama original en la que \textit{no} hemos terminado el programa. Vamos a terminar el programa aqu\'i, pero de otra forma, as\'i podemos ir viendo c\'omo es que trabaja git con diferentes ramas.\\
+Ahora que ya hemos subido cambios, vamos a volver a la rama original. Primero vamos a cerrar todos los documentos y archivos que tenemos abiertos. Luego iremos a la Terminal y escribiremos \inlinecode{git checkout master} As\'i habremos regresado a donde est\'abamos. Para comprobar esto, vamos a intentar abrir nuestro programa. Es el mismo que acabamos de hacer? Hay alg\'un cambio? Si hallamos el cambio, felicidades! Esa es la rama original en la que \textit{no} hemos terminado el programa. Vamos a terminar el programa aqu\'i, pero de otra forma, as\'i podemos ir viendo c\'omo es que trabaja git con diferentes ramas.\\
 
 Para hacer un cambio leve y no alterar todo, vamos a terminar nuestro programa de otra manera. Agreguemos el siguiente c\'odigo al final de nuestro programa!
 
 \begin{Code}
 o, p, v, n, t = datos()\\
-print calcular(o, p, v, n, t)
+print(calcular(o, p, v, n, t))
 \end{Code}
 
 Guardemos esto y luego, con git, vamos a agregarlo a stage, hacer commit y empujar cambios. Al empujar, recordemos que no estamos trabajando en la nueva rama, por lo que el comando ser\'a como antes: \inlinecode{git push origin master} Intentemos revisar en GitLab lo que ha pasado hasta ahora. Es importante notar el cambio de ramas, y las diferencias en el programa. Intentemos ahora cambiar de rama y revisar si los cambios se hicieron bien. Discutamos esto con nuestro compa\~nero de al lado.
@@ -198,18 +200,18 @@ Guardemos esto y luego, con git, vamos a agregarlo a stage, hacer commit y empuj
 \section{Actualizar y fusionar: pull \& merge}
 Hasta este momento hemos visto c\'omo ir agregando cosas a nuestro repositorio e ir avanzando. Tambi\'en entendimos que no solo una persona puede trabajar en el respositorio, sino que varias pueden hacerlo a la vez en una sola rama o en varias. El problema ahora ser\'ia: C\'omo tomar en cuenta los cambios de alguien en una versi\'on final? O mejor a\'un! C\'omo actualizo yo mi repositorio local (el que tenego en mi ordenador) con los cambios de alguien m\'as? Pues para eso hay otros comandos que nos pueden servir.\\
 
-Supongamos que estamos trabajando con alguien m\'as. Nosotros comenzamos el repositorio, empujamos algo varias veces y luego dejamos el trabajo para seguir al d\'ia siguiente. Sin embargo, nuestro compa\~nero hace algunos otros cambios en la misma rama durante la noche y los empuja al repositorio. Al d\'ia siguiente, los cambios nuestros y de nuestro compa\~nero est\'an en el repositorio en la nube, pero no en nuestro repositorio local. Lo que nos toca hacer es actualizar nuestro repositorio local. Para ello vamos a utilizar el siguiente comando: \inlinecode{git pull} Solamente eso! Al ejecutar este comando vamos a haber actualizado nuestro ordenador con todos los cambios que se hallan en la nube.
+Supongamos que estamos trabajando con alguien m\'as. Nosotros comenzamos el repositorio, empujamos algo varias veces y luego dejamos el trabajo para seguir al d\'ia siguiente. Sin embargo, nuestro compa\~nero hace algunos otros cambios en la misma rama durante la noche y los empuja al repositorio. Al d\'ia siguiente, los cambios nuestros y de nuestro compa\~nero est\'an en el repositorio en la nube, pero no en nuestro repositorio local. Lo que nos toca hacer es actualizar nuestro repositorio local. Para ello vamos a utilizar el siguiente comando: \inlinecode{git pull} Solamente eso! Al ejecutar este comando vamos a haber actualizado nuestro ordenador con todos los cambios que se hallan en la nube.\\
 
-merge (rama)
+Pero qu\'e pasa cuando ambos trabajan en el mismo repositorio, pero no en la misma rama? Es una buena pr\'actica que cada uno trabaje independientemente en una rama para lograr ordenar mejor los cambios. Sin embargo, habr\'an momentos en que vamos a querer tener una versi\'on final que comprenda los cambios y avances empujados por todos. En este caso, lo que hacemos es ir a la rama sobre la que deseamos trabajar y vamos a fusionar otra rama sobre esta. Regresando al ejemplo anterior, estamos trabajando con un compa\~nero que empuj\'o sus cambios a su rama \emph{Compa} hace unos minutos. Ahora deseamos que esos cambios lleguen a la rama \emph{master}, puesto que con ellos terminamos nuestro proyecto. Para ello, primero nos vamos a la rama \emph{master} con el comando \inlinecode{git checkout master} Luego procedemos a fusionar la rama \emph{Compa} sobre la rama \emph{master}. Recordems que la rama debe de existir en la nube, no exclusivamente en nuestro repositorio. Para ello ejecutamos \inlinecode{git merge origin/Compa}. Luego empujamos cambios de manera normal y todo listo! Hemos fusionado la rama.\\
 
-\section{Revisar cambios: diff \& status}
-diff
-status
+Claro, no deben de haber conflictos, como cuando los dos escriben en el mismo archivo en la misma l\'inea, o que hayan hecho cambios a la vez, etc. De existir estos conflictos, git intentar\'a advertirnos que hay l\'ineas con dos versiones diferentes del c\'odigo, y nos tocar\'a escoger qu\'e cambios dejar en el repositorio.
 
-\section{Reemplazar cambios locales: checkout, fetch y \& reset}
-checkout -- (archivo)
+\section{Reemplazar cambios locales: checkout, fetch \& reset}
+Un caso que se puede dar y a pesar de ser desagradable es muy com\'un, es que hagamos un cambio en un archivo, lo guardemos y luego nos damos cuenta de que no dese\'abamos guardar eso. Para esos casos, podr\'iamos simplemente descargar la \'ultima versi\'on del repositorio, borrando as\'i los cambios que hemos hecho. Para hacer eso, el comando que aplicamos es el siguiente: \inlinecode{git checkout -- nombre\_del\_archivo.txt} Si ya hab\'iamos agregado alg\'un archivo con \textit{add} o hab\'iamos creado algo, no debemos preocuparnos; esto no se ver\'a afectado.\\
 
-Para ello vamos a comenzar con un proyecto en particular y vamos a irlo desarrollando poco a poco entre todos los presentes.
+Por otra parte, si deseamos ignorar todos los cambios hechos y solo descargar la \'ultima versi\'on de un proyecto almacenada en nuestro repositorio, podemos hacerlo con \inlinecode{git fetch origin} Es conveniente advertir que si hacemos esto y hab\'iamos realizado alg\'un cambio importante que dese\'abamos conservar, lo vamos a perder por siempre. Por esta raz\'on es importante saber bien qu\'e se est\'a haciendo con \textit{status}.\\
+
+La mayor parte de estos comandos y estas herramientas son dif\'iciles de aprender a menos de que uno las vaya usando poco a poco. Es despu\'es de varios aciertos y errores que vamos a ir entendiendo c\'omo se utiliza cada cosa. Durante el taller podemos ir haciendo uso de algunas de estas herramientas, pero tenemos que tomar en cuenta que no se nos ayudar\'a m\'as; ya deber\'iamos de dominar esto. Para ello vamos a comenzar con un proyecto en particular y vamos a irlo desarrollando poco a poco entre todos los presentes.
 
 \section{Proyecto}
 El proyecto en el que vamos a trabajar ya est\'a creado en un repositorio de GitLab. Por esta raz\'on solo vamos a clonar el proyecto de esta direcci\'on: \href{https://gitlab.com/zronyj/TQCA\_ej.git}{https://gitlab.com/zronyj/TQCA\_ej.git} Al ya haber clonado el proyecto, entraremos en la carpeta correspondiente y comenzaremos a trabajar. Lo primero que haremos ser\'a entrar a la carpeta \textbf{Users} y crear un documento de texto que contenga nuestro nombre completo, nuestra fecha de cumplea\~nos y si somos estudiantes, catedr\'aticos o investigadores en una l\'inea diferente cada cosa. Luego vamos a guardar este documento bajo el siguiente nombre: \emph{apellidoNombre.txt} en donde el apellido y el nombre son \textbf{tu} apellido y \textbf{tu} nombre. Finalmente nos saldremos de la carpeta \textbf{Users} y quedaremos listos para el siguiente paso.\\
