@@ -1,0 +1,14 @@
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdftex 2015.6.30)  30 JUN 2015 17:09
+entering extended mode
+**C:/Users/Nancy*R/Documents/GitHub/TQCA/Data/Sci_Reporte.sty
+("C:/Users/Nancy R/Documents/GitHub/TQCA/Data/Sci_Reporte.sty"
+! Undefined control sequence.
+l.23 \ProvidesPackage
+                     {Sci_Reporte}
+? 
+! Emergency stop.
+l.23 \ProvidesPackage
+                     {Sci_Reporte}
+End of file on the terminal!
+
+!  ==> Fatal error occurred, no output PDF file produced!
