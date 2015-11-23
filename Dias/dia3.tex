@@ -84,7 +84,11 @@ Ahora viene una parte muy importante. Esta parte no la podemos ignorar o vamos a
 \section{Diferentes directorios de trabajo}
 Git, m\'as que un sistema para ir guardando copias de seguridad, es un sistema para ir guardando diferentes versiones de un trabajo y en colaboraci\'on. C\'omo es eso? Cada cambio grande que vamos haciendo, lo vamos guardando y poni\'endole un mensaje de qu\'e es lo que logramos en ese momento. Para llevar esto a cabo, git segmenta todo en 3 supuestos \textit{directorios}. El primero es donde estamos trabajando y guardando nuestro trabajo; un directorio normal al que llamamos \emph{directorio de trabajo}. Luego est\'a el \textit{directorio} a donde vamos agregando las cosas que vamos guardar como versi\'on: el directorio \emph{index} o \emph{stage}\footnote{Por este nombre es que se dice \emph{staging} a los archivos que vamos guardando poco a poco.}. Luego est\'a el \'ultimo directorio que contiene a los archivos y documentos que deseamos declarar como una versi\'on nueva completa. Es como un grupo de archivos y documentos que, al ser terminados, se van guardando como un cambio completo, con un mensaje determinado y con cierto n\'umero de versi\'on. A esto se le llama \emph{HEAD}. Finalmente, cuando mandamos todo esto a la nube, hablamos de que sincronizamos o \emph{empujamos} nuestro trabajo al repositorio. La idea ahora ser\'a ir comprendiendo c\'omo trasladamos la informaci\'on de un directorio a otro para ayudarnos en nuestro trabajo.
 
-Colocar dibujitos aqui.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.4]{img/git_diagram.jpg} 
+\end{center}
+\end{figure}
 
 \section{Actualizando directorios: add \& commit}
 Para dar una buena idea de c\'omo usar git, vamos a hacer un proyecto simple. En un nuevo repositorio, clonado a nuestro ordenador, vamos a crear un documento nuevo: \textit{gases.py} Ahora, este documento est\'a en nuestro directorio de trabajo o \textbf{w}orking \textbf{d}irectory (WD). Digamos que deseamos pasar este documento de WD a stage. En ese caso, solo escribimos \inlinecode{git add gases.py} en nuestra terminal\footnote{Asegur\'emonos de estar \emph{dentro} del directorio creado con git al clonar el repositorio.} y ya vamos a haber pasado de WD a stage. Esto se puede hacer con cada nuevo documento o archivo, pero si se va a agregar varios simult\'aneamente, la expresi\'on \inlinecode{git add --all} jam\'as puede ser sobrevalorada.\\
@@ -176,6 +180,12 @@ Una forma de ver el trabajo que hemos realizado es como un hilo al que le vamos 
 
 Supongamos que dos personas comienzan a trabajar en dos partes de un programa. En ese caso ambas van a estar empujando cambios al repositorio, agregando nudos al hilo. El problema es que esto puede llevar a confusiones. De hecho, se vuelve mucho m\'as complicado cuando no se trata de 2 personas, sino de 20. Para estos casos es que vamos a\~nadir un hilo adicional al hilo principal que ya llev\'abamos. Este lo vamos a atar a un nudo en particular (generalmente el \'ultimo que se ha empujado) y en ese ya se puede ir agregando nudos. Si lo consideramos de esta forma, nuestro hilo se va a haber bifurcado en una \emph{rama}. Trabajar cada persona en una rama suele simplificar el desarrollo de un programa o un proyecto, porque se sabe qu\'e cambios son de qui\'en y se puede revisar los avances de una persona exclusivamente. Veamos c\'omo hacer esto ya en nuestro ordenador.\\
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.4]{img/branching.jpg} 
+\end{center}
+\end{figure}
+
 Trabajar con ramas suele ser una tarea sencilla. Si uno se cambia de rama, los documentos y archivos que uno halla al abrir la carpeta del proyecto ser\'an los de \textbf{esa} rama. Esto suena interesante, pero c\'omo se hace en git? Primero necesitar\'iamos crear una rama. Para ello, vamos a escribir \inlinecode{git checkout -b Alternativa} De esta forma habremos creado una rama de nombre \textbf{Alternativa} y nos habremos cambiado a ella. Para notar c\'omo es que las cosas cambian, vamos a terminar nuestro peque\~no programa anterior. Para ello vamos a escribir lo siguiente al final de lo que ya llev\'abamos:
 
 \begin{Code}
@@ -234,9 +244,6 @@ Si deseas aprender m\'as sobre git, puedes buscar otros tutoriales en internet. 
 
 El siguiente d\'ia ya vamos a comenzar a utilizar muchas de las cosas que hemos aprendido hasta hoy. Es recomendable que tomemos en cuenta todo y que aclaremos todas nuestras dudas. Fuera de eso, felicidades nuevamente! Lograste terminar este d\'ia!
 
-
-\newpage
-
 \subsection{Glosario de comandos sencillos}
 \begin{small}
 \begin{itemize}
@@ -261,6 +268,6 @@ El siguiente d\'ia ya vamos a comenzar a utilizar muchas de las cosas que hemos 
 \noindent \includegraphics{img/cc_big.png}
 
 \noindent Taller de Qu\'imica Computacional Aplicada by \href{http://github.com/zronyj/TQCA}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
-Based on a work at \url{http://github.com/swcarpentry/bc}.
+Based on a work at \url{http://github.com/swcarpentry/bc} and \url{http://rogerdudler.github.io/git-guide/index.es.html}.
 
 \end{document}
