@@ -104,7 +104,7 @@ Un ordenador posee un dispositivo llamado memoria. En ella se almacenan datos de
 
 Volviendo a las variables, estas son entonces un espacio en memoria. Algo como una peque\~na caja $ \square $ en donde se puede almacenar un dato particular. Podemos sacarlo de la caja? Claro! Tambi\'en podemos colocar algo diferente all\'i despu\'es. Como espacio en memoria, puede almacenar lo que sea. Eso s\'i, no pueden haber dos datos en la misma caja, y por ende, no pueden haber dos datos almacenados en la misma variable.\\
 
-Pasemos, pues, a almacenar algunos datos en variables. La forma de hacer esto es escribendo algo as\'i: \inlinecode{a = 5} Presionamos enter y ... nada pas\'o? De hecho, si no ha salido ning\'un error, todo est\'a bien. Lo que pasa es que no hay nada que mostrar. El dato fue almacenado y ya. Si queremos ver lo que hay dentro de la variable, podemos escribir lo siguiente: \inlinecode{print a} Esto nos mostrar\'a o \emph{imprimir\'a} en pantalla aquello que hay en la variable \inlinecode{a} Debe de llamarse \emph{a} o \emph{b} o \emph{c}? No, puede llamarse como nosotros querramos! Lo \'unico que hay que tomar en cuenta en una variable es que su nombre no puede comenzar con un n\'umero, y esta no puede tener caracteres con tildes, di\'eresis, etc. Tampoco e\~nes. Otra cosa importante es que no podemos ponerle dos nombres a una variable. Eso significa que no puede haber espacios en el nombre de una variable. Con esto en mente, intentemos otra cosa: \inlinecode{mi\_segunda\_variable = 1.61803398875} Como podemos ver, esto tambi\'en se vale. Si despu\'es imprimimos el valor de \inlinecode{mi\_segunda\_variable} veremos que todo funciona bien. Intentemos algo m\'as interesante con esto.\\
+Pasemos, pues, a almacenar algunos datos en variables. La forma de hacer esto es escribendo algo as\'i: \inlinecode{a = 5} Presionamos enter y ... nada pas\'o? De hecho, si no ha salido ning\'un error, todo est\'a bien. Lo que pasa es que no hay nada que mostrar. El dato fue almacenado y ya. Si queremos ver lo que hay dentro de la variable, podemos escribir lo siguiente: \inlinecode{print(a)} Esto nos mostrar\'a o \emph{imprimir\'a} en pantalla aquello que hay en la variable \inlinecode{a} Debe de llamarse \emph{a} o \emph{b} o \emph{c}? No, puede llamarse como nosotros querramos! Lo \'unico que hay que tomar en cuenta en una variable es que su nombre no puede comenzar con un n\'umero, y esta no puede tener caracteres con tildes, di\'eresis, etc. Tampoco e\~nes. Otra cosa importante es que no podemos ponerle dos nombres a una variable. Eso significa que no puede haber espacios en el nombre de una variable. Con esto en mente, intentemos otra cosa: \inlinecode{mi\_segunda\_variable = 1.61803398875} Como podemos ver, esto tambi\'en se vale. Si despu\'es imprimimos el valor de \inlinecode{mi\_segunda\_variable} veremos que todo funciona bien. Intentemos algo m\'as interesante con esto.\\
 
 Vamos a intentar transformar una temperatura de grados Farenheit a Kelvin. Esto implica transformar primero la temperatura de grados Farenheit a grados Celcius, y luego a Kelvin. Para ello, hay 3 n\'umeros importantes que debemos recordar: una pendiente \inlinecode{m = 5.0/9}, un desplacamiento en el eje \emph{x} \inlinecode{d = 32} y un desplazamiento en el eje \emph{y} \inlinecode{b = 273.15} Ahora veamos, la f\'ormula ir\'ia algo as\'i:
 
@@ -156,7 +156,7 @@ Finalmente, tenemos a un tipo de n\'umero con el que uno no se topa muy seguido:
 \subsubsection{Cadenas}
 Despu\'es de ver que podemos almacenar valores de \emph{verdadero}, \emph{falso} y varios n\'umeros, es solo natural que alguien pregunte: ``Y c\'omo se trabaja con texto?'' El texto es un tipo de dato muy particular. Este es una estructura que consta de muchas peque\~nas partes: las letras. Por ser una estructura alargada y que consta de elementos que la unen, a los fragmentos de texto se les denomin\'o cadenas. En ingl\'es se les conoce como \emph{strings}, por pensar en el mismo principio, pero con un cord\'on.\\
 
-Las cadenas se representan en Python como \inlinecode{str}, y para crearlas, colocamos el texto que deseamos entre comillas o ap\'ostrofes. Intentemos con un ejemplo: Vamos a guardar el texto \textit{Hola mundo!} en una variable. Para ello vamos a ingresar \inlinecode{mi\_variable = "Hola mundo!"} Solamente! No hay que hacer nada extra\~no o diferente. Ahora, si deseamos mostrar lo que guardamos, solo imprimimos lo que hay en la variable: \inlinecode{print mi\_variable}\\
+Las cadenas se representan en Python como \inlinecode{str}, y para crearlas, colocamos el texto que deseamos entre comillas o ap\'ostrofes. Intentemos con un ejemplo: Vamos a guardar el texto \textit{Hola mundo!} en una variable. Para ello vamos a ingresar \inlinecode{mi\_variable = "Hola mundo!"} Solamente! No hay que hacer nada extra\~no o diferente. Ahora, si deseamos mostrar lo que guardamos, solo imprimimos lo que hay en la variable: \inlinecode{print(mi\_variable)}\\
 
 Perfecto, ya podemos guardar texto. Ahora veamos qu\'e m\'as se puede hacer con \'el, pero intentando entrar ya un poco en qu\'imica. Asumamos, pues, que podemos representar a un hidrocarburo como una estructura de Lewis, ignorando sus hidr\'ogenos y sin representar a los enlaces. Si estamos hablando de una cadena de 6 \'atomos de carbono, el resultado ser\'ia as\'i: \inlinecode{hexano = "\ \hspace{-2mm}CCCCCC"} Como podemos ver, estamos representando a un hidrocarburo con una simple cadena de texto. Qu\'e pasa si deseamos saber cu\'antas letras tiene la cadena? Pues utilizamos una funci\'on para ello: \inlinecode{len(hexano)}\\
 
@@ -164,7 +164,7 @@ Una cosa importante que tambi\'en es conveniente saber es que las cadenas se pue
 
 Intentemos crear otra mol\'ecula: \inlinecode{dietileter = "\ \hspace{-2mm}CCOCC"} En esta ya incluimos otro \'atomo diferente del carbono. Resulta que deseamos obtener solo ese \'atomo. Para ello tenemos que tomar en cuenta que las cadenas numeran sus caracteres del 0 en adelante. C\'omo as\'i? En este caso, por ejemplo, tendr\'iamos que cada letra se puede representar con el sub\'indice que vemos aqu\'i: $\underset{0}{C} \underset{1}{C} \underset{2}{O} \underset{3}{C} \underset{4}{C}$. Entonces, para referirnos al ox\'igeno en la f\'ormula, lo hacemos de la siguiente manera \inlinecode{dietileter[2]}\\
 
-Otra cosa que podemos hacer es referirnos a segmentos de una mol\'ecula. Si deseamos mostrar todo lo que est\'a despu\'es del ox\'igeno de la mol\'ecula anterior, podemos escribir \inlinecode{dietileter[3:]} O si deseamos lo anterior al ox\'igeno \inlinecode{dietileter[:2]} Notemos ahora que en esto \'ultimo, incluimos al ox\'igeno en nuestra selecci\'on, pero al ejecutar el comando, este no se muestra en el resultado. Esto se debe a que Python no considera al \'ultimo elemento al que nos referimos. Como un \'ultimo ejercicio, vamos a mostrar a un azufre en vez de un ox\'igeno utilizando solo lo que hemos visto hasta ahora: \inlinecode{print dietileter[:2] + "S"\ + dietileter[3:]}\\
+Otra cosa que podemos hacer es referirnos a segmentos de una mol\'ecula. Si deseamos mostrar todo lo que est\'a despu\'es del ox\'igeno de la mol\'ecula anterior, podemos escribir \inlinecode{dietileter[3:]} O si deseamos lo anterior al ox\'igeno \inlinecode{dietileter[:2]} Notemos ahora que en esto \'ultimo, incluimos al ox\'igeno en nuestra selecci\'on, pero al ejecutar el comando, este no se muestra en el resultado. Esto se debe a que Python no considera al \'ultimo elemento al que nos referimos. Como un \'ultimo ejercicio, vamos a mostrar a un azufre en vez de un ox\'igeno utilizando solo lo que hemos visto hasta ahora: \inlinecode{print(dietileter[:2] + "S"\ + dietileter[3:])}\\
 
 Antes de proseguir, solo vamos a aclarar algo. Esta forma de representar mol\'eculas a trav\'es de letras es un formato internacional llamado SMILES (\textbf{S}implified \textbf{M}olecular-\textbf{I}nput \textbf{L}ine-\textbf{E}ntry \textbf{S}ystem). Los dobles enlaces se representan con un signo \inlinecode{=}, los triples enlaces con \inlinecode{\#} y para formar ciclos, se numeran los \'atmos que cerrar\'an ese ciclo. Un benceno se ver\'ia entonces de la siguiente manera: \inlinecode{benceno = "\ \hspace{-2mm}C1=CC=CC=C1"}
 
@@ -240,9 +240,9 @@ Consideremos ahora que vamos a escribir una rutina. Lo primero que debemos pregu
 En el editor de texto, vamos a escribir lo siguiente:
 
 \begin{Code}
-print "Hola mundo!"\\
+print("Hola mundo!")\\
 nombre = raw\_input("\ \hspace{-2mm}Ingresa, por favor, tu nombre: ")\\
-print "Hola", nombre + "\ \hspace{-2mm}! Como estas?"
+print("Hola", nombre + "\ \hspace{-2mm}! Como estas?")
 \end{Code}
 
 Intentemos correr nuestra peque\~na rutina y ver qu\'e pasa. Despu\'es de ver el resultado, comenta con tu compa\~nero de al lado: Qu\'e crees que pas\'o? Qu\'e cosas de las que hemos visto antes acabas de utilizar? Qu\'e hace la funci\'on \inlinecode{raw\_input()}? Qu\'e cosa nueva acabamos de aprender a hacer? Tomemos nota de esto y sigamos.\\
@@ -254,25 +254,25 @@ Cerremos nuestro documento \textit{bienvenida.py} y abramos uno nuevo. Esta vez 
 \noindent Lo primero que haremos ser\'a dar la bienvenida a nuestro script. Para eso ingresaremos algo como esto (el texto lo podemos cambiar si as\'i lo deseamos):
 
 \begin{Code}
-print "********** Convertidor **********"
+print("********** Convertidor **********")
 \end{Code}
 
 \noindent Luego, deseamos dar las opciones de qu\'e tipo de conversi\'on se puede hacer, as\'i que seguimos mostrando cosas en pantalla:
 
 \begin{Code}
-print "********** Convertidor **********"\\
-print "1. F -> C \textbackslash t  2. C -> F"\\
-print "3. C -> K \textbackslash t  5. K -> F"\\
-print "7. F -> K \textbackslash t 11. K -> F"
+print("********** Convertidor **********")\\
+print("1. F -> C \textbackslash t  2. C -> F")\\
+print("3. C -> K \textbackslash t  5. K -> F")\\
+print("7. F -> K \textbackslash t 11. K -> F")
 \end{Code}
 
 \noindent Ahora pediremos al usuario ingresar una opci\'on para calcular la temperatura y luego, la cifra que desea calcular:
 
 \begin{Code}
-print "********** Convertidor **********"\\
-print "1. F -> C \textbackslash t  2. C -> F"\\
-print "3. C -> K \textbackslash t  5. K -> F"\\
-print "7. F -> K \textbackslash t 11. K -> F"\\
+print("********** Convertidor **********")\\
+print("1. F -> C \textbackslash t  2. C -> F")\\
+print("3. C -> K \textbackslash t  5. K -> F")\\
+print("7. F -> K \textbackslash t 11. K -> F")\\
 opcion = input("\ \hspace{-2mm}Ingrese el numero de operacion que desea realizar: ")\\
 temperatura = raw\_input("\ \hspace{-2mm}Ingrese la temperatura a ser calculada: ")
 \end{Code}
@@ -280,22 +280,22 @@ temperatura = raw\_input("\ \hspace{-2mm}Ingrese la temperatura a ser calculada:
 \noindent Ya con esto nos queda transformar la temperatura en un n\'umero y hacer el c\'alculo. Para ello vamos a hacer un truco interesante. Como no conocemos todav\'ia ninguna manera en la que podamos escoger alguna de las operaciones vamos a calcular todas, pero vamos a devolver solo la que nos interesa. C\'omo? Con dos operaciones matem\'aticas. Veamos c\'omo se ve nuestro c\'odigo ya terminado:
 
 \begin{Code}
-print "********** Convertidor **********"\\
-print "2. F -> C \textbackslash t  3. C -> F"\\
-print "5. C -> K \textbackslash t  7. K -> C"\\
-print "11. F -> K \textbackslash t 13. K -> F"\\
+print("********** Convertidor **********")\\
+print("2. F -> C \textbackslash t  3. C -> F")\\
+print("5. C -> K \textbackslash t  7. K -> C")\\
+print("11. F -> K \textbackslash t 13. K -> F")\\
 opcion = input("\ \hspace{-2mm}Ingrese el numero de operacion que desea realizar: ")\\
 temperatura = raw\_input("\ \hspace{-2mm}Ingrese la temperatura a ser calculada: ")\\
 temperatura = float(temperatura)\\
-print (1 - opcion \% 2) * ("Temperatura en grados C: "\ +\ str((temperatura - 32) * 5.0/9))\\
-print (1 - opcion \% 3) * ("Temperatura en grados F: "\ +\ str(temperatura * 9.0/5\ +\ 32))\\
-print (1 - opcion \% 5) * ("Temperatura en grados K: "\ +\ str(temperatura\ +\ 273.15))\\
-print (1 - opcion \% 7) * ("Temperatura en grados C: "\ +\ str(temperatura - 273.15))\\
-print (1 - opcion \% 11) * ("Temperatura en grados K: "\ +\ str((temperatura - 32) * 5/9\ +\ 273.15))\\
-print (1 - opcion \% 13) * ("Temperatura en grados F: "\ +\ str((temperatura - 273.15) * 9.0/5\ +\ 32))
+print((1 - opcion \% 2) * ("Temperatura en grados C: "\ +\ str((temperatura - 32) * 5.0/9)))\\
+print((1 - opcion \% 3) * ("Temperatura en grados F: "\ +\ str(temperatura * 9.0/5\ +\ 32)))\\
+print((1 - opcion \% 5) * ("Temperatura en grados K: "\ +\ str(temperatura\ +\ 273.15)))\\
+print((1 - opcion \% 7) * ("Temperatura en grados C: "\ +\ str(temperatura - 273.15)))\\
+print((1 - opcion \% 11) * ("Temperatura en grados K: "\ +\ str((temperatura - 32) * 5/9\ +\ 273.15)))\\
+print((1 - opcion \% 13) * ("Temperatura en grados F: "\ +\ str((temperatura - 273.15) * 9.0/5\ +\ 32)))
 \end{Code}
 
-Veamos qu\'e pasa aqu\'i. Convertimos la temperatura de una cadena a un n\'umero utilizando \inlinecode{float()} Es importante tomar nota de esto! Podemos convertir un tipo de datos en el otro mediante este tipo de operaci\'on. Luego comenzamos a mostrar cosas en pantalla con \inlinecode{print} A continuaci\'on tenemos una operaci\'on algo extra\~na de la que hablaremos al final. El resultado de esta se multiplica por una cadena a la cual estamos sumando otra cadena. S\'i, la segunda parte es una cadena tambi\'en, porque a pesar de que el resultado de la operaci\'on matem\'atica sea un n\'umero, estamos usando la funci\'on \inlinecode{str()} para convertirlo en una cadena. En otras palabras, estamos combinando el resultado con la presentaci\'on de este en una sola cadena. Hasta all\'i vamos bien. Ahora s\'i, por qu\'e estamos multiplicando una cadena con otro valor de una operaci\'on extra\~na?\\
+Veamos qu\'e pasa aqu\'i. Convertimos la temperatura de una cadena a un n\'umero utilizando \inlinecode{float()} Es importante tomar nota de esto! Podemos convertir un tipo de datos en el otro mediante este tipo de operaci\'on. Luego comenzamos a mostrar cosas en pantalla con \inlinecode{print()} A continuaci\'on tenemos una operaci\'on algo extra\~na de la que hablaremos al final. El resultado de esta se multiplica por una cadena a la cual estamos sumando otra cadena. S\'i, la segunda parte es una cadena tambi\'en, porque a pesar de que el resultado de la operaci\'on matem\'atica sea un n\'umero, estamos usando la funci\'on \inlinecode{str()} para convertirlo en una cadena. En otras palabras, estamos combinando el resultado con la presentaci\'on de este en una sola cadena. Hasta all\'i vamos bien. Ahora s\'i, por qu\'e estamos multiplicando una cadena con otro valor de una operaci\'on extra\~na?\\
 
 Veamos detenidamente la operaci\'on un momento. Si consideramos que \inlinecode{opcion} puede tomar solo los valores 2, 3, 5, 7, 11 o 13\footnote{Por qu\'e escogimos esos n\'umeros? Leamos hasta el siguiente p\'arrafo y pensemos por qu\'e esos n\'umeros y no otros.}, entonces notamos que las operaciones de m\'odulo van a dar como resultado 0 si los n\'umeros a ambos lados del operador son iguales, o alg\'un n\'umero entero de 1 en adelante cuando se trate de n\'umeros diferentes. Eso significa que \inlinecode{(1 - opcion \% n)} va a ser igual a 1 cuando \inlinecode{opcion} sea igual a \inlinecode{n}. Si no, ser\'a 0 o alg\'un n\'umero negativo. Perfecto! Y esto c\'omo afecta a nuestra cadena de al lado? Pues es sencillo. Si una cadena la multiplicamos por alg\'un entero positivo, se va a repetir ese n\'umero de veces. En el caso de multiplicarla por 0 o alg\'un n\'umero negativo, desaparecer\'a. Esto, ya vi\'endolo en nuestro peque\~no script, se traduce en: Solo se mostrar\'a el resultado de la operaci\'on escogida.\\
 
@@ -323,7 +323,7 @@ Para continuar, vamos a leer nuestra nueva mol\'ecula y vamos a mostrarla en pan
 documento = open("molecula.smiles", "\ \hspace{-2mm}r")\\
 informacion = documento.readlines()\\
 documento.close()\\
-print informacion
+print(informacion)
 \end{Code}
 
 Vamos a guardar nuestro script y correrlo. Qu\'e pas\'o? Funcion\'o como esper\'abamos? Comentemos con nuestro compa\~nero de al lado.\\
@@ -335,7 +335,7 @@ Esta es una de las partes que a muchas personas no les gusta. Cuando de repente 
 
 En esta secci\'on vamos a ver la anatom\'ia de un error en Python, qu\'e errores podemos esperar cometer y c\'omo hallar aquellos que no rompen nuestro script, pero tampoco dicen que haya un error en alguna parte. Pero vamos por pasos. Lo primero que debemos entender es que nuestro ordenador, a pesar de ser muy capaz, no posee inteligencia como tal. Este solo hace lo que nosotros le pedimos hacer y no o es capaz de proponer algo o pensar en soluciones a problemas. Esto nos lleva a que necesitamos varias reglas generales para poder indicarle qu\'e hacer; este no sabr\'a qu\'e es lo que deseamos. Estas reglas son una sintaxis que no podemos dejar de utilizar. Si lo hacemos, el ordenador no har\'a lo que nosotros queremos que haga y nos frustraremos.\\
 
-Para este punto del taller, es posible y muy probable que ya hayamos cometido alg\'un error o que hayamos visto uno al menos. Pero para no recurrir a posibles casos pasados, veamos uno de verdad. En una l\'inea de comando con Python abierto ingresemos: \inlinecode{print "Hola mundo"\ \hspace{-2mm}!} Resulta que corremos eso porque se nos pas\'o el orden de las cosas por teclearlas r\'apido, y el resultado es este: \inlinecode{\color{red} SyntaxError: invalid syntax} Y pues, claro! Colocamos un caracter en donde no iba. Pero nada se ha arruinado, todo sigue funcionando en nuestro ordenador y el sol sigue brillando afuera. Qu\'e sucedi\'o entonces? Realmente es un sencillo. Python se detuvo donde hall\'o un error de sintaxis, advirti\'o qu\'e tipo de error era al mostr\'arnoslo y se qued\'o all\'i. Nos toca arreglarlo. Pero qu\'e pasa cuando el error ya es un script y no en la l\'inea de comando? Veamos esos casos.\\
+Para este punto del taller, es posible y muy probable que ya hayamos cometido alg\'un error o que hayamos visto uno al menos. Pero para no recurrir a posibles casos pasados, veamos uno de verdad. En una l\'inea de comando con Python abierto ingresemos: \inlinecode{print("Hola mundo"\ \hspace{-2mm}!)} Resulta que corremos eso porque se nos pas\'o el orden de las cosas por teclearlas r\'apido, y el resultado es este: \inlinecode{\color{red} SyntaxError: invalid syntax} Y pues, claro! Colocamos un caracter en donde no iba. Pero nada se ha arruinado, todo sigue funcionando en nuestro ordenador y el sol sigue brillando afuera. Qu\'e sucedi\'o entonces? Realmente es muy sencillo. Python se detuvo donde hall\'o un error de sintaxis, advirti\'o qu\'e tipo de error era al mostr\'arnoslo y se qued\'o all\'i. Nos toca arreglarlo. Pero qu\'e pasa cuando el error ya es un script y no en la l\'inea de comando? Veamos esos casos.\\
 
 Vamos a ejecutar un script que tenemos en nuestro directorio de documentos. Este se llama \textit{errores.py} y nos va a ir mostrando paso a paso los tipos de error con los que nos podemos ir topando\footnote{Solo vamos a ver los errores m\'as comunes que podemos cometer. Hay muchos otros tipos de error, pero no los cubriremos aqu\'i.}. Adem\'as de ejecutar el script, lo vamos a abrir con un editor de texto y ver qu\'e pasa en cada parte. Vamos a ir uno por uno entendiendo los errores.\\
 
@@ -344,7 +344,7 @@ Este ser\'a el primer error que aparecer\'a al ejecutar el script. Si nos damos 
 
 \begin{Code}
 {\color{red} \hspace*{4mm} File "\ \hspace{-2mm}errores.py", line 2\\
-\hspace*{8mm} print "\ \hspace{-2mm}Error de\ ".\ "\ \hspace{-2mm}sintaxis."\\
+\hspace*{8mm} print("\ \hspace{-2mm}Error de\ ".\ "\ \hspace{-2mm}sintaxis.")\\
 \hspace*{63mm}\^\\
 SyntaxError: invalid syntax}
 \end{Code}
@@ -359,7 +359,7 @@ Esta vez obtuvimos un error diferente. Este se nos dice que es un error de nombr
 \begin{Code}
 {\color{red}Traceback (most recent call last):\\
 \hspace*{4mm} File "\ \hspace{-2mm}errores.py", line 2, in <module>\\
-\hspace*{8mm} print "mi\_variable"\\
+\hspace*{8mm} print("mi\_variable")\\
 NameError: name `mi\_variable' is not defined}
 \end{Code}
 
@@ -437,8 +437,8 @@ Supongamos que necesitamos que un usuario ingrese un n\'umero entero. Para ello 
 try:\\
 \hspace*{4mm} opcion = input("Por favor ingrese un numero del 1 al 10: ")\\
 except \textit{Excpetion} as e:\\
-\hspace*{4mm} print "Se ha producido un error:", e\\
-\hspace*{4mm} print "Ha ingresado una opci\'on no-valida."
+\hspace*{4mm} print("Se ha producido un error:"), e\\
+\hspace*{4mm} print("Ha ingresado una opci\'on no-valida.")
 \end{Code}
 
 Si nos damos cuenta, capturamos el error (si es que se produce uno) y almacenamos sus caracter\'isticas en la variable \inlinecode{e}. De no producirse el error, el c\'odigo solo se seguir\'a ejecutando sin entrar al \inlinecode{except}. Algo que vale la pena mencionar es sobre la palabra \inlinecode{\textit{Exception}}. Esta palabra nos permite capturar cualquier error. Pero si deseamos capturar un error en particular, podemos colocar alguno de los tipos de error que hab\'iamos estado viendo hasta ahora. Eso s\'i, si el error producido en el \inlinecode{try:} es diferente al que se est\'a esperando en el \inlinecode{except}, el error no ser\'a capturado y nuestro script se romper\'a. E.g.
@@ -447,7 +447,7 @@ Si nos damos cuenta, capturamos el error (si es que se produce uno) y almacenamo
 try:\\
 \hspace*{4mm} 1 / 0\\
 except \textit{IOError} as e:\\
-\hspace*{4mm} print "Se ha producido un error:", e
+\hspace*{4mm} print("Se ha producido un error:"), e
 \end{Code}
 
 Esto, por seguro, producir\'a un error que no ser\'a capturado. El error esperado es de entrada o salida de datos, y el error producido es de divisi\'on entre cero. Por esta raz\'on, hay que tener mucho cuidado con el tipo de error que se est\'a esperando\footnote{Y para aquellos que piensen en usar \textit{Exception} siempre, consideren que depende del tipo de error es la medida que podemos tomar despu\'es en nuestro script.}.
@@ -460,42 +460,42 @@ Por otra parte, otra cosa que puede hacer nuestro ordenador, y que nos ayudar\'a
 \subsubsection{Decisiones}
 Comencemos con algo sencillo. Una decisi\'on es una especie de bifurcaci\'on o encrucijada que nos propone dos o m\'as caminos a seguir. Para mantener las cosas sencillas, vamos a pensar en un camino que se divide en dos. Si se trata de un caso as\'i, nuestra pregunta, naturalmente, ser\'ia algo del tipo: ``Y ahora, para d\'onde?'' Inmediatamente comenzamos a buscar alguna condici\'on que se cumpla para escoger un camino: ``Si X cosa se cumple, me voy por el primer camino. Si no, me voy por el otro.'' Esa condici\'on puede ser: que el camino sea menos dif\'icil, que el camino me lleve a donde quiero, etc. La cosa es que hay una condici\'on que puede ser \emph{verdadera} o \emph{falsa} que determina nuestra decisi\'on.\\
 
-Vamos a traducir esto al lenguaje de nuestro ordenador. Tenemos entonces que si una condici\'on (una comparaci\'on de valores) resulta en \emph{verdadero} o \emph{falso} (un booleano), entonces algo va a pasar. Veamos un ejemplo en particular. Si la variable \inlinecode{var} es mayor a 10, entonces vamos a ejecutar \inlinecode{print "var es MAYOR a 10"}. Si no, vamos a ejecutir \inlinecode{print "var es menor a  o igual10"} Entonces, nuestro c\'odigo se va a ver algo as\'i.
+Vamos a traducir esto al lenguaje de nuestro ordenador. Tenemos entonces que si una condici\'on (una comparaci\'on de valores) resulta en \emph{verdadero} o \emph{falso} (un booleano), entonces algo va a pasar. Veamos un ejemplo en particular. Si la variable \inlinecode{var} es mayor a 10, entonces vamos a ejecutar \inlinecode{print("var es MAYOR a 10")}. Si no, vamos a ejecutir \inlinecode{print("var es menor a  o igual10")} Entonces, nuestro c\'odigo se va a ver algo as\'i.
 
 \begin{Code}
 if var >\ 10:\\
-\hspace*{5mm} print "var es MAYOR a 10"\\
+\hspace*{5mm} print("var es MAYOR a 10")\\
 else:\\
-\hspace*{5mm} print "var es menor o igual a 10"
+\hspace*{5mm} print("var es menor o igual a 10")
 \end{Code}
 
 Claro, antes de ejecutar esto hay que darle un valor a \inlinecode{var}, pero en general, vemos que esto funciona. Debemos notar, sin embargo, que dejamos 4 espacios antes de cada comando despu\'es de la condici\'on. A esto se le llama indentaci\'on. La regla es: \textit{Todo aquello que dependa de la condici\'on para ser ejecutado, va indentado.} La verdad, es una forma de ordenar nuestro c\'odigo para que el ordenador sepa qu\'e debe de correr, cu\'ando y en qu\'e condiciones. Veamos nuestro script de las temperaturas nuevamente para ver eso y, adem\'as, una implementaci\'on de cuando pueden haber varios caminos a seguir.
 
 \begin{small}
 \begin{Code}
-print "********** Convertidor **********"\\
-print "1. F -> C \textbackslash t 2. C -> F"\\
-print "3. C -> K \textbackslash t 4. K -> C"\\
-print "5. F -> K \textbackslash t 6. K -> F"\\
+print("********** Convertidor **********")\\
+print("1. F -> C \textbackslash t 2. C -> F")\\
+print("3. C -> K \textbackslash t 4. K -> C")\\
+print("5. F -> K \textbackslash t 6. K -> F")\\
 b = 32\\
 f = 5.0/9\\
 a = 273.15\\
 opcion = input("\ \hspace{-2mm}Ingrese el numero de operacion que desea realizar: ")\\
 temperatura = raw\_input("\ \hspace{-2mm}Ingrese la temperatura a ser calculada: ")\\
 temperatura = float(temperatura)\\
-print "Temperatura en grados",\\
+print("Temperatura en grados"),\\
 if opcion == 1:\\
-\hspace*{5mm} print "\ \hspace*{-2mm}C:", (temperatura - b) * f\\
+\hspace*{5mm} print("\ \hspace*{-2mm}C:", (temperatura - b) * f)\\
 elif opcion == 2:\\
-\hspace*{5mm} print "F:", temperatura * 1/f\ +\ b\\
+\hspace*{5mm} print("F:", temperatura * 1/f\ +\ b)\\
 elif opcion == 3:\\
-\hspace*{5mm} print "K:", temperatura\ +\ a\\
+\hspace*{5mm} print("K:", temperatura\ +\ a)\\
 elif opcion == 4:\\
-\hspace*{5mm} print "\ \hspace*{-2mm}C:", temperatura - a\\
+\hspace*{5mm} print("\ \hspace*{-2mm}C:", temperatura - a)\\
 elif opcion == 5:\\
-\hspace*{5mm} print "K:", (temperatura - b) * f\ +\ a\\
+\hspace*{5mm} print("K:", (temperatura - b) * f\ +\ a)\\
 elif opcion == 6:\\
-\hspace*{5mm} print "F:", (temperatura - a) * 1/f\ +\ b
+\hspace*{5mm} print("F:", (temperatura - a) * 1/f\ +\ b)
 \end{Code}
 \end{small}
 
@@ -508,7 +508,7 @@ Veamos esto ya en c\'odigo. La idea ahora es hallar una palabra que represente e
 
 \begin{Code}
 while var <\ 10:\\
-\hspace*{5mm} print "Vuelta!"
+\hspace*{5mm} print("Vuelta!")
 \end{Code}
 
 De nuevo recordemos que si no le asignamos un valor a \inlinecode{var}, entonces obtendremos un error. Al correr esto, es posible que tengamos que detener el script, porque ... no hay mecanismo en que \'el pare solo; seguir\'a repitiendo lo mismo por siempre.\\
@@ -521,18 +521,18 @@ contador = 0\\
 while contador <\ len(molecula):\\
 \hspace*{5mm} letra = molecula[contador]\\
 \hspace*{5mm} if letra == "F":\\
-\hspace*{13mm} print "Hay un halogeno!"\\
+\hspace*{13mm} print("Hay un halogeno!")\\
 \hspace*{13mm} break\\
 \hspace*{5mm} elif letra == "\ \hspace*{-2mm}C":\\
 \hspace*{13mm} if molecula[contador\ +\ 1] == "l":\\
-\hspace*{21mm} print "Hay un halogeno!"\\
+\hspace*{21mm} print("Hay un halogeno!")\\
 \hspace*{21mm} break\\
 \hspace*{5mm} elif letra == "B":\\
 \hspace*{13mm} if molecula[contador\ +\ 1] == "\ \hspace*{-2mm}r":\\
-\hspace*{21mm} print "Hay un halogeno!"\\
+\hspace*{21mm} print("Hay un halogeno!")\\
 \hspace*{21mm} break\\
 \hspace*{5mm} elif letra == "\ \hspace*{-2mm}I":\\
-\hspace*{13mm} print "Hay un halogeno!"\\
+\hspace*{13mm} print("Hay un halogeno!")\\
 \hspace*{13mm} break\\
 \hspace*{5mm} contador = contador + 1
 \end{Code}
@@ -544,7 +544,7 @@ Por el momento, debemos admitir que es un poco tedioso tener una condici\'on, un
 
 \begin{Code}
 for i in [8, 7, 9, -1, 3.1415, "\ \hspace*{-2mm}abc"]:\\
-\hspace*{5mm}print i
+\hspace*{5mm}print(i)
 \end{Code}
 
 Corramos estas dos peque\~nas l\'ineas y analicemos qu\'e es lo que acaba de pasar. Posteriormente discutamos con nuestro compa\~nero de al lado.\\
@@ -635,7 +635,7 @@ from math import log10\\
 K = 1.8E-5\\
 A = 0.025\\
 HA = 0.1\\
-print "pH =", -1 * log10(K) + log10(A/HA)
+print("pH ="), -1 * log10(K) + log10(A/HA)
 \end{Code}
 
 Como vemos, las funciones las podemos utilizar dentro de operaciones matem\'aticas y tantas veces como deseamos. Resulta entonces muy sencillo dise\~nar scripts que calculen datos mediante operaciones matem\'aticas m\'as complejas. Sin embargo, hay veces que estas funciones no son suficientes. Los paquetes nos proveen de una gran cantidad de funciones, pero no todas las que necesitamos. Para eso vamos a crear nosotros nuestras propias funciones.
@@ -682,19 +682,19 @@ def tabla(datos, tiene\_titulos):\\
 \hspace*{18mm} else:\\
 \hspace*{25mm} titulos += "\ "\ *\ (19 - largo) + nombre + "\ |"\\
 \hspace*{25mm} segunda\_linea += "\ "\ * 19 + "\ |"\\
-\hspace*{11mm} print titulos\\
+\hspace*{11mm} print(titulos)\\
 \hspace*{11mm} if tiene\_segunda\_linea:\\
-\hspace*{18mm} print segunda\_linea\\
-\hspace*{11mm} print "\ \hspace*{-2mm}-"\ *\ len(segunda\_linea)\\
+\hspace*{18mm} print(segunda\_linea)\\
+\hspace*{11mm} print("\ \hspace*{-2mm}-")\ *\ len(segunda\_linea)\\
 \hspace*{11mm} datos = datos[1:]\\
 \hspace*{4mm} else:\\
-\hspace*{11mm} print "\ \hspace*{-2mm}-"\ *\ (21 * len(datos[0]) + 1)\\
+\hspace*{11mm} print("\ \hspace*{-2mm}-")\ *\ (21 * len(datos[0]) + 1)\\
 \hspace*{4mm} for linea in datos:\\
 \hspace*{11mm} fila = "|"\\
 \hspace*{11mm} for dato in linea:\\
 \hspace*{18mm} dato = str(dato)\\
 \hspace*{18mm} fila += "\ "\ *\ (19 - len(dato)) + dato + "\ |"\\
-\hspace*{11mm} print fila
+\hspace*{11mm} print(fila)
 \end{Code}
 \end{small}
 
@@ -728,7 +728,7 @@ def especiacion(*args):\\
 \hspace*{28mm} ctrl[j] = 1\\
 \hspace*{13mm} result = str(i*0.1)\\
 \hspace*{13mm} for k in ctrl:\\
-\hspace*{21mm} result += "\ " + str(k)\\
+\hspace*{21mm} result += "\ "\ + str(k)\\
 \hspace*{13mm} f.write(result + "\textbackslash n")\\
 \hspace*{6mm} f.close()
 \end{Code}
@@ -768,9 +768,9 @@ Esto lo vamos a guardar en un documento llamado \emph{estadisticos.py}. Posterio
 \begin{Code}
 import estadisticos as stat\\
 muestreo = [6.66, 9.751, 10.112, 10.03, 9.01, 13.948, 13.33, 6.096, 7.585, 11.914, 13.037, 4.872, 7.315, 9.24, 11.266, 9.276, 11.228, 11.629, 9.298, 15.026, 3.772, 11.131, 7.46, 8.193, 15.686, 8.428, 1.019, 10.978, 7.13, 11.602, 7.683, 13.229, 14.394, 7.0, 10.243, 11.1, 8.642, 11.586, 9.933, 7.703, 9.753, 13.589, 2.959, 9.956, 13.172, 7.277, 9.216, 15.341, 15.295, 8.211]\\
-print "La media de los datos es:", stat.media(muestreo)\\
-print "La desviacion estandar de los datos es:", stat.des\_std(muestreo)\\
-print "La mediana de los datos es:", stat.mediana(muestreo)\\
+print("La media de los datos es:"), stat.media(muestreo)\\
+print("La desviacion estandar de los datos es:"), stat.des\_std(muestreo)\\
+print("La mediana de los datos es:"), stat.mediana(muestreo)\\
 \end{Code}
 
 Como nos podemos dar cuenta, esto simplifica muchas cosas. Podemos importar cualquier cantidad de paquetes de Python o creados por nosotros y hacer con ellos lo que se nos ocurra. Es por eso que a continuaci\'on vamos a mostrar realmente la capacidad de los paquetes de Python.
