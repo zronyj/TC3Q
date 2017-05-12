@@ -1,0 +1,215 @@
+%
+% dia8.tex
+% 
+% Copyright 2014 Rony J. Letona <rony@zronyj.com>
+% 
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2 of the License, or
+% any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+% MA 02110-1301, USA.
+%
+
+\documentclass[10pt,letterpaper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{float}
+\usepackage{upquote}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Rony J. Letona}
+\title{Taller de Qu\'imica Computacional Aplicada: D\'ia 8}
+\definecolor{light-gray}{gray}{0.90}
+
+\newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
+
+\newcommand{\inlinecode}[1]{
+\colorbox{light-gray}{\texttt{#1}}
+}
+
+\newsavebox{\selvestebox}
+\newenvironment{Code}
+{
+\begin{lrbox}{\selvestebox}%
+\begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax}
+\fontfamily{\ttdefault}\selectfont
+}
+{\end{minipage}\end{lrbox}%
+\begin{center}
+\colorbox{light-gray}{\usebox{\selvestebox}}
+\end{center}
+}
+
+\newcommand{\Picture}[1]
+{
+	\begin{figure}[H]
+	\begin{flushleft}
+	\includegraphics[width=\columnwidth]{#1}
+	\end{flushleft}
+	\end{figure}
+}
+
+\begin{document}
+\maketitle
+
+\section{Qu\'imica Computacional}
+La qu\'imica tiene, directa o indirectamente, al electr\'on como objeto de estudio. Si bien se preocupa por \'atomos y mol\'eculas, jam\'as se entra a discutir mucho sobre el n\'ucleo de los primeros. Es por eso es que al hablar de qu\'imica computacional, tenemos que pensar en que hay diferentes formas de abordar problemas, pero la manera m\'as fina siempre ser\'a si consideramos a los electrones en nuestros c\'alculos y aproximaciones. Para comprender un poco mejor cada aspecto, vamos a ir revisando las teor\'ias desde la m\'as sencilla (y por eso, r\'apida), hasta la m\'as compleja (y por eso, lenta).\\
+
+Debemos considerar que cada vez que introducimos un \'atomo m\'as o una part\'icula m\'as a nuestro sistema, el c\'alculo tomar\'a m\'as tiempo. Otro aspecto a tomar en cuenta es que por muy fino que sea, todo c\'alculo hecho as\'i es solo una aproximaci\'on. La parte experimental es necesaria si se desea corroborar la veracidad del resultado.\\
+
+A continuaci\'on vamos a revisar algunas cosas que podemos hacer al utilizar las diferentes teor\'ias, algoritmos y programas. Esto no es todo lo que se puede hacer! Como buenas herramientas, podemos ir haciendo uso de ellas para la tarea que necesitemos. No solo para lo que vamos a ver aqu\'i (una bureta puede utilizarse para otras cosas adem\'as de valoraciones volum\'etricas). Finalmente, es importante tomar en cuenta que todo el software que vamos a usar y todos los algoritmos est\'an a nuestra disposici\'on porque son los m\'as utilizados. Si deseamos alterar algo, se puede (nada est\'a escrito en piedra) pero requiere de bastante trabajo.
+
+\subsection{Mec\'anica Molecular}
+La mec\'anica molecular se refiere a la teor\'ia en la que los \'atomos los tomamos como esferas r\'igidas con cierta masa y carga. Los enlaces los tomamos como resortes con cierta constante de elasticidad. Entonces, las mol\'eculas son sistemas de resortes y esferas. Claro, con las leyes de Newton, Hook y Coulomb podemos determinar la energ\'ia de todo el sistema. Al combinar estas leyes como \emph{f\'ormulas} y a\~nadirle t\'erminos que tomen en consideraci\'on las fuerzas de Van der Waals y puentes de hidr\'ogeno, resultar\'iamos con una funci\'on enorme a la que llamaremos \emph{campo de fuerzas}\footnote{Un \emph{campo de fuerzas} es una funci\'on matem\'atica muy grande en la que introducimos las coordenadas y las cargas de todos los \'atomos, y esta nos devuelve el valor de energ\'ia de esa mol\'ecula.}.\\
+
+Existen muchos campos de fuerzas, puesto que se ha buscado hallar las constantes de elasticidad, de rotaci\'on, para puentes de hidr\'ogeno, fuerzas de Van der Waals, etc. de muchas maneras! Se han buscado de manera emp\'irica mediante calorimetr\'ia, mediante espectroscop\'ia, y hasta de maneras te\'oricas bas\'andose en mec\'anica cu\'antica. Conviene entonces estudiar de d\'onde salieron algunos de estos campos de fuerza y su especialidad. Algunos nombres que dejaremos aqu\'i son: MM2, MM3, MM4, AMBER, CHARMM, GROMOS, OPLS, MMFF y UFF. Hoy vamos a trabajar con \href{http://open-babel.readthedocs.org/en/latest/Forcefields/mmff94.html}{MMFF94} (la cual solamente incluyen interaciones tensi\'on-flexi\'on), \href{http://open-babel.readthedocs.org/en/latest/Forcefields/ghemical.html}{Ghemical} y \href{http://open-babel.readthedocs.org/en/latest/Forcefields/uff.html}{UFF}. Si deseamos saber m\'as sobre estos campos de fuerza, podemos revisar lo que dice el proveedor de este paquete en internet, haciendo click en cada uno de ellos.
+
+\subsubsection{Optimizaci\'on y Energ\'ia}
+Vamos a comenzar con algo sencillo. Vamos a abrir el programa Avogadro y desde all\'i vamos a abrir una de las mol\'eculas que nos dieron ayer: \textit{dexketoprofen.mol2} Al momento de abrir la mol\'ecula, tom\'emonos el tiempo de apreciarla en 3 dimensiones. Son pocas las veces que realmente tenemos la oportunidad de hacer algo as\'i. Notemos los sitios quirales, enlaces simples y dobles, etc.\\
+
+Cuando ya la hayamos estudiado un poco, vamos a proceder a optimizar su energ\'ia por medio de \textbf{Mec\'anica Molecular}.  Para ello nos vamos a ir a \emph{Extensions} y vamos a configurar el campo de fuerzas en \emph{Molecular Mechanics} \emph{Setup Force Field}. Este vamos a colocarlo con 5000 iteraciones, campo MMFF94, algoritmo Steepest Descent y convergencia en $1 \cdot 10^{-9}$. Guardamos cambios y volvemos a \emph{Extensions} para hacer click en \emph{Optimize Geometry}.\\
+
+Lo que acabamos de hacer es hallar la conformaci\'on de menor energ\'ia (la m\'as \emph{estable}) mediante un algoritmo similar al de Newton-Raphson. Le pedimos a Avogadro que no terminara en 500 repeticiones del algoritmo, sino en 5000. Finalmente le pedimos que considerara que ya pod\'ia dar por terminado el proceso si el \'ultimo valor de energ\'ia calculado y el anterior a ese variaban por menos de $10^{-9}$ unidades. Entonces, la funci\'on de la que est\'abamos buscando el m\'inimo era el campo de fuerzas, y el m\'etodo se llama Steepest Descent\footnote{El algoritmo es conocido por este nombre, pero su nombre real es \emph{Gradient descent}. Se basa en el uso de gradientes (derivadas) para ir hallando el punto m\'inimo.}.\\
+
+Cuando el proceso ya haya terminado, veremos que nuestra mol\'ecula est\'a en mejor estado. Luego vamos a calcular su energ\'ia haciendo click en \emph{Extensions}, \emph{Molecular Mechanics}, \emph{Calculate Energy}. Veremos que el resultado nos aparece de inmediato. Al final ser\'a muy conveniente guardar nuestras mol\'eculas en formato \emph{.mol2}.\\
+
+La mec\'anica molecular, por su forma sencilla de c\'alculo, es r\'apida. Esto nos permite ir descubriendo diferentes cosas de ella al ir probando. Como ejercicio, repitamos el procedimiento anterior con los campos de fuerza: Ghemical y UFF. Tomemos nota de lo que vemos y continuemos.
+
+\subsubsection{Conformaciones}
+Uno de los usos m\'as comunes de la MM (adem\'as de preparar mol\'eculas antes de trabajarlas con QM) es el an\'alisis de conformaciones. Esto se hace tambi\'en viendo la energ\'ia de lo que tengamos en pantalla. Y se puede decir as\'i, porque quiz\'a no se trate de una sola mol\'ecula! El \emph{docking} que vimos el d\'ia anterior utiliza un campo de fuerzas para calcular la energ\'ia del complejo que se est\'a formando. Tambi\'en se puede utilizar la misma t\'ecnica para ver la energ\'ia de un nanoencapsulado; a ver qu\'e tan viable es sintetizarlo. Pero esta vez no vamos a hacer algo tan complejo.\\
+
+Vamos a comenzar abriendo Avogadro y dibujando, con la herramienta del lapiz \emph{Draw Tool} (F8), un ciclohexano. Tom\'emonos nuestro tiempo para hacerlo. La peque\~na estrella azul a la par del lapiz, \emph{Navigation Tool} (F9), nos permite girar nuestra mol\'ecula en 3 dimensiones para poderla visualizar mejor. Ahora vamos a proceder a minimizarla, pero haciendo uso de otra herramienta: la \emph{Auto Optimization Tool}. Para ello, vamos a ir a la \textbf{E} que se halla 5 posiciones a la derecha de la estrella azul. Hacemos click all\'i y nos aseguramos que \emph{Tool Settings...} se halle seleccionado. A la izquierda deber\'ia de aparecer opciones como las que hab\'iamos visto antes. Seleccionamos a MMFF94 como nuestro campo de fuerzas, en \emph{Steps per Update} aumentamos el n\'umero a 8, y de algoritmo seleccionamos \emph{Steepest Descent}. Inmediatamente hacemos click en \emph{Start} y observamos como nuestro ciclohexano comienza a tomar la conformaci\'on m\'as estable en tiempo real. Hasta podemos ver la energ\'ia que posee nuestra mol\'ecula!\\
+
+Por ahora todo va bien. Lo m\'as probable es que nuestro ciclohexano vaya a resultar con una conformaci\'on de silla (usemos \emph{Navigation Tool} para ver esto) y una energ\'ia cercana a $-14.909\ kJ/mol$. Pero esto no es todo lo que podemos hacer. Ahora vamos a seleccionar la herramienta con una manita \emph{Manipulation Tool} (F10) y vamos a arrastrar una de las esquinas del ciclohexano a modo de formar la conformaci\'on de bote. Esto puede tomarnos un rato, as\'i que no desesperemos. Podemos intentar arrastrar los hidr\'ogenos si eso nos facilita el proceso. La idea es llegar a la conformaci\'on de bote.\\
+
+Una vez hayamos logrado esto, revisemos la energ\'ia. La conformaci\'on le resulta estable a Avogadro, ya que qued\'o sin variar mucho en una posici\'on, pero la energ\'ia ahora es cercana a $9.9175\ kJ/mol$! La energ\'ia en este caso es m\'as alta! Entonces comprendemos que la conformaci\'on de silla es m\'as estable que la de bote! De hecho, podemos ver que la mol\'ecula toma una conformaci\'on que no es exactamente un bote sim\'etrico, porque este \'ultimo no es tampoco estable. Este sutil detalle es algo que no se menciona en casi ning\'un libro.\\
+
+Si nos ponemos a pensar un momento, con esta forma podemos evaluar conformaciones y evaluar su energ\'ia en tiempo real viendo si una conformaci\'on es estable o no. La MM resulta ser una forma de aproximar energ\'ias de una mol\'ecula, evaluar conformaciones, evaluar qu\'e tan factible es la formaci\'on de un complejo, docking, etc. Queda a nuestra imaginaci\'on lo que podemos hacer con ella. Despu\'es de todo, es una herramienta para hacer c\'alculos r\'apidos.
+
+\subsection{Mec\'anica Cu\'antica}
+La mec\'anica cu\'antica (o QM por sus siglas en ingl\'es) tiene fama de ser un campo poco comprendido y muy discutido entre cient\'ificos. Generalmente es el tema m\'as abstracto en qu\'imica, y uno bastante oscuro en f\'isica. En este caso, no vamos a entrar en detalle sobre la ecuaci\'on de Schr\"odinger, funciones de onda, resolver ecuaciones diferenciales, matrices, etc. Sencillamente nos vamos a enfocar en los usos de la QM en qu\'imica y el provecho que podemos sacarle. Debemos tomar en cuenta que los c\'alculos en QM son mucho m\'as finos que los anteriores en MM, pues ya consideran a los electrones. La importancia de estos \'ultimos radica en que son ellos los responsables de las reacciones y de la qu\'imica de las sustancias. Veremos que las propiedades que se pueden calcular con este m\'etodo son muchas m\'as. Para esto, vamos a realizar 4 c\'alculos en total.\\
+
+Vale la pena decir que para esta parte, vamos a estar utilizando varios programas. \textbf{Avogadro} nos servir\'a para ciertas tareas que implican dibujar las estructuras y prepar algunos archivos de entrada (la idea es similar a los del docking). Luego, el programa que \emph{realmente} calcula las propiedades utilizando QM se llama \textbf{Firefly}, aunque antes se le conoc\'ia como PC-GAMESS. Finalmente, para visualizar los resultados de los c\'alculos, vamos a utilizar \textbf{wxMacMolPlt}. Todo esto es necesario, porque estamos utilizando solo software libre. Los paquetes comerciales generalmente hacen todo lo que vamos a hacer, pero en un solo ambiente.
+
+\subsubsection{Optimizaci\'on}
+Para comenzar, vamos a dejar claro que una de las ideas detr\'as de QM es igual a la de MM: hallar energ\'ias. Los programas de QM pueden utilizar los mismos algoritmos para hallar la conformaci\'on de m\'inima energ\'ia, por ejemplo. Pero el modelo para hallar la energ\'ia es distinto. Vamos a ver ahora c\'omo es que se prepara una mol\'ecula para un c\'alculo de minimizaci\'on, y c\'omo se ven los resultados.\\
+
+Primero vamos a abrir Avogadro y vamos a dibujar un benceno. Luego vamos a minimizarlo de manera r\'apida con MM (FF: MMFF94). Cuando ya hayamos llegado a una conformaci\'on satisfactoria\footnote{Queda a criterio de cada uno.}. Vamos a proceder a hacer lo siguiente: vamos a \emph{Extensions}, luego a \emph{GAMESS} y finalmente a \emph{Input Generator...} Aqu\'i vamos a ver una ventana con algunas opciones. La primera se refiere al tipo de c\'alculo que deseamos hacer. En esta vamos a colocar \textbf{Equilibrium Geometry} ya que deseamos obtener una geometr\'ia de equilibrio: la conformaci\'on m\'as estable.\\
+
+Lo siguiente es el tipo de teor\'ia que vamos a usar. En este caso vamos a seleccionar \textbf{RHF}, que significa \textbf{R}estricted \textbf{H}artree \textbf{F}ock. En esta teor\'ia asumimos que el \'atomo o mol\'ecula es un sistema aislado y cada orbital est\'a ocupado por dos electrones. Existen otras teor\'ias en las que podemos tener sistemas no-aislados (ROHF) pero electrones apareados hasta donde se pueda, o sistemas no-aislados en donde cada electron con un esp\'in diferente tendr\'a su orbital separado (UHF). Claro, Avogadro nos ofrece otras opciones que iremos estudiando m\'as adelante, pero por ahora nos limitaremos a esta idea.\\
+
+A continuaci\'on nos vamos a enfocar en la parte m\'as complicada de los c\'alculos: la base. Una base es una colecci\'on de funciones con las que se puede modelar un orbital. Existen bases grandes y peque\~nas, sin embargo, no nos detendremos a profundizar mucho en ellas; estas ya vienen en los programas. En nuestro caso es m\'as interesante diferenciarlas y utilizarlas.\\
+
+Las bases m\'as peque\~nas de las que vale la pena hablar son las bases de Slater. Estas son unas funciones que modelan relativamente bien los orbitales. En honor al autor de las mismas, se les llam\'o \textbf{S}later \textbf{T}ype \textbf{O}rbitals o STO. El problema que nos dan al utilizarlas en nuestro ordenador es su baja velocidad. M\'as adelante John Pople, premio Nobel en Qu\'imica 1998, hall\'o que utilizando funciones gaussianas pod\'ia aproximar casi perfectamente las STOs y acelerando los c\'alculos en \'ordenes de magnitud. Entonces comenzaron a aparecer las primeras bases que, dependiendo del n\'umero de funciones gaussianas utilizadas (e.g. 2, 3, 6, ...), comenzaron a llamarse STO-2G, STO-3G, STO-6G, etc. respectivamente. Estas \'ultimas son las bases m\'as peque\~nas utilizadas hoy en d\'ia. Son bastante r\'apidas, pero poco exactas. Luego est\'an las 3-21G, 6-31G*\footnote{Esta base, con polarizaci\'on (el peque\~no asterisco), es la m\'as com\'unmente utilizada para c\'alculos de rutina.}, 6-311G, etc. Estas se conocen como \emph{split valence}. Estas bases est\'an dise\~nadas para afinar el c\'alculo de los electrones de valencia. Luego se comenzaron a agregar efectos de correlaci\'on o interacci\'on entre electrones que llevaron a muchas otras bases m\'as, pero por ahora solo vamos a presetar atenci\'on a estas\footnote{Para una descripci\'on un poco m\'as detallada y completa, es conveniente revisar estas dos referencias: \href{https://www.wavefun.com/support/sp_compfaq/Basis_Set_FAQ.html}{Wavefunction Inc.} y \href{https://bse.pnl.gov/bse/portal}{Basis Set Exchange}. Es importante notar que ambas asumen que ya se sabe un poco m\'as de mec\'anica cu\'antica.}.\\
+
+Para continuar, vamos a seleccionar la base \textbf{6-31G(d)} y las dem\'as opciones las dejaremos estar. Vamos a calcular la mol\'ecula con sus electrones en estado basal, en estado gaseoso y sin carga alguna. Luego vamos a \textit{Generate ...}, le damos un nombre a nuestro archivo de entrada para Firefly y lo guardamos en \textit{Documents}. Luego, abriremos una terminal, y vamos a escribir lo siguiente:\\
+\inlinecode{./FF8.1/firefly810 -f -i ./Documents/nombre\_de\_archivo.inp -o ./Documents/nombre\_de\_archivo.out}\\
+Al ejecutar esto, vamos a esperar un momento. Puede que tarde de un minuto, a unos 10 minutos, dependiendo de nuestro ordenador. Si termina de inmediato, algo no funcion\'o, pero eso lo veremos en el archivo de salida.\\
+
+Al haber realizado el c\'alculo habremos generado un archivo nuevo: el archivo de salida. Este contendr\'a una cantidad bastante extrema de informaci\'on. Por esta raz\'on, nos enfocaremos en un par de puntos al abrir el archivo, y en otro par nada m\'as al abrirlo con wxMacMolPlt. Al abrir el archivo de salida con un editor de texto, debemos ir al final. All\'i hallaremos si el c\'alculo termin\'o bien o no. Luego, lo siguiente m\'as importante es hallar la energ\'ia de la mol\'ecula. Esta la hallamos al subir un poco desde el final y buscar el segmento \textit{ENERGY COMPONENTS}. All\'i habr\'a una l\'inea con la leyenda \textit{TOTAL ENERGY} que nos dir\'a la energ\'ia en \emph{hartree}\footnote{Esta es una unidad de energ\'ia equivalente a $4.35974434 \cdot 10^{-18} J$ o $2625.49962\ kJ\ mol^{-1}$.}. Esta energ\'ia tambi\'en la podemos hallar con wxMacMolPlt si, con este peque\~no programa, abrimos el archivo de salida. La energ\'ia se hallar\'a en la esquina inferior izquierda de la ventana. En la esquina inferior derecha hallaremos una barra que, al moverla, nos dar\'a todas las energ\'ias halladas en la b\'usqueda de la m\'as baja.\\
+
+A la energ\'ia m\'as baja hallada se le llama \emph{Energ\'ia de Punto Fijo} o \emph{Single Point Energy}. Esta es la energ\'ia de la conformaci\'on actual de la mol\'ecula en cuesti\'on. Esta NO es comparable con la energ\'ia hallada por MM. Una energ\'ia comparable la calcularemos m\'as adelante. Sin embargo, otra cosa importante de notar es que la energ\'ia hallada ahorita fue la conformaci\'on m\'as estable de nuestra mol\'ecula, puesto que fuimos buscando la menor de todas.
+
+\subsubsection{Termodin\'amica y Frecuencias en IR}
+Habiendo calculado la energ\'ia intr\'inseca de nuestra mol\'ecula, vamos a pasar a algo m\'as interesante. Estos programas pueden calcular una serie de propiedades adicionales. Entre ellas est\'an la entalp\'ia\footnote{La energ\'ia de la mol\'ecula almacenada en sus enlaces.}, la entrop\'ia\footnote{La tendencia de una mol\'ecula a tener m\'as posibilidades de rotaci\'on, traslaci\'on y niveles energ\'eticos.} y algunas otras constantes termodin\'amicas. Estas pueden ser muy \'utiles para saber si una reacci\'on se va a dar o no, y qu\'e tanto. Para hacer esto, vamos a comenzar con una mol\'ecula m\'as sencilla que la anterior. Abrimos nuevamente Avogadro y dibujamos un $CO_2$ (di\'oxido de carbono). Este lo optimizamos con MM (FF: MMFF94), y realizamos una optimizaci\'on con QM utilizando RHF y base 6-31G(d).\\
+
+Despu\'es de haber realizado esto, vamos a utilizar wxMacMolPlt para abrir nuestra estructura optimizada y la vamos a guardar en otro formato. Para ello iremos a \textit{File}, \textit{Export ...} y finalmente all\'i escogeremos el formato MDL MolFile. A nuestro archivo le pondremos la extensi\'on \textit{.mdl} y lo guardaremos. Luego, volveremos a abrir Avogadro, abriremos el archivo MDL y vamos a volver a preparar un archivo de entrada para Firefly. Para ello iremos a \textit{Extensions}, \textit{GAMESS} e \textit{Input Generator...}. All\'i, vamos a cambiar la configuraci\'on a \textbf{Frequencies}. La teor\'ia ser\'a \textbf{RHF} y con base \textbf{6-31G(d)}. Corremos esto con Firefly de la misma manera que lo hicimos la \'ultima vez (cambiemos el nombre de los archivos de entrada y salida) y terminamos con un nuevo archivo. Al ir al final de este vamos a hallar una serie de datos interesantes.\\
+
+En primer lugar, hallamos que el c\'alculo termin\'o de una manera normal. Esto lo hallamos en la \'ultima l\'inea. Luego, al ir subiendo, hallaremos el segmento \textit{THERMOCHEMISTRY AT T=  298.15 K} y unas tablas con varias constantes termodin\'amicas: energ\'ia interna \textbf{E}, entalp\'ia \textbf{H}, energ\'ia libre de Gibbs \textbf{G}, calor espec\'ifico a volumen constante \textbf{CV}, calor espec\'ifico a presi\'on constante \textbf{CP} y entrop\'ia \textbf{S}. Estas las hallamos en dos tablas: una en unidades del Sistema Internacional y otra en calor\'ias. Esta es la primera parte importante. Con estas constantes se puede modelar una reacci\'on y determinar si esta es espont\'anea o no. Tambi\'en se puede calcular su constante de equilibrio y otras cosas.\\
+
+M\'as arriba, se halla una tabla mucho m\'as grande dentro del segmento \textit{NORMAL COORDINATE ANALYSIS IN THE HARMONIC APPROXIMATION}. Esta tabla contiene todas las maneras en que la mol\'ecula puede vibrar\footnote{En otras palabras, este es el espectro infrarrojo de nuestra mol\'ecula.}. Para hacer esto m\'as evidente, podemos ir a wxMacMolPlt y abrir nuestro archivo de salida. Luego vamos a hacer un par de modificaciones, ya que nuestro $CO_2$ es posible que haya salido con triples enlaces, en vez de dobles. Vamos a \textit{Subwindow} y luego a \textit{Bonds}. All\'i seleccionaremos la primera l\'inea y cambiaremos la opci\'on de enlace de \textbf{Triple Bond} a \textbf{Double Bond}. Repetimos lo mismo con la l\'inea de abajo. Cuando ya tengamos eso, vamos a cerrar esa ventana, volvemos a ir a \textit{Subwindow}, ahora a \textit{Frequencies} y all\'i podremos ver algo curioso. La gr\'afica no es tan ilustrativa, pero el listado de frecuencias nos puede llamar la atenci\'on. En especial si seleccionamos alguna de ellas. Al hacer esto, veremos flechas aparecer en la mol\'ecula mostrando el tipo de vibraci\'on responsable de esa frecuencia. Finalmente, si deseamos ver esto de manera animada, vamos a \textit{View} y luego a \textit{Animate Mode}. All\'i veremos c\'omo es que nuestra mol\'ecula vibra.\\
+
+Se le llama un \emph{Espectro IR} a la gr\'afica de las intensidades de vibraci\'on de una mol\'ecula con respecto a sus frecuencias. Como cada mol\'ecula tiene diferentes maneras de vibrar debido a sus diferentes \'atomos y enlaces, se puede asumir que un espectro IR es casi \'unico para cada mol\'ecula. Por esta raz\'on este se determina de manera experimental para identificarlas. En estos programas, el espectro calculado es  una buena aproximaci\'on, pero una aproximaci\'on al fin y al cabo. Por esta raz\'on, es conveniente tener en mente que un espectro generado con estos programas debe de dar una idea de qu\'e esperar, mas no debemos tomarlo como perfecto y definitivo.
+
+\subsubsection{Orbitales}
+Para terminar con los c\'alculos de QM hoy, vamos a ver una cosa de la que nos hablan \textit{TODA} la carrera y jam\'as nos dicen de d\'onde salen o c\'omo podemos visualizarlos: los orbitales. Calcular los orbitales de una mol\'ecula conocida, como la de agua, ser\'ia una tarea sencilla. Sin embargo, intentaremos algo un poquito m\'as complejo: \'acido ac\'etico.\\
+
+Para esto, iremos a Avogadro, dibujaremos el \'acido ac\'etico $ CH_3 COOH $ y la optimizaremos por medio de MM como ya hemos visto antes. Luego iremos a \textit{Extensions}, \textit{GAMESS}, \textit{Input Generator...}, y cuando ya tengamos abierta la ventana para generar el archivo de entrada, vamos a configurar un c\'alculo \textbf{Single Point Energy}, teor\'ia \textbf{RHF} y base \textbf{6-31G(d)}. Sin embargo, antes de generarlo, vamos a pasarnos a la pesta\~na \textit{Advanced Setup}. All\'i, vamos a seleccionar la opci\'on \textit{control} del cuadro de la izquierda, y vamos a buscar la opci\'on \textit{Localization Method}. Este lo vamos a colocar en la opci\'on \textbf{Foster-Boys}. Esto lo que har\'a ser\'a armar los orbitales a partir de el c\'alculo de los electrones que hace nuestro ordenador. Finalmente generamos nuestro archivo de entrada con \textit{Generate...} y nos disponemos a correr el c\'alculo con Firefly, como lo hemos hecho antes.\\
+
+Al finalizar el c\'alculo, vamos a abrir el archivo de salida con wxMacMolPlt. Esto nos permitir\'a ver, de entrada, nuestra mol\'ecula. Tengamos cuidado con los enlaces; hay veces que aparecen dobles o triples donde no deben de estar as\'i. Ahora que ya llegamos a este punto, vamos a agregar \textbf{un} orbital a nuestra estructura. Para eso vamos a ir a \textit{Subwindow}, \textit{Surfaces} y en el cuadro con opciones, escogeremos \textbf{3D Orbital}. Nos aparecer\'a una ventan con muchas opciones. En este momento solo vamos a ingresar las opciones que se nos dicen, pero m\'as adelante podemos ir cambiando par\'ametros y ver qu\'e sucede. Por ahora iremos \textit{Select Orbital Set} y lo colocaremos en \textbf{Localized Orbitals}, \textit{Number of Grid Points} lo llevaremos a \textbf{100}, \textit{Grid Size} lo llevaremos tambi\'e a \textbf{100}, a \textit{Contour Value} le ingresamos \textbf{0.09}, en \textit{Transparency} ingresamos \textbf{60}, seleccionamos \textbf{Solid} entre los radiobotones, activamos la caja de \textbf{Smooth} y, antes de presionar \textit{Update}, seleccionamos un orbital del listado en la caja inferior izquierda. Al actualizar presionando \textit{Update} veremos, por primera vez, uno de los orbitales del \'acido ac\'etico. Tom\'emonos el tiempo de apreciar esto.\\
+
+Al ir seleccionando diferente orbital e ir actualizando, nos vamos dando cuenta de que cada uno representa algo en particular. Por ejemplo, los orbitales del 1 al 4 son orbitales \textbf{s} de los \'atomos que \textit{no} son hidr\'ogeno.  Los orbitales 5, 7, 8, 10, 13 y 14 representan claramente enlaces simples, mientras que los orbitales 6 y 15 representan el enlace doble. Los orbitales 9, 16, 11 y 12 son de los electrones libres del ox\'igeno, tanto del carbonilo como del hidroxilo respectivamente. As\'i podemos ir apreciando poco a poco c\'omo es que se distribuyen los electrones en el espacio. Despu\'es de todo, un orbital es aquel espacio en donde un electr\'on es probable que vibre libremente.\\
+
+Existen un par de cosas que vale la pena mencionar cuando se habla de orbitales. Si nos damos cuenta, siempre se presentan con un lado de un color, y otro de otro. Esto se debe a que existe orbitales de enlace y de antienlace. Los de antienlace suelen ser los m\'as peque\~nos. En ellos es donde el electr\'on \emph{puede} estar, pero eso desestabiliza al enlace y la mol\'ecula en general. Qu\'e pasar\'a si cambiamos los dem\'as par\'ametros? Intent\'emoslo y comparemos con nuestro compa\~nero de al lado. Fuera de eso, hemos aprendido qu\'e se puede hacer con QM y que de esta podemos sacar mucha informaci\'on.
+
+\subsection{C\'alculos Semi-emp\'iricos}
+Los c\'alculos que acabamos de realizar con Firefly son \textbf{muy} finos. Es m\'as, se consideran los m\'as finos en lo que a teor\'ia se refiere. Esto parten de modelar cada electr\'on de cada \'atomo a partir de constantes universales como la carga y la masa del electr\'on y del prot\'on. Por esta raz\'on estos c\'alculos se llaman \textit{ab initio}, que significa \emph{desde el principio}. Sin embargo, debido a que toma mucho tiempo modelar cada electr\'on, se busc\'o hace tiempo otra soluci\'on a este problema. Algo que no involucrara calcular cada electr\'on, pero que diera resultados \textbf{bastante} cercanos a los obtenidos por m\'etodos \textit{ab initio}. Lo que se hizo fue determinar experimentalmente algunos valores que se mostraban casi constantes en mol\'eculas org\'anicas, y se termin\'o sustituyendo muchos c\'alculos por estos valores\footnote{Se parametriz\'o muchas de las integrales de los m\'etodos \textit{ab initio} con valores determinados espectrosc\'opicamente para mol\'eculas org\'anicas.}. De aqu\'i nacieron los m\'etodos semi-emp\'iricos.\\
+
+La ventaja de estos m\'etodos es su velocidad, sin embargo, sacrifican un poco de exactitud. Entre ellos podemos hallar MNDO, AM1, PM3 y algunos otros derivados. Sin embargo, entraremos en detalle sobre estos 3, ya que suelen ser los de referencia y de donde parten los dem\'as.\\
+
+En el caso del MNDO se aplic\'o la idea antes propuesta de sustituir algunos c\'alculos por valores ya pre-establecidos. El problema con esto es que este m\'etodo suele mostrar energ\'ias muy grandes cuando se trata de repulsi\'on entre n\'ucleos at\'omicos. Esto fue arreglado cuando se introdujo el m\'etodo AM1. Este busc\'o arreglar este problema al incluir en el modelo algunas funciones extra junto con los par\'ametros experimentales. Por lo anterior AM1 da una mejor descripci\'on de la repulsi\'on internuclear, y suele ser el m\'as utilizado en el caso de mol\'eculas org\'anicas y biomol\'eculas. Finalmente est\'a el m\'etodo PM3. Este no fija ninguno de sus valores constantes con alg\'un resultado experimental, sino que los optimiza todos simult\'aneamente. Su ventaja es que predice muy bien los calores de formaci\'on de las mol\'eculas, pero falla al describir la geometr\'ia de amidas.\\
+
+En general los m\'etodos semiemp\'iricos se utilizan como referencia o para el c\'alculo de energ\'ias de mol\'eculas muy grandes. Intentaremos ahora realizar un c\'alculo de energ\'ia de la mol\'ecula de \emph{N-(4-hidroxifenil)acetamida} (paracetamol) que se halla entre los archivos del taller. Primero vamos a abrir la mol\'ecula en Avogadro. Siempre recordemos optimizarla con MM antes de generar los archivos de entrada de QM. Luego iremos a \textit{Extensions}, \textit{GAMESS}, e \textit{Input Generator...} para generar nuestros archivos de entrada. En este caso vamos a generar 2 archivos de entrada los cuales deben de llevar los siguientes par\'ametros\footnote{Cuidado al nombrar los archivos! Sus nombres deben ser diferentes, al igual que los de salida de Firefly.}.
+
+\begin{enumerate}
+\item \textbf{Single Point Energy}, \textbf{RHF}, \textbf{6-31G(d)}, \textbf{Gas}, \textbf{Singlet}, \textbf{Neutral}
+\item \textbf{Single Point Energy}, \textbf{AM1}, \textbf{Gas}, \textbf{Singlet}, \textbf{Neutral}
+\end{enumerate}
+
+Como podemos ver, en el primer caso estamos calculando solo la energ\'ia de la mol\'ecula, pero con la teor\'ia y base que hab\'iamos utilizado antes. En el segundo caso, cambiamos la teor\'ia por AM1 y dejamos todo lo dem\'as igual. Es importante notar que en este caso no hay base! Los m\'etodos semi-emp\'iricos no las necesitan, pues no realizan c\'alculos que las requiran. Vamos a correr un c\'alculo a la vez y vamos a notar cu\'anto se tarda cada uno en terminar.\\
+
+Despu\'es de que terminen, tomemos nota de cu\'anto tom\'o cada c\'alculo y abramos ambos archivos de salida para ver que hayan terminado bien. Luego de esto, anotemos cu\'anto es el momento dipolar de la mol\'ecula en cada caso (Se halla debajo de \textit{/D/} y justo sobre \textit{...... END OF PROPERTY EVALUATION ......} casi al final de cada archivo. Si nos damos cuenta, el m\'etodo semi-emp\'irico da resultados diferentes para la misma mol\'ecula que hab\'iamos calculado con m\'etodos \textit{ab initio}. Queda a criterio del investigador qu\'e m\'etodo escoger, entonces, al plantear un c\'alculo mec\'anico-cu\'antico.\\
+
+Es importante tomar en cuenta el tipo de ordenador con el que se cuenta tambi\'en! Pero de necesitar realmente resultados r\'apidos y finos, se recomienda revisar qu\'e ofrecen el m\'etodo DFT. Este \'ultimo no lo cubriremos por ser un poco m\'as avanzado.
+
+\subsection{Din\'amica Molecular}
+Ahora que ya hemos visto todas las maneras en que podemos modelar una mol\'ecula quieta, queda solo una cosa: modelar muchas en movimiento. La t\'ecnica para hacer esto se llama din\'amica molecul\'ar o MD y utiliza muchos de los conceptos de MM para sus c\'alculos. La diferencia es que, para que las mol\'eculas se muevan en MD, se calcula hacia d\'onde se deben de mover todas ellas a modo de que el campo de fuerzas de MM disminuya en su energ\'ia. El proceso inicia de esta manera, pero se les a\~nade cierta inercia a cada mol\'ecula para que todas sigan en movimiento y vibrando a determinada velocidad. Esto se traduce despu\'es en \emph{temperatura}. Claro, la energ\'ia de todas las mol\'eculas estar\'a variando con el tiempo, pero ... no es as\'i que se comportan las mol\'eculas en la naturaleza?\\
+
+La idea de MD es entonces simular las mol\'eculas ya como se estar\'ian comportando en la realidad. Algunos argumentar\'ian que entonces se deber\'ia de utilizar QM para esto. Y es cierto! El problema es que los c\'alculos de MD ya son mucho m\'as demandantes que los de QM a\'un utilizando principios tan sencillos como los de MM. A pesar de que existen formas de combinar MD con QM a trav\'es de m\'etodos QM/MM, no se prefieren a menos de que se busquen resultados demasiado finos.\\
+
+Para ver una peque\~na demostraci\'on de una din\'amica, vamos a ir a \href{http://www.rcsb.org/pdb/home/home.do}{RCSB Protein Data Bank} y vamos a descargar el PDB de \textbf{1GUJ}. Este lo vamos a abrir en \textbf{UCSF Chimera}, en donde vamos a eliminar los dos grupos sulfato y las aguas que est\'an con la estructura. Luego, vamos a guardar esta estructura como un nuevo PDB: \textit{1GUJ\_mod.pdb}. Ahora vamos a ir a nuestra Terminal y vamos a abrir \textbf{VMD} escribiendo \inlinecode{vmd} y presionando enter. Ahora que ya tenemos abierto VMD, vamos a abrir nuestra mol\'ecula nueva 1GUJ\_mod.pdb y vamos a estudiarla un poco. VMD parece ser un programa sencillo, pero tiene muchas opciones que nos permitir\'an armar nuestra din\'amica molecular de manera sencilla.\\
+
+Continuando, vamos ahora a ir a \textit{Extensions}, \textit{Modeling} y \textit{Automatic PSF Builder}. Esto nos abrir\'a una ventana con \textbf{muchas} opciones que, para efectos de este taller, no son relevantes. Inmediatamente nos vamos a ir al \'ultimo bot\'on de la ventana (\textit{I'm feeling lucky}) y lo vamos a presionar. Esto nos llevar\'a a una ventana peque\~na que nos avisa que se han generado 2 documentos nuevos:
+
+\begin{itemize}
+\item 1 \emph{PDB} que contiene todas las coordenadas de cada \'atomo
+\item 1 \emph{PSF} que contiene la informaci\'on de todos los enlaces, \'angulos de enlace, \'angulos dihedro\footnote{Es la figura formada al enlazar 4 \'atomos uno tras otro y considerar sus dos \'angulos consecutivos.}, t\'erminos impropios\footnote{Conjunto de cuatro \'atomos formando un tr\'ipode.}, y otros t\'erminos de la mol\'ecula.
+\end{itemize}
+
+Cerramos la ventana de \textit{AutoPSF} para continuar con nuestros nuevos archivos. Estos son requerimiento para que el programa que hace la din\'amica pueda calcular bien cada parte de la mol\'ecula.\\
+
+Ahora, estas mol\'eculas son biol\'ogicas, por lo que nunca se les ve fuera del agua. Por esta raz\'on, vamos a agregar un poco de agua para solvatarla y obtener datos m\'as certeros sobre c\'omo se comporta esta. Para ello vamos a ir a \textit{Extensions}, \textit{Modeling} y \textit{Add Solvation Box}. All\'i tambi\'en se nos presenta una ventana con muchas opciones. Nos aseguraremos que en \textit{Output:} se halle el nombre \textbf{1GUJ\_wb} y que cada una de las casillas de \textit{Box Padding:} tenga \textbf{10} escrito como valor m\'inimo y m\'aximo en todos los casos. Lo dem\'as lo vamos a dejar as\'i como nos aparece y vamos a hacer click en \textit{Solvate}. Esto generar\'a nuestros dos nuevos documentos: 1 PDB y 1 PSF, pero ahora con el agua solvatando nuestra prote\'ina. Cerremos esa ventana y tom\'emonos el tiempo de ver c\'omo es que se va preparando una mol\'ecula para MD.\\
+
+El \'ultimo paso de preparaci\'on es generar el documento de entrada de la din\'amica. Esto lo logramos al ir a \textit{Extensions}, \textit{Simulation} y finalmente a \textit{NAMD Graphical Interface}. La ventana que se nos va a presentar es un poco menos compleja que las anteriores, y sin embargo, esta s\'i la cambiaremos un poco. En \textit{Working dir:} debe de estar el directorio donde se hallan nuestros documentos 1GUJ\_wb \textit{PDB} y \textit{PSF}. Luego, en \textit{Simulation basename:} vamos a escribir \textbf{1GUJ\_md}. Los siguientes 3 campos deben de estar llenos ya. Al final deben de estar activados los cuadros de \textit{Minimize} y \textit{Molecular dynamics}. Los valores que deben de ocupar las casillas de las anteriores 2 opciones son 2500 y 10000 respectivamente. Al tener ya todo esto, vamos a presionar \textit{Write NAMD config file}. Cerramos esta ventana y con esto concluye la etapa preparativa.\\
+
+Para correr la din\'amica debemos saber cu\'antos n\'ucleos de procesamiento tiene nuestro ordenador; este ser\'a un n\'umero importante ahora. Este paso un poco demandante para nuestro ordenador, as\'i que debemos tener nuestro ordenador en un lugar fresco y ventilado. En la l\'inea de comando vamos a escribir la direcci\'on a \textbf{namd2} seguido de \inlinecode{+pX 1GUJ\_md.namd >\ resultados.log} en donde \textbf{X} es el n\'umero de n\'ucleos que tiene nuestro ordenador. Vamos a presionar enter y vamos a esperar. Depende de nuestro ordenador lo que se vaya a tardar la din\'amica, pero este proceso es \textbf{lento} y \textbf{bastante demandante}. No nos sorprendamos si nuestro ordenador se tarda m\'as de 10 o 15 minutos en terminar.\\
+
+Para saber cu\'ando termin\'o la din\'amica, solo debemos esperar a que en la l\'inea de comando se nos vuelva a dar la oportunidad de ingresar comandos. Otra manera es abrir \textit{System Monitor} y observar en qu\'e momento decrece la cantidad de procesamiento de nuestro ordenador. Cuando la din\'amica haya terminado, vamos a ir a \textit{VMD} y vamos a hacer click derecho sobre \textbf{1GUJ\_wb.psf}. All\'i haremos click sobre \textit{Load Data Into Molecule...} y vamos a seleccionar \textbf{1GUJ\_wb.dcd}. Al cargar este archivo con \textit{Load} veremos la din\'amica como una pel\'icula.\\
+
+En este punto, es recomendable ir a \textit{Graphics} y \textit{Representations...} para cambiar la manera de representar nuestra mol\'ecula. Juguemos con las representaciones al hacer click en \textit{Create Rep} y cambiando estilos en \textit{Drawing Method}. Podemos activar y desactivar formas de visualizar nuestra mol\'ecula al hacer doble click en las representaciones del listado. Tambi\'en podemos visualizar solo ciertas partes del conjunto de mol\'eculas si nos pasamos a la pesta\~na \textit{Selections}. Probemos diferentes opciones y veamos qu\'e se puede hacer.\\
+
+Extraer la energ\'ia de la din\'amica es un proceso un poco m\'as largo que no vamos a cubrir esta vez, pero vamos a mencionar que s\'i se puede hacer y calcular estad\'isticos de ella. Por ahora, hemos terminado.
+
+\section{QM/MM y FF adaptados a casos espec\'ificos}
+Un problema que presentan los programas de MD es que fueron dise\~nados para modelar biomol\'eculas o biopol\'imeros, pero no mol\'eculas peque\~nas. Por esta raz\'on es \textbf{mucho} m\'as dif\'icil preparar una MD de un benceno que la de una prote\'ina como la insulina como la que hemos estado usando. Para evitar este problema y \emph{adem\'as} perfeccionar c\'alculos es que se utilizan t\'ecnicas QM/MM que calculan MD de una prote\'ina con MM, pero a \textbf{una} mol\'ecula peque\~na de nuestra elecci\'on la modela con QM. Esta t\'ecnica es computacionalmente muy cara, puesto que demanda recursos mayores a los de cualquiera de nuestros ordenadores personales. Sin embargo, es utilizada para lograr resultados muy finos de interacciones prote\'ina-ligando o enzima-ligando.\\
+
+Otra alternativa es \emph{parametrizar} un campo de fuerzas. Esto implica calcular los par\'ametros\footnote{Las constantes para la ley de Hook, dihedros, fuerzas de VdW y cargas electrost\'aticas.} de MM para una mol\'ecula peque\~na por medio de QM. Una vez calculadas estos par\'ametros, ya solo se introducen en el FF y la din\'amica corre con MM como de costumbre. Esta aproximaci\'on al problema es la m\'as utilizada, y sin embargo es un poco oscura y complicada puesto que asume muchas cosas y requiere de muchos paquetes de software m\'as. VMD se supone est\'a capacitado para hacer muchos pasos de una parametrizaci\'on para los campos de fuerzas CHARMM y GROMOS, pero a\'un da problemas hoy. Este es entonces un tema abierto a investigaci\'on e ideas.
+
+\section{Comentarios Finales}
+Felicidades por terminar el d\'ia 8 del taller de QCA! Este d\'ia es intenso y un poco pesado, pues la teor\'ia de todo esto es dif\'icil de comprender a la primera. Recordemos que todo esto son solo los fundamentos, pero son temas que se ven en posgrado!\\
+
+Estas son las herramientas m\'as poderosas de la qu\'imica computacional, pero todav\'ia queda mucho por desarrollar para lograr facilidad de uso y resultados predictivos. Por ahora, es bueno que sepamos que existen varias t\'ecnicas para lograr muchos resultados de diferentes condiciones qu\'imicas. Los c\'alculos de QM \textit{ab initio} son siempre los m\'as exactos, pero m\'as tardados. Los c\'alculos de QM con DFT suelen ser m\'as r\'apidos, pero se sacrifica algunas propiedades que se pueden calcular con los m\'etodos \textit{ab initio}. Los c\'alculos semi-emp\'iricos son los m\'as r\'apidos en QM, pero se sacrifica muchas cosas con ellos. Despu\'es pasamos a los FF entre los cuales hay uno especializado casi para cada necesidad. Finalmente existe una t\'ecnica que toma grupos de \'atomos como un solo bloque. Esta \'ultima se llama \textbf{Course Grained} y se utiliza en sistemas \emph{MUY} grandes en los que se modela (generalmente) l\'ipidos o membranas lip\'idicas. Existen otras t\'ecnicas m\'as espec\'ificas, pero ninguna que valga la pena mencionar.\\
+
+Por ahora, felicidades de nuevo por haber terminado otro d\'ia del TQCA con \'exito y haber aprendido sobre las principales t\'ecnicas en qu\'imica computacional en esta \'epoca. \'Animo, pues solo queda un d\'ia en el que se ver\'a an\'alisis de datos, relaciones SAR y flujos de trabajo. Nos vemos al final!
+
+\section*{Licencia}
+
+\noindent \includegraphics{img/cc_big.png}
+
+\noindent Taller de Qu\'imica Computacional Aplicada by \href{http://github.com/zronyj/TQCA}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
+
+\end{document}

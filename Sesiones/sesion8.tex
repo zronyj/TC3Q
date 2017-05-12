@@ -1,0 +1,304 @@
+%
+% dia7.tex
+% 
+% Copyright 2015 Rony J. Letona <rony@zronyj.com>
+% 
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2 of the License, or
+% any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+% MA 02110-1301, USA.
+%
+
+\documentclass[10pt,letterpaper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{float}
+\usepackage{upquote}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Rony J. Letona}
+\title{Taller de Qu\'imica Computacional Aplicada: D\'ia 7}
+\definecolor{light-gray}{gray}{0.90}
+
+\newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
+
+\newcommand{\inlinecode}[1]{
+\colorbox{light-gray}{\texttt{#1}}
+}
+
+\newsavebox{\selvestebox}
+\newenvironment{Code}
+{
+\begin{lrbox}{\selvestebox}%
+\begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax}
+\fontfamily{\ttdefault}\selectfont
+}
+{\end{minipage}\end{lrbox}%
+\begin{center}
+\colorbox{light-gray}{\usebox{\selvestebox}}
+\end{center}
+}
+
+\newcommand{\Picture}[1]
+{
+	\begin{figure}[H]
+	\begin{flushleft}
+	\includegraphics[width=\columnwidth]{#1}
+	\end{flushleft}
+	\end{figure}
+}
+
+\begin{document}
+\maketitle
+
+\section{Bioinform\'atica}
+Despu\'es de haber conocido un poco de lo b\'asico en ciencias de la computaci\'on y c\'omo estas se aplican a m\'etodos num\'ericos y matem\'atica, ya vamos teniendo una base m\'as s\'olida sobre c\'omo tratar con nuestro ordenador. Ya no nos da miedo trabajar con la terminal, ya entendemos de qu\'e nos hablan cuando se refieren a base de datos, ya sabemos hacer peque\~nos scripts en un lenguaje de programaci\'on no tan complicado, etc. La diferencia la podemos sentir ya. Ahora vamos a comenzar con las diferentes disciplinas cient\'ificas que utilizan el poder de nuestro ordenador para lograr resultados.\\
+
+Lo primero es un algoritmo muy particular que se utiliza en la rama hermana de \textbf{bioinform\'atica}. Esta rama de la biolog\'ia se enfoca mucho en obtener, almacenar e interpretar informaci\'on gen\'etica y prot\'eica. Por ello, mucho se enfoca en formas de b\'usqueda, alineaci\'on y de comparaci\'on de secuencias de bases de ADN o de amino\'acidos. El algoritmo que vamos a ver hoy hace dos de esas tres cosas: busca y compara segmentos de secuencias. Comencemos con este.\\
+
+\subsection{BLAST}
+El algoritmo BLAST (\textbf{B}asic \textbf{L}ocal \textbf{A}lignment \textbf{S}earch \textbf{T}ool) es el resultado de varios intentos de intentar comparar secuencias de ADN y de amino\'acidos de manera r\'apida y eficiente. Vamos a verlo a detalle con un ejemplo.\\
+
+BLAST primero descarta las regiones de baja complejidad de una secuencia. Estas son las regiones en las que algunos pocos elementos se presentan de maneras repetitivas. En nuestro caso vamos a obviar esa parte, porque no vamos a trabajar con secuencias tan complicadas.\\
+
+El coraz\'on del algoritmo es una matriz\footnote{Revisar la matriz BLOSUM62, qu\'e compara y su relaci\'on con el algoritmo BLAST.} que nos ayuda a interpretar la prioridad que le vamos a asignar a cada amino\'acido o cada base nitrogenada. Para hacer el ejemplo sencillo, vamos a trabajar con ADN. En ese caso, vamos a dise\~nar nuestra matriz en donde comparamos una secuencia de referencia con una secuencia de prueba$^{*}$ de la siguiente forma:
+
+\begin{equation*}
+\begin{matrix}
+ & \vert & A^{*} & C^{*} & G^{*} & T^{*}\\
+\hline
+A & \vert & \textbf{1} & -1 & -1 & -1\\
+C & \vert & -1 & \textbf{1} & -1 & -1\\
+G & \vert & -1 & -1 & \textbf{1} & -1\\
+T & \vert & -1 & -1 & -1 & \textbf{1}
+\end{matrix}
+\end{equation*}
+
+Esta peque\~na matriz nos dice que si las bases nitrogenadas son iguales en ambas secuencias que estamos comparando, entonces el valor de la comparaci\'on es 1, si no, es de -1. La idea es entonces ir comparando las bases nitrogendas e ir sumando el resultado de las comparaciones: la primera con la primera, la segunda con la segunda, etc. Si el resultado de esa suma supera cierto umbral, se toma como que las cadenas de ADN son similares. Si no lo supera, la descarta. Sin embargo, hacer eso con cada base ser\'ia un proceso muy tardado.\\
+
+Para resolver este problema, utilizamos otra estrategia: dividimos nuestra secuencia en \emph{palabras} de 3 o 4 letras (al comparar ADN las palabras son de 11 letras generalmente). Eesto significa que, si tenemos una secuencia $\underset{0}{G} \underset{1}{A} \underset{2}{T} \underset{3}{G} \underset{4}{C} \underset{5}{A}$, las palabras que 4 letras que podr\'iamos formar son: $\underset{0}{G} \underset{1}{A} \underset{2}{T} \underset{3}{G}$, $\underset{1}{A} \underset{2}{T} \underset{3}{G} \underset{4}{C}$ y $\underset{2}{T} \underset{3}{G} \underset{4}{C} \underset{5}{A}$. Ahora que ya tenemos dividida la cadena en palabras, podemos proceder a ordenar y ver qu\'e tanto se repiten las palabras. Esta es una de las diferencias entre el algoritmo BLAST y su antecesor FASTA. En el caso del \'ultimo, todas las palabras son importantes y se revisan. En el caso de BLAST, solo toma en cuenta las palabras m\'as importantes seg\'un la cantidad de veces que aparece en la secuencia y el \emph{score} obtenido de compararse con la matriz de la que hablamos anteriormente. Veamos esto por pasos.\\
+
+Primero comenzamos con la parte m\'as sencilla: Revisamos la cantidad de veces que aparece la palabra en cada secuencia y las anotamos. Luego ordenamos las palabras por la cantidad de veces que aparecieron. Finalmente, revisamos si las palabras de la secuencia de prueba aparecen en la secuencia de referencia.\\
+
+Entonces, en resumen, vamos a dividir la secuencia en palabras. Luego vamos a ver qu\'e tanto se repiten las palabras que hallamos y a hacer una lista de ellas. Las ordenamos y comparamos las palabras de la secuencia de prueba con la de referencia. El paso que determina la diferencia entre BLAST y FASTA va entre el ordenado y la comparaci\'on. Lo que haremos es escoger solo las palabras que tengan muchas apariciones. Cu\'anto es \emph{muchas}? Un umbral que nosotros decidamos. Esto va a depender mucho de la longitud de la secuencia. Podr\'iamos tener un valor relativo al tama\~no de la secuencia, pero en este caso lo vamos a definir nosotros como un valor fijo para mantener las cosas simples.\\
+
+Una vez hecho todo esto, toca realmente comparar las dos secuencias. Para ello comenzamos a buscar palabra por palabra de la secuencia de prueba para compararla con la secuencia de referencia. Al comparar una palabra, buscamos la palabra en la secuencia de referencia, la encontramos y luego vamos revisando, hacia la derecha y la izquierda, las letras alrededor de la palabra en las secuencias. Al ir haciendo esto, vamos comparando utilizando la matriz que definimos al principio. La idea es seguir creciendo hacia los lados mientras el \emph{score} sea m\'as alto que cierto umbral. Si el \emph{score} baja, guardamos la regi\'on que encaj\'o con un \emph{score} mayor al umbral todav\'ia, y regresamos a seguir revisando con la siguiente palabra. Al final, vamos a tener un listado con todas las regiones de las secuencias que se parecen! Ahora es donde se pone interesante.\\
+
+De listado que obtuvimos, vamos a escoger solo los mjores resultados. Es decir, los segmentos que tengan el \emph{score} m\'as alto. La idea es que podamos visualizar estos resultados (en nuestro caso). En el caso de los servidores en internet que utilizan BLAST para buscar en grandes bases de datos, solo se basan en el \emph{score} m\'as alto para revisar cu\'al de todas las secuencias en la base de datos es la m\'as parecida a nuestra secuencia de prueba. Al final lo que obtendr\'iamos de una b\'usqueda as\'i es la secuencia que m\'as se parece a la nuestra. Pero en nuestro caso, solo deseamos verlas una al lado de la otra. Por eso, vamos a dise\~nar una peque\~na funci\'on para poder visualizar el resultado.\\
+
+Este es, entonces, un buen momento para revisar el documento \emph{BLAST (attempt).ipynb} y repasar todo lo que hemos dicho ac\'a. Luego, vamos a probar con las secuencias que se nos ocurran para ver c\'omo reacciona el algoritmo. Cuando logremos explicar, en nuestras palabras, lo que hace cada funci\'on en el algoritmo, c\'omo es que todo se integra, y hallemos al menos una manera de optimizarlo, podemos pasar a la siguiente secci\'on.
+
+\subsection{An\'alisis de Secuencias}
+Una parte importante de la bioinform\'atica implica analizar pol\'imeros como prote\'inas o enzimas. Esta vez lo vamos a hacer de manera visual y utilizando UCSF Chimera. Para ello vamos a necesitar 1 enzima, la cual vamos a buscar y descargar en \href{http://www.rcsb.org/pdb/home/home.do}{RCSB PDB}. En particular, queremos la prote\'ina con c\'odigo: \textbf{1PXX}. Vamos a descargar el archivo con extensi\'on \emph{.pdb} simple y lo vamos a guardar en nuestra carpeta de datos.\\
+
+A continuaci\'on vamos a abrir UCSF Chimera y vamos a abrir la prote\'ina. Al abrirla, observ\'emosla, veamos qu\'e tiene de especial, algo que nos llame la atenci\'on, si identificamos un sitio activo, etc. Cuando ya hayamos revisado un poco, vamos a ir a \emph{Tools}, \emph{Sequence} y \emph{BLAST Protein}. All\'i vamos a escoger la secuencia \textbf{1PXX}, cadena \textbf{A}, y vamos a hacer click en \emph{Apply}. As\'i vamos a ver c\'omo es que BLAST va hallando todas las prote\'inas que se le parecen a esta secuencia. Es importante notar que entre los resultados va a aparecer nuestra prote\'ina \textbf{1PXX} y otra prote\'ina con c\'odigo \textbf{4FM5}, las cuales vamos a utilizar en un momento.\\
+
+Ahora que ya vimos c\'omo funciona BLAST en la vida real, vamos a ver algunas propiedades de nuestra prote\'ina \textbf{1PXX} y la \textbf{4FM5} hallada con BLAST. Esto es, qu\'e tanto se parecen entre ellas. Primero vamos a escoger las prote\'inas \textbf{1PXX} y \textbf{4FM5} halladas con BLAST, y luego vamos ir a \emph{Load Structure}. En unos segundos vamos a ver c\'omo es que las nuevas prote\'inas aparecen superpuestas de manera casi perfecta. Lo que no se ve muy bien es nuestra prote\'ina original. Para ello, la vamos a quitar de la pantalla. Nos vamos a \emph{Favorites}, \emph{Model Panel}, seleccionamos nuestra prote\'ina, y presionamos \emph{close} de entre las opciones que se nos presentan. Ahora, con el af\'an de centrar nuestros dos nuevos modelos, vamos a \emph{Actions}, y luego a \emph{Focus}. Ahora estamos listos para comenzar el an\'alisis.\\
+
+Cerramos todas las ventanas de di\'alogo que ten\'iamos abiertas y vamos nuevamente a \emph{Tools}, \emph{Sequence} y esta vez pasamos a \emph{Sequence}. All\'i seleccionamos la cadena \textbf{A} de la prote\'ina \textbf{1PXX} y hacemos click en \emph{OK}. A continuaci\'on nos aparecer\'a una ventana con la secuencia aminoac\'idica completa de la prote\'ina que escogimos. Hay algunas regiones, sin embargo, que est\'an en cajas con diferentes colores. Qu\'e pasar\'a si hacemos click en ellas? O mejor a\'un, qu\'e significar\'an que tengan diferentes colores? Intent\'emoslo y veamos qu\'e descubrimos. Como un tip, ir a \emph{Select}, \emph{Clear selection} puede servirnos.\\
+
+Continuando, una cosa que puede llamar nuestra atenci\'on es comparar qu\'e tanto se parecen las dos prote\'inas en su secuencia aminoac\'idica. Se podr\'a hacer esto? En la ventana donde tenemos la secuencia de amino\'acidos, vamos a ir a \emph{Edit}, luego a \emph{Add sequence ...}, y ya en la ventana vamos a escoger la pesta\~na \emph{From structure}. All\'i vamos a escoger la secuencia \textbf{4FM5} cadena \textbf{A}, y haremos click en \emph{OK}. Despu\'es de unos segundos, habremos notado que ahora tenemos las dos secuencias una sobre la otra y separadas a modo de hacer m\'as comprensible el an\'alisis entre las dos. Resulta interesante muchas veces notar que las cajas de colores no coinciden muchas veces, a pesar de que la secuencia de amino\'acidos es similar. Esto se debe a algunas diferencias en la posici\'on de los \'atomos de las prote\'inas; en algunos casos forman una estructura especial, y en otros no.\\
+
+Finalmente, vamos a determinar si realmente la identidad de los amino\'acidos de ambas secuencias es la misma. En otras palabras, vamos a ver qu\'e tanto se parecen las dos secuencias. Para ello hacemos click en \emph{Info} y en \emph{Percent Identity}. Seleccionamos las dos cadenas que deseamos comparar y hacemos click en \emph{Apply} para ver el porcentaje en el que se parecen ambas cadenas. Esta cifra aparecer\'a en la esquina inferior izquierda de la ventana donde vemos las secuencias de amino\'acidos. Qu\'e sucedi\'o con el n\'umero que obtuvimos? Nos parece satisfactorio el resultado obtenido? Y para dejar una inquietud: qu\'e pasar\'ia si, escogiendo \emph{otra} prote\'ina de la lista de resultados de BLAST, hacemos lo mismo? Intent\'emoslo y veamos qu\'e sucede. Posteriormente, comentemos con nuestro compa\~nero a ver qu\'e opini\'on resulta teniendo despu\'es de realizar esta prueba. De qu\'e nos sirve saber el porcentaje de identidad entre prote\'inas?\\
+
+La cantidad de herramientas que nos da \textit{Chimera} para seguir trabajando es inmensa. Exploremos qu\'e m\'as es lo que podemos ir haciendo con este programa. Generalmente lo utilizamos para eliminar residuos o agua que ha quedado en la estructura 3D de las prote\'inas. Vamos a seguir en este ambiente, pero vamos a pasar a otro tema para continuar.
+
+\subsection{Docking}
+El docking molecular es una t\'ecnica que permite la simulaci\'on del acoplamiento de una mol\'ecula con otra, y el c\'alculo de la energ\'ia de interacci\'on entre ambas. Si bien es sencilla y relativamente r\'apida, no es la m\'as efectiva para hallar resultados contundentes en investigaci\'on. Se utiliza m\'as como una t\'ecnica exploratoria para revisar si existe la posibilidad de un acoplamiento, o para determinar un par\'ametro energ\'etico en un tamizaje molecular virtual. En nuestro caso vamos a tratar de realizar un docking de un analg\'esico en nuestra prote\'ina \textbf{1PXX}, que por cierto es la enzima ciclooxigenasa tipo 2.\\
+
+\subsubsection{Utilizando una Interfaz Gr\'afica}
+
+Para comenzar con esto, vamos a cerrar y volver a abrir \textit{UCSF Chimera} y vamos a abrir exclusivamente nuestra prote\'ina \textbf{1PXX}. Adem\'as de esto, vamos a abrir nuestra prote\'ina con un editor de texto para ver de qu\'e consta un documento \emph{pdb}. La idea esta vez ser\'a hallar informaci\'on sobre la prote\'ina y sobre el sitio activo de la misma. Vamos a ir paso a paso. Solo viendo nuestro documento \emph{pdb} en el editor de texto, vamos a plantearnos las siguientes preguntas:
+
+\begin{itemize}
+\item Qu\'e prote\'ina es esta realmente y qu\'e regula?
+\item Qu\'e inhibidor tiene en su estructura?
+\item De qu\'e organismo es esta prote\'ina?
+\item Se puede saber qui\'en realiz\'o el estudio en donde se elucid\'o esta estructura?
+\end{itemize}
+
+Cuando ya tengamos una respuesta para esto, podremos continuar. Siempre intentemos comentar nuestros hallazgos con alguien m\'as y buscar qu\'e m\'as podemos hallar entre toda la informaci\'on que se nos presenta.\\
+
+Ahora nos toca revisar detenidamente a la prote\'ina con Chimera. Una de las primeras cosas que probablemente nos van a interesar son los \emph{residuos} que se hallan cerca, o dentro de la mol\'ecula. Para ello, vamos a irlos revisando uno a uno. Vamos a ir a \emph{Select}, luego a \emph{Residue}, y en la categor\'ia de \emph{all nonstandard} vamos a hallar a todas aquellas mol\'eculas que no son una secuencia de amino\'acidos. De estas nos van a interesar HOH y DIF.\\
+
+Si hacemos click en HOH, vamos a seleccionar todas las mol\'eculas de \emph{agua} que se hallan en la estructura. Estas no nos sirven generalmente y aparecen como producto de haber determinado la estructura de la prote\'ina con difracci\'on de rayos X. En este caso no las vamos a eliminar.\\
+
+Si tenemos duda sobre los dem\'as residuos, podemos irlos seleccionando para verlos mejor e ir identificando cada uno. Si eso no nos interesa, podemos dejarlo con que BOG es b-octilgluc\'osido, HEM es un grupo hemo, y NAG es una N-acetil-D-glucosamina. El \'unico grupo que queda, que ser\'a el que nos interesa, es el grupo DIF. Pero claro, si leimos bien el contenido del documento \emph{pdb}, sabemos de qu\'e se trata.\\
+
+Ahora que ya tenemos una mejor idea sobre la prote\'ina, vamos a identificar su sitio activo. Para ello necesit\'abamos saber que DIF est\'a ya en \'el. Lo que nos queda es definir \emph{ese} espacio como el sitio y remover a DIF para poder colocar algo m\'as all\'i adentro y evaluar la energ\'ia de ese cambio. Primero, debemos identificar la cadena \textbf{A} de la prote\'ina. Para ello solo sabremos que seleccionarla es una tarea f\'acil. Quedar\'a en nosotros averiguar c\'omo identificarla. Una vez ya sepamos cu\'al es la cadena \textbf{A}, vamos a seleccionar a DIF y a rotar la prote\'ina para poder ver bien el sitio activo en el que se encuentra. Cuando ya tengamos identificado el lugar, vamos a abrir otra mol\'ecula con Chimera: el paracetamol. Una vez abierta, vamos a dirigirnos a \emph{Tools}, luego a \emph{Surface/Binding analysis}, y finalmente a \emph{AutoDock Vina}. Esto nos deber\'ia haber llevado a una ventana con una serie de opciones. Ahora vamos a entender qu\'e significa cada una.\\
+
+La primera opci\'on, \emph{Output file}, nos ofrece un lugar para crear un archivo con la configuraci\'on del docking que deseamos hacer. Generalmente es una buena idea colocar nuestros archivos en lugares especiales para no perderlos o confundirlos despu\'es. Luego est\'a el receptor que deseamos utilizar. En este caso este ser\'a la prote\'ina \textbf{1PXX}. Para escoger el ligando, escogemos la mol\'ecula de paracetamol que hab\'iamos abierto hace uno momento. Ahora es donde se vuelve un poco m\'as complicado.\\
+
+El sitio activo de la prote\'ina es un lugar amorfo que realmente no conocemos. Lo \'unico que podemos asumir es que si DIF est\'a en \'el, la regi\'on alrededor de DIF es el sitio. Para ello vamos a intentar hacer una caja imaginaria, la cual comprenda al sitio activo en ella. Por eso necesitaremos coordenadas para centrar la caja, adem\'as de las dimensiones de la misma. Este proceso es generalmente complicado, puesto que se debe de ir moviendo la caja hasta hallar el lugar adecuado. En este caso nos ahorraron eso dici\'endonos que el centro de la caja est\'a en 27, 25, 15, y que las dimensiones de la caja son de 15, 15 y 15. Al ingresar estos datos en nuestra ventana, veremos la caja aparecer comprendiendo la regi\'on alrededor de donde se halla DIF.\\
+
+Ahora ya tenemos al sitio activo comprendido en la caja, pero para poder colocar algo en \'el, necesitamos quitar a DIF de all\'i. Sin cerrar la ventana de AutoDock Vina, vamos a seleccionar a DIF nuevamente, y esta vez vamos a ir a \emph{Favorites}, \emph{Command Line}, en el campo que nos aparece en la parte inferior de la ventana escribiremos \inlinecode{delete selected} y presionaremos enter. Ahora ya hemos quitado a DIF. Para continuar vamos a volver a la ventana de AutoDock Vina y vamos a revisar la parte de \emph{Receptor options}. Estas son f\'aciles de entender. En nuestro caso vamos a configurarlas como \emph{true}, \emph{true}, \emph{false}, \emph{true}, \emph{false}, \emph{false}. Discutamos con nuestro compa\~nero de al lado por qu\'e creemos que estas opciones son las m\'as convenientes y qu\'e implica cambiar alguna de ellas. Despu\'es continuaremos con la parte del ligando.\\
+
+La parte del ligando (\emph{Ligand options}) es relativamente f\'acil tambi\'en. En esta hay dos opciones que pondremos la en \emph{true} y \emph{false}. Como detalle, solo diremos que es muy conveniente que el ligando est\'e bien descrito para que, tanto por efectos est\'ericos como electrost\'aticos, el c\'alculo del mismo est\'e hecho de la mejor manera posible. Luego tenemos la parte de \emph{Advanced options}. Aqu\'i se nos piden 3 datos:
+
+\begin{itemize}
+\item El n\'umero de \textit{modos} de acoplamiento. Esto es el n\'umero de conformaciones diferentes que deseamos obtener como resultado final. Generalmente el programa sugiere 10, y esta vez no vamos a cambiar esa cifra.
+\item Qu\'e tan exhaustiva debe de ser la b\'usqueda. En la documentaci\'on de AutoDock Vina se dice que un valor de 8 es suficiente, aunque podemos utilizar valores m\'as grandes (implicar\'an una b\'usqueda m\'as exhaustiva a un alto costo de tiempo) o m\'as peque\~nos (implican un menor tiempo de b\'usqueda, pero es probable que los resultados no sean los mejores).
+\item La m\'axima diferencia de energ\'ia solo le dice al programa que deseamos resultados que no fluct\'uen m\'as de ese n\'umero de kcal/mol. Lo recomendable es una diferencia de 3 nada m\'as.
+\end{itemize}
+
+En resumen, lo que estamos haciendo con esto es como si busc\'aramos comprar una botella de agua al menor precio posible. Entonces le estamos diciendo a nuestro programa que deseamos que encuentre solo 10 tiendas en donde vendan agua pura al menor precio. Que busque de puerta en puerta (sin tocar en las ventanas o portones [exhaustivo], y sin ignorar las puertas de alg\'un tipo [poco efectivo]). Y que deseamos que nos muestre solo aquellas tiendas en donde el precio del agua no sea m\'as caro que 3 centavos que el precio m\'as bajo hallado. Haber definido una caja para el sitio activo es como haberle dicho al programa que solo puede buscar en todas las tiendas dentro de la ciudad, y no afuera.\\
+
+Finalmente llegamos a \emph{Executable location}. Aqu\'i vamos a escoger la segunda opci\'on y vamos a colocar la ruta a AutoDock Vina. Si estamos en linux e instalamos todo de la forma usual, la ruta deber\'ia de ser \inlinecode{/usr/bin/vina} Para finalizar, hacemos click en OK y esperamos unos minutos. En este tiempo, vamos a explicar qu\'e es lo que est\'a sucediendo.\\
+
+AutoDock busca coordenadas y conformaciones con un algoritmo gen\'etico\footnote{Otros programas para realizar docking tambi\'en utilizan algoritmos de anillamiento simulado, variaciones del algoritmo gen\'etico u otros para realizar lo mismo.} y eval\'ua la energ\'ia del complejo formado utilizando una funci\'on especial. Si recordamos bien del d\'ia anterior, el algoritmo gen\'etico halla resultados de manera relativamente efectiva, pero a\'un as\'i tomar\'a un rato. AutoDock Vina no cuenta con una interfaz gr\'afica dedicada. Este programa se opera realmente desde una l\'inea de comando! Lo que est\'a haciendo Chimera es darnos una ayuda para preparar nuestras mol\'eculas y construir algo que llamamos un \emph{archivo de configuraci\'on}. Esto significa que podr\'iamos prescindir de Chimera, pero tendr\'iamos que convertir ambas mol\'eculas (prote\'ina y ligando) al formato \emph{pdbqt} y luego escribir un archivo de configuraci\'on en donde definimos muchos de estos par\'ametros. Al final tendr\'iamos que ejecutar a Vina desde la l\'inea de comando esperando que el proceso nos devuelva otros archivos como resultado. En ellos se hallar\'an los 10 modos hallados: las conformaciones y las energ\'ias. Pero por ahora, vamos a revisar el resultado de haber hecho esto en Chimera.\\
+
+Al terminar el c\'alculo, Chimera abrir\'a una nueva ventana con un listado de resultados. Cada uno es una conformaci\'on, y en el listado hallamos su valor de energ\'ia. Al ir seleccionando cada uno, podemos visualizarlo ya acoplado a la prote\'ina en el sitio activo. Estos resultados son la parte m\'as importante del docking, puesto que en ellos podemos ver qu\'e interacciones hay y por qu\'e. D\'emonos un tiempo para analizar y evaluar el resultado que se nos muestra y el por qu\'e es que sali\'o as\'i. Luego discutamos con los dem\'as.\\
+
+En este punto, lo \'unico que queda es revisar un poco las opciones para visualizar mejor lo que significa esa conformaci\'on del paracetamol en la prote\'ina. Una forma de hacer esto es si vamos a \emph{Select}, \emph{Residue}, \emph{***}. Luego otra vez a \emph{Select}, ahora a \emph{Zone} y con el primer par\'ametro seleccionado, hacemos click en OK. A continuaci\'on, vamos a \emph{Actions}, \emph{Surface}, \emph{show}. Y finalmente a \emph{Actions}, \emph{Surface}, \emph{transparency}, $40\%$. Esto nos dar\'a una mejor idea visual de c\'omo es que se halla el espacio molecular alrededor de nuestro ligando. Si deseamos probar con otras alternativas, no seamos t\'imidos. A la larga, este ejercicio lo podemos repetir en cualquier momento.\\
+
+Felicidades! Terminamos nuestro primer docking. Antes de seguir con la siguiente secci\'on, ser\'ia muy conveniente que discutamos con todos sobre el procedimiento que acabamos de hacer. Qu\'e acabamos de simular? Para qu\'e nos puede servir? Por qu\'e es que este procedimiento no es exacto o no representa bien a la realidad? Qu\'e ventajas/desventajas nos puede dar en un estudio? Y finalmente, en qu\'e tipo de estudio podr\'iamos utilizar esto? Tomemos nuestro tiempo para discutir esto y llegar a una opini\'on.
+
+\subsubsection{Utilizando una L\'inea de Comando}
+El docking resulta una tarea muy sencilla cuando se trata de \emph{una sola} mol\'ecula. Pero qu\'e pasa si tenemos que calcular 5000? Considerando que cada mol\'ecula se va a tardar un promedio de 5 minutos, y que no deseamos hacerlo solo en nuestros tiempos libres, pues terminar\'iamos en algunas semanas (si no meses). Automatizar el proceso se ve como una buena opci\'on. Pero c\'omo podr\'iamos hacer eso? Primero necesitamos desprendernos de la interfaz de Chimera.\\
+
+Poniendo todos nuestros conocimientos en pr\'actica, vamos a intentar realizar un docking de nuestra mol\'ecula de ibuprofeno sobre la prote\'ina \textbf{1PXX}. Para ello habr\'ia que realizar dos tareas claves: La primera es preparar nuestras mol\'eculas como \textit{pdbqt}s. La segunda es preparar un archivo de configuraci\'on. Comencemos con algo sencillo antes: preparar el receptor.\\
+
+Lo primero que tenemos que hacer, que no podemos hacer de otra forma, es sacar a DIF de nuestro receptor. Para eso vamos a abrir a \textbf{1PXX} con Chimera, seleccionaremos DIF, abriremos la l\'inea de comando de Chimera y escribiremos \inlinecode{delete selected}. Luego iremos a \emph{File}, \emph{Save PDB ...} y le daremos el nombre de \textbf{1PXXa} en donde dice \emph{File name:}. Ahora ya tenemos nuestro receptor listo sin DIF en el sitio activo. Lo siguiente es convertir esta mol\'ecula y nuestro ligando en formato \emph{pdbqt}.\\
+
+Las mol\'eculas las tenemos en dos formatos distintos: \emph{mol2} y \emph{pdb}. Lo primero que debemos hacer es convertirlas a formato \emph{pdbqt}. Para el ligando, vamos a hacer esto con un programa llamado OpenBabel que llamaremos desde la l\'inea de comando. Vamos a abrir una l\'inea de comando y vamos a ir a donde tenemos nuestras mol\'eculas. Cuando ya estemos all\'i, vamos a escribir: \inlinecode{babel -imol2 ibuprofen.mol2 -opdbqt ibuprofen.pdbqt}. Si nos damos cuenta, lo que estamos haciendo es llamando el programa y d\'andole como entrada la mol\'ecula en un formato, y dici\'endole en qu\'e formato la queremos despu\'es.\\
+
+Para el caso del receptor, vamos a utilizar otro script. OpenBabel podr\'ia hacer la transformaci\'on de \emph{pdb} a \emph{pdbqt}, pero el archivo no resulta teniendo lo necesario para que pueda correr en AutoDock Vina. Por eso usaremos un script que es parte de AutoDockTools. Vamos a ingresar lo siguiente:
+
+\begin{flushleft}
+\begin{Code}
+$\sim$\hspace*{-2mm} /MGLTools-1.5.6/MGLToolsPckgs/AutoDockTools/Utilities24/prepare\_receptor4.py\ -r\\ \hspace*{4mm}$\sim$\hspace*{-2mm} /ruta a proteina/1PXXa.pdb\ -o $\sim$\hspace*{-2mm} /ruta a proteina/1PXXa.pdbqt\ -A hydrogens
+\end{Code}
+\end{flushleft}
+
+Si nos damos cuenta, hicimos algo muy similar en este caso. La diferencia es el programa con que hicimos la transformaci\'on. Con esto ya tenemos convertidas las dos mol\'eculas que deseamos. Ahora lo que nos queda hacer es praparar un archivo de entrada. Este archivo no es tan complicado, solo hay que especificarle algunos par\'ametros. Creamos un nuevo archivo de nombre \emph{dock.conf} y le escribimos esto adentro:
+
+\begin{Code}
+receptor = 1PXXa.pdbqt\\
+ligand = ibuprofen.pdbqt\\
+out = dock.pdbqt\\
+log = dock.log\\
+center\_x = 27\\
+center\_y = 25\\
+center\_z = 15\\
+size\_x = 20\\
+size\_y = 20\\
+size\_z = 20\\
+cpu = 2\\
+exhaustiveness = 8\\
+num\_modes = 10\\
+energy\_range = 3
+\end{Code}
+
+Para entender mejor esto, vayamos por pasos. Primero estamos dici\'endole al programa qui\'enes van a ser los involucrados en el docking: el receptor y el ligando. Luego le decimos d\'onde deseamos colocar los resultados del docking (\emph{dock.pdbqt}), y un archivo donde vayamos dejando el r\'ecord de todo lo que ha pasado (\emph{dock.log}). A continuaci\'on definimos el centro de la caja\footnote{Estas coordinadas las sacamos de los datos del docking anterior. A la larga, el sitio activo es el mismo.} dentro de la que haremos el docking en sus coordenadas $x$, $y$ y $z$. Despu\'es definimos el tama\~no de la caja en las 3 dimensiones. Establecemos la cantidad de procesadores que deseamos utilizar, la cantidad de modos que deseamos obtener y el rango de energ\'ias en el que deseamos hallar todos los resultados. Eso es todo! Para correr esto en AutoDock Vina, lo \'unico que debemos hacer en la l\'inea de comando es escribir: \inlinecode{vina --config dock.conf}\\
+
+Para visualizar los resultados, podemos abrir nuestra prote\'ina en UCSF Chimera y luego ir a \emph{Tools}, \emph{Surface/Binding Analysis}, \emph{ViewDock}. All\'i especificamos d\'onde est\'a nuestro archivo de salida (\emph{dock.pdbqt}) y vamos a comenzar a ver los resultados como lo hab\'iamos hecho antes.\\
+
+\subsection{Tareas Repetitivas}
+
+Ahora que ya vimos c\'omo hacer esto con una mol\'ecula, pensemos c\'omo lo podr\'iamos hacer para todas utilizando un script peque\~no en la misma l\'inea de comando. Y mejor a\'un, pensemos c\'omo generar todos los archivos de configuraci\'on con Python. Eso ser\'ia una tarea repetitiva interesante tambi\'en. Pero antes de eso habr\'ia que convertir todas las mol\'eculas ligando a \emph{pdbqt}. Comencemos por all\'i.\\
+
+Todas las mol\'eculas ligando tienen extensi\'on \emph{mol2}, y las queremos en formato \emph{pdbqt}. As\'i que, en esencia, el comando ser\'ia algo como: \inlinecode{babel -imol2 \emph{molecula}.mol2 -opdbqt \emph{molecula}.pdbqt} en donde \emph{molecula} va a ser lo que cambie en cada caso. Ahora, lo que necesitamos es un ciclo que nos vuelva ese proceso autom\'atico. Para ello vamos a escribir lo siguiente:
+
+\begin{Code}
+for m in \$(ls *mol2)\\
+do\\
+babel -imol2 \$m -opdbqt \$\{m\%.*\}.pdbqt\\
+done
+\end{Code}
+
+La expresi\'on entre llaves y con el signo de porcentaje es solo una manera de pedirle a la l\'inea de comando que quite aquello que tiene un punto y cualquier texto despu\'es, del nombre del archivo que est\'a recibiendo de \inlinecode{m}. Entonces, con este peque\~no pedazo de c\'odigo, hemos transformado todas nuestras mol\'eculas en archivos con formato \emph{pdbqt}. Llevamos el primer paso.\\
+
+Ahora pensemos c\'omo hacer que un script de Python nos produzca todos los archivos de configuraci\'on. En primer lugar necesitamos que Python sepa qu\'e archivos son y nos d\'e los nombres. Para ello podemos utilizar el paquete \inlinecode{os}. Para comenzar podemos saber el directorio donde nos encontramos con la siguiente expresi\'on: \inlinecode{os.getcwd()} Para obtener una lista con los nombres de todos los archivos en un directorio, podemos usar la expresi\'on \inlinecode{os.listdir(\emph{directorio})} Juntando esto, podemos comenzar con lo siguiente:
+
+\begin{Code}
+import os\\
+archivos = os.listdir(os.getcwd())
+\end{Code}
+
+Ahora necesitamos ir archivo por archivo revisando que los que vamos a usar, sean solo los ligandos. Para ello vamos a apovecharnos del hecho de que solo los ligandos ten\'ian formato \emph{mol2} anteriormente. En ese caso, podemos hablar de un ciclo y de una condici\'on. Estos, agregados a lo que ya llev\'abamos se ver\'ian algo as\'i.
+
+\begin{Code}
+import os\\
+archivos = os.listdir(os.getcwd())\\
+for mol in archivos:\\
+\hspace*{6mm}if mol[-4:] == "mol2":
+\end{Code}
+
+Ahora necesitamos crear un archivo de configuraci\'on. Ser\'ia conveniente utilizar los nombres de las mismas mol\'eculas como los nombres de los archivos de configuraci\'on. En ese caso, vamos a agregar una l\'inea m\'as a lo que llevamos de c\'odigo: \inlinecode{with open(mol[:-4] + ".conf") as arch:} Aqu\'i solo especificamos que abrimos un archivo con el nombre de la mol\'ecla, pero con extensi\'on \emph{conf}. El siguiente paso es escribirle los datos necesarios. El receptor, nuestra prote\'ina \textbf{1PXXa}, es el mismo as\'i como su sitio activo y los par\'ametros de b\'usqueda. Entonces, de lo que vimos en la secci\'on anterior, vamos a copiar casi todo como una cadena grande\footnote{Una cadena grande y continua en Python se delimita con tres commillas dobles al inicio y al final.} y vamos a sustituir solo aquellos valores que nos interesan. El c\'odigo se ver\'ia entonces algo as\'i:
+
+\begin{footnotesize}
+\begin{Code}
+import os\\
+plantilla = "\ \hspace*{-1.5mm}"\ \hspace*{-1.5mm}"\ \hspace*{-1.5mm}receptor = 1PXXa.pdbqt\\
+ligand = \{0\}.pdbqt\\
+out = \{0\}\_resultados.pdbqt\\
+log = \{0\}.log\\
+center\_x = 27\\
+center\_y = 25\\
+center\_z = 15\\
+size\_x = 20\\
+size\_y = 20\\
+size\_z = 20\\
+cpu = 2\\
+exhaustiveness = 8\\
+num\_modes = 10\\
+energy\_range = 3"\ \hspace*{-1.5mm}"\ \hspace*{-1.5mm}"\\
+archivos = os.listdir(os.getcwd())\\
+for mol in archivos:\\
+\hspace*{6mm}if mol[-4:] == "mol2":\\
+\hspace*{12mm}with open(mol[:-5] + ".conf", "w") as arch:\\
+\hspace*{18mm}arch.write(plantilla.format(mol[:-5]))
+\end{Code}
+\end{footnotesize}
+
+Vale la pena resaltar algunos puntos al llegar aqu\'i. El primero es que los valores a sustituir los colocamos con \inlinecode{\{0\}} para que, con el comando \inlinecode{.format(\emph{sustituto})}, pudieramos cambiar todos a la vez. Tambi\'en vale la pena observar que la manera en que abrimos un archivo para escritura esta vez fue diferente a como lo hab\'iamos visto antes. Aqu\'i no es necesario cerrar el archivo, puesto que esto se hace en autom\'atico al salir de la condici\'on \inlinecode{with}. Este peque\~no script de 20 l\'ineas puede generar todos los archivos de configuraci\'on para AutoDock Vina, sean 5 o 5000, en cuesti\'on de segundos! Ahora ya tenemos todo listo. Solo nos queda correr todos los dockings de forma autom\'atica.\\
+
+El \'ultmo paso para realizar todos los dockings es casi igual al primero. Hay que hacer que un comando en particular se repita muchas veces. El comando es f\'acil: \inlinecode{vina --config \emph{archivo.conf}} en donde \emph{archivo.conf} es el nombre del archivo de configuraci\'on. Entonces lo que nos queda por hacer es listar a todos los archivos de configuraci\'on y hacer un ciclo sobre ellos. Tomando lo mismo que hicimos para transformar las mol\'eculas de un formato a otro, el c\'odigo para esto se ver\'ia as\'i:
+
+\begin{Code}
+for c in \$(ls *.conf)\\
+do\\
+vina --config c\\
+done
+\end{Code}
+
+Al ejecutar esto, podemos esperar bastante tiempo, puesto que cada docking tomar\'a unos segundos y ahorita se comenzar\'an a hacer en serie. Los resultados si habr\'ia que verlos uno a uno, a menos de que querramos dise\~nar un script que extraiga solo alguna informaci\'on en particular de cada archivo de salida. Eso quedar\'a a criterio de cada uno si alg\'un d\'ia lo llegamos a necesitar. Pero por ahora, podr\'iamos dejar a nuestro ordenador corriendo los dockings y despreocuparnos de \'el hasta que termine.\\
+
+Cuando ya hayamos terminado con el proceso, ser\'ia muy conveniente ver cu\'al de las mol\'eculas que acoplamos a la prote\'ina tuvo la menor energ\'ia. Como dato especial, las mol\'eculas propuestas aqu\'i son analg\'esicos que act\'uan precisamente sobre esta prote\'ina con la que estamos trabajando. Una menor energ\'ia podr\'ia significar un efecto m\'as prolongado de ese analg\'esico y/o un mejor efecto del mismo. Claro, el efecto est\'a sujeto a muchos otros factores cin\'eticos, pero eso ya es tema de discusi\'on para otra ocasi\'on.
+
+\subsection{M\'as all\'a}
+El campo de la bioinform\'atica no solo se reduce a estos temas. Este es mucho m\'as vasto y comprende otras disciplinas que no se discutieron aqu\'i. La b\'usqueda de secuencias se torna interesante cuando se hallan variaciones en ellas. Estas son mutaciones que pueden interpretarse de muchas maneras. De esta forma ya se han hallado segmentos de ADN que codifican enfermedades o alguna caracter\'istica muy especial en alguna especie, y saber interpretar esa informaci\'on es un tema para posgrado. Con el an\'alisis de las secuencias de amino\'acidos o ADN tambi\'en se puede inferir rutas de evoluci\'on y ensamblar \'arboles filogen\'eticos. El docking o acoplamiento molecular puede llevarse a cabo entre un receptor y un ligando, o entre dos prote\'inas, dos mol\'eculas de mediano tama\~no, etc. La t\'ecnica es famosa por utilizarse en qu\'imica medicinal, pero tambi\'en ha sido utilizada en el dise\~no inteligente de agentes para control de plagas, predicci\'on de biodegradabilidad de sustancias, an\'alisis de la funcionalidad de prote\'inas mutadas, etc. Las opciones son muchas.\\
+
+Otro aspecto a tomar en cuenta es que el software descrito en este documento es la opci\'on gratuita m\'as accesible. Pero para cada una de las tareas realizadas existen muchos otros paquetes de software que hacen lo mismo o algo similar. Depende de qu\'e es lo que busquemos o qu\'e tan fino necesitemos un c\'alculo es que debemos escoger el software. En este caso particular no es recomendable escribir un nuevo paquete (a menos de que se haga con fines did\'acticos), porque las opciones ya son bastantes y son buenas. Lo que debemos buscar es en d\'onde implementar uno de estos c\'alculos para enriquecer los resultados de alg\'un estudio que estemos haciendo. Podemos verlo, entonces, como una t\'ecnica de laboratorio que nos provee de m\'as informaci\'on.
+
+\subsection{Comentarios Finales}
+
+Felicidades! Has terminado el d\'ia 7 del taller de QCA. Ahora ya entiendes c\'omo funciona BLAST y qu\'e significan los resultados que te da. Tambi\'en sabes analizar secuencias de amino\'acidos (o ADN), visualizar diferencias y calcular propiedades de ellas. Al final tambi\'en sabes hacer un acomplamiento de dos mol\'eculas calculando la energ\'ia del mismo y teniendo as\'i capacidad predictiva sobre algunas reacciones biol\'ogicas.\\
+
+La bioinform\'atica se ocupa da muchas cosas. Unos de los problemas m\'as complicados a resolver con ella son la alineaci\'on estructural de una prote\'ina con otra, la b\'usqueda y hallazgo de cavidades y sitios activos, la identificaci\'on de sectores espec\'ificos de una prote\'ina (regiones dentro de membranas, regiones fuera de membranas, etc.), creaci\'on y curado de bases de datos de genes, etc. El campo es muy grande y aqu\'i solo vimos un par de aspectos. Tambi\'en es intenresante incursionar en el campo de los modelos matem\'aticos que se utilizan para modelar todo esto y el software que se produce. En resumen, hay mucho en lo que puedes trabajar.\\
+
+De nuevo, felicitaciones por haber terminado este d\'ia; es el primer d\'ia en donde ya estamos viendo algo aplicable. Ma\~nana entraremos a estudiar mol\'eculas desde una perspectiva m\'as fina. Estudiaremos formas de hallar sus conformaciones m\'as estables, sus orbitales, un poco de termodin\'amica y al final veremos c\'omo es que se comporta ya una colecci\'on de mol\'eculas al simularlas en un ambiente. Hasta entonces, repasa lo que viste hoy, intenta cambiar par\'ametros y entender c\'omo funciona todo y b\'uscale aplicaciones. Esto solo puede ser tan bueno como tu quieras que sea.
+
+\section*{Licencia}
+
+\noindent \includegraphics{img/cc_big.png}
+
+\noindent Taller de Qu\'imica Computacional Aplicada by \href{http://github.com/zronyj/TQCA}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
+Based on a work at \url{http://pythonforbiologists.com/}.
+
+\end{document}

@@ -1,0 +1,907 @@
+%
+% dia5.tex
+% 
+% Copyright 2014 Rony J. Letona <rony@zronyj.com>
+% 
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2 of the License, or
+% any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+% MA 02110-1301, USA.
+%
+
+\documentclass[10pt,letterpaper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{float}
+\usepackage{upquote}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Rony J. Letona}
+\title{Taller de Qu\'imica Computacional Aplicada: D\'ia 5}
+\definecolor{light-gray}{gray}{0.90}
+
+\newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
+
+\newcommand{\inlinecode}[1]{
+\colorbox{light-gray}{\texttt{#1}}
+}
+
+\newsavebox{\selvestebox}
+\newenvironment{Code}
+{
+\begin{lrbox}{\selvestebox}%
+\begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax}
+\fontfamily{\ttdefault}\selectfont
+}
+{\end{minipage}\end{lrbox}%
+\begin{center}
+\colorbox{light-gray}{\usebox{\selvestebox}}
+\end{center}
+}
+
+\newcommand{\Picture}[1]
+{
+	\begin{figure}[H]
+	\begin{flushleft}
+	\includegraphics[width=\columnwidth]{#1}
+	\end{flushleft}
+	\end{figure}
+}
+
+\begin{document}
+\maketitle
+
+\section{Principios de Programaci\'on para las Ciencias 1}
+Para muchos de nosotros, ver la palabra \emph{programaci\'on} ya es motivo suficiente para decir ``Est\'an locos si creen que voy a hacer esto otra vez''. Probablemente ya hemos intentado darle instrucciones a un ordenador en el pasado (posiblemente en el colegio) y no ha sido nada bonito. Sin embargo, ahora no va a ser como en ese entonces.\\
+
+En el taller hemos ido viendo las cosas lento y paso a paso. No nos van a pedir proyectos ni ejercicios traum\'aticos con los que tendremos pesadillas que ni el psic\'ologo querr\'a escuchar. No, esta vez ser\'a mucho m\'as f\'acil y mucho m\'as interesante. Si el programa no corre o se rompe, tranquilos, no pasa nada. Pero para tener todo claro, comencemos con la pregunta de muchos: Para qu\'e programaci\'on?\\
+
+Mucho del software escrito para fines cient\'ificos resulta ser, generalmente, muy espec\'ifico. Este hace una tarea \textbf{muy} bien, pero no permite hacer algunas otras cosas que nos interesan. Sin embargo, mucho del software permite que se le escriba plugins, extensiones o paquetes con los que podemos extender la funcionalidad del programa original. Adem\'as de esto, el poder programar nuestras propias rutinas o pruebas nos da la capacidad de analizar mejor nuestros datos, calcular propiedades espec\'ificas (o a veces nuevas) y llevar a cabo procesos en el orden que nos interesa. En todas las ciencias, esto resulta ser muy pr\'actico.\\
+
+Otra pregunta que tambi\'en puede surgirnos es: Por qu\'e Python como lenguaje de programaci\'on? Hasta hace una d\'ecada m\'as o menos, el lenguaje utilizado para hacer c\'alculos y rutinas en ciencia era Fortran. Este lenguaje, sin embargo, se quedaba atr\'as en lo que se refiere a versatilidad. Solo serv\'ia para c\'alculos y no permit\'ia m\'as. Luego est\'a Pascal o Delphi. Muchos aprendimos a programar en \'el y hasta la fecha se sigue usando para aprender a programar, pero solo para eso; no se utiliza casi nunca en el mundo real. Visual Basic es otro de aquellos lenguajes que algunos aprendimos. Funciona bien casi solo en ambientes Microsoft Windows, lo cual nos limita bastante. Tambi\'en est\'an las alternativas como C y C++. Estos dos, seg\'un muchos educadores, nos confunden m\'as a los estudiantes con la sintaxis de lo que nos pueden servir para aprender la l\'ogica de programaci\'on. El caso es similar con Java, aunque este tiene una ventaja que los anteriores no: un programa corre sobre cualquier sistema operativo; no hace falta compilarlo para cada caso. JavaScript es el famoso lenguaje utilizado en p\'aginas web y, con el nacimiento de Node.JS, ahora se puede utilizar para programas formales que no necesitan un navegador. El problema es que todav\'ia no cuenta con tantos paquetes para extender su funcionalidad. Finalmente, desde el 7 de julio de 2014, es un hecho que la mayor\'ia de universidades de renombre en Canad\'a, Estados Unidos y varias en Europa utilizan Python como el lenguaje a aprender en sus cursos b\'asicos de programaci\'on para todas las carreras.\\
+
+Las ventajas que tiene Python sobre los dem\'as lenguajes son todas las antes mencionadas: versatilidad, cantidad de paquetes, corre en cualquier plataforma, es f\'acil de aprender y es bastante universal. Adem\'as, existe bastante documentaci\'on para \'el y mucho del software para QC est\'a parcialmente escrito en \'el. Lo \'unico en lo que tiene una clara desventaja es en su velocidad. Sin embargo, para efectos pr\'acticos, esto no importa tanto ya que no trabajaremos con \emph{demasiadas} operaciones y nuestros procesadores ya son capaces de suplir algunas de las deficiencias en velocidad de este lenguaje. Si dese\'aramos trabajar con un lenguaje m\'as r\'apido y que funcione en todas partes, Java es quiz\'a la siguiente mejor opci\'on, aunque la sintaxis nos exigir\'a ser m\'as rigurosos a la hora de escribir nuestros programas.\\
+
+Para poder responder mejor a todas nuestras dudas, comencemos con los ejercicios y vamos a irnos dando cuenta c\'omo es que con pocos comandos e informaci\'on, logramos hacer desde peque\~nos c\'alculos hasta an\'alisis de datos y predicci\'on de propiedades.\\
+
+\subsection{Operaciones B\'asicas}
+Vamos a comenzar con lo b\'asico. Vamos a abrir nuestra l\'inea de comando, vamos a escribir \inlinecode{python} en ella y vamos a presionar enter. Inmediatamente veremos la interfaz lista para comenzar: \inlinecode{$>>>$} Una cosa que tenemos que tomar en cuenta es que vamos a tener que ir re-aprendiendo a hacer muchas cosas al aprender a programar. Se dice que al aprender a programar, la forma de pensar de una persona cambia un poco. Algo as\'i como cuando aprendemos a ser rigurosos en un an\'alisis.\\
+
+La idea con esta primera parte ser\'a entonces comenzar haciendo ejercicios \textbf{muy} simples. Desde aritm\'etica sencilla hasta almacenar valores en variables. Estas cosas tan sencillas se pueden hacer en calculadoras, pero una cosa que debemos recordar es que un ordenador no es m\'as que eso: una calculadora muy sofisticada. Pero si aprendemos a usarla bien, no habr\'a operaci\'on que no podamos hacer. Comencemos!
+
+\subsubsection{Aritm\'etica}
+Para comenzar vamos a tomar la operaci\'on m\'as b\'asica que aprendimos: sumar. C\'omo se hace esto? Pues es sencillo, hacemos algo as\'i: \inlinecode{4\ +\ 5} y presionamos enter. Como nos damos cuenta, esto es relativamente f\'acil. Es una buena pr\'actica en programaci\'on dejar espacios a los lados del signo de la operaci\'on; en este caso la suma \inlinecode{+}\\
+
+Intentemos ahora realizar una resta. Atrevidamente podremos pensar de una vez en cosas como ``Y qu\'e pasa si la resta tiene un resultado menor a 0?'' Pues la manera de averiguarlo es probando: \inlinecode{8\ -\ 13} El resultado era lo que esper\'abamos? Sigamos probando.\\
+
+Ahora multipliquemos. Esto tampoco se ve dif\'icil: \inlinecode{14\ *\ 86} De hecho, podemos notar que la velocidad de respuesta es igual que la de una calculadora. Si as\'i lo deseamos, podemos hacer m\'as pruebas que las que aqu\'i estamos poniendo. Por ahora, todo va bien.\\
+
+Llegamos a la divisi\'on. Intentemos lo siguiente entonces: \inlinecode{16\ /\ 3} Obtuvimos una respuesta? Perfecto! La respuesta era la que esper\'abamos? No? Por qu\'e no? Por qu\'e ser\'a que la respuesta no sali\'o como esper\'abamos? Despu\'es de todo esto solo fue una simple divisi\'on de enteros. Ah! All\'i est\'a la clave! Fue una divisi\'on de \emph{enteros}. Eso significa que el ordenador todav\'ia no sabe que estamos trabajando con decimales, as\'i que no los toma en cuenta. C\'omo hacer que esto funcione entonces? Pues indic\'andole que debe de considerar que los n\'umeros pueden tener decimales, as\'i: \inlinecode{16.0\ /\ 3}\\
+
+Ya vimos las 4 operaciones b\'asicas que conocemos. Ahora, recordando algo que vimos el d\'ia 2, vamos a ver c\'omo se calculan los residuos de una divisi\'on de enteros mediante la operaci\'on \emph{m\'odulo}: \inlinecode{\%} Si intentamos una divisi\'on de n\'umeros enteros, como lo es \inlinecode{18\ /\ 7}, vamos a obtener \inlinecode{2} como resultado. Pero sabemos que \inlinecode{7\ *\ 2} no es \inlinecode{18} De la divisi\'on anterior obten\'iamos un residuo que podemos calcular as\'i: \inlinecode{18\ \%\ 7} A primera vista esto no se ve de mucha utilidad, pero al trabajar con listas, arreglos o conjuntos de objetos vamos a ver que nos va a servir.\\
+
+Finalmente, vamos a ver una operaci\'on que no es tan b\'asica, pero nos puede servir mucho. Para evitar estar multiplicando muchas veces el mismo n\'umero, en matem\'atica se crearon las potencias. Una operaci\'on que se ve sencilla, como $3^{5}$ o $2^{7}$ nos toman un momento al hacerlas en la mente, pero resulta que nuestro ordenador lo puede hacer en mil\'esimas de segundo. Intentemos esas dos operaciones! Para la primera, ingresamos \inlinecode{3\ **\ 5} y observamos el resultado. Efectivamente obtuvimos lo que dese\'abamos. Ahora intentemos la segunda: \inlinecode{2\ **\ 7} Tambi\'en obtenemos algo que nos satisface. Pero, qu\'e pasa si intentamos calcular raices o potencias con decimales? Intentemos dos ejemplos: \inlinecode{3.14159265359\ **\ (1/2.0)} y \inlinecode{5\ **\ 2.71828182846} Muy interesante! Con esto notamos que podemos hacer muchas m\'as operaciones. Tomemos nota y enumeremos las operaciones que podemos llevar a cabo con todo lo que acabamos de aprender.
+
+\subsubsection{Variables}
+Por ahora vamos viendo que el ordenador se comporta como una plataforma que nos permite hacer operaciones matem\'aticas. Por eso, a la hora de escuchar la palabra \emph{variable}, es natural que pensemos que estas son como las que incluimos en las funciones (e.g. \emph{x} en $ f \left( x \right) = x^{2} - x - 1 $). Sin embargo, en el ambiente de un ordenador esto es un poco diferente. Las variables que nosotros conocemos pueden no tener un valor al inicio, como acabamos de ver. Pero al trabajar en un ambiente digital, este requiere n\'umeros, valores y algo s\'olido con qu\'e trabajar. Por ello, podemos pensar que las variables aqu\'i ser\'an solo un lugar d\'onde almacenar datos, lo cual no es nada lejano a la realidad.\\
+
+Un ordenador posee un dispositivo llamado memoria. En ella se almacenan datos de manera vol\'atil (i.e. se borran al apagar el sistema). Desde que arrancamos nuestro ordenador hasta que lo apagamos, la memoria (RAM) est\'a alojando informaci\'on que permite que trabajemos en el momento. Es entonces aquel lugar en donde est\'an nuestros documentos antes de que guardemos cambios. Por eso si nos quedamos sin energ\'ia el\'ectrica, todo se pierde. Aparte es el espacio en el disco duro, el cual nos da la capacidad de almacenar datos de manera permanente. Pero en esta secci\'on vamos a ver un concepto r\'apido que nos servir\'a para comprender c\'omo funcionan las variables y otras cosas m\'as adelante.\\
+
+Volviendo a las variables, estas son entonces un espacio en memoria. Algo como una peque\~na caja $ \square $ en donde se puede almacenar un dato particular. Podemos sacarlo de la caja? Claro! Tambi\'en podemos colocar algo diferente all\'i despu\'es. Como espacio en memoria, puede almacenar lo que sea. Eso s\'i, no pueden haber dos datos en la misma caja, y por ende, no pueden haber dos datos almacenados en la misma variable.\\
+
+Pasemos, pues, a almacenar algunos datos en variables. La forma de hacer esto es escribendo algo as\'i: \inlinecode{a = 5} Presionamos enter y ... nada pas\'o? De hecho, si no ha salido ning\'un error, todo est\'a bien. Lo que pasa es que no hay nada que mostrar. El dato fue almacenado y ya. Si queremos ver lo que hay dentro de la variable, podemos escribir lo siguiente: \inlinecode{print a} Esto nos mostrar\'a o \emph{imprimir\'a} en pantalla aquello que hay en la variable \inlinecode{a} Debe de llamarse \emph{a} o \emph{b} o \emph{c}? No, puede llamarse como nosotros querramos! Lo \'unico que hay que tomar en cuenta en una variable es que su nombre no puede comenzar con un n\'umero, y esta no puede tener caracteres con tildes, di\'eresis, etc. Tampoco e\~nes. Otra cosa importante es que no podemos ponerle dos nombres a una variable. Eso significa que no puede haber espacios en el nombre de una variable. Con esto en mente, intentemos otra cosa: \inlinecode{mi\_segunda\_variable = 1.61803398875} Como podemos ver, esto tambi\'en se vale. Si despu\'es imprimimos el valor de \inlinecode{mi\_segunda\_variable} veremos que todo funciona bien. Intentemos algo m\'as interesante con esto.\\
+
+Vamos a intentar transformar una temperatura de grados Farenheit a Kelvin. Esto implica transformar primero la temperatura de grados Farenheit a grados Celcius, y luego a Kelvin. Para ello, hay 3 n\'umeros importantes que debemos recordar: una pendiente \inlinecode{m = 5.0/9}, un desplacamiento en el eje \emph{x} \inlinecode{d = 32} y un desplazamiento en el eje \emph{y} \inlinecode{b = 273.15} Ahora veamos, la f\'ormula ir\'ia algo as\'i:
+
+\begin{itemize}
+\item De $^o F$ a $^o C$:\hspace*{1cm} $T_{C} = \frac{5}{9} \left( T_{F} - 32 \right) = m \left( T_{F} - d \right)$
+\item De $^o C$ a $K$:\hspace*{1cm} $T_{K} = T_{C} + 273.15 = T_{C} + b$
+\end{itemize}
+
+Si sustituimos una dentro de la otra, nos queda una f\'ormula as\'i: $T_{K} = m \left( T_{F} - d \right) + b$. Ahora, si nos dicen que la temperatura hoy es de $73^o F$ lo que hacemos nosotros, habiendo almacenado las variables anteriores, es esto: \inlinecode{m * (73 - d) + b} El resultado sale de inmediato y nos complace saber que lo hicimos bien.\\
+
+Perfecto! Ahora ya sabemos usar variables. Como \'ultimo ejercicio antes de la siguiente secci\'on, intentemos convertir la siguiente temperatura de Kelvin a grados Farenheit y luego a Celsius: $298.45 K$.
+
+\subsection{Tipos de Datos}
+En qu\'imica, cuando comenzamos a ver de qu\'e est\'a conformada la materia, aprendemos que esta tiene diferentes partes: mol\'eculas, \'atomos, iones, electrones, protones, etc. Aqu\'i sucede algo similar. La informaci\'on en nuestro ordenador se puede descomponer en diferentes partes o \emph{tipos de datos}. Por ahora solo hemos conocido a los n\'umeros enteros y aquellos con punto decimal, pero ahora vamos a comenzar desde un poco m\'as abajo.\\
+
+Ya es cultura general que la informaci\'on en nuestros ordenadores se almacena en forma de unos y ceros, pero esto no es solo cuesti\'on de que si deseamos vamos a ver la informaci\'on codificada as\'i. Lo que tenemos que tomar en cuenta es que estos n\'umeros son c\'odigo binario que codifica a n\'umeros enteros. Estos, a su vez, representan a veces letras y valores num\'ericos o l\'ogicos. Comencemos viendo estos \'ultimos.\\
+
+Al almacenar alg\'un dato en una variable, podemos averiguar qu\'e tipo de dato es el que contiene la variable por medio de un comando sencillo: \inlinecode{type()} Al momento de querer saber de qu\'e tipo de dato se trata, solo aplicamos la funci\'on \textbf{type} a una variable de la manera siguiente: \inlinecode{type(variable)} Conforme vayamos avanzando en este tema, iremos viendo c\'omo es que Python le llama a cada tipo de dato.
+
+\subsubsection{Booleanos}
+Los valores l\'ogicos son solo dos: \emph{verdadero} y \emph{falso}. Si recordamos nuestros cursos de l\'ogica y filosof\'ia, recordamos aquellas tablas de verdad que se nos pon\'ia a hacer para revisar el valor de una proposici\'on. A pesar de que no vamos a hacer tablas de verdad, es bueno recordar c\'omo funcionaban, puesto que aqu\'i vamos a usar muchas de las cosas que all\'i se usaban. Pero bueno, comencemos a ver c\'omo funcionan los valores l\'ogicos.\\
+
+Como ya hab\'iamos mencionado, que exist\'ian solo dos tipos de valor l\'ogico, a los cuales se les denomina \emph{booleanos} por el inventor de estos. Para \textbf{verdadero} vamos a tener \inlinecode{True} y para \textbf{falso} \inlinecode{False}. Estos los podemos colocar en nuestro IDE y vamos a ver que toman un color particular poniendo en evidencia su de que se trata de un valor particular. Pero solos estos no hacen mucho.\\
+
+Algo que siempre se ve de la mano con los valores, son los operadores l\'ogicos. Cuando los conocemos, nos los presentan con nombres un poco complicados como \emph{conjunci\'on}, \emph{disyunci\'on} y \emph{negaci\'on}. En este caso en particular, vamos a verlos en acci\'on de otra forma. Cuando deseamos que dos cosas se cumplan para obtener un resultado verdadero usamos el operador \inlinecode{and}. Cuando deseamos que al menos una de las dos cosas se cumpla para obtener un resultado verdadero usamos \inlinecode{or}. Y cuando deseamos negar un valor en particular, utilizamos \inlinecode{not}. Esto nos va a servir m\'as adelante, cuando querramos tomar decisiones en un programa o una rutina. Para mientras, vamos a ver de d\'onde salen los booleanos.\\
+
+Para tomar una decisi\'on, generalmente revisamos una comparaci\'on de cierto tipo: es esto igual a aquello, es esto m\'as grande que aquello, es esto diferente a aquello, etc. Este tipo de comparaciones se pueden hacer en nuestro ordenador de la siguiente manera:
+
+\begin{enumerate}
+\item Si deseamos revisar si dos cosas son iguales: \inlinecode{a == b}
+\item Si deseamos revisar si esas dos cosas son diferentes: \inlinecode{a != b}
+\item Si deseamos revisar si una cosa es mayor a la otra: \inlinecode{a >\ b}
+\item Si deseamos revisar si esa cosa es menor a la otra: \inlinecode{a <\ b}
+\item Si deseamos revisar si una cosa es mayor o igual a la otra: \inlinecode{a >= b}
+\item Si deseamos revisar si esa cosa es menor o igual a la otra: \inlinecode{a <= b}
+\end{enumerate}
+
+Estas operaciones, al igual que las operaciones matem\'aticas, pueden llevarse a cabo combinadas con m\'as operaciones l\'ogicas. Con esto ya podemos escribir cosas como \inlinecode{(a == 0) and (b != 10)} Claro que para hacer todo eso necesitamos que \textbf{a} y \textbf{b} tengan alg\'un valor, pero ahora sabemos que podemos comparar valores de variables y trabajar con ellos. Y antes de pasar a la siguiente secci\'on, conviene decir que Python reconoce este tipo de dato como \inlinecode{bool}
+
+\subsubsection{N\'umeros}
+Este tipo de datos ya lo conocemos ... parcialmente. Sabemos que existen los \textit{enteros} (e.g. 1, -4, 7, 0, 23, ...), los cuales en Python son representados por \inlinecode{int} y los utilizamos generalmente para enumerar cosas. Los enteros llegan hasta donde la memoria de nuestro ordenador nos deje. S\'i, resulta que estos tienen un l\'imite, porque despu\'es de cierto n\'umero, la cifra es tan alta que una cajita de la memoria ya no es suficiente.\\
+
+Despu\'es de esos n\'umeros comienzan los n\'umeros \textbf{largos} (e.g. 9223372036854775808L, -9223372036854775809L, ...). Estos son enteros MUY grandes y si ponemos atenci\'on, tienen una L al final denotando su extra\~no tipo. En Python son representados por \inlinecode{long} y solo nos sirven para c\'alculos con cifras muy grandes. Fuera de eso, cualquier \inlinecode{int} nos sirve para tareas cotidianas.\\
+
+Luego tenemos a un tipo de n\'umeros mucho m\'as conocidos: los de \textit{punto flotante}. Los \emph{qu\'e}? Los n\'umeros de punto flotante. Estos n\'umeros son aquellos que tienen decimales (e.g. 0.333333333333, 3.141592653589, ...). Se les llama de punto flotante porque lo que nuestro  ordenador est\'a haciendo realmente, es guardar el n\'umero sin el punto decimal y guardar la posici\'on del punto en otro espacio en memoria. Al llamar a un n\'umero con decimales, nuestro ordenador va por el n\'umero, y coloca el punto decimal, como flotando, en la posici\'on indicada. Un dato importante a tomar en cuenta es que Python solo trabaja con 12 decimales, y este tipo de dato es representado por \inlinecode{float}\\
+
+Finalmente, tenemos a un tipo de n\'umero con el que uno no se topa muy seguido: los \textit{n\'umeros complejos}\\(e.g. 3 + 4i, -7 - 2i, ...). S\'i, Python puede manejar n\'umeros complejos represent\'andolos como \inlinecode{complex}, solo que en vez de utilizar una \textbf{\^{i}}, se utiliza una \textbf{j} para denotar la parte imaginaria del n\'umero. El uso de los n\'umeros complejos no es algo que se haga muy seguido en el campo de la qu\'imica. De hecho, solo se utilizan casi para c\'alculos cu\'anticos, y a\'un esos los evitamos muchas veces.
+
+\subsubsection{Cadenas}
+Despu\'es de ver que podemos almacenar valores de \emph{verdadero}, \emph{falso} y varios n\'umeros, es solo natural que alguien pregunte: ``Y c\'omo se trabaja con texto?'' El texto es un tipo de dato muy particular. Este es una estructura que consta de muchas peque\~nas partes: las letras. Por ser una estructura alargada y que consta de elementos que la unen, a los fragmentos de texto se les denomin\'o cadenas. En ingl\'es se les conoce como \emph{strings}, por pensar en el mismo principio, pero con un cord\'on.\\
+
+Las cadenas se representan en Python como \inlinecode{str}, y para crearlas, colocamos el texto que deseamos entre comillas o ap\'ostrofes. Intentemos con un ejemplo: Vamos a guardar el texto \textit{Hola mundo!} en una variable. Para ello vamos a ingresar \inlinecode{mi\_variable = "Hola mundo!"} Solamente! No hay que hacer nada extra\~no o diferente. Ahora, si deseamos mostrar lo que guardamos, solo imprimimos lo que hay en la variable: \inlinecode{print mi\_variable}\\
+
+Perfecto, ya podemos guardar texto. Ahora veamos qu\'e m\'as se puede hacer con \'el, pero intentando entrar ya un poco en qu\'imica. Asumamos, pues, que podemos representar a un hidrocarburo como una estructura de Lewis, ignorando sus hidr\'ogenos y sin representar a los enlaces. Si estamos hablando de una cadena de 6 \'atomos de carbono, el resultado ser\'ia as\'i: \inlinecode{hexano = "\ \hspace{-2mm}CCCCCC"} Como podemos ver, estamos representando a un hidrocarburo con una simple cadena de texto. Qu\'e pasa si deseamos saber cu\'antas letras tiene la cadena? Pues utilizamos una funci\'on para ello: \inlinecode{len(hexano)}\\
+
+Una cosa importante que tambi\'en es conveniente saber es que las cadenas se pueden sumar. Lo que se est\'a haciendo realmente, es concatenarlas. Si de nuestra mol\'ecula anterior queremos hacer un octano, solo nos hacen falta dos carbonos. Entonces, podemos decir que \inlinecode{octano = hexano + "\ \hspace{-2mm}CC"} Y de esta manera ya tenemos una nueva cadena con nuevos elementos.\\
+
+Intentemos crear otra mol\'ecula: \inlinecode{dietileter = "\ \hspace{-2mm}CCOCC"} En esta ya incluimos otro \'atomo diferente del carbono. Resulta que deseamos obtener solo ese \'atomo. Para ello tenemos que tomar en cuenta que las cadenas numeran sus caracteres del 0 en adelante. C\'omo as\'i? En este caso, por ejemplo, tendr\'iamos que cada letra se puede representar con el sub\'indice que vemos aqu\'i: $\underset{0}{C} \underset{1}{C} \underset{2}{O} \underset{3}{C} \underset{4}{C}$. Entonces, para referirnos al ox\'igeno en la f\'ormula, lo hacemos de la siguiente manera \inlinecode{dietileter[2]}\\
+
+Otra cosa que podemos hacer es referirnos a segmentos de una mol\'ecula. Si deseamos mostrar todo lo que est\'a despu\'es del ox\'igeno de la mol\'ecula anterior, podemos escribir \inlinecode{dietileter[3:]} O si deseamos lo anterior al ox\'igeno \inlinecode{dietileter[:2]} Notemos ahora que en esto \'ultimo, incluimos al ox\'igeno en nuestra selecci\'on, pero al ejecutar el comando, este no se muestra en el resultado. Esto se debe a que Python no considera al \'ultimo elemento al que nos referimos. Como un \'ultimo ejercicio, vamos a mostrar a un azufre en vez de un ox\'igeno utilizando solo lo que hemos visto hasta ahora: \inlinecode{print dietileter[:2] + "S"\ + dietileter[3:]}\\
+
+Antes de proseguir, solo vamos a aclarar algo. Esta forma de representar mol\'eculas a trav\'es de letras es un formato internacional llamado SMILES (\textbf{S}implified \textbf{M}olecular-\textbf{I}nput \textbf{L}ine-\textbf{E}ntry \textbf{S}ystem). Los dobles enlaces se representan con un signo \inlinecode{=}, los triples enlaces con \inlinecode{\#} y para formar ciclos, se numeran los \'atmos que cerrar\'an ese ciclo. Un benceno se ver\'ia entonces de la siguiente manera: \inlinecode{benceno = "\ \hspace{-2mm}C1=CC=CC=C1"}
+
+\subsubsection{Listas}
+Despu\'es de las cadenas, las listas son otro tipo de datos que nos permitir\'a hacer cosas muy interesantes. Las listas nos permiten guardar una serie de datos dentro de ellas. Son como las celdas en las que colocamos informaci\'on en Microsoft Excel, por ejemplo. Otra forma de verlo es como una tira c\'omica. Dentro de cada cuadro se halla una parte importante de la historia: informaci\'on.\\
+
+Las listas en Python se representan como \inlinecode{list}. Para crear una lista colocamos diferentes piezas de informaci\'on separadas por comas dentro de dos corchetes. Supongamos que tenemos los datos de 5 repeticiones de una titulaci\'on \'acido/base. Para crear una lista con esta informaci\'on, vamos a escribir lo siguiente:
+
+\begin{Code}
+repeticiones = [22.3, 22.2, 22.4, 22.3, 22.1]
+\end{Code}
+
+Por supuesto, no solo se tiene que tratar de n\'umeros. Podemos colocar cadenas a la par de n\'umeros enteros, complejos a la par de flotantes y hasta otras listas dentro de nuestra lista. Como ejercicio, intentemos colocar un dato de cada tipo de los que hemos visto en nuestra lista. Veamos qu\'e sucede y finalmente, veamos lo que hizo nuestro compa\~nero de al lado y lo que result\'o.\\
+
+Volviendo al ejemplo de una titulaci\'on, nos dicen que el cuarto dato estaba mal ingresado. Contrario a lo que pasa con las cadenas, los valores en una lista \emph{s\'i} se pueden cambiar individualmente. C\'omo hacemos esto? Pues es bastante sencillo. Las listas, al igual que las cadenas se accesan as\'i: \inlinecode{repeticiones[3]} Debemos tomar en cuenta que como en nuestro ordenador todas las cosas comienzan con 0, el cuarto dato se halla entonces en la posici\'on 3. El dato que quieren que coloquemos en vez de \inlinecode{22.3} es \inlinecode{22.4}. Entonces, la operaci\'on para cambiar el cuarto dato se ver\'ia de la siguiente manera: \inlinecode{repeticiones[3] = 22.4} Eso fue sencillo en comparaci\'on a cambiar el ox\'igeno por azufre en una cadena. En este caso, solo cambiamos el dato directamente.\\
+
+Otro par de similitudes entre las listas y las cadenas es que se puede obtener su tama\~no de la misma manera: \inlinecode{len(repeticiones)} Tambi\'en podemos mostrar partes de la lista: \inlinecode{repeticiones[2:4]} Pero una cosa que cambia un poco es el agregado y la eliminaci\'on de alg\'un dato. S\'i se pueden agregar datos si sumamos dos listas. Sin embargo, para agregar datos en una lista, hay otras dos formas que nos facilitan esto. Veamos cada caso:
+
+\begin{Code}
+\# Sumando listas\\
+repeticiones + [25.5]
+
+\# Agregando datos al final\\
+repeticiones.append(25.5)
+
+\# Agregando datos en alguna parte en particular\\
+repeticiones.insert(2, 25.5)
+\end{Code}
+
+Intentemos hacer esto con nuestra lista y veamos qu\'e es lo que pasa en cada caso. Al final, discutamos con nuestro compa\~nero de al lado lo que creemos que sucedio en cada caso.\\
+
+Por supuesto, despu\'es de haberle agregado datos falsos a nuestra lista, queremos quit\'arselos. Despu\'es de todo, no tiene mucho sentido tener datos falsos en un an\'alisis. Para eso, tenemos 2 maneras de hacerlo. La primera quita el dato en la posici\'on que indicamos. El segundo quita la primera vez que aparece el dato que indicamos. Veamos el ejemplo:
+
+\begin{Code}
+\# Quitando el dato por su posicion\\
+repeticiones.pop(2)
+
+\# Quitando el dato que indicamos\\
+repeticiones.remove(25.5)
+\end{Code}
+
+Nuevamente, hagamos esto con nuestra lista y veamos qu\'e pasa. Finalmente discutamos con nuestro compa\~nero de al lado a ver qu\'e sucedi\'o con nuestra lista.\\
+
+M\'as adelante vamos a ver que las listas nos van a servir para mucho m\'as que solo ver los datos en una fila. Podremos extraer mucha m\'as informaci\'on de ellos cuando aprendamos otro par de trucos.
+
+\subsubsection{Diccionarios}
+El \'ultimo tipo de dato que vamos a ver son los \emph{diccionarios}. Ahora, estos no son como los diccionarios que conocemos hasta ahora. El concepto, sin embargo, es similar: utilizamos una palabra para hallar informaci\'on sobre ella. Poni\'endonos m\'as t\'ecnicos, un diccionario en Python es igual a una lista, pero en vez de n\'umeros para referirnos a la posici\'on de los datos, utilizamos cadenas para hacerlo. En otras palabras, podemos ponerle nombre a cada casilla. Veamos, pues, c\'omo hacer esto.\\
+
+En Python, los diccionarios se representan como \inlinecode{dict}. Y como este es un taller de QC, intentaremos construir el diccionario m\'as utilizado por nosotros en nuestra carrera. Los diccionarios se construyen con llaves en vez de corchetes a diferencia de las listas. Adem\'as de eso, para colocarle nombre a cada casilla, incluimos una cadena con el nombre antes del valor, seguido de dos puntos.
+
+\begin{Code}
+tabla = $\lbrace$ "H": 1.0079, "He": 4.0026, "Li": 6.94, "Be": 9.0122, "B": 10.81, "\ \hspace{-2mm}C": 12.011, "N": 14.007, "\ \hspace{-2mm}O": 15.9994, "F": 18.998 $\rbrace$
+\end{Code}
+
+Nos quedaremos con los primeros 9 elementos, ya que incluir los 112 es un poco tedioso. Nos disponemos ahora a ver c\'omo tomar los datos de nuestro diccionario. Para ello vamos a buscar el peso at\'omico del carbono: \inlinecode{tabla["\ \hspace{-2mm}C"]} Ahora nos damos cuenta de que en vez de buscar una entrada en particular en el diccionario, vamos a buscar una casilla por su nombre. Esto nos facilita almacenar m\'as informaci\'on! No solo estamos guardando el s\'imbolo del elemento, sino su peso at\'omico, y adem\'as somos capaces de buscar sin necesidad de recordar en qu\'e orden estaba todo almacenado.\\
+
+Siguiendo la manera en que trabajamos con las listas, vamos a ver c\'omo agregar datos y quitarlos en los diccionarios. Vale la pena decir que quitar datos se hace de la misma manera que con las listas: con \inlinecode{pop()}. No obstante, en vez de utilizar un n\'umero indicando la casilla, utilizamos el nombre de la casilla. Para agregar datos dentro del diccionario, lo \'unico que debemos hacer es referirnos a una casilla como si ya estuviera creada. En este caso agregaremos el ne\'on: \inlinecode{tabla["Ne"] = 20.180} Eso es todo! Como los diccionarios no tienen un orden, no importa d\'onde coloquemos el dato ni de d\'onde lo quitemos.\\
+
+Finalmente, los diccionarios tienen una caracter\'istica que vale la pena mencionar: si deseamos solo las ``llaves'' del diccionario (es decir, lo nombres de cada casilla), podemos pedirlas as\'i: \inlinecode{tabla.keys()} Esto nos devuelve una lista con los nombres de cada casilla (por si se nos olvidan).\\
+
+Los diccionarios son un tipo de dato muy particular de Python que, si los aprendemos a usar bien, pueden ayudarnos mucho. No los olvidemos e intentemos aprovechar de esta ventaja, porque estos nos pueden facilitar muchas otras cosas y ahorrarnos tiempo en el futuro.
+
+\subsection{Ingresando y Mostrando Datos}
+Hemos aprendido qu\'e tipos de datos existen en Python y qu\'e se puede hacer con ellos. Sin embargo, todo esto lo hemos visto probando directamente en la l\'inea de comando. Cuando pensamos en programas, son cosas independientes que corren al click de un \'icono y funcionan de inmediato. Esa es nuestra siguiente meta en nuestro aprendizaje.\\
+
+Lo que nos toca ahorita es ver c\'omo hacer que nuestro ordenador corra varios comandos seguidos, nos pida datos, nos muestre resultados y haga operaciones sin necesidad de que nosotros le ingresemos cada cosa a la vez. Tambi\'en veremos c\'omo hacer que nuestro ordenador lea los datos de un documento, que los interprete y que haga algo con ellos. Finalmente, escribir datos en un documento tambi\'en puede ser una opci\'on cuando se trata de mostrar resultados y guardarlos a la vez. La idea es que nuestro ordenador comience a hacer cosas por nosotros sin que se lo estemos diciendo siempre y sin estarlo supervisando en cada paso.
+
+\subsubsection{Por Parte del Usuario}
+Ahora que ya sabemos con qu\'e cosas se pueden trabajar, veamos c\'omo comenzar a hacer una rutina o \textit{script}. Para esto vamos a salirnos de Python en la l\'inea de comando ingresando \inlinecode{quit()}. Dejando la l\'inea de comando abierta, vamos a crear un nuevo directorio \textit{Scripts} dentro de nuestro directorio de documentos. Luego vamos a abrir un editor de texto y vamos a guardar el documento en blanco como \textit{bienvenida.py} en el directorio reci\'en creado.\\
+
+Consideremos ahora que vamos a escribir una rutina. Lo primero que debemos preguntarnos es ``C\'omo se supone que funciona una rutina?'' O en otras palabras, debemos preguntarnos c\'omo la vamos a hacer funcionar despu\'es de haberla escrito. Para hacer que nuestra rutina o script funcione, debemos de decirle a Python que corra el documento en donde se halla lo que escribimos. Esto lo hacemos escribiendo \inlinecode{python bienvenida.py} Claro, ahorita no va a pasar nada si lo hacemos, porque no hay nada en el documento, pero m\'as adelante, esta es la manera de ir viendo lo que hace el c\'odigo que hemos escrito. Pasemos entonces a crear nuestra primera rutina.\\
+
+En el editor de texto, vamos a escribir lo siguiente:
+
+\begin{Code}
+print "Hola mundo!"\\
+nombre = raw\_input("\ \hspace{-2mm}Ingresa, por favor, tu nombre: ")\\
+print "Hola", nombre + "\ \hspace{-2mm}! Como estas?"
+\end{Code}
+
+Intentemos correr nuestra peque\~na rutina y ver qu\'e pasa. Despu\'es de ver el resultado, comenta con tu compa\~nero de al lado: Qu\'e crees que pas\'o? Qu\'e cosas de las que hemos visto antes acabas de utilizar? Qu\'e hace la funci\'on \inlinecode{raw\_input()}? Qu\'e cosa nueva acabamos de aprender a hacer? Tomemos nota de esto y sigamos.\\
+
+Otra funci\'on que nos permite hacer algo similar a \inlinecode{raw\_input()} es solamente \inlinecode{input()}. Estas dos funciones tienen una diferencia en particular. \inlinecode{raw\_input()} toma cualquier cosa que ingresemos y lo convierte en una cadena. No importa si ingresamos n\'umeros, listas, etc. todo ser\'a una cadena. En el caso de \inlinecode{input()}, este solo admite n\'umeros enteros. Cualquier otra cosa que le ingresemos nos dar\'a un error. Sobre esto \'ultimo hablaremos m\'as adelante. Por ahora, vamos a ver c\'omo hacer algo interesante con lo que hemos aprendido.\\
+
+Cerremos nuestro documento \textit{bienvenida.py} y abramos uno nuevo. Esta vez vamos a hacer una rutina que haga algo productivo. Vamos a crear un documento llamado \textit{temperaturas.py} en nuestro directorio de \textit{Scripts}. En \'el vamos a intentar hacer una peque\~na rutina en la que ingresaremos una temperatura y esta nos ser\'a devuelta en otras unidades. Veamos, pues, c\'omo hacer esto.\\
+
+\noindent Lo primero que haremos ser\'a dar la bienvenida a nuestro script. Para eso ingresaremos algo como esto (el texto lo podemos cambiar si as\'i lo deseamos):
+
+\begin{Code}
+print "********** Convertidor **********"
+\end{Code}
+
+\noindent Luego, deseamos dar las opciones de qu\'e tipo de conversi\'on se puede hacer, as\'i que seguimos mostrando cosas en pantalla:
+
+\begin{Code}
+print "********** Convertidor **********"\\
+print "1. F -> C \textbackslash t  2. C -> F"\\
+print "3. C -> K \textbackslash t  5. K -> F"\\
+print "7. F -> K \textbackslash t 11. K -> F"
+\end{Code}
+
+\noindent Ahora pediremos al usuario ingresar una opci\'on para calcular la temperatura y luego, la cifra que desea calcular:
+
+\begin{Code}
+print "********** Convertidor **********"\\
+print "1. F -> C \textbackslash t  2. C -> F"\\
+print "3. C -> K \textbackslash t  5. K -> F"\\
+print "7. F -> K \textbackslash t 11. K -> F"\\
+opcion = input("\ \hspace{-2mm}Ingrese el numero de operacion que desea realizar: ")\\
+temperatura = raw\_input("\ \hspace{-2mm}Ingrese la temperatura a ser calculada: ")
+\end{Code}
+
+\noindent Ya con esto nos queda transformar la temperatura en un n\'umero y hacer el c\'alculo. Para ello vamos a hacer un truco interesante. Como no conocemos todav\'ia ninguna manera en la que podamos escoger alguna de las operaciones vamos a calcular todas, pero vamos a devolver solo la que nos interesa. C\'omo? Con dos operaciones matem\'aticas. Veamos c\'omo se ve nuestro c\'odigo ya terminado:
+
+\begin{Code}
+print "********** Convertidor **********"\\
+print "2. F -> C \textbackslash t  3. C -> F"\\
+print "5. C -> K \textbackslash t  7. K -> C"\\
+print "11. F -> K \textbackslash t 13. K -> F"\\
+opcion = input("\ \hspace{-2mm}Ingrese el numero de operacion que desea realizar: ")\\
+temperatura = raw\_input("\ \hspace{-2mm}Ingrese la temperatura a ser calculada: ")\\
+temperatura = float(temperatura)\\
+print (1 - opcion \% 2) * ("Temperatura en grados C: "\ +\ str((temperatura - 32) * 5.0/9))\\
+print (1 - opcion \% 3) * ("Temperatura en grados F: "\ +\ str(temperatura * 9.0/5\ +\ 32))\\
+print (1 - opcion \% 5) * ("Temperatura en grados K: "\ +\ str(temperatura\ +\ 273.15))\\
+print (1 - opcion \% 7) * ("Temperatura en grados C: "\ +\ str(temperatura - 273.15))\\
+print (1 - opcion \% 11) * ("Temperatura en grados K: "\ +\ str((temperatura - 32) * 5/9\ +\ 273.15))\\
+print (1 - opcion \% 13) * ("Temperatura en grados F: "\ +\ str((temperatura - 273.15) * 9.0/5\ +\ 32))
+\end{Code}
+
+Veamos qu\'e pasa aqu\'i. Convertimos la temperatura de una cadena a un n\'umero utilizando \inlinecode{float()} Es importante tomar nota de esto! Podemos convertir un tipo de datos en el otro mediante este tipo de operaci\'on. Luego comenzamos a mostrar cosas en pantalla con \inlinecode{print} A continuaci\'on tenemos una operaci\'on algo extra\~na de la que hablaremos al final. El resultado de esta se multiplica por una cadena a la cual estamos sumando otra cadena. S\'i, la segunda parte es una cadena tambi\'en, porque a pesar de que el resultado de la operaci\'on matem\'atica sea un n\'umero, estamos usando la funci\'on \inlinecode{str()} para convertirlo en una cadena. En otras palabras, estamos combinando el resultado con la presentaci\'on de este en una sola cadena. Hasta all\'i vamos bien. Ahora s\'i, por qu\'e estamos multiplicando una cadena con otro valor de una operaci\'on extra\~na?\\
+
+Veamos detenidamente la operaci\'on un momento. Si consideramos que \inlinecode{opcion} puede tomar solo los valores 2, 3, 5, 7, 11 o 13\footnote{Por qu\'e escogimos esos n\'umeros? Leamos hasta el siguiente p\'arrafo y pensemos por qu\'e esos n\'umeros y no otros.}, entonces notamos que las operaciones de m\'odulo van a dar como resultado 0 si los n\'umeros a ambos lados del operador son iguales, o alg\'un n\'umero entero de 1 en adelante cuando se trate de n\'umeros diferentes. Eso significa que \inlinecode{(1 - opcion \% n)} va a ser igual a 1 cuando \inlinecode{opcion} sea igual a \inlinecode{n}. Si no, ser\'a 0 o alg\'un n\'umero negativo. Perfecto! Y esto c\'omo afecta a nuestra cadena de al lado? Pues es sencillo. Si una cadena la multiplicamos por alg\'un entero positivo, se va a repetir ese n\'umero de veces. En el caso de multiplicarla por 0 o alg\'un n\'umero negativo, desaparecer\'a. Esto, ya vi\'endolo en nuestro peque\~no script, se traduce en: Solo se mostrar\'a el resultado de la operaci\'on escogida.\\
+
+Antes de continuar a la siguiente parte, analicemos que en este script solo hemos tomado datos, mostrado datos, calculado con un poco de aritm\'etica y propiedades de cadenas. Pensemos c\'omo podr\'iamos optimizar nuestro script para que no hayan tantas cosas que se repitan una y otra vez dentro de \'el\footnote{Considerando lo que vimos en la secci\'on 2.2, pensemos qu\'e pasar\'ia al convertir muchas cosas en variables.}. Adem\'as, comentemos con nuestro compa\~nero de al lado lo que hemos aprendido y c\'omo entendimos que funcionaba el script. Tomemos nota de nuestros hallazgos y d\'emonos un momento antes de continuar.
+
+\subsubsection{Desde Documentos}
+Continuando con la idea de tomar datos y enviar datos fuera del script, ahora vamos a intentar escribir dos rutinas m\'as peque\~nas que la anterior en las que vamos a crear un documento de texto desde nuestro script, y luego vamos a leer el contenido del mismo documento con otro script. Esto nos puede ser muy \'util a la hora de generar resultados de un c\'alculo largo o para interpretar los datos generados por otro programa. Procedamos con un par de ideas sencillas.\\
+
+Vamos a guardar una mol\'ecula en formato SMILES en un documento de texto (como los que hacemos con el block de notas en windows). Para ello vamos a crear un peque\~no script \textit{escribiendo.py} en nuestro directorio \textit{Scripts}. En \'el vamos a escribir lo siguiente:
+
+\begin{Code}
+molecula = raw\_input("\ \hspace{-2mm}Ingresa una molecula en formato SMILES: ")\\
+documento = open("molecula.smiles", "w")\\
+documento.write(molecula)\\
+documento.close()
+\end{Code}
+
+Eso es todo! Veamos qu\'e hace cada parte de nuestro nuevo script. Al principio solo le pedimos al usuario que nos de una mol\'ecula (i.e. informaci\'on que podamos guardar en un documento). Luego abrimos un documento de nombre \textit{molecula.smiles} en modo \emph{escritura}: por eso escribimos la \inlinecode{"w"}. Luego, pedimos que a \inlinecode{documento} (la variable que representa nuestro documento nuevo) se le escriba la cadena que tenemos guardada en \inlinecode{molecula} Finalmente, rompemos la conecci\'on entre la variable \inlinecode{documento} y \textit{molecula.smiles} cerrando el documento. De esta forma, la mol\'ecula queda guardada.\\
+
+Antes de continuar, vamos a correr nuestro script y a almacenar alguna mol\'ecula en SMILES. Recordemos lo que hemos aprendido antes sobre este sistema para representar mol\'eculas. Posteriormente veamos que la mol\'ecula se haya guardado e intentemos visualizarla con alg\'un programa como Avogadro o PyMOL. Si no sabemos c\'omo hacer esto, preguntemos a nuestro compa\~nero de al lado o a quien nos est\'a dando el taller.\\
+
+Para continuar, vamos a leer nuestra nueva mol\'ecula y vamos a mostrarla en pantalla. Este script ser\'a todav\'ia m\'as f\'acil que el anterior. Primero vamos a abrir el documento SMILES, luego vamos a leer lo que hay en \'el, vamos a cerrar el documento y luego vamos a mostrar en pantalla lo que hab\'ia all\'i. Veamos el c\'odigo.
+
+\begin{Code}
+documento = open("molecula.smiles", "\ \hspace{-2mm}r")\\
+informacion = documento.readlines()\\
+documento.close()\\
+print informacion
+\end{Code}
+
+Vamos a guardar nuestro script y correrlo. Qu\'e pas\'o? Funcion\'o como esper\'abamos? Comentemos con nuestro compa\~nero de al lado.\\
+
+Despu\'es de eso pensemos un momento: Podr\'iamos hacer que el usuario escoja el nombre del documento a abrirse? Podr\'iamos hacer que el usuario le ponga el nombre al documento? Qu\'e otras cosas podr\'iamos hacer ahora que ya sabemos c\'omo guardar informaci\'on en documentos y leerla? Pensemos en todas las posibilidades ahora y tomemos nota para despu\'es.
+
+\subsection{Errores}
+Esta es una de las partes que a muchas personas no les gusta. Cuando de repente algo no funciona como se esperaba y resultamos con una de dos: mucho texto incomprensible de lo que solo interpretamos que cometimos un error, o que el resultado que esper\'abamos no aparezca. Ambos casos suelen desanimarnos o molestarnos mucho. Pero en este caso, como estamos aprendiendo y la idea es cometer errores, podemos sentirnos tranquilos si algo as\'i sucede. Este tema es, de hecho, hasta evitado a veces en cursos o talleres porque se llega a creer que no vale la pena ver errores. Sin embargo, un aspecto clave de hacer cosas a nivel anal\'itico y de calidad en QC es saber qu\'e error se cometi\'o, en d\'onde y por qu\'e. Finalmente, debemos ser capaces de corregirlo, optimizar nuestro script y hacer que este sea lo mejor que se pueda.\\
+
+En esta secci\'on vamos a ver la anatom\'ia de un error en Python, qu\'e errores podemos esperar cometer y c\'omo hallar aquellos que no rompen nuestro script, pero tampoco dicen que haya un error en alguna parte. Pero vamos por pasos. Lo primero que debemos entender es que nuestro ordenador, a pesar de ser muy capaz, no posee inteligencia como tal. Este solo hace lo que nosotros le pedimos hacer y no o es capaz de proponer algo o pensar en soluciones a problemas. Esto nos lleva a que necesitamos varias reglas generales para poder indicarle qu\'e hacer; este no sabr\'a qu\'e es lo que deseamos. Estas reglas son una sintaxis que no podemos dejar de utilizar. Si lo hacemos, el ordenador no har\'a lo que nosotros queremos que haga y nos frustraremos.\\
+
+Para este punto del taller, es posible y muy probable que ya hayamos cometido alg\'un error o que hayamos visto uno al menos. Pero para no recurrir a posibles casos pasados, veamos uno de verdad. En una l\'inea de comando con Python abierto ingresemos: \inlinecode{print "Hola mundo"\ \hspace{-2mm}!} Resulta que corremos eso porque se nos pas\'o el orden de las cosas por teclearlas r\'apido, y el resultado es este: \inlinecode{\color{red} SyntaxError: invalid syntax} Y pues, claro! Colocamos un caracter en donde no iba. Pero nada se ha arruinado, todo sigue funcionando en nuestro ordenador y el sol sigue brillando afuera. Qu\'e sucedi\'o entonces? Realmente es un sencillo. Python se detuvo donde hall\'o un error de sintaxis, advirti\'o qu\'e tipo de error era al mostr\'arnoslo y se qued\'o all\'i. Nos toca arreglarlo. Pero qu\'e pasa cuando el error ya es un script y no en la l\'inea de comando? Veamos esos casos.\\
+
+Vamos a ejecutar un script que tenemos en nuestro directorio de documentos. Este se llama \textit{errores.py} y nos va a ir mostrando paso a paso los tipos de error con los que nos podemos ir topando\footnote{Solo vamos a ver los errores m\'as comunes que podemos cometer. Hay muchos otros tipos de error, pero no los cubriremos aqu\'i.}. Adem\'as de ejecutar el script, lo vamos a abrir con un editor de texto y ver qu\'e pasa en cada parte. Vamos a ir uno por uno entendiendo los errores.\\
+
+\subsubsection{Error de Sintaxis}
+Este ser\'a el primer error que aparecer\'a al ejecutar el script. Si nos damos cuenta, es el mismo error que antes. Pero esta vez, a la hora de aparecer en la l\'inea de comando, obtuvimos m\'as informaci\'on que antes. Esta vez apareci\'o lo siguiente:
+
+\begin{Code}
+{\color{red} \hspace*{4mm} File "\ \hspace{-2mm}errores.py", line 2\\
+\hspace*{8mm} print "\ \hspace{-2mm}Error de\ ".\ "\ \hspace{-2mm}sintaxis."\\
+\hspace*{63mm}\^\\
+SyntaxError: invalid syntax}
+\end{Code}
+
+Vamos a ver l\'inea por l\'ina qu\'e es lo que el error nos est\'a diciendo. En la primera l\'inea nos explica que el error se halla en el script \textit{errores.py} y, dentro de este, en la l\'inea 2. En la segunda l\'inea se nos muestra la l\'inea de c\'odigo donde sucedi\'o el error. En la tercera se nos intenta dar una idea de d\'onde se halla el error. Esta parte no siempre es precisa; a veces se nos indica realmente donde sucedi\'o el error, y a veces no tanto. En la l\'inea final solo se nos muestra qu\'e tipo de error es.\\
+
+Con respecto de esto \'ultimo, podemos decir que un error de sintaxis es, generalmente, cuando escribimos algo de manera incorrecta. Nuestro ordenador entonces nos advierte sobre esto y nos toca corregirlo. Para continuar, vamos a eliminar las dos l\'ineas del script \textit{errores.py} en donde se hallaba el error de sintaxis, vamos a guardarlo y vamos a volverlo a correr.
+
+\subsubsection{Error de Nombre}
+Esta vez obtuvimos un error diferente. Este se nos dice que es un error de nombre cuando leemos la \'ultima l\'inea. De hecho, se nos dice de una vez cu\'al fue el error: hay una variable que no est\'a definida. Al revisar el resto de la informaci\'on sobre el error, nos damos cuenta de que este cambi\'o un poco con respecto del anterior.
+
+\begin{Code}
+{\color{red}Traceback (most recent call last):\\
+\hspace*{4mm} File "\ \hspace{-2mm}errores.py", line 2, in <module>\\
+\hspace*{8mm} print "mi\_variable"\\
+NameError: name `mi\_variable' is not defined}
+\end{Code}
+
+La primera l\'inea solo nos avisa que Python no solo se ha topado con el error, sino que lo ha buscado. Esto solo significa que cuando hall\'o que el script se refiri\'o a una variable, esta fue \emph{buscada} por todo el script y como no se hall\'o, hubo un error. Lo dem\'as ya lo hemos visto antes: indicaciones sobre el script y la l\'inea donde se halla el error y la muestra de esa l\'inea.\\
+
+Entonces, en resumen, podemos decir que un error de nombre se da generalmente cuando nos referimos a algo que no existe. Para continuar borremos esas l\'ineas y volvamos a correr el script.
+
+\subsubsection{Error de Divisi\'on entre Cero}
+El siguiente error que vemos es algo que desde nuestros primeros cursos de matem\'atica en el colegio nos advirtieron que no se pod\'ia hacer: Uno no puede dividir entre cero; eso est\'a prohibido. Este error se parece mucho m\'as al anterior, y es que Python intent\'o buscarle sentido a lo que hicimos, pero no se lo hall\'o. Veamos el error.
+
+\begin{Code}
+{\color{red}Traceback (most recent call last):\\
+\hspace*{4mm} File "\ \hspace{-2mm}errores.py", line 3, in <module>\\
+\hspace*{8mm} otro\_numero = algun\_numero / 0\\
+ZeroDivisionError: integer division or modulo by zero}
+\end{Code}
+
+Vemos que hubo una b\'usqueda, se nos indica el script, la l\'inea y se nos muestra la l\'inea de c\'odigo con el error. Finalmente, se nos advierte qu\'e tipo de error es y lo que significa. Este tipo de error nos aparecer\'a al dividir entre 0 o al intentar calcular el m\'odulo de un n\'umero entre 0. Eliminemos las l\'ineas necesarias del script, volv\'amoslo a correr y sigamos avanzando.
+
+\subsubsection{Error de Tipo}
+
+\begin{Code}
+{\color{red}Traceback (most recent call last):\\
+\hspace*{4mm} File "\ \hspace{-2mm}errores.py", line 4, in <module>\\
+\hspace*{8mm} resultado = lista\_a * lista\_b\\
+TypeError: can't multiply sequence by non-int of type `list'}
+\end{Code}
+
+En este error nos damos cuenta de que se trata de tipos. Y claro, un error de tipo se da cuando intentamos alguna operaci\'on sobre tipos de datos que no la permiten. La anatom\'ia del error es la misma que antes, solo que la \'ultim l\'inea nos explica qu\'e es lo que pasa. De nuevo, eliminemos las l\'ineas necesarias para quitar este error del script, volv\'amoslo a correr y continuemos.
+
+\subsubsection{Error de Atributo}
+En el caso de estos errores ya solo vamos a enfocarnos en la \'ultima l\'inea. Como nos hemos dado cuenta, ya entendimos qu\'e es lo que tienen las dem\'as y la informaci\'on que nos dan.
+
+\begin{Code}
+{\color{red} AttributeError: `str' object has no attribute `append'}
+\end{Code}
+
+Este error nos aparece cuando intentamos utilizar alguna funci\'on de un objeto o tipo de dato que no posee tal funci\'on. En este caso, intentamos agregarle un elemento a una cadena como lo har\'iamos a una lista. Esto, como vemos, no se puede hacer. Eliminemos lo necesario del script y volvamos a correr.
+
+\subsubsection{Error de Valor}
+
+\begin{Code}
+{\color{red} ValueError: could not convert string to float: esto es texto}
+\end{Code}
+
+Si observamos bien el script, est\'abamos intentando transformar una cadena con texto adentro en un n\'umero. Eso no se puede hacer. Y por eso se nos advierte que hay un error de valor. Este tipo de error generalmente aparece cuando intentamos alguna transformaci\'on de un tipo de datos en otro que no es permitido. Continuemos eliminando l\'ineas y volviendo a correr.
+
+\subsubsection{Error de \'Indice}
+
+\begin{Code}
+{\color{red} IndexError: list index out of range}
+\end{Code}
+
+Este es uno de los errores m\'as comunes que vamos a cometer. Sucede cuando intentamos referirnos a un \'indice inexistente de una lista. En otras palabras, enviamos a nuestro ordenador a buscar una direcci\'on que no existe. Es muy f\'acil de cometer, porque generalmente (como veremos m\'as adelante) vamos cambiando la cantidad de datos en una lista. Una idea para no cometer este error es siempre revisar el tama\~no de la lista antes de accesarla. Continuemos igual que antes para llegar al \'ultimo tipo de error que vamos a ver.
+
+\subsubsection{Error de Entrada y Salida de Datos (IO)}
+
+\begin{Code}
+{\color{red} IOError: [Errno 2] No such file or directory: `algun\_documento.txt'}
+\end{Code}
+
+Ya hab\'iamos visto de qu\'e se trata la entrada y salida de datos: leer informaci\'on de alguna parte y enviarla/guardarla. En este caso, intentamos abrir un documento que no existe buscando leer de \'el. Nuestro ordenador inmediatamente nos advierte que ese documento no existe con un error de IO (\textbf{I}nput - \textbf{O}utput).
+
+\subsubsection{Quitando Insectos}
+Cuando corremos nuestro script y resulta que no hay errores, pero no obtenemos resultado o el resultado no es lo que esper\'abamos, existe una manera hallar el problema. Este proceso se llama \emph{debuggeo} (o \emph{debugging} en ingl\'es), que significa quitar insectos.\\
+
+Hay ambientes de desarrollo integrados (IDEs) que ya hacen esto por nosotros. Sin embargo, en el caso de no contar con uno, o no querer usarlo porque para lo que estamos haciendo un IDE es mucho, la manera m\'as sencilla de hallar d\'onde se halla el problema, es imprimiendo el valor de las variables importantes (o todas, de ser necesario) en los pasos cr\'iticos del script. As\'i podremos ver qu\'e valor est\'a tomando cada una y hallar si todas se est\'an comportando como se debe. De hallar una que no tenga el valor deseado, sabremos que el error est\'a antes de la l\'inea en la que se imprimi\'o el valor de la variable. As\'i podemos revisar el c\'odigo que se halla antes y corregir el error.
+
+\subsubsection{Capturando Errores}
+Algunas veces no vamos a saber si una parte de nuestro c\'odigo va a generar un error. Esto suele pasar cuando dependemos de que un usuario interact\'ue con nuestro programa o script. Para evitar que nuestro script se rompa y nos veamos en un aprieto, existe una forma de que nuestro ordenador \emph{pruebe} ejecutar un comando, y si este da un error, tome otra v\'ia como alternativa.\\
+
+Supongamos que necesitamos que un usuario ingrese un n\'umero entero. Para ello utilizamos el siguiente c\'odigo: \inlinecode{opcion = input("Por favor ingrese un numero del 1 al 10: ")} El usuario puede no hacer caso e ingresar un n\'umero con decimales, o peor a\'un, texto. Esto nos generar\'ia un error. Por esta raz\'on decidimos hacer una prueba.
+
+\begin{Code}
+try:\\
+\hspace*{4mm} opcion = input("Por favor ingrese un numero del 1 al 10: ")\\
+except \textit{Excpetion} as e:\\
+\hspace*{4mm} print "Se ha producido un error:", e\\
+\hspace*{4mm} print "Ha ingresado una opci\'on no-valida."
+\end{Code}
+
+Si nos damos cuenta, capturamos el error (si es que se produce uno) y almacenamos sus caracter\'isticas en la variable \inlinecode{e}. De no producirse el error, el c\'odigo solo se seguir\'a ejecutando sin entrar al \inlinecode{except}. Algo que vale la pena mencionar es sobre la palabra \inlinecode{\textit{Exception}}. Esta palabra nos permite capturar cualquier error. Pero si deseamos capturar un error en particular, podemos colocar alguno de los tipos de error que hab\'iamos estado viendo hasta ahora. Eso s\'i, si el error producido en el \inlinecode{try:} es diferente al que se est\'a esperando en el \inlinecode{except}, el error no ser\'a capturado y nuestro script se romper\'a. E.g.
+
+\begin{Code}
+try:\\
+\hspace*{4mm} 1 / 0\\
+except \textit{IOError} as e:\\
+\hspace*{4mm} print "Se ha producido un error:", e
+\end{Code}
+
+Esto, por seguro, producir\'a un error que no ser\'a capturado. El error esperado es de entrada o salida de datos, y el error producido es de divisi\'on entre cero. Por esta raz\'on, hay que tener mucho cuidado con el tipo de error que se est\'a esperando\footnote{Y para aquellos que piensen en usar \textit{Exception} siempre, consideren que depende del tipo de error es la medida que podemos tomar despu\'es en nuestro script.}.
+
+\subsection{Condiciones y Tareas Repetitivas}
+Una de las cosas m\'as \'utiles al estar creando un script o programa es la capacidad de nuestro ordenador de elegir un camino a seguir. Si nos damos cuenta atentamente, en el script que calculaba temperaturas, dise\~namos algo que nos permit\'ia elegir: depende del n\'umero ingresado, entonces se nos muestra algo. Pero esa forma de hacerlo se siente un tanto complicada. De hecho, en nuestro script hicimos todos los c\'alculos y, la verdad, no era necesario hacerlos todos. Solo el que necesit\'abamos. Por eso, ahora veremos una forma en la que nuestro ordenador puede elegir un camino a seguir dependiendo de alguna circunstancia.\\
+
+Por otra parte, otra cosa que puede hacer nuestro ordenador, y que nos ayudar\'a mucho en un futuro, es el hecho de poder repetir un proceso varias veces sin que nosotros tengamos que pedirle que lo vuelva a hacer cada vez. Esto es muy \'util en el caso en el que trabajemos con listas o con diccionarios. Tambi\'en lo ser\'a cuando calculemos algunas cosas como promedios o sumas de muchos datos. Esto lo veremos un poco despu\'es de las decisiones, porque este tipo de comando \emph{c\'iclico} se basa muchas veces en condiciones.
+
+\subsubsection{Decisiones}
+Comencemos con algo sencillo. Una decisi\'on es una especie de bifurcaci\'on o encrucijada que nos propone dos o m\'as caminos a seguir. Para mantener las cosas sencillas, vamos a pensar en un camino que se divide en dos. Si se trata de un caso as\'i, nuestra pregunta, naturalmente, ser\'ia algo del tipo: ``Y ahora, para d\'onde?'' Inmediatamente comenzamos a buscar alguna condici\'on que se cumpla para escoger un camino: ``Si X cosa se cumple, me voy por el primer camino. Si no, me voy por el otro.'' Esa condici\'on puede ser: que el camino sea menos dif\'icil, que el camino me lleve a donde quiero, etc. La cosa es que hay una condici\'on que puede ser \emph{verdadera} o \emph{falsa} que determina nuestra decisi\'on.\\
+
+Vamos a traducir esto al lenguaje de nuestro ordenador. Tenemos entonces que si una condici\'on (una comparaci\'on de valores) resulta en \emph{verdadero} o \emph{falso} (un booleano), entonces algo va a pasar. Veamos un ejemplo en particular. Si la variable \inlinecode{var} es mayor a 10, entonces vamos a ejecutar \inlinecode{print "var es MAYOR a 10"}. Si no, vamos a ejecutir \inlinecode{print "var es menor a  o igual10"} Entonces, nuestro c\'odigo se va a ver algo as\'i.
+
+\begin{Code}
+if var >\ 10:\\
+\hspace*{5mm} print "var es MAYOR a 10"\\
+else:\\
+\hspace*{5mm} print "var es menor o igual a 10"
+\end{Code}
+
+Claro, antes de ejecutar esto hay que darle un valor a \inlinecode{var}, pero en general, vemos que esto funciona. Debemos notar, sin embargo, que dejamos 4 espacios antes de cada comando despu\'es de la condici\'on. A esto se le llama indentaci\'on. La regla es: \textit{Todo aquello que dependa de la condici\'on para ser ejecutado, va indentado.} La verdad, es una forma de ordenar nuestro c\'odigo para que el ordenador sepa qu\'e debe de correr, cu\'ando y en qu\'e condiciones. Veamos nuestro script de las temperaturas nuevamente para ver eso y, adem\'as, una implementaci\'on de cuando pueden haber varios caminos a seguir.
+
+\begin{small}
+\begin{Code}
+print "********** Convertidor **********"\\
+print "1. F -> C \textbackslash t 2. C -> F"\\
+print "3. C -> K \textbackslash t 4. K -> C"\\
+print "5. F -> K \textbackslash t 6. K -> F"\\
+b = 32\\
+f = 5.0/9\\
+a = 273.15\\
+opcion = input("\ \hspace{-2mm}Ingrese el numero de operacion que desea realizar: ")\\
+temperatura = raw\_input("\ \hspace{-2mm}Ingrese la temperatura a ser calculada: ")\\
+temperatura = float(temperatura)\\
+print "Temperatura en grados",\\
+if opcion == 1:\\
+\hspace*{5mm} print "\ \hspace*{-2mm}C:", (temperatura - b) * f\\
+elif opcion == 2:\\
+\hspace*{5mm} print "F:", temperatura * 1/f\ +\ b\\
+elif opcion == 3:\\
+\hspace*{5mm} print "K:", temperatura\ +\ a\\
+elif opcion == 4:\\
+\hspace*{5mm} print "\ \hspace*{-2mm}C:", temperatura - a\\
+elif opcion == 5:\\
+\hspace*{5mm} print "K:", (temperatura - b) * f\ +\ a\\
+elif opcion == 6:\\
+\hspace*{5mm} print "F:", (temperatura - a) * 1/f\ +\ b
+\end{Code}
+\end{small}
+
+Esto, aunque se vea m\'as largo, es m\'as eficiente y mucho m\'as autoexplicativo. Comentemos con nuestro compa\~nero de al lado qu\'e creemos que hace el comando \inlinecode{if}, el comando \inlinecode{elif} y el comando \inlinecode{else} Posteriormente comentemos sobre por qu\'e es que este c\'odigo resulta m\'as eficiente que el anterior que ten\'iamos y m\'as f\'acil de entender. Finalmente tomemos nota de lo que acabamos de aprender y tomemos un momento para pensar en qu\'e casos es esto importante\footnote{Notemos que ahora utilizamos n\'umeros del 1 al 6.}.
+
+\subsubsection{Repetir mientras llega la Condici\'on}
+Bueno, ahora que ya entendimos las condiciones un poco, podemos comenzar a jugar con otras cosas m\'as interesantes. Hasta ahora hemos utilizado algo de la forma: ``Si X condici\'on se cumple, entonces Y cosa sucede.'' Pero, qu\'e pasar\'a cuando en vez de \emph{si}, utilizamos \emph{mientras}? La frase se ver\'ia algo as\'i: ``Mientras X condici\'on se cumpla, entonces Y cosa sucede.'' A pesar de que el cambio se ve sencillo, el significado acaba de cambiar radicalmente. En el caso anterior, evalu\'abamos la condici\'on una vez. Ahora, evaluamos la condici\'on repetidas veces hasta que esta se deje de cumplir.\\
+
+Veamos esto ya en c\'odigo. La idea ahora es hallar una palabra que represente ese ``mientras''. Para eso, nuestro ordenador nos ofrece \inlinecode{while}. Ahora, antes de intentar cualquier cosa, recordemos que un script o una rutina se detiene presionando las teclas \inlinecode{Ctrl} y \inlinecode{C} al mismo tiempo. Ahora procedamos a probar qu\'e hace un \inlinecode{while}.
+
+\begin{Code}
+while var <\ 10:\\
+\hspace*{5mm} print "Vuelta!"
+\end{Code}
+
+De nuevo recordemos que si no le asignamos un valor a \inlinecode{var}, entonces obtendremos un error. Al correr esto, es posible que tengamos que detener el script, porque ... no hay mecanismo en que \'el pare solo; seguir\'a repitiendo lo mismo por siempre.\\
+
+Cuando ya estemos listos para continuar, vamos a ver un ejemplo un poco m\'as aplicado. Vamos a tomar una mol\'ecula en SMILES y vamos a ver si hallamos un hal\'ogeno en ella. Para eso necesitamos ir de letra en letra a lo largo de la cadena con la mol\'ecula y detenernos justo cuando hallemos \textbf{F}, \textbf{Cl}, \textbf{Br} o \textbf{I}. Pensemos entonces: necesitamos que el usuario ingrese la cadena, que algo vaya avanzando letra por letra de manera \emph{c\'iclica} y en el camino identificar si esa letra pertenece a un hal\'ogeno. Lo primero que vamos a necesitar entonces es una variable \inlinecode{contador} que vaya contando cada vuelta que da el \inlinecode{while} y nos vaya ayudando a accesar cada letra en la cadena. Luego, necesitaremos una serie de condiciones para revisar si la letra que estamos accesando en la cadena pertenece a un hal\'ogeno. Notemos puede tratarse de dos letras! Veamos pues el c\'odigo de nuestro script.
+
+\begin{Code}
+molecula = raw\_input("Por favor ingrese molecula en formato SMILES: ")\\
+contador = 0\\
+while contador <\ len(molecula):\\
+\hspace*{5mm} letra = molecula[contador]\\
+\hspace*{5mm} if letra == "F":\\
+\hspace*{13mm} print "Hay un halogeno!"\\
+\hspace*{13mm} break\\
+\hspace*{5mm} elif letra == "\ \hspace*{-2mm}C":\\
+\hspace*{13mm} if molecula[contador\ +\ 1] == "l":\\
+\hspace*{21mm} print "Hay un halogeno!"\\
+\hspace*{21mm} break\\
+\hspace*{5mm} elif letra == "B":\\
+\hspace*{13mm} if molecula[contador\ +\ 1] == "\ \hspace*{-2mm}r":\\
+\hspace*{21mm} print "Hay un halogeno!"\\
+\hspace*{21mm} break\\
+\hspace*{5mm} elif letra == "\ \hspace*{-2mm}I":\\
+\hspace*{13mm} print "Hay un halogeno!"\\
+\hspace*{13mm} break\\
+\hspace*{5mm} contador = contador + 1
+\end{Code}
+
+Primero, intentemos correr esto para ver que realmente hace lo que se supone que debe de hacer. Aqu\'i tenemos una mol\'ecula en SMILES para probar: CC(C)CC(C\#N)C(C(C)C)C(=O)CSC(F)C(N)=O. Una vez hayamos probado nuestro script, vamos a proceder a estudiarlo. Hay una palabra nueva que no hab\'iamos visto antes: \inlinecode{break} Esta nos sirve para detener el ciclo \inlinecode{while} en el caso que sea necesario. Luego, con nuestro compa\~nero de al lado discutamos qu\'e creemos que hace cada parte. Hay dos cosas a las que debemos ponerle mucha atenci\'on: la indentaci\'on y la variable \emph{contador}. Qu\'e le pasa a la variable \inlinecode{contador} en cada ciclo? Para qu\'e nos sirve y c\'omo es que lo hace? Qu\'e hace la variable \inlinecode{letra}? Por qu\'e tenemos un \inlinecode{if} metido dentro de un \inlinecode{elif}\footnote{Para qu\'e nos sirve revisar otra vez la mol\'ecula? Que acaso es importante la siguiente letra despu\'es de la que estamos revisando en un momento dado?}? Tomemos nota de todo lo que aprendamos e intentamos pensar en c\'omo podr\'iamos optimizar m\'as este c\'odigo tambi\'en\footnote{Hay algo que se repita de igual manera muchas veces?}. Preguntemos por \inlinecode{if} con m\'as de una condici\'on.
+
+\subsubsection{Repetir sobre Elementos de una Lista}
+Por el momento, debemos admitir que es un poco tedioso tener una condici\'on, un contador y asegurarse de parar el ciclo cada vez que una condici\'on se cumple. Bueno, lo de las condiciones es un poco inevitable, pero las otras dos cosas podemos cambiarlas. Existe otra herramienta, en vez de \inlinecode{while}, que no solo repite, sino que puede ir iterando sobre los elementos de una lista. C\'omo as\'i? Pues no es tan complicado. Si tenemos, por ejemplo, una lista de la siguiente forma: \inlinecode{[1, 2, 3, 4, 5]} esta nueva herramienta va a permitirnos que se realicen instrucciones con los 5 elementos de la lista. Es como tener un \inlinecode{while} con un contador, pero sin la necesidad de ir sum\'andole al contador o ir revisando una condici\'on. En vez de eso, nuestra herramienta va utilizando los elementos de la lista que le demos. Veamos un ejemplo:
+
+\begin{Code}
+for i in [8, 7, 9, -1, 3.1415, "\ \hspace*{-2mm}abc"]:\\
+\hspace*{5mm}print i
+\end{Code}
+
+Corramos estas dos peque\~nas l\'ineas y analicemos qu\'e es lo que acaba de pasar. Posteriormente discutamos con nuestro compa\~nero de al lado.\\
+
+Algo importante que vale la pena mencionar es que una lista la podemos generar de la siguiente manera: \inlinecode{range(n)} donde \textbf{n} es la cantidad de elementos que deseamos en la lista: una lista del 0 a \textbf{n}. Tambi\'en podemos hacer cosas como \inlinecode{range(5,20)} lo cual nos genera una lista de n\'umeros enteros del 5 al 19. O tambi\'en podemos hacer algo como \inlinecode{range(20,4,-5)} generando as\'i una lista de la siguiente forma: \inlinecode{[20, 15, 10, 5]}. Intentemos hacer algo interesante con esta nueva forma de hacer procesos c\'iclicos.\\
+
+Supongamos que tenemos una lista de datos como esta:
+\begin{Code}
+datos = [6.66, 9.751, 10.112, 10.03, 9.01, 13.948, 13.33, 6.096, 7.585, 11.914, 13.037, 4.872, 7.315, 9.24, 11.266, 9.276, 11.228, 11.629, 9.298, 15.026, 3.772, 11.131, 7.46, 8.193, 15.686, 8.428, 1.019, 10.978, 7.13, 11.602, 7.683, 13.229, 14.394, 7.0, 10.243, 11.1, 8.642, 11.586, 9.933, 7.703, 9.753, 13.589, 2.959, 9.956, 13.172, 7.277, 9.216, 15.341, 15.295, 8.211]
+\end{Code}
+Ahora vamos a calcular la media y la desviaci\'on est\'andar de estos 50 datos. Generalmente esto es un proceso muy largo de hacer en una calculadora, pero en este caso intentaremos simplificarlo. Para estar claros, en este proceso necesitaremos el tama\~no de la lista, la suma todas las entradas en la lista, la media y la suma de la diferencia de los cuadrados. Para tener una mejor idea, solo repasemos brevemente la f\'ormula para media y desviaci\'on est\'andar de un conjunto de datos $X$.
+
+\begin{equation}
+\bar{x} = \frac{\sum_{i = 1}^{N} \left( x_i \right)}{N}
+\end{equation}
+
+\begin{equation}
+\sigma_x = \sqrt{\frac{\sum_{i = 1}^{N} \left( x_i - \bar{x} \right)^2}{N - 1}}
+\end{equation}
+
+Ahora que ya recordamos c\'omo calcular la media y la descviaci\'on, vamos a proceder a calcular las cosas que anotamos antes. Primero, la suma de todos los n\'umeros en la lista:
+
+\begin{Code}
+suma = 0\\
+for i in datos:\\
+\hspace*{4mm} suma += i
+\end{Code}
+
+Como siempre, estudiemos el c\'odigo, y posteriormente discut\'amoslo. Hay una cosa en particular que puede llamarnos la atenci\'on: \inlinecode{suma += i} Esta operaci\'on es equivalente a escribir \inlinecode{suma = suma + i} Pero lo escribimos de una manera m\'as compacta para no redundar tanto. Ahora procedamos a determinar la cantidad de los datos y la media:
+
+\begin{Code}
+n = len(datos)\\
+media = suma / n
+\end{Code}
+
+Perfecto! Ya tenemos la media de los datos en 5 l\'ineas simples de c\'odigo. Ahora vamos a calcular la suma de las diferencias al cuadrado, y finalmente la desviaci\'on est\'andar.
+
+\begin{Code}
+cuadrados = 0\\
+for j in datos:\\
+\hspace*{4mm} cuadrados += (j - media)**2\\
+desviacion = (cuadrados / (n - 1))**0.5
+\end{Code}
+
+Genial! Con 4 l\'ineas m\'as, ya hemos calculado la desviaci\'on est\'andar. Analizemos qu\'e es lo que significa este c\'odigo, compar\'emoslo con las f\'ormulas y concluyamos.\\
+
+Ahora, antes de pasar a la siguiente secci\'on, hay dos cosas que debemos tomar en cuenta. La primera es que la \emph{funci\'on} \inlinecode{range(n)} puede generarnos una lista de n\'umeros enteros, pero la \emph{funci\'on} \inlinecode{xrange(n)} solo la genera dentro de ciclos \inlinecode{for} sin almacenarla en la memoria de nuestro ordenador. Esto significa que si usamos \inlinecode{xrange(n)} dentro de los ciclos \inlinecode{for}, nuestras rutinas ser\'an m\'as r\'apidas.\\
+
+La segunda cosa a la que debemos de notar es que al calcular la suma de todos los n\'umeros de una lista, como lo hicimos en el ejercicio anterior, escribir un ciclo \inlinecode{for} puede ser todav\'ia tedioso para algunos. Por eso, Python cuenta con una \emph{funci\'on} que nos simplifica ese proceso: \inlinecode{sum(lista)}. Para entender mejor esta \emph{funci\'on}, consideremos esto: \inlinecode{suma = sum(datos)} Esta \'ultima operaci\'on nos evita las primeras 3 l\'ineas del ejericio anterior.
+
+\subsection{Paquetes y Funciones}
+Hemos llegado a un punto en el que podemos hacer bastantes cosas ya. Si consideramos que en estad\'istica, las operaciones no pasan de sumas, restas, multiplicaciones, divisiones y operaciones con potencias, nos damos cuenta de que ya podemos hacer an\'alisis estad\'isticos bastante decentes. Sin embargo, hay otras serie de operaciones que nos hacen falta para poder hacer matem\'atica de la manera en que conocemos. Nos faltan funciones como \emph{seno}, \emph{coseno}, \emph{tangente}, \emph{logaritmos}, \emph{exponenciales}, etc. Para eso vamos a aprender que existen colecciones de funciones guardadas en \textbf{paquetes}, los cuales podemos simplemente importar y utilizar.\\
+
+Pero qu\'e pasa cuando queremos hacer algo muy espec\'ifico que no est\'a en ning\'un paquete? Una funci\'on personalizada o muy espec\'ifica? O qu\'e pasa cuando cierto segmento de instrucciones lo tenemos que usar varias veces en diferentes parte de nuestro c\'odigo? Para ello es muy conveniente el poder crear nosotros nuestras propias funciones, y m\'as a\'un, nuestros propios paquetes. Esto tambi\'en lo vamos a ver r\'apidamente, y veremos que es mucho m\'as f\'acil de lo que hemos visto hasta ahora.
+
+\subsubsection{Paquetes}
+Trabajar con paquetes resulta, en la mayor parte de lenguajes de programaci\'on, una tarea bastante sencilla. En Python, sin embargo, hay que tomar en cuenta que llamarlos (para poder usarlos) se puede hacer de dos formas y el resultado de esto es un poco diferente. Estas dos formas son:
+
+\begin{enumerate}
+\item Llamar a las funciones de un paquete para que estas se integren a nuestra rutina y no nos volvamos a recordar del paquete. Esto tambi\'en nos permite llamar exclusivamente a algunas funciones de un paquete.
+\item Llamar el paquete de una forma en la que siempre nos tenemos que referir primero al paquete y despu\'es a las funciones dentro de \'el. Esta forma hace que importemos \emph{todo} lo que hay dentro del paquete.
+\end{enumerate}
+
+Veamos el primer caso. En una l\'inea de comando Python vamos a ingresar el siguiente comando:\\
+\inlinecode{from math import log e} De esta forma estamos importando el logaritmo natural y la constante exponencial \textbf{e} a esta sesi\'on. Ahora, podemos escribir algo como \inlinecode{log(e)} que nos deber\'ia dar \inlinecode{1.0} como resultado. Analicemos ahora lo que hicimos. La palabra \inlinecode{from} se\~nala el paquete del cu\'al vamos a sacar nuestras funciones o constantes. El paquete que se\~nalamos en este caso es el paquete \textbf{math}. La palabra \inlinecode{import} es la que hace toda la acci\'on de llamar a las funciones que deseamos del paquete. Finalmente, le solicitamos a Python que solo llame a la funci\'on \textbf{log} y a la constante \textbf{e}.\\
+
+Eso fue bastante sencillo. Las funciones quedan libres, como la funci\'on \inlinecode{sum()} que hab\'iamos visto en la secci\'on anterior. Todo est\'a bien. Un dato curioso a considerar es que si deseamos importar todas las funciones y constantes de un paquete, no es necesario saberlas de memoria. En vez de listarlas despu\'es de \inlinecode{import} solo colocamos un asterisco para referirnos a todo lo que hay en el paquete. El resultado en el caso del paquete \textbf{math} se ver\'ia as\'i: \inlinecode{from math import *}.\\
+
+Ahora analicemos el segundo caso. Este resulta, para muchos, como una forma m\'as ordenada de hacer las cosas, puesto que debemos recordar al paquete de donde sali\'o cada funci\'on. Repitiendo lo mismo que hicimos en el ejercicio anterior, vamos a importar el paquete \textbf{math}, pero de la \emph{otra} manera: \inlinecode{import math}. En este caso la palabra \inlinecode{import} va a importar todo el contenido de un paquete. Entonces, con lo que acabamos de hacer, importamos el paquete math completo; no podemos solicitar solo algunas funciones si lo hacemos as\'i. Ahora para utilizar las funciones como en el ejemplo anterior escribimos: \inlinecode{math.log(math.e)}. Como nos damos cuenta, tenemos que referirnos al paquete \emph{cada vez} que vamos a utilizar una funci\'on del mismo.\\
+
+Esta forma de importar paquete es un poco m\'as ordenada, puesto que tenemos que saber de qu\'e paquete viene cada una. Un dato curioso de esta forma es que si no queremos utilizar el nombre original del paquete, lo podemos cambiar. Para hacer esto, vamos a escribir \inlinecode{import math as matematica}. Ahora, si deseamos utilizar funciones del paquete \textbf{math}, podemos referirnos a ellas como \inlinecode{matematica.log(matematica.e)}.
+
+\subsubsection{Usando Funciones}
+Antes de proceder a jugar con funciones de otros paquetes, recordemos las funciones que ya tiene Python. Hemos visto que existe \inlinecode{sum()} para sumar todos los elementos de una lista. Pero tambi\'en existen \inlinecode{min()} y \inlinecode{max()} para extraer el elemento m\'as peque\~no y m\'as grande de una lista respectivamente. Ahora, sin embargo, hemos expandido nuestra capacidad de hacer operaciones con funciones espec\'ificas para matem\'atica.\\
+
+Las funciones del paquete \textbf{math}, a pesar de ser pocas, resultan muy \'utiles. Para averiguar todas las funciones que trae el paquete, podemos ingresar \inlinecode{dir(math)} si es que importamos el paquete con \inlinecode{import math}. Como podemos ver, tenemos muchas funciones que pueden sernos muy \'utiles: seno, coseno, tangente, logaritmo natural, logaritmo base 10, el factorial, la funci\'on gamma, etc. Hay muchas cosas que podemos utilizar para hacer c\'alculos m\'as complejos. C\'alculos como cu\'ales? Intentaremos un ejemplo de an\'alisis inorg\'anico.\\
+
+Intentaremos calcular algo m\'as interesante utilizando una de estas funciones: el logaritmo base 10. Existe una ecuaci\'on en qu\'imica anal\'itica que nos sirve para calcular el pH de un buffer cuando contamos con la concentraci\'on del \'acido y de su forma como sal. Comencemos asumiendo que tenemos un buffer de acetatos. La constante $K_a $ es de $ 1.8 \cdot 10^{-5}$ y resulta que deseamos saber el pH al cual est\'a una soluci\'on. Siguiendo la ecuaci\'on de Henderson-Hasselbalch, podemos calcular esto f\'acilmente.
+
+\begin{equation}
+pH = pK_a + \log \left( \frac{\left[A^-\right]}{\left[HA\right]} \right)
+\end{equation}
+
+Entonces, si tenemos que $\left[HA\right] = 0.1 M$ y que $\left[A^-\right] = 0.025 M$, calcular esto en Python se ver\'ia de la siguiente forma:
+
+\begin{Code}
+from math import log10\\
+K = 1.8E-5\\
+A = 0.025\\
+HA = 0.1\\
+print "pH =", -1 * log10(K) + log10(A/HA)
+\end{Code}
+
+Como vemos, las funciones las podemos utilizar dentro de operaciones matem\'aticas y tantas veces como deseamos. Resulta entonces muy sencillo dise\~nar scripts que calculen datos mediante operaciones matem\'aticas m\'as complejas. Sin embargo, hay veces que estas funciones no son suficientes. Los paquetes nos proveen de una gran cantidad de funciones, pero no todas las que necesitamos. Para eso vamos a crear nosotros nuestras propias funciones.
+
+\subsubsection{Nuestras Funciones}
+Cuando deseamos \emph{crear} una nueva funci\'on en la clase de matem\'atica, generalmente decimos que vamos a \emph{definirla}. Por esta misma raz\'on, a la hora de de crear una funci\'on en Python, vamos a utilizar la palabra \inlinecode{def} Adem\'as de esto le tenemos que poner alg\'un nombre a nuestra funci\'on. En este caso, el nombre es totalmente libre de poner, al igual que el nombre de las variables. Finalmente, debemos especificar qu\'e datos le vamos a dar a nuestra variable para que funcione. Adem\'as, al final de la funci\'on podemos hacer que esta nos devuelva (o no) otro dato o datos con la palabra \inlinecode{return}. Ve\'amoslo real: vamos a crear una funci\'on \textbf{media} que nos calcular\'a la media de todos los datos en una lista.
+
+\begin{Code}
+def media(una\_lista):\\
+\hspace*{4mm} suma = float(sum(una\_lista))\\
+\hspace*{4mm} largo = len(una\_lista)\\
+\hspace*{4mm} return suma / largo
+\end{Code}
+
+Si ingresamos esto en Python, nos daremos cuenta de que no pasa nada. Esto se debe a que solo creamos una funci\'on. Por ahora ella existe igual que una variable; no har\'a nada a menos de que la llamemos y la hagamos funcionar. Un par de detalles a notar es que ingresamos una lista inexistente llamda \inlinecode{una\_lista}. Esta lista no es una variable exactamente. Esta solo est\'a se\~nalando el lugar donde ir\'a el dato que le vamos a ingresar a la funci\'on. En otras palabras, cuando llamemos \inlinecode{media([2.54,2.57,2.53,2.54,2.56,2.56])} entonces \inlinecode{una\_lista} ser\'a igual a \inlinecode{[2.54,2.57,2.53,2.54,2.56,2.56]} y todas las operaciones aplicadas a \inlinecode{una\_lista} se le aplicar\'an a la lista de datos. El otro detalle a considerar es que dentro de la funci\'on definimos algunas variables. Estas solo existen dentro de la funci\'on, no afuera. Si intentamos llamar a \inlinecode{suma} fuera de la funci\'on, Python nos advertir\'a que la variable no existe.\\
+
+Ahora que ya hemos hecho nuestra primera funci\'on, intentemos hacer lo mismo con la desviaci\'on est\'andar. Debemos de recordar que para eso necesitamos calcular la media, as\'i que el siguiente segmento de c\'odigo debe de ir justo despu\'es del anterior en el mismo documento.
+
+\begin{Code}
+def desviacion\_est(una\_lista):\\
+\hspace*{4mm} med = media(una\_lista)\\
+\hspace*{4mm} cuadrados = [(i - med)**2 for i in una\_lista]\\
+\hspace*{4mm} varianza = sum(cuadrados) / ( len(una\_lista) - 1 )\\
+\hspace*{4mm} return varianza**0.5
+\end{Code}
+
+Ahora ya podemos calcular la desviaci\'on est\'andar con una sola funci\'on. Esto es bastante conveniente, porque ya no tenemos que escribir tanto y adem\'as, nuestro c\'odigo se va volviendo m\'as f\'acil de entender. Algo importante a notar es que utilizamos nuestra funci\'on para calcular medias \emph{dentro} de esta nueva funci\'on\footnote{Utilizar funciones dentro de funciones s\'i se puede hacer. Utilizar variables de afuera, dentro de una funci\'on no se puede hacer a menos de que se coloquen dentro de los par\'entesis de la funci\'on; como \textit{argumentos}.}. Hay una cosa extra\~na que utilizamos en esta \'ultima funci\'on que vale la pena que revisemos. Utilizamos un \inlinecode{for} dentro de corchetes, sin utilizar dos puntos, y poniendo la operaci\'on que normalmente va debajo del \inlinecode{for} antes de \'el. Esta es otra forma de crear listas de manera m\'as r\'apida y en una sola l\'inea. Comenta con tu compa\~nero de al lado sobre las funciones que hemos ido creando y c\'omo podr\'iamos hacerlas m\'as eficientes y mejores. Por ahora, vamos a crear dos funciones m\'as para que veamos dos \'ultimos puntos importantes.\\
+
+Es posible crear funciones que no devulevan ning\'un dato o valor, sino que muestren o solo guarden algo. Esto no es nada extra\~no. Generalmente podemos crear funciones que nos muestren algo de manera gr\'afica\footnote{O m\'as o menos gr\'afica haciendo uso de s\'imbolos ASCII.} o que guarden datos en un documento. Todo esto sin devolver nada. Intentaremos hacer ahora una funci\'on que no devuelva nada, sino que nos muestre los datos de una lista de listas (una matriz o tabla). Para ello se nos presenta aqu\'i la funci\'on y la idea es que la veamos, la estudiemos, la ejecutemos y analicemos lo que hace.
+
+\begin{small}
+\begin{Code}
+def tabla(datos, tiene\_titulos):\\
+\hspace*{4mm} titulos = "|"\\
+\hspace*{4mm} if tiene\_titulos:\\
+\hspace*{11mm} segunda\_linea = "|"\\
+\hspace*{11mm} tiene\_segunda\_linea = False\\
+\hspace*{11mm} for nombre in datos[0]:\\
+\hspace*{18mm} largo = len(nombre)\\
+\hspace*{18mm} if largo >\ 18:\\
+\hspace*{25mm} tiene\_segunda\_linea = True\\
+\hspace*{25mm} titulos += "\ "\ + nombre[:18] + "\ |"\\
+\hspace*{25mm} segunda\_linea += "\ "\ * (37 - largo) + nombre[18:] + "\ |"\\
+\hspace*{18mm} else:\\
+\hspace*{25mm} titulos += "\ "\ *\ (19 - largo) + nombre + "\ |"\\
+\hspace*{25mm} segunda\_linea += "\ "\ * 19 + "\ |"\\
+\hspace*{11mm} print titulos\\
+\hspace*{11mm} if tiene\_segunda\_linea:\\
+\hspace*{18mm} print segunda\_linea\\
+\hspace*{11mm} print "\ \hspace*{-2mm}-"\ *\ len(segunda\_linea)\\
+\hspace*{11mm} datos = datos[1:]\\
+\hspace*{4mm} else:\\
+\hspace*{11mm} print "\ \hspace*{-2mm}-"\ *\ (21 * len(datos[0]) + 1)\\
+\hspace*{4mm} for linea in datos:\\
+\hspace*{11mm} fila = "|"\\
+\hspace*{11mm} for dato in linea:\\
+\hspace*{18mm} dato = str(dato)\\
+\hspace*{18mm} fila += "\ "\ *\ (19 - len(dato)) + dato + "\ |"\\
+\hspace*{11mm} print fila
+\end{Code}
+\end{small}
+
+Como recomendaci\'on para probar esta funci\'on, ser\'ia interesante tomar la siguiente idea:
+
+\begin{Code}
+muestreo = [["\ \hspace*{-2mm}id", "\ \hspace*{-2mm}Energias", "No. de atomos"],[1, -42.93, 16],[2, -37.24, 14],[3, -39.27, 16],[4, -40.12, 15]]\\
+tabla(muestreo, True)
+\end{Code}
+
+Con esto podemos ver mejor y m\'as claramente lo que estamos tratando de hacer. Despu\'es de analizarla y entenderla, busquemos discutirla con nuestro compa\~nero de al lado e intercambiar opiniones. Quiz\'a no nos d\'e tiempo de discutir cada detalle y aspecto, pero intentemos hablar de la idea general de la funci\'on y las estructuras que vemos en ella. Notemos tambi\'en la falta de un \inlinecode{return} y c\'omo esto la vuelve diferente a las que hemos visto antes.\\
+
+Entonces, hay dos cosas que debemos de tomar en cuenta. Primero, que hay funciones que nos ayudan a visualizar cosas. Estas quiz\'a no produzcan una salida que podamos usar dentro de nuestro ordenador, pero s\'i algo que nos servir\'a a nosotros para interpretar lo que est\'a pasando. Y segundo, que son generalmente las partes gr\'aficas de un programa las que m\'as tiempo nos quitar\'an al programarlas; estas ser\'an bastante largas.\\
+
+Para terminar la parte de funciones, vamos a hacer un ejercicio de qu\'imica anal\'itica. Conocemos que existen \'acidos d\'ebiles y que estos se disocian parcialmente en agua. Sin embargo, la cantidad del \'acido d\'ebil o de su base conjugada en el medio depende mucho del pH. Vamos a estudiar una funci\'on que nos va a generar todas las concentraciones de \'acidos d\'ebiles y bases conjugadas para toda la escala de pH. Al graficar estos datos en Miscrosoft Excel o LibreOffice Calc vamos a obtener lo que se conoce como un diagrama de especiaci\'on. Pero para poder ver los datos en una hoja de c\'alculo, debemos guardar estos datos en un documento. Veamos ahora la funci\'on, prob\'emosla y analicemos qu\'e est\'a haciendo y c\'omo.
+
+\begin{Code}
+def especiacion(*args):\\
+\hspace*{6mm} f = open("diagrama.csv","w")\\
+\hspace*{6mm} for i in xrange(0,141,5):\\
+\hspace*{13mm} spec = len(args) + 1\\
+\hspace*{13mm} ctrl = [0]*spec\\
+\hspace*{13mm} for j in xrange(spec):\\
+\hspace*{21mm} if j >\ 1:\\
+\hspace*{28mm} ctrl[j] = args[j-1]*ctrl[j-1]/(args[j-1] + 10**(i*-0.1))\\
+\hspace*{28mm} ctrl[j-1] -= ctrl[j]\\
+\hspace*{21mm} elif j == 1:\\
+\hspace*{28mm} ctrl[j] = args[j-1]/(args[j-1] + 10**(i*-0.1))\\
+\hspace*{28mm} ctrl[j-1] -= ctrl[j]\\
+\hspace*{21mm} else:\\
+\hspace*{28mm} ctrl[j] = 1\\
+\hspace*{13mm} result = str(i*0.1)\\
+\hspace*{13mm} for k in ctrl:\\
+\hspace*{21mm} result += "\ "\ + str(k)\\
+\hspace*{13mm} f.write(result + "\textbackslash n")\\
+\hspace*{6mm} f.close()
+\end{Code}
+
+Para ejecutarla, podemos hacerlo de la siguiente forma: \inlinecode{especiacion(1.8E-5)} lo cual calcular\'a la cantidad de \'acido ac\'etico y acetato a diferente pH. Tambi\'en podemos probarla as\'i: \inlinecode{especiacion(7.5E-3, 6.2E-8, 4.8E-13)} Esto resultar\'a en el c\'alculo de las especies de fosfatos a diferente pH. Estudiemos la funci\'on y coment\'emosla con nuestro compa\~nero de al lado. Nuevamente, no nos enfoquemos en cada detalle, sino en comprender la idea general.\\
+
+Existen tres cosas importantes en esta funci\'on que acabamos de ver. La primera es que, al igual que la funci\'on que nos mostraba tablas de datos, esta no devuelve nada que le sirva a nuestro ordenador; todo lo almacena en un documento. La segunda es la manera en que colocamos los par\'ametros de la funci\'on\footnote{El nombre de la variable que vamos a usar dentro de la funci\'on. O mejor dicho, el nombre de la variable que va a almacenar a nuestros argumentos.}. Al haber colocaldo un asterisco antes del par\'ametro, la funci\'on ahora toma cualquier cantidad de argumentos. Puede ser uno, pueden ser 3, pueden ser 5 o 10, no importa. El asunto es que nuestra funci\'on es capaz de trabajar con cualquier n\'umero de argumentos, porque al incluir un asterisco, lo que pasar\'a es que Python crear\'a una lista con todo lo que coloquemos como argumentos y la funci\'on trabajar\'a con esa lista. La tercera es que si no escribimos nombres de variables significativos (que se entiendan por personas) y si no documentamos bien nuestro c\'odigo, \textbf{nadie} lo entender\'a. La idea no es que escribamos c\'odigo que funcione, sino que escribamos c\'odigo que funciona en nuestro ordenador, pero pueda ser comprendido por personas.
+
+\subsubsection{Nuestros Paquetes}
+Despu\'es de alg\'un tiempo, es com\'un que nos hallemos con decenas, si no cientos de documentos con peque\~nos scripts o programas que nos permit\'ian hacer algo en particular. Si nos portamos un poco m\'as ordenados, vamos colocando diferentes documentos en carpetas separ\'andolos por sus funciones o por lo que hacen. Pero igual, esto sigue siendo un poco de desastre, porque cada vez que necesitamos una funci\'on vamos a tener que ir a ese documento, copiarla, pegarla en donde estamos trabajando y luego utilizarla. Para evitar el desorden y el copiar y pegar, vamos a aprender a crear nuestros propios paquetes.\\
+
+Un paquete no es m\'as que un documento con muchas funciones. As\'i de sencillo! No tenemos que complicarnos m\'as. Si dise\~namos muchas funciones para hacer operaciones de estad\'istica o de \'algebra, lo \'unico que debemos hacer es colocar todas esas funciones en un documento, guardarlo y ya: ese es nuestro nuevo paquete. Para utilizarlo solo debemos tener ese documento en el mismo lugar que el documento que vamos a estar trabajando. Finalmente, importamos con el nombre del documento. Veamos un ejemplo para entender mejor.\\
+
+Vamos a tener nuestras tres funciones de estad\'istica. Una para calcular la media, una para la desviaci\'on est\'andar y una para la mediana.
+
+\begin{Code}
+def media(*datos):\\
+\hspace*{6mm} return sum(datos)/len(float(datos))\\
+\ \\
+def des\_std(*datos):\\
+\hspace*{6mm} m = media(datos)\\
+\hspace*{6mm} diferencia\_cuadrados = sum([(i - m)**2 for i in datos])\\
+\hspace*{6mm} varianza = diferencia\_cuadrados / (len(datos) - 1)\\
+\hspace*{6mm} return varianza**0.5\\
+\ \\
+def mediana(*datos):\\
+\hspace*{6mm} largo = len(datos)\\
+\hspace*{6mm} centro = largo / 2\\
+\hspace*{6mm} if largo \% 2 == 0:\\
+\hspace*{13mm} return media(datos[centro - 1], datos[centro])\\
+\hspace*{6mm} else:\\
+\hspace*{13mm} return datos[centro - 1]
+\end{Code}
+
+Esto lo vamos a guardar en un documento llamado \emph{estadisticos.py}. Posteriormente, vamos a crear otro documento a la par de este en donde vamos a incluir las siguientes 4 l\'ineas:
+
+\begin{Code}
+import estadisticos as stat\\
+muestreo = [6.66, 9.751, 10.112, 10.03, 9.01, 13.948, 13.33, 6.096, 7.585, 11.914, 13.037, 4.872, 7.315, 9.24, 11.266, 9.276, 11.228, 11.629, 9.298, 15.026, 3.772, 11.131, 7.46, 8.193, 15.686, 8.428, 1.019, 10.978, 7.13, 11.602, 7.683, 13.229, 14.394, 7.0, 10.243, 11.1, 8.642, 11.586, 9.933, 7.703, 9.753, 13.589, 2.959, 9.956, 13.172, 7.277, 9.216, 15.341, 15.295, 8.211]\\
+print "La media de los datos es:", stat.media(muestreo)\\
+print "La desviacion estandar de los datos es:", stat.des\_std(muestreo)\\
+print "La mediana de los datos es:", stat.mediana(muestreo)\\
+\end{Code}
+
+Como nos podemos dar cuenta, esto simplifica muchas cosas. Podemos importar cualquier cantidad de paquetes de Python o creados por nosotros y hacer con ellos lo que se nos ocurra. Es por eso que a continuaci\'on vamos a mostrar realmente la capacidad de los paquetes de Python.
+
+\subsection{M\'as All\'a}
+Hasta ahora solo hemos visto bastantes cosas ya. Podemos hacer operaciones matem\'aticas, tareas repetitivas, tomar decisiones, solicitar y leer datos, escribir datos y mostrarlos. Podemos trabajar con paquetes, con diferentes tipos de datos y somos capaces de hallar errores. Es bastante, y sin embargo, ahorita solo hemos visto lo esencial y b\'asico.\\
+
+A continuaci\'on vamos a cambiar un poco la din\'amica del taller. Vamos a ir viendo un ejemplo de diferentes cosas que se pueden hacer con Python. No nos preocupemos si no entendemos todo el c\'odigo a\'un. Esto es solo para formarnos una idea de lo que se puede hacer. Las posibilidades son, realmente, mucho mayores.
+
+\subsubsection{Matem\'atica Avanzada}
+Comencemos nuevamente con lo b\'asico. En las ciencias siempre recurrimos a la matem\'atica como lenguaje para nuestros modelos. Hasta ahora hemos visto c\'omo trabajar con n\'umeros. Pero no ser\'ia interesante poder trabajar con \'algebra y c\'alculo? Intentemos replicar el siguiente ejemplo.
+
+\begin{Code}
+from sympy import * \# Importamos el paquete de matematica simbolica\\
+x = Symbol("x") \# Declaramos a x como un simbolo\\
+f = x**3 - 5*x**2 + 3*x + sin(x) \# Definimos una funcion matematica
+\end{Code}
+
+Hasta ahora todo bien. De hecho, eso de trabajar con s\'imbolos suena prometedor. Nos da la idea de que vamos a poder escribir expresiones algebr\'aicas. Eso es, de hecho, cierto. Pero esta vez vamos a ir m\'as all\'a. Probemos entonces las siguientes 4 cosas.
+
+\begin{Code}
+diff(f, x) \# Derivamos la funcion f con respecto de x\\
+integrate(f, x) \# Integramos la funcion f con respecto de x de manera indefinida\\
+integrate(f, (x, 0, 3)) \# Integramos la funcion f con respecto de x desde 0 hasta 3\\
+f.series(x, 0, 10) \# Calculamos la expansion de f como serie de potencias
+\end{Code}
+
+Claro, en el tercer caso no nos deja muy contentos que el resultado no sea num\'erico. Pero para eso hay una soluci\'on tambi\'en. El tercer paso lo podemos re-escribir de la siguiente manera: \inlinecode{integrate(f, (x,0,3)).evalf()} Esto nos deber\'ia de llevar a nuestro resultado esperado. Para evaluar qu\'e tan buena aproximaci\'on es el cuarto caso, podemos sustituir $x$ por un n\'umero. Primero veamos qu\'e pasa con la funci\'on: \inlinecode{f.subs(x, 2).evalf()} Ahora pasaremos con la expansi\'on en series de potencias. Pero, si nos damos cuenta, existe un t\'ermino al final de la serie que no nos interesa ahora\footnote{Se trata de un t\'ermino de Landau que representa el resto de la serie valuada en 0.}. Para ello vamos a quitarlo con otra funci\'on y luego evaluar:\\
+\inlinecode{f.series(x, 0, 10).removeO().subs(x, 2).evalf()}\\
+
+Poder hacer c\'alculo ya nos permite resolver muchos de aquellos problemas de optimizaci\'on que ten\'iamos. En especial si mencionamos que el paquete \emph{SymPy} tambi\'en nos permite hacer \'algebra b\'asica, resolver ecuaciones y resolver ecuaciones diferenciales. Este paquete contiene cientos, si no miles de funciones que nos permiten hacer muchas operaciones diferentes. Pero no nos limitaremos a este paquete nada m\'as. El paquete \emph{NumPy} nos permite trabajar con arreglos de datos con mucha mayor velocidad a la normal.\\
+
+Un ejemplo cl\'asico en qu\'imica es cuando deseamos balancear una reacci\'on y decidimos utilizar matrices (porque queremos que nuestro ordenador haga el trabajo y no nosotros). Entonces, si tenemos un problema as\'i:
+
+\begin{equation}
+a C_5 H_{12} O + b O_2 \longrightarrow c CO_2 + d H_2 O
+\end{equation}
+
+La idea ser\'a hallar los coeficientes $a, b, c$ y $d$. Para eso planteamos el sistema de ecuaciones:
+
+\begin{eqnarray}
+C: & 5 \cdot a + 0 \cdot b = 1 \cdot c + 0 \cdot d\\
+H: & 12 \cdot a + 0 \cdot b = 0 \cdot c + 2 \cdot d\\
+O: & 1 \cdot a + 2 \cdot b = 2 \cdot c + 1 \cdot d
+\end{eqnarray}
+
+Y aqu\'i es precisamente donde todo se pone interesante en el ordenador. Pasamos todos los coeficientes con $c$ del lado izquierdo de la ecuaci\'on y procedemos a calcular como una matriz de la forma:
+
+\begin{equation}
+\left|
+\begin{matrix}
+5 & 0 & -1 & 0\\
+12 & 0 & 0 & 2\\
+1 & 2 & -2 & 1
+\end{matrix}
+\right|
+\end{equation}
+
+En donde la \'ultima columna de la matriz es el vector de soluciones. Procedemos entonces a pasar esto a nuestro ordenador y dejar que \'el calcule todo.
+
+\begin{Code}
+from numpy import *\\
+from numpy.linalg import *\\
+mat = array([[5, 0, -1], [12, 0, 0], [1, 2, -2]])\\
+vec = array([[0],[2],[1]])\\
+solve(mat, vec)
+\end{Code}
+
+Claro, el resultado no nos va a dar algo bonito de entrada; este tiene decimales que no nos gustan en coeficientes de reaciones. Por ello, lo vamos a multiplicar por algunos n\'umeros hasta que lleguemos a enteros. Finalmente vamos a hallar, en forma de vector, que los coeficientes que busc\'abamos est\'an para $a, b$ y $c$. En el caso de $d$, pues es claro: $d$ es el producto de los n\'umeros por los que multiplicamos el vector de resultado. Perfecto! Resolvimos un sistema de ecuaciones de 3x3 en segundos y sin mayor problema.\\
+
+\emph{NumPy} es, claramente, capaz de hacer mucho m\'as. Calcula valores y vectores propios, inversas, transpuestas, etc. La ventaja es su velocidad de operaciones para arreglos. Pero bien, debemos aclarar que estos dos paquetes son parte de un proyecto m\'as grande llamado \emph{SciPy} para c\'alculos cient\'ificos. Este tambi\'en cuenta con paquetes para algoritmos, matem\'atica avanzada, visualizaci\'on de datos (hacer gr\'aficas), etc. La idea ser\'a investigarlos y ver qu\'e podemos hacer con ellos. Pero por ahora, vamos a enfocarnos en qu\'imica.
+
+\subsubsection{Qu\'imica en el Ordenador}
+Hasta ahora lo m\'as interesante que hab\'iamos hecho a nivel molecular era jugar con el formato SMILES. Esta vez, sin embargo, vamos a hacer otra serie de operaciones con nuestra mol\'ecula. Ahora s\'i haremos algo m\'as que representarla.
+
+\begin{footnotesize}
+\begin{Code}
+\# Importamos un paquete para herramientas de quimica\\
+from rdkit import Chem\\
+\ \\
+\# Importamos mas herramientas\\
+from rdkit.Chem import AllChem \\
+\ \\
+\# Creamos nuestra molecula en SMILES\\
+paracetamol = "\ \hspace*{-2mm}CC(=O)NC1=CC=C(O)C=C1"\\
+\ \\
+\# La convertimos en molecula para poderla trabajar\\
+mol = Chem.MolFromSmiles(paracetamol)\\
+\ \\
+\# Le agregamos los hidrogenos que nos hacen falta\\
+mol\_2 = Chem.AddHs(mol)\\
+\ \\
+\# Calculamos coordenadas iniciales para una molecula\\
+AllChem.EmbedMolecule(mol\_2)\\
+\ \\
+\# Establecemos los parametros necesarios para determinar la energia de la molecula\\
+ff = AllChem.UFFGetMoleculeForceField(mol\_2)\\
+\ \\
+\# Hallamos la conformacion mas estable de la molecula\\
+ff.Minimize()\\
+\ \\
+\# Solicitamos el valor de energia de la molecula\\
+ff.CalcEnergy()\\
+\ \\
+\# Guardamos nuestra molecula con sus coordenadas 3D en otro formato\\
+Chem.MolToMolFile(mol\_2, "\ \hspace*{-2mm}acetaminofen.mol")
+\end{Code}
+\end{footnotesize}
+
+Como nos podemos dar cuenta, nuestro ordenador ya hace muchas cosas por nosotros: agregar hidrogenos, hallar la conformaci\'on m\'as estable y calcular la energ\'ia (en kJ/mol) de esa mol\'ecula. Claro, esa energ\'ia es muy relativa; fue calculada para esa mol\'ecula nada m\'as y no deber\'iamos usarla como par\'ametro termodin\'amico est\'andar, por ejemplo.\\
+
+Adem\'as de esto, \emph{RDKit} puede calcular las cargas parciales de cada \'atomo, el coeficiente de partici\'on octanol/agua, huellas digitales moleculares, \'indices de similitud entre mol\'eculas, puede hallar subestructuras, etc. Este paquete todav\'ia es un trabajo en progreso, por lo que podemos hallar peque\~nos errores en el programa de vez en cuando. Pero en general, ya nos deja hacer muchas cosas.\\
+
+Otros paquetes para qu\'imica que vale la pena sean mencionados son: \emph{PyQuante} para mec\'anica cu\'antica, \emph{Indigo} que es similar a \emph{RDKit}, \emph{OpenBabel} que nos permite casi cualquier transformaci\'on de formatos adem\'as de algunas herramientas, \emph{MMTK} que ofrece herramientas para trabajos un poco m\'as pesados, y claro, \emph{Cinfony} que combina a muchos de estos paquetes en uno solo.
+
+\subsection{Paquete para Qu\'imica sin usar Fortran, Java, C o C++}
+Una desventaja de todos estos paquetes para matem\'atica y qu\'imica es que est\'an solo parcialmente escritos en Python. Otras partes de los mismos est\'an escritos en C, C++, Fortran o Java. Eso los hace m\'as dif\'iciles para nosotros, porque no podemos ver el c\'odigo fuente y adaptarlo a nuestras necesidades. Un proyecto en donde se hiciera un paquete para qu\'imica 100\% en Python ser\'ia una iniciativa totalmente nueva que ayudar\'ia mucho en el proceso de ense\~nanza. Despu\'es de todo, la teor\'ia para todos estos procesos ya est\'a planteada. Y si el problema es de velocidad de operaciones, existe el proyecto \emph{PyPy} que nos ayuda con eso.
+
+\newpage
+
+\subsection{Comentarios Finales}
+Muchas felicidades! Has completado el quinto d\'ia del Taller de QCA. Ahora est\'as en la capacidad de crear rutinas peque\~nas, trabajar con lo que te ingrese un usuario, con el contenido de un documento, hacer tareas repetitivas, guardar datos, mostrarlos, hacer operaciones matem\'aticas y trabajar con texto. Adem\'as de ello, ya sabes que tu ordenador puede hacer \'algebra, c\'alculo y hasta \'algebra lineal. Pero lo m\'as importante es que ya comenzaste a ver que tambi\'en se pueden hacer cosas con qu\'imica.\\
+
+Python es un lenguaje muy utilizado por la comunidad cient\'ifica por su capacidad para hacer scripts con \'el, as\'i como su capacidad de hacer programas enteros con \'el. La ventaja es siempre que es bastante f\'acil de aprender y de trabajar con \'el. Por eso mismo, ser\'ia muy conveniente que profundizaras m\'as en los paquetes que ya mencionamos aqu\'i, as\'i como en otros paquetes que te permiten hacer muchas m\'as cosas. Desde hacer juegos, hasta programar servidores. Desde dise\~nar ventanitas para ver cosas, hasta visualizar mol\'eculas en 3D. Desde trabajar con bases de datos desde Python, hasta hacer operaciones en m\'as de 2 procesadores a la vez. Python puede hacer todo esto, solo te toca aprender c\'omo. Los usos que le puedes dar a esto son casi infinitos.\\
+
+De nuevo felicitaciones por haber terminado este d\'ia; es el m\'as fuerte de toda la semana. La semana entrante comenzaremos otra vez de manera un poco m\'as f\'acil, pero tomando en cuenta todo lo que aprendimos esta semana. Esta vez ya comenzaremos a ver cosas que se hacen en qu\'imica computacional. As\'i que repasa un poco y rel\'ajate en el fin de semana. Esto que viene es la mejor parte!
+
+\section*{Licencia}
+
+\noindent \includegraphics{img/cc_big.png}
+
+\noindent Taller de Qu\'imica Computacional Aplicada by \href{http://github.com/zronyj/TQCA}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
+
+\end{document}
