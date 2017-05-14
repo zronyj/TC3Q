@@ -123,8 +123,15 @@ Vamos a consultar por todas las personas con apellido `Garc\'ia' que se encuentr
 
 El resultado se explica por s\'i solo. Intentemos ahora consultar a la base de datos, a modo de que se distinga si hay entradas con un campo repetido y eliminar los duplicados. Para ello, intentemos con la siguiente consulta: \inlinecode{SELECT DISTINCT apellido FROM Personas;} El resultado nos revela solo las entradas \emph{distintas}! Eliminar duplicados fue f\'acil. Intentemos ordenar los resultados bas\'andonos en el nombre (por orden alfab\'etico, claro). La consulta ha de verse as\'i: \inlinecode{SELECT * FROM Personas ORDER BY nombre;} Observemos los resultados y notemos c\'omo aparece la columna de nombres y la de identificadores. Ahora, para terminar con la parte de ordenado, vamos a ordenar los apellidos de esta tabla de forma descendente: \inlinecode{SELECT * FROM Personas ORDER BY apellido DESC;}\\
 
-Eso fue sencillo y nos dio los resultados esperados. Vamos a intentar algo un poco m\'as complicado. El tr\'ebol en la ciudad de guatemala tiene las coordenadas: $14.613309^o N$ y $90.535149^o O$. Esto se traduce en las cifras: $14.613309$ y $-90.535149$. Cuando la longitud es mayor, nos movemos m\'as al este (a la derecha en el mapa). Cuando la latitud es mayor, nos movemos m\'as al norte (hacia arriba en el mapa). Vamos a intentar hallar todos aquellos lugares en el extremo superior derecho con respecto al tr\'ebol (NE). Para ello necesitamos que la longitud y la latitud sean mayores a las coordenadas el tr\'ebol. En particular, queremos los nombres de los lugares. Intentemos hacer esto con una nueva consulta:
-\inlinecode{SELECT nombre FROM Lugares WHERE (longitud>-90.535149) AND (latitud>14.613309);}\\
+Eso fue sencillo y nos dio los resultados esperados. Vamos a intentar algo un poco m\'as complicado. El tr\'ebol en la ciudad de guatemala tiene las coordenadas: $14.613276^o N$ y $90.535143^o O$. Esto se traduce en las cifras: $14.613276$ y $-90.535143$. Cuando la longitud es mayor, nos movemos m\'as al este (a la derecha en el mapa). Cuando la latitud es mayor, nos movemos m\'as al norte (hacia arriba en el mapa). Vamos a intentar hallar todos aquellos lugares en el extremo superior derecho con respecto al tr\'ebol (NE). Para ello necesitamos que la longitud y la latitud sean mayores a las coordenadas el tr\'ebol. En particular, queremos los nombres de los lugares. Intentemos hacer esto con una nueva consulta:
+\inlinecode{SELECT nombre FROM Lugares WHERE (longitud>-90.535143) AND (latitud>14.613276);}\\
+
+\begin{figure}[H]
+\begin{center}
+\caption{Mapa del segmento de la ciudad en donde se hallaban los puntos de muestreo.}
+\includegraphics[width=8cm]{img/mapa_monair.png}
+\end{center}
+\end{figure}
 
 Esto nos debi\'o haber mostrado solo un resultado: MUSAC. Tengamos cuidado con los signos de mayor y menor! Ahora, como ejercicio, intentemos consultar por las otras 3 direcciones: NO, SO, SE. Para terminar con esta secci\'on, vamos a realizar una consulta sencilla de la tabla \textbf{Lugares}. Vamos a extraer todos los nombres de lugares que comiencen con \emph{i}. Para ello vamos a hacer la siguiente consulta:\\ \inlinecode{SELECT nombre FROM Lugares WHERE (nombre LIKE 'I\%');}\\
 
@@ -173,6 +180,8 @@ SELECT count(CO2) FROM Muestreo WHERE (fecha>='2013-01-01') AND (fecha<='2013-12
 SELECT avg(CO2) FROM Muestreo WHERE (fecha>='2013-01-01') AND (fecha<='2013-12-31');\\
 SELECT sum(CO2) FROM Muestreo WHERE (fecha>='2013-01-01') AND (fecha<='2013-12-31');
 \end{Code}
+
+Qu\'e pasar\'ia si dese\'aramos los datos para el 2012? Intenta realizar nuevamente la misma consulta, pero esta vez para el 2012 y comenta qu\'e diferencias hallas en los resultados.
 
 \subsection{\'Ultimas Consultas}
 El \'ultimo ejercicio que haremos con respecto a lo que hemos visto hasta ahora ser\'a una extra\~na combinaci\'on de todo. La idea ser\'a obtener como resultado el promedio de los datos de $SO_2$ del INCAP para todo el a\~no 2012. Y luego, siguiendo la misma idea, desplegar los datos de $NO_2$, la fecha y los analistas para MUSAC en el a\~no 2013. Antes de comenzar a probar, pensemos un momento lo que queremos hacer y propongamos la consulta sin revisar c\'omo se hace.\\
@@ -343,9 +352,9 @@ La alternativa a hacer esto es hacerlo desde dentro de la DB. Para ello vamos a 
 Antes de terminar con esta secci\'on, es recomendable que abramos uno de los archivos que acabamos de crear y los veamos completamente. Vamos a notar que las primeras 2 l\'ineas y la \'ultima no son algo que nosotros entendamos. Esto es solo algo que agreg\'o el administrador al hacer el \emph{dump}. Borremos esas l\'ineas y nuestro archivo queda listo para armar una base de datos en cualquier momento.
 
 \subsection{Biblioteca y Toxicidades}
-La mayor\'ia de bibliotecas en el mundo se manejan ya con ficheros electr\'onicos. Utilizan el c\'odigo ISBN de los libros como identificador y adem\'as permiten listar la informaci\'on de cada libro, adem\'as de su disponibilidad, en l\'inea. Esto es una clara ventaja para cuando se desea buscar dentro de los contenidos de una biblioteca. Sin embargo, algo que no se ha implementado en la mayor\'ia de ellas es que de \emph{esa} base de datos se puedan crear, de manera inmediata, las bibliograf\'ias que a veces tanto tiempo nos cuesta crear. M\'as adelante veremos que esto se podr\'ia programar y se podr\'ia ligar a documentos de Microsoft Word o \LaTeX .\\
+La mayor\'ia de bibliotecas en el mundo se manejan ya con ficheros electr\'onicos. Utilizan el c\'odigo ISBN de los libros como identificador y adem\'as permiten listar la informaci\'on de cada libro, adem\'as de su disponibilidad, en l\'inea. Esto es una clara ventaja para cuando se desea buscar dentro de los contenidos de una biblioteca. Sin embargo, algo que no se ha implementado en la mayor\'ia de ellas es que de \emph{esa} base de datos se puedan crear, de manera inmediata, las bibliograf\'ias que a veces tanto tiempo nos cuesta crear. M\'as adelante veremos que esto se podr\'ia programar y se podr\'ia ligar a documentos de Microsoft Word o \LaTeX , pues ya existen varias herramientas que facilitan el trabajo.\\
 
-Otro proyecto similar ser\'ia la creaci\'on de una base de datos con todas las toxicidades de todos los reactivos con los que se vaya trabajando. De crearla as\'i, se podr\'ia obtener la tabla de toxicidades para cada laboratorio solo buscando los reactivos a utilizar, y sin tener que leer la hoja de seguridad entera. Es cierto que al ver la hoja de seguridad uno aprende c\'omo es que funcionan ellas, pero repetir lo mismo durante todos los laboratorios de una carrera resulta tedioso. Esto, como se ver\'a adelante, tambi\'en se podr\'ia programar y dejar creado para futuras generaciones.\\
+Otro proyecto similar ser\'ia la creaci\'on de una base de datos con todas las toxicidades de todos los reactivos con los que se vaya trabajando o con los que se cuenta. De crearla as\'i, se podr\'ia obtener la tabla de toxicidades para cada laboratorio solo buscando los reactivos a utilizar, y sin tener que leer la hoja de seguridad completa. Es cierto que al ver la hoja de seguridad uno aprende c\'omo es que funcionan ellas, pero repetir lo mismo durante todos los laboratorios de una carrera resulta tedioso. Esto, como se ver\'a adelante, tambi\'en se podr\'ia programar y dejar creado para futuras generaciones.\\
 
 Ambos proyectos ser\'ian interesantes para quien los quisiera llevar a cabo como ejercicio. No son nada complicados, aunque s\'i algo tediosos, puesto que las bases de datos se tendr\'ian que ir llenando al principio. Para quien se desee aventurar, esto podr\'ia ser un proyecto muy interesante para estudiantes de pregrado.
 
