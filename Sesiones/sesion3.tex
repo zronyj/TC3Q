@@ -1,7 +1,7 @@
 %
-% dia4.tex
+% sesion3.tex
 % 
-% Copyright 2014 Rony J. Letona <rony@zronyj.com>
+% Copyright 2017 Rony J. Letona <zronyj@gmail.com>
 % 
 % This program is free software; you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@
 \usepackage{natbib}
 \bibliographystyle{apa}
 \author{Rony J. Letona}
-\title{Taller de Qu\'imica Computacional Aplicada: D\'ia 4}
+\title{Taller de Qu\'imica Computacional Aplicada: Sesi\'on 3}
 \definecolor{light-gray}{gray}{0.90}
 
 \newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
@@ -694,9 +694,9 @@ Al llegar a este punto ya somos capaces de hacer la mayor parte de cosas que era
 No vamos a ver c\'omo crear funciones o ambientes nuevos, puesto que eso es un tema para un d\'ia entero. Sin embargo, vamos a hacer uso de uno que ha sido dise\~nado para darnos mayor facilidad con algunos aspectos de \LaTeX\ y nos permitir\'a la elaboraci\'on de art\'iculos cient\'ificos en poco tiempo. En nuestra carpeta de documentos se halla uno llamado \emph{plantilla\_reporte.tex}. Abr\'amoslo y estudi\'emoslo un momento. En \'el se van a hallar las instrucciones para hacer los ejercicios de esta secci\'on. 
 
 \subsection{Autoensablados: \'Indice y Bibliograf\'ia}
-Antes de terminar, vamos a ver dos cosas muy importantes a la hora de trabajar con \LaTeX . Una es muy f\'acil, la otra no tanto. Cuando ya hemos terminado un proyecto largo y de repente revisamos en las instrucciones, a veces nos pasa que nos encontramos con las palabras de la muerte: \'indice y bibliograf\'ia. Sin embargo, gracias a lo que ya tenemos hecho en nuestros documentos, agregar el \'indice en \LaTeX\ es algo s\'uper-simple. Vamos antes de la car\'atula o en la primera p\'agina y colocamos la siguiente secuencia: \inlinecode{\textbackslash tableofcontents} Con esto ya tenemos el \'indice. Si deseamos que este no se mezcle con el resto de nuestro contenido y tenga una p\'agina dedicada, despu\'es de \'el agregamos otra secuencia: \inlinecode{\textbackslash newpage} Y eso es todo.\\
+Antes de terminar, vamos a ver dos cosas muy importantes a la hora de trabajar con \LaTeX . Una es muy f\'acil, la otra no tanto. Cuando ya hemos terminado un proyecto largo y de repente revisamos en las instrucciones, a veces nos pasa que nos encontramos con las palabras que nos hacen sudar fr\'io: \'indice y bibliograf\'ia. Sin embargo, gracias a lo que ya tenemos hecho en nuestros documentos, agregar el \'indice en \LaTeX\ es algo s\'uper-simple. Vamos antes de la car\'atula o en la primera p\'agina y colocamos la siguiente secuencia: \inlinecode{\textbackslash tableofcontents} Con esto ya tenemos el \'indice. Si deseamos que este no se mezcle con el resto de nuestro contenido y tenga una p\'agina dedicada, despu\'es de \'el agregamos otra secuencia: \inlinecode{\textbackslash newpage} Y eso es todo.\\
 
-En el caso de la bibliograf\'ia si se trata de algo m\'as elaborado. Existen varios paquetes para autoensamblar bibliograf\'ias basadas en documentos de texto con la informaci\'on necesaria. Bib\TeX\ es un caso, pero la mayor\'ia de proyectos no han \emph{madurado} lo suficiente como para poderlos llamar est\'andar. En ese caso, vamos a trabajar con una forma de bibliograf\'ia muy sencilla que generalmente se incluye dentro de un documento \LaTeX\ inmediatamente.\\
+En el caso de la bibliograf\'ia si se trata de algo m\'as elaborado. Si bien existen herramientas como \href{https://www.bibme.org/}{BibMe.org}, \href{http://www.citationmachine.net/}{Citation Machine} o \href{http://www.easybib.com/}{EasyBib} que nos permiten ensamblar bibliograf\'ias en Internet, en \LaTeX hay algunas alternativas que, aunque parezcan m\'as elaboradas, nos proveen de mejor control en lo que estamos haciendo. Existen varios paquetes para autoensamblar bibliograf\'ias basadas en documentos de texto con la informaci\'on necesaria. Bib\TeX\ es el caso m\'as completo. Este lo dejaremos para el final, ya que implica saber muchos otros detalles. En el caso inmediato vamos a trabajar con una forma de bibliograf\'ia muy sencilla que generalmente se incluye dentro de un documento \LaTeX\ .\\
 
 Un detalle que debemos considerar antes de comenzar a llenar nuestro documento con bibliograf\'ias y citas es que estas pueden tener un estilo particular dado por un paquete. En nuestro caso vamos a incluir un paquete de estilos y vamos a configurar un tipo de citas. Nos toca colocar las siguientes l\'ineas al principio de nuestro documento para cumplir con la consistencia del paquete a utilizar:
 
@@ -726,7 +726,7 @@ Ahora vamos a trabajar con nuestro \'ultimo ambiente: \inlinecode{thebibliograph
 \end{verbatim}
 \end{Code}
 
-Esto tiene mucha informaci\'on, pero vamos paso a paso. Lo primero extra\~no que notamos es que al crear el ambiente, tambi\'en incluimos \inlinecode{\{99\}} Esto es para dar un m\'aximo de cu\'antas bibliograf\'ias se incluir\'an. De no incluirse esto, \LaTeX\ dar\'a error indicando que algo falta. Lo siguiente que notamos es la secuencia \inlinecode{\textbackslash bibitem[]\{\}} Esta inicia una nueva entrada en la bibliograf\'ia. Entre los corchetes va la manera en la que se desea mostrar la cita, y entre las llaves la etiqueta con la que haremos referencia a esa cita. Lo dem\'as es solo la informaci\'on del libro a manera de leerse m\'as f\'acil; podr\'iamos colocarla en una sola l\'inea.\\
+Esto tiene mucha informaci\'on, pero vamos paso a paso. Lo primero que notamos extra\~no es que al crear el ambiente, tambi\'en incluimos \inlinecode{\{99\}} Esto es para dar un m\'aximo de cu\'antas bibliograf\'ias se incluir\'an. De no incluirse esto, \LaTeX\ dar\'a error indicando que algo falta. Lo siguiente que notamos es la secuencia \inlinecode{\textbackslash bibitem[]\{\}} Esta inicia una nueva entrada en la bibliograf\'ia. Entre los corchetes va la manera en la que se desea mostrar la cita, y entre las llaves la etiqueta con la que haremos referencia a esa cita. Lo dem\'as es solo la informaci\'on del libro a manera de leerse m\'as f\'acil; podr\'iamos colocarla en una sola l\'inea.\\
 
 Si ponemos atenci\'on, la bibliograf\'ia es como un ambiente numerado. Las diferencias son que hay que colocar un m\'aximo de entradas, y que cada entrada debe llevar su forma de representar la cita y su etiqueta para citarse. Tomando esto \'ultimo en cuenta, no hemos visto c\'omo citar algo de la bibliograf\'ia. Para ello se utiliza \inlinecode{\textbackslash citep\{\}} En nuestro caso en particular, tendr\'iamos que hacerlo de la siguiente manera: \inlinecode{\textbackslash citep\{bib:mcmurry\}} Con eso ya podemos colocar la cita donde nos plazca. Claro, es preferible incluirla al final de un p\'arrafo. Ahora, para ver c\'omo se ve el resultado de nuestro c\'odigo, podemos analizar la cita que incluimos hace 2 p\'arrafos y las \textbf{Referencias} que se presentan a continuaci\'on\footnote{La palabra \textbf{Referencias} no es una secci\'on que se haya definido en el documento. Esto lo incluye \LaTeX\ como parte de la bibliograf\'ia.}.
 
@@ -742,15 +742,73 @@ Si ponemos atenci\'on, la bibliograf\'ia es como un ambiente numerado. Las difer
 
 \end{thebibliography}
 \newpage
+
+\subsection{Bib\TeX}
+Cuando se piensa en Bib\TeX\ se debe de pensar casi que en un programa aparte. La idea, aunque similar a la de \LaTeX\! , no es la misma. Cuando se cre\'o Bib\TeX\ se pens\'o en tener una especie de base de datos con todas las bibliograf\'ias de un documento. Para su manejo m\'as sencillo, se decidi\'o que esta deb\'ia ser un documento de texto para poderla editar f\'acilmente. Para mantener los intereses separados, las bases de datos Bib\TeX\ se mantienen en documentos separados. Finalmente, dentro del documento existe cierto formato que hemos de seguir para ir almacenando cada referencia bibliogr\'afica. Comencemos con esto.
+
+\subsubsection{Colectando Referencias}
+
+Para hacer esto de manera m\'as din\'amica, comenzaremos viendo la p\'agina de nuestro primer libro de qu\'imica en Google Books: \href{https://books.google.com.gt/books/about/Chemistry.html?id=_wqDoAEACAAJ}{Qu\'imica de Chang}. Si vamos al final de la p\'agina, podremos observar que existe un bot\'on para obtener la referencia en formato Bib\TeX . Al presionar el bot\'on vamos a descargar un peque\~no documento de texto con la referencia. Intentemos abrirlo con un editor de texto y estudiemos el contenido. Es dif\'icil de entender el contenido? Crees que este sistema es claro en la manera de ordenar la informaci\'on?\\
+
+Vamos a repetir el proceso de manera similar para un art\'iculo cient\'ifico. Esta vez entraremos a \href{https://scholar.google.com/}{Google Scholar} y buscaremos lo siguiente: \emph{computational chemistry course martin}. El primer resultado ser\'a un art\'iculo publicado en 1998 por NH Martin en el \emph{Journal of Chemical Education}. Debajo de toda la informaci\'on que nos provee Google, hallaremos un peque\~no v\'inculo que dice \emph{Cite}. Haremos click en \'el para ver un cuadro en el que se halla la referencia en varios sistemas. Nos interesa, sin embargo, presionar en el v\'inculo en donde dice \emph{Bib\TeX\ }y ver el resultado. Qu\'e diferencia podemos observar con el contenido pasado? Hay algo que llame nuestra atenci\'on? Analicemos esto detenidamente y pensemos en qu\'e otras alternativas pueden haber.
+
+\subsubsection{Utilizando las Referencias Bib\TeX}
+
+Veamos ahora c\'omo utilizar todo esto dentro de un documento \LaTeX . Vamos a copiar la referencia Bib\TeX\ del art\'iculo y pegarla justo debajo de la referencia del libro de qu\'imica. Luego guardamos el documento y lo cerramos. Ahora nos tocar\'a colocar el documento Bib\TeX\ en otra parte. Cortamos y pegamos nuestro documento en la carpeta \emph{Documents} y le cambiamos el nombre a \emph{biblio.bib}. Una vez ya tenemos eso listo, vamos a crear un nuevo documento \LaTeX . Esta parte ya es m\'as sencilla, pues ya sabes qu\'e hacer. Lo importante es que el documento \LaTeX , sea cual sea su nombre, est\'e en la misma carpeta que \emph{biblio.bib}. Es al momento de comenzar a dise\~nar el documento que las cosas cambiar\'an un poco.\\
+
+Dentro del documento \LaTeX\ vamos a agregar las siguientes l\'ineas. De nuevo, esto es igual que lo que ya hemos hecho; no debe de ser complicado.
+
+\begin{Code}
+\begin{verbatim}
+\documentclass[11pt,letterpaper]{article}
+\usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+\author{Coloca tu Nombre Aqui}
+\title{Las Tecnolog\'ias de la Informaci\'on como Herramientas en las Ciencias}
+
+\renewcommand{\baselinestretch}{1.5}
+
+\begin{document}
+
+\maketitle
+
+La qu\'imica es una ciencia evolucionando activamente que es de vital importancia para el
+mundo. La qu\'imica computacional, por su lado, es una rama esencial que al adjuntarse a
+la experimentaci\'on, ha llevado al desarrollo de nuevos productos y materiales en s\'intesis
+org\'anica, bioqu\'imica, qu\'imica medicinal, espectroscop\'ia y cromatograf\'ia.
+
+\end{document}
+
+\end{verbatim}
+\end{Code}
+
+Al revisar lo anterior, notamos que no hay nada nuevo o especial. Parece ser un documento \LaTeX\ sencillo sin mayor modificaci\'on. Sin embargo, es en este momento que haremos cambios para incluir una bibliograf\'ia con Bib\TeX . Lo primero que haremos ser\'a agregar \inlinecode{\textbackslash usepackage\{apacite\}} a nuestro documento \LaTeX\ despu\'es del paquete \emph{babel} para idioma espa\~nol. Posteriormente vamos a agregar 2 secuencias antes del final del documento: \inlinecode{\textbackslash bibliographystyle\{apacite\}} y \inlinecode{\textbackslash bibliography\{biblio\}}. Es hasta en esta \'ultima secuencia que llamamos a nuestra peque\~na base de datos con las referencias. Qu\'e crees que hacen las otras dos secuencias que agregamos antes de esa?\\
+
+Finalmente, Bib\TeX\ no incluir\'a ninguna de nuestras referencias si no las citamos. Es por ello que al final de la primera oraci\'on (y antes del punto) vamos a incluir la secuencia \inlinecode{\textbackslash cite\{chang2015chemistry\} }. Al final de la segunda oraci\'on (y antes del punto) incluimos la secuencia \inlinecode{\textbackslash cite\{martin1998integration\} }. Si nos damos cuenta, estos eran los identificadores de cada una de las entradas en nuestras bases de datos. Lo \'unico que nos queda es ensamblar todo. Esta es, sin embargo, la parte tediosa.\\
+
+Debemos realizar una modificaci\'on a la configuraci\'on de \TeX Maker. Primero vamos a \emph{Options}, \emph{Configure Texmaker}. All\'i vamos a escoger la opci\'on \emph{Quick Build} y finalmente seleccionamos el segundo bot\'on de la lista. Presionamos \emph{OK} y estamos listos. Recordamos el bot\'on para armar el PDF? Era la flecha azul a la par de PDFLaTeX, no? Bien, ahora vamos a cambiar la opci\'on PDFLaTeX a Quick Build y presionamos la flecha. Qu\'e pas\'o? Ser\'a que logramos el resultado que esper\'abamos? Comenta con tu compa\~nero de al lado tu opini\'on sobre el resultado.
+
+\subsubsection{Administradores de Referencias}
+
+Para tener una base de datos completa, lo que se hace es llenar un documento con referencias como las que acabamos de ver. Sin embargo, ir coleccionando las referencias bibliogr\'aficas de esta manera parece un poco aburrido y poco eficiente, si la idea que ten\'iamos era ir copiando y pegando esto en un solo documento de texto. Es por eso que en la comunidad cient\'ifica se comenz\'o a usar los administradores de referencias. Algunos de estos son \href{https://www.mendeley.com/}{Mendeley}, \href{https://www.jabref.org/}{JabRef} y \href{https://www.zotero.org/}{Zotero}.\\
+
+Los administradores de referencias permiten llevar una base de datos m\'as formal de todas las bibliograf\'ias en nuestra investigaci\'on. Cualquiera de los 3 casos anteriores tambi\'en permiten exportar nuestra base de datos como Bib\TeX , y as\'i poder usar esto en nuestro documento. El uso de estos administradores no es tema de este taller y por ello no se cubrir\'a, pero se dejar\'a los enlaces a las explicaciones sobre c\'omo exportar las bases de datos de cualquiera de los 3: \href{https://blog.mendeley.com/2011/10/25/howto-use-mendeley-to-create-citations-using-latex-and-bibtex/}{Mendeley}, \href{https://www.jabref.org/}{JabRef} y \href{http://libguides.mit.edu/c.php?g=176000&p=1159208#3}{Zotero}.\\
+
+El autor prefiere usar Mendeley por la facilidad que este provee para colectar referencias directamente de p\'aginas web y porque de este programa existen aplicaciones tambi\'en para dispositivos m\'oviles. Sin embargo, queda a criterio de cada uno estudiar lo que ofrece cada pieza de software y escogerlo en base a sus intereses y necesidades.
+
 \subsection{Tesis}
 Por el momento no existe en muchas partes, pero ser\'ia muy interesante que as\'i como existe un formato para reporte cient\'ifico, existiera el formato de tesis en \LaTeX\ para que solo tuvieramos que llenar. Ser\'ia particular de la facultad a la que pertenecemos y solo necesitar\'iamos de escribir la informaci\'on necesaria sin tener que estar pensando en el formato, la numeraci\'on de las p\'aginas, las figuras, las gr\'aficas, etc. Todo esto se podr\'ia automatizar llegando a un documento de texto y una o dos hojas de estilo. Este es un proyecto que podr\'ia hacerse como ejercicio avanzado para quien desee aventurarse.
 
 \subsection{Comentarios Finales}
-Muchas felicidades, has completado el cuarto d\'ia del taller de QCA. Tu conocimiento ya te permite escribir reportes e informes de una manera m\'as profesional y aceptada por la comunidad cient\'ifica. \LaTeX\ es un tema del que se han escrito hasta libros (utilizando el mismo \LaTeX ); es muy vasto y con muchas posibilidades.\\
+Muchas felicidades, has completado el tercer d\'ia del Taller de QCA. Tu conocimiento ya te permite escribir reportes e informes de una manera m\'as profesional y aceptada por la comunidad cient\'ifica. \LaTeX\ es un tema del que se han escrito hasta libros (utilizando el mismo \LaTeX ); es muy vasto y con muchas posibilidades.\\
 
-Si deseas profundizar m\'as en el uso de \LaTeX , ser\'ia recomendable que comenzaras otra vez desde el principio viendo en qu\'e var\'ian exactamente los diferentes tipos de documento. Luego pasar a ver casos especiales como rotaci\'on de una sola p\'agina, c\'omo utilizar colores en el texto, c\'omo incluir espacios en blanco, c\'omo trabajar con varias columnas, notas al pie, notas al margen, matrices, hiperv\'inculos, gr\'aficas autogeneradas, estructuras qu\'imicas autogeneradas, c\'omo lograr que algo se autonumere, etc. hasta terminar con programaci\'on y dise\~no de clases de documento o p\'aginas de estilo. Finalmente, ser\'ia recomendable que revisaras c\'omo se trabaja con \LaTeX\ para \emph{realmente} publicar en revistas cient\'ificas. Para eso, puedes revisar algunas editoriales como \href{http://pubs.acs.org/page/4authors/submission/tex.html}{ACS}, \href{http://www.rsc.org/Publishing/Journals/guidelines/AuthorGuidelines/AuthoringTools/Templates/tex.asp}{RSC}, \href{http://www.elsevier.com/authors/author-schemas/latex-instructions}{Elsevier} y \href{https://www.springer.com/gp/authors-editors/book-authors-editors/manuscript-preparation/5636}{Springer} por mencionar algunas. Puedes llegar a hacer todo lo que te imaginas con esto.\\
+Si deseas profundizar m\'as en el uso de \LaTeX , ser\'ia recomendable que comenzaras otra vez desde el principio viendo en qu\'e var\'ian exactamente los diferentes tipos de documento. Luego pasar a ver casos especiales como rotaci\'on de una sola p\'agina, c\'omo utilizar colores en el texto, c\'omo incluir espacios en blanco, c\'omo trabajar con varias columnas, notas al pie, notas al margen, matrices, hiperv\'inculos, gr\'aficas autogeneradas, estructuras qu\'imicas autogeneradas, c\'omo lograr que algo se autonumere, etc. hasta terminar con programaci\'on y dise\~no de clases de documento o p\'aginas de estilo. Es importante mencionar tambi\'en que existen herramientas en l\'inea que debes explorar. Entre ellas puedes encontrar \href{https://www.sharelatex.com/}{Share\LaTeX}, \href{https://www.overleaf.com/}{Overleaf}, \href{https://papeeria.com/}{P$\forall$PEERIA}, \href{https://latexbase.com/}{\LaTeX\ Base}, \href{http://www.hostmath.com/}{HostMath} y (muy importante) \href{https://www.authorea.com/}{Authorea}.\\
 
-Felicidades nuevamente, ma\~nana terminamos con la primera semana viendo la introducci\'on a programaci\'on con Python. \'Animo, lo mejor est\'a por venir!
+Finalmente, ser\'ia recomendable que revisaras c\'omo se trabaja con \LaTeX\ para \emph{realmente} publicar en revistas cient\'ificas. Para eso, puedes revisar algunas editoriales como \href{http://pubs.acs.org/page/4authors/submission/tex.html}{ACS}, \href{http://www.elsevier.com/authors/author-schemas/latex-instructions}{Elsevier},  \href{http://www.rsc.org/Publishing/Journals/guidelines/AuthorGuidelines/AuthoringTools/Templates/tex.asp}{RSC}, \href{https://www.springer.com/gp/authors-editors/book-authors-editors/manuscript-preparation/5636}{Springer} y \href{https://authorservices.wiley.com/author-resources/book-authors/prepare-your-manuscript/wiley-latex-template.html}{Wiley} por mencionar algunas. Puedes llegar a hacer todo lo que te imaginas con esto.\\
+
+Felicidades nuevamente, ma\~nana comenzamos viendo la introducci\'on a programaci\'on con Python. Esto te permitir\'a hacer mucho m\'as con tu ordenador. \'Animo, lo mejor est\'a por venir!
 
 \section*{Licencia}
 
