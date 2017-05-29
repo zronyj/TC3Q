@@ -1,7 +1,7 @@
 %
-% dia6.tex
+% sesion6.tex
 % 
-% Copyright 2014 Rony J. Letona <rony@zronyj.com>
+% Copyright 2014 Rony J. Letona <zronyj@gmail.com>
 % 
 % This program is free software; you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@
 \usepackage{upquote}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \author{Rony J. Letona}
-\title{Taller de Qu\'imica Computacional Aplicada: D\'ia 6}
+\title{Taller de Computaci\'on Cient\'ifica para Ciencias Qu\'imicas: Sesi\'on 6}
 \definecolor{light-gray}{gray}{0.90}
 
 \newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
@@ -67,7 +67,7 @@
 \maketitle
 
 \section{Paradigmas, Paquetes y Algoritmos}
-Al terminar un curso de programaci\'on que no nos gust\'o, generalmente nos sentimos aliviados y decidimos jam\'as volver a ver c\'odigo en nuestras vidas. Es m\'as, compadecemos al pobre amigo nuestro que decide meterse a estudiar cursos avanzados o la carrera de ingenier\'ia en sistemas. Pero muchas veces el problema m\'as grande no es que nos hayan dado mal el curso, sino que jam\'as nos mostraron que los principios de este se pod\'ian aplicar a algo en nuestra vida diaria. Por eso, esta vez, vamos a intentar darle prop\'osito a todo lo que hemos aprendido. Esta vez ya no vamos a enfocarnos en usar bien las cosas. Eso ya vamos a asumir que lo podemos hacer o lo aprenderemos por nuestra cuenta despu\'es. Estos documentos se convertir\'an entonces en una gu\'ia de lo que podemos hacer despu\'es. Ya no vamos a entrar tanto en detalle del \emph{c\'omo} estamos haciendo algo. Ahora vamos a hacerlo para contestar el \emph{por qu\'e}. Nos vamos a enfocar entonces en ver qu\'e podemos crear con eso que hemos aprendido. Para ello vamos a comenzar por ver qu\'e significa eso de \emph{Programaci\'on Orientada a Objetos} y c\'omo es que, aunque no nos hayamos dado cuenta, ya la estamos usando. Luego seguiremos buscando realizar tareas de matem\'atica mediante algunos paquetes. Finalmente vamos a aprender sobre algoritmos y c\'omo los podemos usar para tareas desde ordenar listas, hasta hallar la conformaci\'on m\'as estable de una mol\'ecula. Comencemos completando algo de la vez pasada.
+Al terminar un curso de programaci\'on que no nos gust\'o, generalmente nos sentimos aliviados y decidimos jam\'as volver a ver c\'odigo en nuestras vidas. Es m\'as, compadecemos al pobre amigo nuestro que decide meterse a estudiar cursos avanzados o la carrera de ingenier\'ia en sistemas. Pero muchas veces el problema m\'as grande no es que nos hayan dado mal el curso, sino que jam\'as nos mostraron que los principios de este se pod\'ian aplicar a algo en nuestra vida diaria. Por eso, esta vez, vamos a intentar darle prop\'osito a todo lo que hemos aprendido. Esta vez ya no vamos a enfocarnos en usar bien las cosas y vamos a asumir que podemos hacer lo que nos propongamos o vamos a aprender por nuestra cuenta lo necesario para lograrlo. Estos documentos se convertir\'an entonces en una gu\'ia de lo que podemos hacer despu\'es. Ya no vamos a entrar tanto en detalle del \emph{c\'omo} estamos haciendo algo. Ahora vamos a hacerlo para contestar el \emph{por qu\'e}. Nos vamos a enfocar entonces en ver qu\'e podemos crear con eso que hemos aprendido. Para ello vamos a comenzar por ver qu\'e significa eso de \emph{Programaci\'on Orientada a Objetos} y c\'omo es que, aunque no nos hayamos dado cuenta, ya la estamos usando. Luego seguiremos buscando realizar tareas de matem\'atica mediante algunos paquetes. Finalmente vamos a aprender sobre algoritmos y por qu\'e es una buena idea utilizarlos para tareas desde ordenar listas, hasta hallar la conformaci\'on m\'as estable de una mol\'ecula. Comencemos completando algo de la sesi\'on pasada.
 
 \subsection{Ordenando Ideas: Programaci\'on Orientada a Objetos}
 Hay una rama de programaci\'on que nos permite hacer mucho m\'as de lo que ya sabemos. Esta se llama \emph{Programaci\'on Orientada a Objetos}. La \emph{orientaci\'on a objetos} ha revolucionado la programaci\'on de maneras muy interesantes. Desde las interfaces gr\'aficas, hasta cambios de nombres cuando un lenguaje cambia por orientarse a objetos: de C a C++, de Pascal a Delphi, etc. La orientaci\'on a objetos nos permite hacer muchas cosas, y sin embargo, no es tan complicada. Una duda que surge muy seguido cuando comenzamos a programar es: Existe otro tipo de datos? O mejor a\'un: Puedo crear yo algo similar a mi propio tipo de dato como \inlinecode{int}, \inlinecode{boolean}, \inlinecode{string} o \inlinecode{float}? Eso ser\'ia muy interesante, puesto que podr\'ia crear cosas nuevas. Pero antes de empezar pregunt\'emonos por un momento, qu\'e es un objeto?\\
@@ -119,142 +119,101 @@ Si deseamos sacar alguno de los valores de \inlinecode{y}, solo debemos de escri
 Ya vimos c\'omo guardar propiedades dentro de un objeto partiendo de la clase y partiendo del objeto directamente. Ahora vamos a profundizar un poco en los m\'etodos.
 
 \subsubsection{M\'etodos}
-Los m\'etodos dentro de una clase en Python son simplemente funciones. Lo que pasa es que estas van a interactuar con las variables \emph{dentro} de la clase. Adem\'as, hay algunos m\'etodos que s\'i son especiales. Uno que ya vimos fue \inlinecode{\_\_init\_\_}. Pero no nos vamos a quedar all\'i. Podemos crear un m\'etodo \inlinecode{\_\_repr\_\_} que devuelva un \inlinecode{string}, por ejemplo. De ser as\'i, al momento de imprimir nuestro objeto, aparecer\'a lo que devuelva \inlinecode{\_\_repr\_\_}. As\'i hay muchos m\'etodos especiales que le confieren propiedades especiales a nuestros objetos. Entre ellos hay m\'etodos para sumar, restar, multiplicar, dividir, comparar, eliminar, etc. La idea es que podamos crear cosas nuevas. Un ejemplo claro son vectores $\mathbb{R}^n$. Veamos c\'omo podr\'iamos hacer algo as\'i, pero esta vez no copiemos ni intentemos esto en nuestro ordenador. Busquemos entender la forma y el concepto detr\'as de esto.\\
+Los m\'etodos dentro de una clase en Python son simplemente funciones. Lo que sucede es que estas van a interactuar con las variables \emph{dentro} de la clase. Adem\'as, hay algunos m\'etodos que s\'i son especiales. Uno que ya vimos fue \inlinecode{\_\_init\_\_}. Pero no nos vamos a quedar all\'i. Podemos crear un m\'etodo \inlinecode{\_\_repr\_\_} que devuelva un \inlinecode{string}, por ejemplo. De ser as\'i, al momento de imprimir nuestro objeto, aparecer\'a lo que devuelva \inlinecode{\_\_repr\_\_}. As\'i hay muchos m\'etodos especiales que le confieren propiedades especiales a nuestros objetos. Entre ellos hay m\'etodos para sumar, restar, multiplicar, dividir, comparar, eliminar, etc. La idea es que podamos crear cosas nuevas. Un ejemplo claro son las matrices $\mathbb{R}^n \times m$. Veamos c\'omo podr\'iamos hacer algo as\'i, pero esta vez no copiemos ni intentemos esto en nuestro ordenador. Busquemos entender la forma y el concepto detr\'as de esto. En otras palabras, pong\'amosle atenci\'on solo a los comentarios, los nombres de la clase y de las funciones y los valores que retorna cada m\'etodo.\\
 
 \begin{scriptsize}
 \begin{Code}
-class Vector:\\
-\hspace*{5mm} def \_\_init\_\_(self, *args):\\
-\hspace*{11mm} if type(args[0]) == list:\\
-\hspace*{17mm} args = args[0]\\
-\hspace*{11mm} self.q = []\\
-\hspace*{11mm} self.dim = len(args)\\
-\hspace*{11mm} for i in args:\\
-\hspace*{17mm} self.q.append(i)\\
+class Matrix(list):\\
+\hspace*{5mm} \# Metodo para representar la matriz\\
+\hspace*{5mm} def \_\_repr\_\_(self):\\
+\hspace*{11mm} c = len(self)\\
+\hspace*{11mm} f = len(self[0])\\
+\hspace*{11mm} out = " \textbackslash t"\\
+\hspace*{11mm} for y in xrange(f):\\
+\hspace*{17mm} for x in xrange(c):\\
+\hspace*{23mm} out += str(round(self[x][y], 5)) + " \textbackslash t"\\
+\hspace*{17mm} out += " \textbackslash n\textbackslash t"\\
+\hspace*{11mm} return out\\
 \\
 \hspace*{5mm} \# Metodo para sumar\\
 \hspace*{5mm} def \_\_add\_\_(self, vec):\\
-\hspace*{11mm} if self.dim == vec.dim:\\
-\hspace*{17mm} t = [0]*self.dim\\
-\hspace*{17mm} for i in xrange(self.dim):\\
-\hspace*{23mm} t[i] = self.q[i] + vec.q[i]\\
-\hspace*{17mm} return Vector(t)\\
+\hspace*{11mm} if self.check("\ \hspace*{-3mm} add", other):\\
+\hspace*{17mm} new = [map(lambda r, s: r + s, i, j) for i, j in zip(self, other)]\\
+\hspace*{17mm} return Matrix(new)\\
 \hspace*{11mm} else:\\
-\hspace*{17mm} print "Las dimensiones de los vectores no son iguales."\\
-\hspace*{17mm} return None\\
+\hspace*{17mm} raise TypeError, "Matrix: Dimensions do not match."\\
 \\
 \hspace*{5mm} \# Metodo para restar\\
 \hspace*{5mm} def \_\_sub\_\_(self, vec):\\
-\hspace*{11mm} if self.dim == vec.dim:\\
-\hspace*{17mm} t = [0]*self.dim\\
-\hspace*{17mm} for i in xrange(self.dim):\\
-\hspace*{23mm} t[i] = self.q[i] - vec.q[i]\\
-\hspace*{17mm} return Vector(t)\\
+\hspace*{11mm} if self.check("\ \hspace*{-3mm} add", other):\\
+\hspace*{17mm} new = [map(lambda r, s: r - s, i, j) for i, j in zip(self, other)]\\
+\hspace*{17mm} return Matrix(new)\\
 \hspace*{11mm} else:\\
-\hspace*{17mm} print "Las dimensiones de los vectores no son iguales."\\
-\hspace*{17mm} return None\\
+\hspace*{17mm} raise TypeError, "Matrix: Dimensions do not match."\\
 \\
-\hspace*{5mm} \# Metodo para multiplicar por un numero\\
-\hspace*{5mm} def \_\_mul\_\_(self, scalar):\\
-\hspace*{11mm} tscal = type(scalar)\\
-\hspace*{11mm} if tscal == int or tscal == float or tscal == complex:\\
-\hspace*{17mm} t = [0]*self.dim\\
-\hspace*{17mm} for i in xrange(self.dim):\\
-\hspace*{23mm} t[i] = scalar * self.q[i]\\
-\hspace*{17mm} return Vector(t)\\
+\hspace*{5mm} \# Metodo para multiplicar\\
+\hspace*{5mm} def \_\_mul\_\_(self, other):\\
+\hspace*{11mm} if type(other) == int or type(other) == float:\\
+\hspace*{17mm} new = [map(lambda r: other * r, i) for i in self]\\
+\hspace*{17mm} return Matrix(new)\\
 \hspace*{11mm} else:\\
-\hspace*{17mm} print "La multiplicacion escalar entre vectores no esta definida."\\
-\hspace*{17mm} return None\\
+\hspace*{17mm} if self.check("mul", other):\\
+\hspace*{23mm} tra = self.transpose()\\
+\hspace*{23mm} fa = len(tra)\\
+\hspace*{23mm} cb = len(other)\\
+\hspace*{23mm} new = [[0] * fa for t in xrange(cb)]\\
+\hspace*{23mm} for f in xrange(fa):\\
+\hspace*{29mm} for c in xrange(cb):\\
+\hspace*{35mm} new[c][f] = sum(map(lambda r, s: r * s, tra[f], other[c]))\\
+\hspace*{23mm} return Matrix(new)\\
+\hspace*{17mm} else:\\
+\hspace*{23mm} raise IndexError, "Matrix: Dimensions are not a match to multiply."\\
 \\
-\hspace*{5mm} \# Metodo para representar los vectores\\
-\hspace*{5mm} def \_\_repr\_\_(self):\\
-\hspace*{11mm} res = "\textbackslash n"\\
-\hspace*{11mm} for j in self.q:\\
-\hspace*{17mm} res += "["\ + str(j) + "]\textbackslash n"\\
-\hspace*{11mm} return res
+\hspace*{5mm} \# Metodo para conocer las dimensiones de la matriz\\
+\hspace*{5mm} def dim(self):\\
+\hspace*{11mm} return len(self[0]), len(self)\\
+\\
+\hspace*{5mm} \# Metodo para revisar si las matrices cumplen con ciertas propiedades para poder ser operadas\\
+\hspace*{5mm} def check(self, op, other):\\
+\hspace*{11mm} if op == "\ \hspace*{-3mm} add"\ or op == "sub":\\
+\hspace*{17mm} ia, ja = self.dim()\\
+\hspace*{17mm} ib, jb = other.dim()\\
+\hspace*{17mm} if ia == ib and ja == jb:\\
+\hspace*{23mm} return True\\
+\hspace*{17mm} else:\\
+\hspace*{23mm} return False\\
+\hspace*{11mm} elif op == "mul":\\
+\hspace*{17mm} fila = len(self)\\
+\hspace*{17mm} columna = len(other[0])\\
+\hspace*{17mm} if fila == columna:\\
+\hspace*{23mm} return True\\
+\hspace*{17mm} else:\\
+\hspace*{23mm} return False\\
+\hspace*{11mm} else:\\
+\hspace*{17mm} raise ValueError, "Matrix: There is no such operation."
 \end{Code}
 \end{scriptsize}
 
-Aqu\'i definimos una clase vector con un m\'etodo para inicializarla. Le definimos operaciones suma entre vectores, resta entre vectores y multiplicaci\'on por una constante. Adem\'as de esto, le creamos un m\'etodo para poder representar los vectores como columnas. Casi todo el software de qu\'imica computacional que calcula las coordenadas 3D de las mol\'eculas tiene que tener una clase siguiendo esta idea. Todos los m\'etodos que vimos ahorita nos permiten calcular operaciones como $\vec{v} + \vec{w}$ o $a \cdot \vec{v}$ sin necesidad de llamar al m\'etodo directamente. Sin embargo, si quisieramos calcular un producto de dos vectores, tendr\'iamos que incluir un m\'etodo \inlinecode{prodp()} que nos permita hacer eso.
+Aqu\'i definimos una clase matriz con un m\'etodo para cada operaci\'on b\'asica. Le definimos operaciones suma entre matrices, resta entre matrices y multiplicaci\'on tanto por una constante como por una matriz. Adem\'as de esto, le creamos un m\'etodo para poder representar las matrices como un arreglo. Casi todo el software de qu\'imica computacional que calcula las coordenadas 3D de las mol\'eculas tiene que tener una clase siguiendo esta idea. Todos los m\'etodos que vimos ahorita nos permiten calcular operaciones como $M_a + M_b$ o $M_c \times M_d$ sin necesidad de llamar al m\'etodo directamente. Sin embargo, si quisieramos calcular la transpuesta de una matriz\footnote{Esto se refiere a invertir los valores de la matriz usando como eje la diagonal de la esquina superior izquierda hasta la esquna inferior derecha.}, tendr\'iamos que incluir un m\'etodo \inlinecode{transpose()} que nos permita hacer eso.
 
 \begin{footnotesize}
 \begin{Code}
-\# Metodo para multiplicacion escalar de dos vectores\\
-def prodp(self, vec):\\
-\hspace*{5mm} if self.dim == vec.dim:\\
-\hspace*{11mm} t = 0\\
-\hspace*{11mm} for i in xrange(self.dim):\\
-\hspace*{17mm} t += self.q[i] * vec.q[i]\\
-\hspace*{11mm} return t
+\# Transposicion de una matriz\\
+def transpose(self):\\
+\hspace*{5mm} temp = zip(*list(self))\\
+\hspace*{5mm} new = [list(e) for e in temp]\\
+\hspace*{5mm} return Matrix(new)
 \end{Code}
 \end{footnotesize}
 
-Entonces ya podr\'iamos hacer multiplicaciones entre vectores como $\vec{v} \cdot \vec{w}$. Esto lo tendr\'iamos que hacer, sin embargo, de la siguiente manera: \inlinecode{v.prodp(w)}. As\'i podemos seguir creando m\'etodos dentro de nuestra clase o podemos guardar variables dentro de ella sin ning\'un problema. Una clase es entonces como cuando guard\'abamos datos y funciones en un archivo de Python y luego lo import\'abamos como librer\'ia. La diferencia es que la clase tiene algunas caracter\'isticas especiales como los m\'etodos de inicializaci\'on, representaci\'on u operaciones matem\'aticas.
-
-\subsubsection{Herencia}
-Una cosa interesante que sucede cuando trabajamos con programaci\'on orientada a objetos es que podemos crear una clase hija de una clase madre. Cuando hacemos esto, la clase madre le \emph{hereda} parte de sus propiedades a la clase hija. Veamos esto con un ejemplo para entenderlo mejor.\\
-
-Vamos a crear una clase \inlinecode{Hidrocarburo} que va a crear varios objetos \inlinecode{Atomo} a partir de un SMILES y los va a colocar en una lista. Hab\'iamos comenzado con una clase \inlinecode{Atomo} creada de la siguiente manera:
-
-\begin{footnotesize}
-\begin{Code}
-class Atomo:\\
-\hspace*{4mm} def \_\_init\_\_(self, simbolo = "H", peso = 1.0079, numero = 1):\\
-\hspace*{10mm} self.simbolo = simbolo\\
-\hspace*{10mm} self.peso = peso\\
-\hspace*{10mm} self.numeroato = numero
-\end{Code}
-\end{footnotesize}
-
-Ahora vamos a crear una clase \inlinecode{Hidrocarburo}.
-
-\begin{footnotesize}
-\begin{Code}
-class Hidrocarburo:\\
-\hspace*{4mm} pass
-\end{Code}
-\end{footnotesize}
-
-Si solo la trabajamos as\'i, la clase \inlinecode{Hidrocarburo} no har\'a nada. La idea es que pueda crear varios objetos \inlinecode{Atomo} para crear la mol\'ecula.
-
-\begin{footnotesize}
-\begin{Code}
-class Hidrocarburo:\\
-\hspace*{4mm} def \_\_init\_\_(self, smiles):\\
-\hspace*{10mm} self.smiles = smiles\\
-\hspace*{10mm} self.atomos = []\\
-\hspace*{10mm} self.peso = 0\\
-\hspace*{10mm} for i in smiles:\\
-\hspace*{17mm} if i == "\ \hspace*{-1.5mm}C":\\
-\hspace*{23mm} self.atomos.append(Atomo(i, 12.011, 6))\\
-\hspace*{23mm} self.peso += 12.011
-\end{Code}
-\end{footnotesize}
-
-Ahora el hidrocarburo ya tiene peso y \'atomos de los que consta. Sin embargo, nuestra idea de un hidrocarburo aqu\'i es un poco vaga. Qu\'e pasar\'ia si queremos algo m\'as espec\'ifico? Digamos, que en un alcano nos sepa decir qui\'en est\'a enlazado con qui\'en. O en d\'onde se hallan los dobles y triples enlaces en alquenos y alquinos. Eso ser\'i algo un poco m\'as pr\'actico para fines qu\'imicos. Vayamos por pasos entonces.
-
-\begin{footnotesize}
-\begin{Code}
-class Alcano(Hidrocarburo):\\
-\hspace*{4mm} def enlaces(self):\\
-\hspace*{10mm} self.bonds = []\\
-\hspace*{10mm} ctrl = 0\\
-\hspace*{10mm} for i in xrange(len(self.smiles) - 1):\\
-\hspace*{17mm} self.bonds.append([i, i+1])\\
-\hspace*{10mm} return self.bonds
-\end{Code}
-\end{footnotesize}
-
-Lo que hicimos aqu\'i s\'i fue heredar algo. Tomamos a \inlinecode{Hidrocarburo} como clase \emph{madre} y de ella sacamos a \inlinecode{Alcano}, una clase \emph{hija}. Si intentamos crear un objeto con la clase \inlinecode{Alcano}, veremos que se hace exactamente de la misma manera que con la clase \inlinecode{Hidrocarburo}. La diferencia es que en esta clase ya contamos con un m\'etodo que nos deja ver qui\'en est\'a enlazado con qui\'en.\\
-
-La herencia es un tema m\'as importante cuando se trata de temas de conjuntos. En nuestro caso vamos a continuar, aunque ser\'ia una buena idea comentar con tu compa\~nero de al lado: Qu\'e se podr\'ia hacer con herencia al hablar de qu\'imica computacional? Pens\'emoslo por un momento y continuemos.
+Entonces ya podr\'iamos calcular la transpuesta de una matriz $M^T$. Esto lo tendr\'iamos que hacer, sin embargo, de la siguiente manera: \inlinecode{M.transpose()}. As\'i podemos seguir creando m\'etodos dentro de nuestra clase o podemos guardar variables dentro de ella sin ning\'un problema. Una clase es entonces como cuando guard\'abamos datos y funciones en un archivo de Python y luego lo import\'abamos como librer\'ia. La diferencia es que la clase tiene algunas caracter\'isticas especiales como los m\'etodos de inicializaci\'on, representaci\'on u operaciones matem\'aticas.
 
 \subsection{Haciendo un poco de Matem\'atica}
 El \'ultimo d\'ia que nos vimos terminamos mostrando una serie de paquetes que podemos usar para hacer una serie de operaciones matem\'aticas de diferente tipo. Hoy vamos a entender un poco mejor sobre c\'omo podemos hacer un mejor uso de ellos y por qu\'e es conveniente usarlos a veces. Por ahora nos vamos a enfocar en resolver algunos problemas de matem\'atica que suelen molestarnos a veces cuando estamos llevando alg\'un curso.\\
 
 Para esta parte del taller, vamos a cambiar a un ambiente un poco m\'as especializado. Vamos a comenzar a trabajar en cuadernos de notas que nos pueden servir posteriormente como referencias personales. En otras palabras, ser\'a una buena idea de que detallemos bien nuestros cuadernos de notas e incluyamos desde conceptos hasta dudas, para poderlos usar mejor en el futuro. Para ello vamos a abrir una l\'inea de comando nueva, y vamos a escribir \inlinecode{ipython notebook} Luego vamos a esperar un momento. Nuestro navegador se va a abrir y vamos a ver una nueva interfaz.\\
 
-Lo que haremos ahora es sencillo: vamos a crear un nuevo cuaderno. Hacemos click en donde dice \textit{New Notebook} y vamos a ver nuestro nuevo cuaderno de notas. Esta alternativa suele ser m\'as c\'omoda para trabajar proyectos, porque en \'el se puede ir creando desde c\'odigo \emph{dentro} de un documento con texto, hasta incluir gr\'aficas, animaciones, etc. Los cuadernos de IPython ser\'an ahora nuestro lugar ideal de trabajo. Comencemos a trabajar.\\
+Lo que haremos ahora es sencillo: vamos a crear un nuevo cuaderno. Hacemos click en donde dice \textit{New Notebook} y vamos a ver nuestro nuevo cuaderno de notas. Esta alternativa suele ser m\'as c\'omoda para trabajar proyectos, porque en \'el se puede ir creando desde c\'odigo \emph{dentro} de un documento con texto, hasta incluir gr\'aficas, animaciones, etc. Los cuadernos de IPython\footnote{El proyecto IPython evolucion\'o para poder utilizar m\'as lenguajes de programaci\'on: Julia, Python, R. Por esta raz\'on el proyecto ahora se llama Jupyter. Si en alg\'un momento nos topamos con \'el, recordemos que la plataforma Jupyter es b\'asicamente igual a IPython.} ser\'an ahora nuestro lugar ideal de trabajo. Comencemos a trabajar.\\
 
 Lo primero que vamos a escribir en la celda es \emph{Ejercicios de Matematica con IPython}. Luego iremos a donde dice \textit{Code}, abriremos el men\'u y vamos a seleccionar \textit{Heading 1}. Finalmente vamos a hacer click en la flecha hacia la derecha (como si estuvi\'eramos reproduciendo la celda). Inmediatamente veremos que lo que escribimos se acaba de transformar en algo m\'as presentable. Lo mismo podemos hacer con las dem\'as opciones: \textit{Heading 2}, \textit{Heading 3}, \textit{Raw text}, \textit{Markdown}, etc. Habr\'ia que aclarar que \textit{Raw text} dejar\'a el texto as\'i como lo escribimos, sin ponerlo m\'as presentable. \textit{Markdown}, por otra parte, tiene una sintaxis un poco diferente. Este nos permite formatear el texto de maneras muy diversas, pero debemos de saber c\'omo es que se hace esto\footnote{Para eso se nos dar\'a una hoja de claves sobre markdown.}.\\
 
@@ -271,7 +230,7 @@ Algunas de las cosas que ponemos ac\'a ya las hemos visto. Otras no. No nos enfo
 
 Lo primero que haremos ser\'a intentar realizar aquellos ejercicios de los cursos b\'asicos de matem\'atica que llevamos en nuestros \'ultimos a\~nos de colegio y primeros a\~nos universitarios. Vamos a comenzar definiendo una variable nueva para poder hacer algo de \'algebra: \inlinecode{x = Symbol("x")} Luego, en la l\'inea de abajo, vamos a escribir una de esas funciones que nos pon\'ian a analizar: \inlinecode{f = x**2 - 6*x + 2}. Finalmente solo escribiremos \inlinecode{f} en la \'ultima l\'inea y presionaremos \textbf{Shift + Enter}. Lo primero que vamos a ver es la funci\'on que acabamos de definir, pero utilizando una tipograf\'ia\footnote{Tipograf\'ia es el tipo de letra. Como los que podemos escoger en Microsoft Word al escribir un documento (e.g. Arial, Times New Roman).}\\
 
-Para continuar lo que vamos a hacer es simple. Vamos a graficar la funci\'on, hallar en d\'onde cruza esta el eje x (i.e. hallaremos sus ceros) y a hallar su valor m\'as peque\~no (i.e. el valor m\'inimo). Este ejercicio ya nos tomar\'ia unos 5 minutos si somos r\'apidos. La idea es que con lo que vamos a hacer ahorita, vamos a invertir los mismos 5 minutos una \'ultima vez. Luego veremos la ventaja de crear un peque\~no programa para hacerlo por nosotros.\\
+Para continuar, lo que vamos a hacer es simple. Vamos a graficar la funci\'on, hallar en d\'onde cruza esta el eje x (i.e. hallaremos sus ceros) y a hallar su valor m\'as peque\~no (i.e. el valor m\'inimo). Este ejercicio ya nos tomar\'ia unos 5 minutos si somos r\'apidos. La idea es que con lo que vamos a hacer ahorita, vamos a invertir los mismos 5 minutos una \'ultima vez. Luego veremos la ventaja de crear un peque\~no programa para hacerlo por nosotros.\\
 
 Vamos por pasos entonces. Primero vamos a graficar la funci\'on. Para eso necesitamos que nuestro ordenador interprete todo como n\'umeros. Generalmente para graficar, hac\'iamos una tablita e \'ibamos escogiendo puntos en x y luego calculando los puntos en y. Intentaremos hacer lo mismo ahora, pero autom\'aticamente.
 
@@ -413,7 +372,7 @@ def ordenar(lista):\\
 
 Con esto ya podemos ordenar nuestra lista de datos anterior. Lo primero que habr\'ia que hacer es transformarla a una lista de Python normal: \inlinecode{datos = l.tolist()[0]}, y luego correr nuestro algoritmo llam\'andolo como funci\'on sobre nuestra nueva lista: \inlinecode{ordenar(datos)}. Este algoritmo es bastante sencillo de entender. Discutamos con nuestro compa\~nero de al lado a ver si nuestro c\'odigo es optimizable y qu\'e m\'as podr\'ia hacer con \'el.\\
 
-Este es un buen momento para analizar la manera en que estamos ordenando. Estamos creando una lista nueva y estamos agreg\'andole elementos. Estas tareas son algo complicadas para nuestro ordenador si analizamos el proceso detenidamente. Al crear una lista nueva, estamos ocupando nuevo espacio en memoria, lo cu\'al requiere de m\'as tiempo. Cada vez que hacemos que una lista crezca y otra decrezca, el tiempo tambi\'en va a aumentar, ya que cada cambio requiere m\'as cambios en memoria. Este es, de hecho, el gran problema de las bases de datos. Por eso existen otros algoritmos m\'as eficientes. Un ejemplo de ellos es el algoritmo QuickSort.
+Este es un buen momento para analizar la manera en que estamos ordenando. Estamos creando una lista nueva y estamos agreg\'andole elementos. Estas tareas son algo complicadas para nuestro ordenador si analizamos el proceso detenidamente. Al crear una lista nueva, estamos ocupando nuevo espacio en memoria, lo cu\'al requiere de m\'as tiempo. Cada vez que hacemos que una lista crezca y otra decrezca, el tiempo tambi\'en va a aumentar, ya que cada cambio requiere m\'as cambios en memoria. Este es, de hecho, el gran problema de las bases de datos. Por eso existen otros algoritmos m\'as eficientes. Algunos ejemplos de ellos son los algoritmos QuickSort, HeapSort y MergeSort.
 
 \subsubsection{Bisecci\'on}
 Un problema que generalmente no nos imaginamos sea complicado de resolver cuando lo hacemos con una calculadora es calcular una raiz cuadrada. En esta parte vamos a intentar calcular la raiz cuadrada de 3 haciendo uso de un algoritmo. El concepto de este es sumamente simple, pero primero tenemos que hacer un cambio sencillo en nuestra forma de pensar el problema. La idea ser\'a buscar el n\'umero $x$ que haga la siguiente expresi\'on verdadera: $x^2 - 3 = 0$. Si nos damos cuenta, al resolver la ecuaci\'on, estamos hallando la raiz de 3. Pero por ahora, nos servir\'a ver el problema de esta manera. De hecho, lo que vamos a hacer es plantear una funci\'on: $f \left( x \right) = x^2 - 3$ e ir buscando el valor de $x$ que nos lleve a que la funci\'on sea $0$. La idea es simple. Vamos a escoger dos valores $a$ y $b$ entre los que esperamos hallar el valor de $x$ y comenzaremos con el algoritmo.
@@ -641,17 +600,17 @@ Los usos m\'as famosos de las redes han sido en clasificar caracteres cuando un 
 Un proyecto que ha existido por mucho tiempo para c\'alculo estad\'istico es R. Este programa fue desarrollado en una universidad alemana hace ya algunos a\~nos, pero se desarroll\'o con tecnolog\'ias no escalables. Esto significa que no se prepar\'o para orientarse a objetos, para poder correr en paralelo (varios procesadores a la vez), etc. R tiene, de hecho, su propio lenguaje de programaci\'on y es un paquete utilizado muy seguido en c\'alculos estad\'isticos avanzados. Ning\'un otro lenguaje de programaci\'on tiene alg\'un paquete o librer\'ia que le permita hacer esto. Python cuenta con NumPy y SciPy, pero no con un paquete tan robusto y completo como R. Ser\'ia interesante, como proyecto, desarrollar una librer\'ia que pudiera hacer no solo estad\'istica descriptiva como la que conocemos. Sino un paquete que tambi\'en pueda trabajar estad\'istica predictiva haciendo uso de los algoritmos que vimos hoy. De lograrse un paquete tan completo como R, y con capacidad de correr en paralelo y ser orientado a objetos, podr\'iamos hacer an\'alisis de datos de maneras mucho m\'as eficientes en nuestra labor diaria como cient\'ificos y de una manera mucho m\'as sencilla. Adem\'as, si el paquete fuera abierto y pudiera utilizarse para otras cosas, podr\'iamos optimizar geometr\'ias molecularas, hallar conformaciones estables, etc. haciendo uso de lo mismo.
 
 \subsection{Comentarios Finales}
-Felicidades! Has terminado el d\'ia 6 del Taller de QCA. Este d\'ia, a pesar de ser un poco m\'as corto, es conceptualmente m\'as complejo que los anteriores. Sin embargo, llegaste al final y has entrado en contacto con temas de actualidad. Es bueno que recuerdes que no se espera que domines cada tema, pues cada uno es un mundo. Pero s\'i que sepas qu\'e hace cada cosa, por qu\'e lo hace y para qu\'e.\\
+Felicidades! Has terminado la sesi\'on 6 del $TC^3 Q$. Este d\'ia, a pesar de ser un poco m\'as corto, es conceptualmente m\'as complejo que los anteriores. Sin embargo, llegaste al final y has entrado en contacto con temas de actualidad. Es bueno que recuerdes que no se espera que domines cada tema, pues cada uno es un mundo. Pero s\'i que sepas qu\'e hace cada cosa, por qu\'e lo hace y para qu\'e.\\
 
-El mundo de la programaci\'on orientada a objetos y el mundo de los algoritmos son dos cosas demasiado grandes. Python es un lenguaje orientado a objetos, mas no lo hace de manera tan evidente. Java y C\#, por ejemplo, son dos lenguajes creados espec\'ificamente con orientaci\'on a objetos y siendo muy rigurosos y eficientes en su manera de funcionar. Por otra parte, cada implementaci\'on de un algoritmo requiere que este sea modificado y, a veces, hasta cambia de nombre dando nacimiento a un algoritmo nuevo por su cambio de concepto. Estudiar estos temas puede enriquecer nuestra perspectiva a la hora de intentar resolver un problema. A la larga, solo son ideas diferentes sobre m\'etodos de resoluci\'on, no sobre soluciones exactamente.\\
+El mundo de la programaci\'on orientada a objetos y el mundo de los algoritmos son dos cosas demasiado grandes. Python es un lenguaje orientado a objetos, mas no lo hace de manera tan evidente. Java y C\#, por ejemplo, son dos lenguajes creados espec\'ificamente con orientaci\'on a objetos y siendo muy rigurosos y eficientes en su manera de funcionar. Por otra parte, cada implementaci\'on de un algoritmo requiere que este sea modificado y, a veces, hasta cambia de nombre dando nacimiento a un algoritmo nuevo por el cambio de concepto. Estudiar estos temas puede enriquecer nuestra perspectiva a la hora de intentar resolver un problema. A la larga, solo son ideas diferentes sobre m\'etodos de resoluci\'on, no sobre soluciones exactamente.\\
 
-Felicidades nuevamente por haber terminado este d\'ia. Ma\~nana vamos a profundizar un poco m\'as sobre c\'alculo de algunas propiedades moleculares y sobre bioinform\'atica. \'Animo que todo esto ya es parte de qu\'imica computacional.
+Felicidades nuevamente por haber terminado esta sesi\'on. Ma\~nana vamos a profundizar un poco m\'as sobre c\'alculo de algunas propiedades moleculares y sobre bioinform\'atica. \'Animo que todo esto ya es parte de la Computaci\'on Cient\'ifica.
 
 \section*{Licencia}
 
 \noindent \includegraphics{img/cc_big.png}
 
-\noindent Taller de Qu\'imica Computacional Aplicada by \href{http://github.com/zronyj/TQCA}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
+\noindent Taller de Computaci\'on Cient\'ifica para Ciencias Qu\'imicas by \href{http://github.com/zronyj/TQCA}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
 Based on a work at \url{https://github.com/jrjohansson/scientific-python-lectures} and \url{https://www.youtube.com/channel/UCRAmB5K-2GLvtaXcH9GCy-A}.
 
 \end{document}

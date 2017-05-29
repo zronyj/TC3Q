@@ -32,7 +32,7 @@
 \usepackage{upquote}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \author{Rony J. Letona}
-\title{Taller de Qu\'imica Computacional Aplicada: Sesi\'on 4}
+\title{Taller de Computaci\'on Cient\'ifica para Ciencias Qu\'imicas: Sesi\'on 4}
 \definecolor{light-gray}{gray}{0.90}
 
 \newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
@@ -209,6 +209,30 @@ repeticiones.remove(25.5)
 \end{Code}
 
 Nuevamente, hagamos esto con nuestra lista y veamos qu\'e pasa. Finalmente discutamos con nuestro compa\~nero de al lado a ver qu\'e sucedi\'o con nuestra lista.\\
+
+Otro par de operaciones interesantes que podemos hacer con las listas es ordenarlas o invertir su orden. Veamos esto \'ultimo. Si tomamos nuestra lista y pensamos en tomar solo un segmento, lo hacemos con los corchetes y dos puntos. Pero qu\'e pasar\'a si escribimos esto?
+
+\begin{Code}
+\# Invirtiendo el orden de la lista\\
+repeticiones[::-1]
+\end{Code}
+
+Qu\'e result\'o de hacer esto? Por qu\'e crees que sucedi\'o eso? Qu\'e pasar\'ia si en vez de un \inlinecode{-1} escribi\'eramos otro n\'umero? Intent\'emoslo y veamos qu\'e pasa.\\
+
+Finalmente, vamos a aprender dos comandos. Aunque los dos se parecen y operan de manera similar, el resultado ser\'a un tanto distinto. Vamos a crear dos listas iguales y luego vamos a ordenarlas.
+
+\begin{Code}
+primera = [1, 17, 3, 13, 7, 11, 5, 2]\\
+segunda = [1, 17, 3, 13, 7, 11, 5, 2]\\
+print( primera )\\
+primera.sort() \# Ordenamos la lista simplemente\\
+print( primera )\\
+print( segunda )\\
+sorted( segunda ) \# Ordenamos una copia de la lista y la devolvemos\\
+print( segunda )
+\end{Code}
+
+Si ponemos atenci\'on, fuimos viendo qu\'e suced\'ia con cada lista al ir aplicando dos operaciones distintas. Cu\'al fue el cambio? En qu\'e ocasi\'on podr\'iamos hacer uso de cada una de las dos? Comenta con tu compa\~nero de al lado sobre los resultados.\\
 
 M\'as adelante vamos a ver que las listas nos van a servir para mucho m\'as que solo ver los datos en una fila. Podremos extraer mucha m\'as informaci\'on de ellos cuando aprendamos otro par de \emph{trucos}.
 
@@ -586,6 +610,6 @@ La importancia de los peque\~nos scripts o rutinas no debe de ser hecho de menos
 
 \noindent \includegraphics{img/cc_big.png}
 
-\noindent Taller de Qu\'imica Computacional Aplicada by \href{http://github.com/zronyj/TQCA}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
+\noindent Taller de Computaci\'on Cient\'ifica para Ciencias Qu\'imicas by \href{http://github.com/zronyj/TQCA}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
 
 \end{document}
