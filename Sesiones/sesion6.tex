@@ -54,12 +54,13 @@
 \end{center}
 }
 
-\newcommand{\Picture}[1]
+\newcommand{\Picture}[3]
 {
 	\begin{figure}[H]
-	\begin{flushleft}
-	\includegraphics[width=\columnwidth]{#1}
-	\end{flushleft}
+	\begin{center}
+	\caption{#3}
+	\includegraphics[scale=#2]{#1}
+	\end{center}
 	\end{figure}
 }
 
@@ -587,6 +588,8 @@ El algoritmo gen\'etico intenta replicar el proceso que sucede cuando una genera
 \item Repetir los pasos 2 al 5 \textbf{p} veces hasta hallar la generaci\'on m\'as apta. (Repetir la cantidad de veces que sea necesaria.)
 \end{enumerate}
 
+\Picture{img/gen_alg.png}{0.6}{Diagrama de flujo del algoritmo gen\'etico.}
+
 El algoritmo se ve corto y relativamente f\'acil de entender. El c\'odigo de este algoritmo no lo vamos a hallar aqu\'i en el documento, porque es bastante largo y ser\'ia mucho desperdicio colocarlo si tenemos la fuente a mano. Dentro de nuestros documentos vamos a hallar este algoritmo como \textit{GA.py}. Al abrirno nos daremos cuenta de que tiene comentarios y que todo est\'a por funciones para hacerlo m\'as sencillo de entender. De hecho, est\'a armado para poder correrse de inmediato. Para ello solo habr\'ia que ejecutar el archivo desde la terminal, con una bandera \inlinecode{-i} Al principio parecer\'a que no pas\'o nada, pero si deseamos correrlo, solo debemos de escribir \inlinecode{GAv()}\\
 
 Qu\'e pasar\'ia si cada una de las entradas en las listas representa un grupo funcional, y lo que est\'a evaluando el algoritmo es qu\'e combinaci\'on de grupos funcionales colocados sobre una mol\'ecula base nos lleva a que esta sea la mejor como ... un f\'armaco\footnote{Es recomendable revisar qu\'e hace \href{http://pubs.acs.org/doi/abs/10.1021/ci700424b}{GANDI}.}? ... un material\footnote{\href{http://pubs.acs.org/doi/abs/10.1021/cm052179o}{Aqu\'i} lo usaron para producir mejores LEDs.}? Qu\'e pasar\'ia si lo que representan las entradas en las listas son \'angulos y distancias interat\'omicas y lo que est\'a buscando el algoritmo es cu\'al de todas las conformaciones es la m\'as favorable termodin\'amicamente\footnote{Esto es lo que hace \href{http://onlinelibrary.wiley.com/doi/10.1002/jcc.21256/full}{AutoDock} al realizar acoplamiento de mol\'eculas.}? Estudiemos un poco este algoritmo y comentemos con nuestro compa\~nero de al lado sobre qu\'e ventajas y desventajas creemos que tiene y sobre qu\'e otras cosas creemos que se podr\'ia hacer con \'el.
@@ -594,12 +597,12 @@ Qu\'e pasar\'ia si cada una de las entradas en las listas representa un grupo fu
 \subsubsection{Algoritmo de Anillamiento Simulado}
 El algoritmo de Anillamiento Simulado (o Simulated Annealing: SA) nos permite hallar estabilidad de modelos o energ\'ias bajas en sistemas de muchas partes (e.g. mol\'eculas con bastantes \'atomos). El principio de este algoritmo est\'a basado en MonteCarlo, pero no se parece mucho a la integral que calculamos hace un momento. La idea del algoritmo se explica a continuaci\'on.\\
 
-Si en una caja de 2 dimensiones colocamos dos par\'ticulas a vibrar, estas podr\'an moverse por toda la caja siempre y cuando no se acerquen mucho, puesto que all\'i la energ\'ia ser\'a m\'as alta y desestabilizar\'a al sistema. El problema es entonces, que se acerquen demasiado o choquen entre ellas o contra las paredes. Para describir el procedimiento que deber\'ia seguir nuestro ordenador, veamos esto por pasos.
+Si en una caja de 2 dimensiones colocamos par\'ticulas a vibrar, estas podr\'an moverse por toda la caja siempre y cuando no se acerquen mucho, puesto que all\'i la energ\'ia ser\'a m\'as alta y desestabilizar\'a al sistema. El problema es entonces, que se acerquen demasiado o choquen entre ellas o contra las paredes. Para describir el procedimiento que deber\'ia seguir nuestro ordenador, veamos esto por pasos.
 
 \begin{enumerate}
-\item Colocar dos part\'iculas A, B dentro de un sistema de coordenadas cartesianas sin que compartan la misma posici\'on.
-\item Para la part\'icula A se escoge un nuevo punto hacia donde moverse dentro de una regi\'on peque\~na rodeando a la part\'icula.
-\item Se eval\'ua si pasar hacia ese punto hace que A tenga mayor energ\'ia o choque con algo.
+\item Colocar M part\'iculas dentro de un sistema de coordenadas cartesianas sin que ninguna comparta la misma posici\'on.
+\item Para cada part\'icula se escoge un nuevo punto hacia donde moverse dentro de una regi\'on peque\~na rodeando a la part\'icula.
+\item Se eval\'ua si pasar hacia ese punto hace que la part\'icula tenga mayor energ\'ia o choque con algo.
 \item Evaluaci\'on:
 \begin{enumerate}
 \item Si el problema es un choque, se descarta el movimiento.
@@ -609,10 +612,12 @@ Si en una caja de 2 dimensiones colocamos dos par\'ticulas a vibrar, estas podr\
 \item Si la energ\'ia no aumenta tanto, se mueve.
 \end{enumerate}
 \end{enumerate}
-\item Repetir del 2 al 4 para B.
-\item Disminuir el tama\~no de la regi\'on escogida en 2 y repetir del 2 al 5.
-\item Seguir as\'i hasta que el tama\~no de la regi\'on escogida sea \textbf{muy} peque\~no.
+\item Repetir del 2 al 4 para cada part\'icula en el sistema.
+\item Disminuir el tama\~no de la regi\'on (disminuir la temperatura del sistema) escogida en 2 y repetir del 2 al 5.
+\item Seguir as\'i hasta que el tama\~no de la regi\'on escogida sea \textbf{muy} peque\~no (i.e. hasta que la temperatura sea muy baja).
 \end{enumerate}
+
+\Picture{img/sim_ann.png}{0.6}{Diagrama de flujo del algoritmo de anillamiento simulado.}
 
 Es un poco largo el procedimiento, pero si nos damos cuenta, no es tan complicado. De hecho, si este algoritmo lo seguimos solo hasta el paso 5, es conocido como el algoritmo de \textbf{Metropolis}. Si no hemos entendido c\'omo funciona esto hasta ahora, preguntemos. Este algoritmo es clave\footnote{Este algoritmo ha sido usado hasta para modelar \href{http://www.sciencedirect.com/science/article/pii/S0043135415301160}{tratamiento de aguas residuales}!} para muchas cosas. El algoritmo fue pensado as\'i como lo vimos, pero puede ser expandido a \textbf{n} dimensiones y a \textbf{m} cantidad de part\'iculas. Para ver este algoritmo en acci\'on, vamos a buscar el archivo \textit{SA.py} en nuestros documentos. Ve\'amoslo detenidamente y estudi\'emoslo. Recordemos que no nos interesa tanto el \emph{c\'omo} funciona, sino el \emph{por qu\'e} y \emph{para qu\'e}. Comentemos con nuestro compa\~nero de al lado las ventajas y desventajas que hallamos en \'el. Y, por qu\'e no, corr\'amoslo. Este tambi\'en est\'a dise\~nado para poder ser probado de manera sencilla: solo corremos el archivo desde la terminal.
 
