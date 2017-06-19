@@ -236,6 +236,29 @@ Si ponemos atenci\'on, fuimos viendo qu\'e suced\'ia con cada lista al ir aplica
 
 M\'as adelante vamos a ver que las listas nos van a servir para mucho m\'as que solo ver los datos en una fila. Podremos extraer mucha m\'as informaci\'on de ellos cuando aprendamos otro par de \emph{trucos}.
 
+\subsubsection{Conjuntos}
+Este tipo de dato se asemeja m\'as a un tema que vimos en primaria hace mucho tiempo. Los \emph{conjuntos} en Python nos sirven para hacer operaciones como las que hac\'iamos con los diagramas de Venn. Estos se parecen a las listas en el sentido en que son un grupo de datos, pero estos no permiten que extraigamos valores de ellos mediante un \'indice. En otras palabras, son como una bolsa donde arrojamos varios datos. Veamos c\'omo se usan y para qu\'e nos pueden resultar \'utiles.\\
+
+Para construir un conjunto en Python, primero creamos una lista. Despu\'es vamos a transformar esa lista en un conjunto. Los conjuntos se representan como \inlinecode{set}. Y para fines de recordar nuestros d\'ias en primaria o haciendo diagramas, vamos a ver c\'omo hacer operaciones de conjuntos con ellos.
+
+\begin{Code}
+A = [1, 2, 3, 4, 5, 6, 7, 8, 9]\\
+B = [7, 8, 9, 10, 11, 12, 13, 14, 15]\\
+
+A = set(A) \# Creamos el conjunto A y los almacenamos en la misma variable. \\
+B = set(B) \# Creamos el conjunto B y los almacenamos en la misma variable. \\
+
+print( A.union(B) ) \# La operacion de union de dos conjuntos era algo sencillo. \\
+print( A.intersection(B) ) \# La operacion interseccion era mas complicada, pues eran los elementos en comun entre ambos.\\
+print( A.difference(B) ) \# La diferencia se calcula quitandole la interseccion de A y B a A.\\
+
+C = set([1, 2, 3])\\
+print( C.issubset(A) ) \# Podemos averiguar si un conjunto esta comprendido en el otro.\\
+print( A.issubperset(C) ) \# O podemos averiguar si un conjunto comprende al otro.
+\end{Code}
+
+Existen otras operaciones que pueden realizarse con este tipo de dato, pero no son tan utilizadas como las que acabamos de ver. Los conjuntos nos permiten saber qu\'e hacer cuando tenemos demasiados datos en listas y deseamos ir revisando d\'onde est\'a cada uno o si ya tomamos en cuenta algunos de ellos en otro grupo de datos que hemos trabajado antes.
+
 \subsubsection{Diccionarios}
 El \'ultimo tipo de dato que vamos a ver son los \emph{diccionarios}. Ahora, estos no son como los diccionarios que conocemos hasta ahora. El concepto, sin embargo, es similar: utilizamos una palabra para hallar informaci\'on sobre ella. Poni\'endonos m\'as t\'ecnicos, un diccionario en Python es igual a una lista, pero en vez de n\'umeros para referirnos a la posici\'on de los datos, utilizamos cadenas para hacerlo. En otras palabras, podemos ponerle nombre a cada casilla. Veamos, pues, c\'omo hacer esto.\\
 
@@ -610,6 +633,6 @@ La importancia de los peque\~nos scripts o rutinas no debe de ser hecho de menos
 
 \noindent \includegraphics{img/cc_big.png}
 
-\noindent Taller de Computaci\'on Cient\'ifica para Ciencias Qu\'imicas by \href{http://github.com/zronyj/TQCA}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
+\noindent Taller de Computaci\'on Cient\'ifica para Ciencias Qu\'imicas by \href{http://github.com/zronyj/TC3Q}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
 
 \end{document}

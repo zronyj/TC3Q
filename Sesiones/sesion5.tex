@@ -368,20 +368,20 @@ Un paquete no es m\'as que un documento con muchas funciones. As\'i de sencillo!
 Vamos a tener nuestras tres funciones de estad\'istica. Una para calcular la media, una para la desviaci\'on est\'andar y una para la mediana.
 
 \begin{Code}
-def media(*datos):\\
-\hspace*{6mm} return sum(datos)/len(float(datos))\\
+def media(datos):\\
+\hspace*{6mm} return sum(datos)/float(len(datos))\\
 \ \\
-def des\_std(*datos):\\
+def des\_std(datos):\\
 \hspace*{6mm} m = media(datos)\\
 \hspace*{6mm} diferencia\_cuadrados = sum([(i - m)**2 for i in datos])\\
 \hspace*{6mm} varianza = diferencia\_cuadrados / (len(datos) - 1)\\
 \hspace*{6mm} return varianza**0.5\\
 \ \\
-def mediana(*datos):\\
+def mediana(datos):\\
 \hspace*{6mm} largo = len(datos)\\
 \hspace*{6mm} centro = largo / 2\\
 \hspace*{6mm} if largo \% 2 == 0:\\
-\hspace*{13mm} return media(datos[centro - 1], datos[centro])\\
+\hspace*{13mm} return media([datos[centro - 1], datos[centro]])\\
 \hspace*{6mm} else:\\
 \hspace*{13mm} return datos[centro - 1]
 \end{Code}
@@ -523,6 +523,6 @@ De nuevo felicitaciones por haber terminado esta sesi\'on; es una de las m\'as i
 
 \noindent \includegraphics{img/cc_big.png}
 
-\noindent Taller de Computaci\'on Cient\'ifica para Ciencias Qu\'imicas by \href{http://github.com/zronyj/TQCA}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
+\noindent Taller de Computaci\'on Cient\'ifica para Ciencias Qu\'imicas by \href{http://github.com/zronyj/TC3Q}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
 
 \end{document}

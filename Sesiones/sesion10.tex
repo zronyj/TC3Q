@@ -1,7 +1,7 @@
 %
-% dia9.tex
+% sesion10.tex
 % 
-% Copyright 2014 Rony J. Letona <rony@zronyj.com>
+% Copyright 2017 Rony J. Letona <zronyj@gmail.com>
 % 
 % This program is free software; you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \setcounter{secnumdepth}{4}
 \author{Rony J. Letona}
-\title{Taller de Qu\'imica Computacional Aplicada: D\'ia 9}
+\title{Taller de Computaci\'on Cient\'ifica para Ciencias Qu\'imicas: Sesi\'on 10}
 \definecolor{light-gray}{gray}{0.90}
 
 \newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
@@ -132,7 +132,7 @@ Lo primero que debemos entender es que uno de estos modelos consta de dos partes
 \item \textbf{3D}: Descriptores mec\'anico-cu\'anticos, MoRSE, WHIM, GETAWAY, de autocorrelaci\'on, etc. Especialmente debemos notar el descriptor CoMFA.
 \end{itemize}
 
-Si ponemos atenci\'on, los descriptores 0D, 1D, 2D y 3D ya los calculamos en el ejercicio anterior\footnote{Revisemos bien qu\'e significa cada uno de los descriptores calculados por RDKit.}! Y existen otros descriptores a los que clasifican como 4D, 5D, 6D, etc. Generalmente son parte de paquetes comerciales e incluyen efectos de solvente, cambios en conformaciones estructurales, etc. Las alternativas son muchas y muy variadas, pero lo importante es que sepamos qu\'e es lo que buscamos con un descriptor, porque generalmente es \textbf{una} o \textbf{algunas} caracter\'isticas muy particulares las que vamos a querer medir. Una ayuda para esto es un recurso que podemos hallar en internet: \href{http://qsar.sourceforge.net/dicts/qsar-descriptors/index.xhtml}{QSAR Descriptor Dictionary}. Por otra parte, algunas cosas a considerar cuando pensamos en descriptores (muchos las toman como reglas para saber si es un descriptor) son las siguientes:
+Si ponemos atenci\'on, los descriptores 0D, 1D, 2D y 3D ya los calculamos en otras sesiones y en el ejercicio anterior\footnote{Revisemos bien qu\'e significa cada uno de los descriptores calculados por RDKit.}! Y existen otros descriptores a los que clasifican como 4D, 5D, 6D, etc. Generalmente son parte de paquetes comerciales e incluyen efectos de solvente, cambios en conformaciones estructurales, etc. Las alternativas son muchas y muy variadas, pero lo importante es que sepamos qu\'e es lo que buscamos con un descriptor, porque generalmente es \textbf{una} o \textbf{algunas} caracter\'isticas muy particulares las que vamos a querer medir. Una ayuda para esto es un recurso que podemos hallar en internet: \href{http://qsar.sourceforge.net/dicts/qsar-descriptors/index.xhtml}{QSAR Descriptor Dictionary}. Por otra parte, algunas cosas a considerar cuando pensamos en descriptores (muchos las toman como reglas para saber si es un descriptor) son las siguientes:
 
 \begin{enumerate}
 \item Invarianza con respecto a la enumeraci\'on de \'atomos o su etiquetado. Es decir, el descriptor debe poder funcionar sin importar la manera en que leamos la mol\'ecula (de derecha a izquierda, de izquierda a derecha, de arriba a abajo, etc.).

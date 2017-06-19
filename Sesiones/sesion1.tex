@@ -104,9 +104,9 @@ Hasta ahora todo va muy bien, sin embargo, estas han sido pruebas y debemos deja
 \subsubsection{Copiar y Pegar}
 Una pr\'actica que nos encanta al trabajar editando texto en ordenadores es el de copiar, cortar y pegar. Esto quiz\'a se deba a que no existe un equivalente en el mundo real, excepto quiz\'a por las fotocopias. Sin embargo, estas no son tan fieles como una copia digital: copia $100\%$ id\'entica. Para realizar este tipo de operaciones con nuestros archivos, vamos a copiar un archivo del directorio de documentos a nuestro directorio, y luego vamos a cortar otro archivo del directorio de documentos y lo trasladaremos a nuestro directorio de trabajo.\\
 
-Comenzando, copiaremos un archivo con el siguiente comando: \inlinecode{cp ../TQCA/Data/lorem\_ipsum.txt $\sim$/Playground/} Ahora, debemos tomar en cuenta un par de aspectos importantes. El primero son los dos puntos antes del directorio de documentos. Qu\'e crees que hagan? Y luego est\'a el hecho de que primero pusimos la direcci\'on de todo el archivo, luego solo la ubicaci\'on donde lo \'ibamos a colocar. Anota eso, es importante.\\
+Comenzando, copiaremos un archivo con el siguiente comando: \inlinecode{cp ../TC3Q/Data/lorem\_ipsum.txt $\sim$/Playground/} Ahora, debemos tomar en cuenta un par de aspectos importantes. El primero son los dos puntos antes del directorio de documentos. Qu\'e crees que hagan? Y luego est\'a el hecho de que primero pusimos la direcci\'on de todo el archivo, luego solo la ubicaci\'on donde lo \'ibamos a colocar. Anota eso, es importante.\\
 
-Finalmente, cortaremos y pegaremos un archivo. Como ya nos dimos cuenta antes, en estos casos no se copia y pega, sino que se transfiere una copia de manera directa. En este caso es igual, solo que a transferir un archivo en Linux se le denomina \emph{mover}. Por ello, el comando utilizado es \inlinecode{mv} Elimina el archivo \emph{lorem\_ipsum.txt} en tu directorio de trabajo e ingresa este comando en una nueva l\'inea: \inlinecode{mv ../TQCA/Data/lorem\_ipsum.txt $ \sim $/Playground/lorem\_ipsum.txt} El comando es casi igual al de copiado, solo con una diferencia importante. Notas cu\'al es?
+Finalmente, cortaremos y pegaremos un archivo. Como ya nos dimos cuenta antes, en estos casos no se copia y pega, sino que se transfiere una copia de manera directa. En este caso es igual, solo que a transferir un archivo en Linux se le denomina \emph{mover}. Por ello, el comando utilizado es \inlinecode{mv} Elimina el archivo \emph{lorem\_ipsum.txt} en tu directorio de trabajo e ingresa este comando en una nueva l\'inea: \inlinecode{mv ../TC3Q/Data/lorem\_ipsum.txt $ \sim $/Playground/lorem\_ipsum.txt} El comando es casi igual al de copiado, solo con una diferencia importante. Notas cu\'al es?
 
 \subsection{Permisos y Propiedad}
 En muchos casos nos vamos a topar con que nuestro ordenador no nos deja crear un documento nuevo o una carpeta. Tampoco nos deja eliminar algunos archivos o modificarlos. Detente y piensa a qu\'e crees que se debe esto? Nuestro ordenador protege algunos documentos y carpetas. Muchas veces nos toparemos con que el \emph{administrador} tiene que permitirnos algo, porque si no tenemos sus privilegios, no podemos modificar nada.\\
@@ -155,7 +155,7 @@ Un v\'inculo o \emph{link} puede ser representado por un documento, \'icono o no
 Este es el tipo de v\'inculo m\'as sencillo de hacer. Para esto vamos a escoger (o crear) un documento \emph{mi\_documento.txt} y vamos a crear un v\'inculo de \'el. Para ello escribimos \inlinecode{ln mi\_documento.txt nuevo\_documento.txt}. Si ponemos atenci\'on, dentro de nuestra carpeta donde estaba el documento, acaba de aparecer otro llamado \emph{nuevo\_documento.txt}. Es m\'as! Si revisamos el contenido de este, nos daremos cuenta que es id\'entico al de nuestro documento original. Podr\'iamos hacer modificaciones al contenido de uno, que las ver\'iamos reflejadas en el otro. Podr\'iamos ver c\'omo se ven estos documentos al escribir \inlinecode{ls -l}. Podr\'iamos tambi\'en cambiar el nombre de \emph{mi\_documento.txt} a otra cosa y revisar el contenido de ambos otra vez notando que este sigue siendo el mismo. Sin embargo, \emph{nuevo\_documento.txt} parece ser un documento; no hay nada que evidencie que solo sea un nombre o un \'icono. Qu\'e estar\'a pasando? Comenta con tu compa\~nero de al lado e intenta explicarlo. En el \'interin, vamos a pasar a los v\'inculos suaves o simb\'olicos.
 
 \subsubsection{V\'inculos Simb\'olicos}
-La diferencia entre el comando para crear v\'inculos duros y simb\'olicos es muy sencilla. Para crear un v\'inculo simb\'olico de un documento \emph{mi\_documento\_2.txt} escribimos \inlinecode{ls -s mi\_documento\_2.txt nuevo\_documento\_2.txt}. La diferencia fue sencilla: \inlinecode{-s}. Esto es porque debemos especificar que el v\'inculo es simb\'olico. Ahora vamos a realizar todas las pruebas que realizamos en el caso anterior. Primero revisaremos el contenido de ambos documentos para ver si es el mismo. Ya? Ahora pasemos a cambiar el contenido en uno y ver si ese cambio es evidente en los dos. Hasta aqu\'i todo bien. Qu\'e pasar\'a si vemos la representaci\'on en el listado con \inlinecode{ls -l}? Finalmente vemos un cambio! Claramente vemos que nuestro nuevo documento tiene color diferente, comienza su sistema de permisos con \inlinecode{l} y apunta (con una flecha) hacia el documento original. Ahora cambiaremos el nombre de \emph{mi\_documento\_2.txt} y volvemos a revisar el contenido de los dos. Problema! El documento parece no existir. Esto lo vemos m\'as claro si volvemos a escribir \inlinecode{ls -l}. Parece ser que nuestro v\'inculo no existe. Qu\'e habr\'a pasado? Por qu\'e es que esto ya no funciona? Disc\'utelo con tu compa\~nero de al lado e intenta ampliar tu explicaci\'on anterior sobre v\'inculos.
+La diferencia entre el comando para crear v\'inculos duros y simb\'olicos es muy sencilla. Para crear un v\'inculo simb\'olico de un documento \emph{mi\_documento\_2.txt} escribimos \inlinecode{ln -s mi\_documento\_2.txt nuevo\_documento\_2.txt}. La diferencia fue sencilla: \inlinecode{-s}. Esto es porque debemos especificar que el v\'inculo es simb\'olico. Ahora vamos a realizar todas las pruebas que realizamos en el caso anterior. Primero revisaremos el contenido de ambos documentos para ver si es el mismo. Ya? Ahora pasemos a cambiar el contenido en uno y ver si ese cambio es evidente en los dos. Hasta aqu\'i todo bien. Qu\'e pasar\'a si vemos la representaci\'on en el listado con \inlinecode{ls -l}? Finalmente vemos un cambio! Claramente vemos que nuestro nuevo documento tiene color diferente, comienza su sistema de permisos con \inlinecode{l} y apunta (con una flecha) hacia el documento original. Ahora cambiaremos el nombre de \emph{mi\_documento\_2.txt} y volvemos a revisar el contenido de los dos. Problema! El documento parece no existir. Esto lo vemos m\'as claro si volvemos a escribir \inlinecode{ls -l}. Parece ser que nuestro v\'inculo no existe. Qu\'e habr\'a pasado? Por qu\'e es que esto ya no funciona? Disc\'utelo con tu compa\~nero de al lado e intenta ampliar tu explicaci\'on anterior sobre v\'inculos.
 
 \subsubsection{Explicaci\'on}
 Los documentos en nuestro ordenador son solo informaci\'on guardada en un disco duro. Sin embargo, esta no tiene un orden en particular! C\'omo sabe nuestro ordenador d\'onde hallar las cosas, entonces? De la misma manera en que nosotros hallamos la casa de un amigo la primera vez que vamos: utilizando direcciones. El disco duro contiene una tabla en la que guarda todos los nombres de los documentos en nuestro ordenador y sus direcciones en el disco duro. Entonces, al referirnos al nombre de un documento para abrirlo, nuestro ordenador busca en la tabla del disco duro, adquiere la direcci\'on y, coloc\'andose en la posic\'on del disco indicada por la direcci\'on, lee el contenido y nos muestra el documento \emph{abierto}.\\
@@ -166,41 +166,41 @@ Y qu\'e tiene que ver esto con los v\'inculos? Que ahora que sabemos que el nomb
 Una de las tareas m\'as dif\'iciles en el mundo actual es el saber qu\'e informaci\'on tomar en cuenta y c\'omo separarla de todos los datos que extraemos de experimentos, de la red y de muchas fuentes de informaci\'on. Esta tarea comienza con simples filtros y peque\~nas rutinas que nos ordenan los resultados de alguna manera. As\'i, la informaci\'on no solo se vuelve m\'as comprensible, sino que tambi\'en se puede notar patrones, tendencias y otras cosas. Es por ello que ahora comenzaremos con otro tipo de operaciones sobre los archivos: aprenderemos a extraer informaci\'on y a realizar m\'as de un comando a la vez con la informaci\'on que tenemos.
 
 \subsubsection{Contando Pedazos}
-Una tarea sencilla que podemos usar para extraer algo de informaci\'on de un archivo es contar la cantidad de l\'ineas, palabras o caracteres en \'el. Para esto existe un comando que nos muestra estos 3 resultados de una vez, o solo uno de los 3 si as\'i lo deseamos. Para una peque\~na prueba, comenzaremos con un conteo general: \inlinecode{wc ../TQCA/Data/lorem\_ipsum.txt} Esto debi\'o haberte dado como respuesta los 3 resultados de los que habl\'abamos.\\
+Una tarea sencilla que podemos usar para extraer algo de informaci\'on de un archivo es contar la cantidad de l\'ineas, palabras o caracteres en \'el. Para esto existe un comando que nos muestra estos 3 resultados de una vez, o solo uno de los 3 si as\'i lo deseamos. Para una peque\~na prueba, comenzaremos con un conteo general: \inlinecode{wc ../TC3Q/Data/lorem\_ipsum.txt} Esto debi\'o haberte dado como respuesta los 3 resultados de los que habl\'abamos.\\
 
-Ahora, para contar solo las palabras, intentaremos algo diferente: \inlinecode{wc -w ../TQCA/Data/lorem\_ipsum.txt} Notaste el argumento que agregamos? Intenta descubrir c\'omo contar solo l\'ineas o solo caracteres.\\
+Ahora, para contar solo las palabras, intentaremos algo diferente: \inlinecode{wc -w ../TC3Q/Data/lorem\_ipsum.txt} Notaste el argumento que agregamos? Intenta descubrir c\'omo contar solo l\'ineas o solo caracteres.\\
 
-Finalmente, si quisieramos ver cu\'antas palabras hay en todos los archivos de texto contenidos en la carpeta de documentos, podemos hacer lo siguiente: \inlinecode{wc -w ../TQCA/Data/*.txt} Aqu\'i tenemos algo muy interesante que notar. En vez de usar un nombre para denotar un archivo en particular, utilizamos un \inlinecode{*}. Este nos permite referirnos a \emph{todos} los archivos a la vez. Terminar con la extensi\'on \inlinecode{.txt} filtra los resultados dejando solo a aquellos archivos con \emph{esa} extensi\'on en particular. Intenta repetir el ejercicio con la cantidad de l\'ineas de cada archivo.
+Finalmente, si quisieramos ver cu\'antas palabras hay en todos los archivos de texto contenidos en la carpeta de documentos, podemos hacer lo siguiente: \inlinecode{wc -w ../TC3Q/Data/*.txt} Aqu\'i tenemos algo muy interesante que notar. En vez de usar un nombre para denotar un archivo en particular, utilizamos un \inlinecode{*}. Este nos permite referirnos a \emph{todos} los archivos a la vez. Terminar con la extensi\'on \inlinecode{.txt} filtra los resultados dejando solo a aquellos archivos con \emph{esa} extensi\'on en particular. Intenta repetir el ejercicio con la cantidad de l\'ineas de cada archivo.
 
 \subsubsection{Tubos y Ordenando Listas}
 Y de qu\'e nos sirve ahora tener todos los resulatdos all\'i? Pues ... es cierto. Esto no dice mucho. Pero qu\'e pasar\'ia si pudieramos trabajar m\'as con esos resultados? Pues esa es la idea de los tubos! Tubo se le llama al comando que nos permite usar la informaci\'on de salida de un comando, como informaci\'on de entrada del siguiente. En la l\'inea de comando de Linux, esto se hace mediante este caracter: \inlinecode{|} Hagamos un ejercicio.\\
 
-Vamos a comenzar donde lo dejamos la vez pasada: con una lista de archivos y el conteo de la cantidad de palabras en cada uno. Ahora vamos a intentar ordenar los resultados. Como siempre, se sigue la convenci\'on de ir en el orden alfab\'etico. Intentemos, pues, ordenar los resultados. Para eso ingresa lo siguiente en tu l\'inea de comando: \inlinecode{wc -w ../TQCA/Data/*.txt | sort}\\
+Vamos a comenzar donde lo dejamos la vez pasada: con una lista de archivos y el conteo de la cantidad de palabras en cada uno. Ahora vamos a intentar ordenar los resultados. Como siempre, se sigue la convenci\'on de ir en el orden alfab\'etico. Intentemos, pues, ordenar los resultados. Para eso ingresa lo siguiente en tu l\'inea de comando: \inlinecode{wc -w ../TC3Q/Data/*.txt | sort}\\
 
-Creo que inmediatamente notaste los cambios. Agregamos el tubo (en ingl\'es \emph{pipe}) y agregamos un comando para ordenar nuestros resultados: \inlinecode{sort} Al fin tenemos todo ordenado, o no? Lo \'unico que no est\'a bien con el resultado es el total. El total, siendo un n\'umero mayor deber\'ia de ir al final. Para eso quiz\'a sea necesario agregar un \'ultimo argumento. Ingresa: \inlinecode{wc -w ../TQCA/Data/*.txt | sort -n} Ahora obtuvimos el resultado deseado; solo hab\'ia que pedirle al comando de ordenar, que lo hiciera de manera num\'erica.
+Creo que inmediatamente notaste los cambios. Agregamos el tubo (en ingl\'es \emph{pipe}) y agregamos un comando para ordenar nuestros resultados: \inlinecode{sort} Al fin tenemos todo ordenado, o no? Lo \'unico que no est\'a bien con el resultado es el total. El total, siendo un n\'umero mayor deber\'ia de ir al final. Para eso quiz\'a sea necesario agregar un \'ultimo argumento. Ingresa: \inlinecode{wc -w ../TC3Q/Data/*.txt | sort -n} Ahora obtuvimos el resultado deseado; solo hab\'ia que pedirle al comando de ordenar, que lo hiciera de manera num\'erica.
 
 \subsubsection{Hallando cosas}
-Al trabajar con muchos archivos, uno de los problemas con los que nos encontramos seguido es querer aislar solo algunos de ellos. Son bastantes los casos en los que un programa produce varios archivos de salida: resultados, documentaci\'on de la corrida, errores, etc. A nosotros quiz\'a solo nos interese el de los resultados. Haremos un ejercicio para demostrar c\'omo se hace esto de manera sencilla. Ingresa en tu l\'inea de comando lo siguiente: \inlinecode{find ../TQCA/Data/*ipsum*} y observa el resultado. Piensa y discute un momento sobre qu\'e otro comando que ya conoces podr\'ia generar el mismo resultado.\\
+Al trabajar con muchos archivos, uno de los problemas con los que nos encontramos seguido es querer aislar solo algunos de ellos. Son bastantes los casos en los que un programa produce varios archivos de salida: resultados, documentaci\'on de la corrida, errores, etc. A nosotros quiz\'a solo nos interese el de los resultados. Haremos un ejercicio para demostrar c\'omo se hace esto de manera sencilla. Ingresa en tu l\'inea de comando lo siguiente: \inlinecode{find ../TC3Q/Data/*ipsum*} y observa el resultado. Piensa y discute un momento sobre qu\'e otro comando que ya conoces podr\'ia generar el mismo resultado.\\
 
-Hasta ahora hemos trabajado con archivos solamente, no con su contenido. A lo m\'as que hab\'iamos llegado es a escribir dentro de un archivo con \inlinecode{nano}. Pero qu\'e pasa si queremos ver lo que hay dentro de un archivo sin editarlo? Qu\'e pasa si deseamos buscar cosas dentro del contenido? Para eso vamos a utilizar dos nuevos comandos. El primero nos permitir\'a ver el contenido de un archivo de texto sin abrirlo. Hagamos una prueba. Ingresa \inlinecode{cat ../TQCA/Data/lorem\_ipsum.txt} y observa qu\'e pasa.\\
+Hasta ahora hemos trabajado con archivos solamente, no con su contenido. A lo m\'as que hab\'iamos llegado es a escribir dentro de un archivo con \inlinecode{nano}. Pero qu\'e pasa si queremos ver lo que hay dentro de un archivo sin editarlo? Qu\'e pasa si deseamos buscar cosas dentro del contenido? Para eso vamos a utilizar dos nuevos comandos. El primero nos permitir\'a ver el contenido de un archivo de texto sin abrirlo. Hagamos una prueba. Ingresa \inlinecode{cat ../TC3Q/Data/lorem\_ipsum.txt} y observa qu\'e pasa.\\
 
 Como te habr\'as dado cuenta, se muestra el contenido de todo el archivo. Esto puede ser lo que buscamos, o puede que no, ya que a veces, es solo el principio o el final del archivo lo que necesitamos. Para eso podemos usar \inlinecode{head -5} si quisieramos las primeras 5 l\'ineas de un archivo, por ejemplo. O en el caso de querer las \'ultimas 3, podemos ingresar \inlinecode{tail -3}. Por supuesto, los n\'umeros los podemos cambiar, pero eso depender\'a de lo que querramos en ese momento.\\
 
-Ahora que ya sabemos c\'omo mostrar el texto de un archivo de formar total y parcial, vamos a buscar algo dentro de \'el. Para ello vamos utilizar un nuevo comando: \inlinecode{grep}. Este comando busca por expresiones regulares dentro de un texto y devuelve las l\'ineas en el texto que contengan esa expresi\'on. Una \emph{expresi\'on regular} puede ser una palabra o algunas f\'ormulas que permiten hallar patrones dentro del texto. En este caso vamos a proceder buscando un patr\'on sencillo dentro de un archivo con mucha informaci\'on. Ingresa esto en la terminal y comenta sobre el resultado \inlinecode{cat ../TQCA/Data/data.csv | grep 199}. Hallamos entonces a todos los premios nobel en qu\'imica de la d\'ecada de los 90. Sin embargo, obtenemos tambi\'en un resultado que no nos interesa: la \'ultima l\'inea. Para eso, podemos contar cu\'antas l\'ineas hay y as\'i seleccionar solo las que deseamos. Antes de darte la manera de hacer esto, piensa un momento en c\'omo llevar a cabo esta tarea con lo que ya sabes.\\
+Ahora que ya sabemos c\'omo mostrar el texto de un archivo de formar total y parcial, vamos a buscar algo dentro de \'el. Para ello vamos utilizar un nuevo comando: \inlinecode{grep}. Este comando busca por expresiones regulares dentro de un texto y devuelve las l\'ineas en el texto que contengan esa expresi\'on. Una \emph{expresi\'on regular} puede ser una palabra o algunas f\'ormulas que permiten hallar patrones dentro del texto. En este caso vamos a proceder buscando un patr\'on sencillo dentro de un archivo con mucha informaci\'on. Ingresa esto en la terminal y comenta sobre el resultado \inlinecode{cat ../TC3Q/Data/data.csv | grep 199}. Hallamos entonces a todos los premios nobel en qu\'imica de la d\'ecada de los 90. Sin embargo, obtenemos tambi\'en un resultado que no nos interesa: la \'ultima l\'inea. Para eso, podemos contar cu\'antas l\'ineas hay y as\'i seleccionar solo las que deseamos. Antes de darte la manera de hacer esto, piensa un momento en c\'omo llevar a cabo esta tarea con lo que ya sabes.\\
 
 Para resolver el problema anterior, lo que hacemos es agregar otro \emph{pipe} al comando que ya ten\'iamos, contar las l\'ineas y con \inlinecode{head} seleccionar solo las que deseamos. En otras palabras, hacemos esto:\\
-\inlinecode{cat ../TQCA/Data/data.csv | grep 199 | wc -l}\\
+\inlinecode{cat ../TC3Q/Data/data.csv | grep 199 | wc -l}\\
 lo cual debe de darte como resultado \inlinecode{19}. La \'unica l\'inea que deseamos eliminar es la \'ultima, por lo que seleccionamos solo 18 l\'ineas:\\
-\inlinecode{cat ../TQCA/Data/data.csv | grep 199 | head -18}\\
+\inlinecode{cat ../TC3Q/Data/data.csv | grep 199 | head -18}\\
 De esa forma tenemos al listado de todos los premios nobel en qu\'imica de la d\'ecada de los 90s.
 
 \subsubsection{Filtrando Resultados}
 Los resultados obtenidos del \'ultimo ejercicio ya son algo que nos provee informaci\'on r\'apida sobre el contenido de un archivo. No obstante, si desearamos solo el a\~no, el nombre y el apellido de cada premio nobel de qu\'imica, tenemos que hacer un \'ultimo arreglo. Como notamos de los resultados, el documento que utilizamos usa comas para dividir los campos. Y si ponemos atenci\'on, son las divisiones 1, 5 y 6 las que nos interesan para obtener la informaci\'on antes mencionada. Veamos c\'omo hacer esto. En la terminal ingresa:\\
-\inlinecode{cat ../TQCA/Data/data.csv | grep 199 | head -18 | cut -d , -f 1,5,6}\\
+\inlinecode{cat ../TC3Q/Data/data.csv | grep 199 | head -18 | cut -d , -f 1,5,6}\\
 Observa los resultados y comenta sobre qu\'e crees que hace cada parte del nuevo comando y argumentos que se utilizaron ahora.\\
 
 Finalmente, tener resultados as\'i en la l\'inea de comando puede ser \'util a veces, pero en el caso de haber extra\'ido informaci\'on importante, quiz\'a es deseable almacenar esto en otro archivo. Ahora, en vez de copiar y pegar los resultados obtenidos del ejercicio anterior, vamos a alargar nuestro comando un poco m\'as. Esta vez vamos a agregar un peque\~no signo m\'as: \inlinecode{>}. Este nos permitir\'a guardar los resultados obtenidos en un archivo de la siguiente forma:\\
-\inlinecode{cat ../TQCA/Data/data.csv | grep 199 | head -18 | cut -d , -f 1,5,6 > \ mi\_archivo.txt}\\
+\inlinecode{cat ../TC3Q/Data/data.csv | grep 199 | head -18 | cut -d , -f 1,5,6 > \ mi\_archivo.txt}\\
 Despu\'es de ejecutar eso, como no obtuviste un resultado, deseo que veas cu\'al es el contenido de tu directorio de trabajo y que lo comentes con los dem\'as.
 
 \subsection{Ciclos}
@@ -249,7 +249,7 @@ done
 Inmediatamente nos damos cuenta de que necesitamos el listado de los archivos que tengan que ver con agua. C\'omo hac\'amos esto? Es cierto! Tenemos un comando \inlinecode{find} que nos permite hallar eso. Intentamos colocarlo dentro del c\'odigo y ...
 
 \begin{Code}
-for archivo in \$(find ../TQCA/Data/Agua*)\\
+for archivo in \$(find ../TC3Q/Data/Agua*)\\
 do\\
 \emph{calcular las medias de alguna manera}\\
 done
@@ -258,7 +258,7 @@ done
 S\'i, debemos colocar nuestro comando entre par\'entesis y con el signo \inlinecode{\$} para que se genere la lista. As\'i como cuando extra\'iamos el valor de una variable, estamos extrayendo la lista. Genial, ahora ya tenemos la lista. Pero ... nuestra jefa probablemente la querr\'a ordenada. Hmm ... arreglemos eso.
 
 \begin{Code}
-for archivo in \$(find ../TQCA/Data/Agua* | sort)\\
+for archivo in \$(find ../TC3Q/Data/Agua* | sort)\\
 do\\
 \emph{calcular las medias de alguna manera}\\
 done
@@ -267,7 +267,7 @@ done
 Perfecto! Ahora, antes de comenzar a calcular las medias de los par\'ametros de cada archivo, ser\'ia conveniente mostrar de qu\'e archivo es que se est\'a calculando la media. Agregemos entonces, antes de cada dato, el nombre del archivo.
 
 \begin{Code}
-for archivo in \$(find ../TQCA/Data/Agua* | sort)\\
+for archivo in \$(find ../TC3Q/Data/Agua* | sort)\\
 do\\
 echo \$archivo\\
 \emph{calcular las medias de alguna manera}\\
@@ -280,7 +280,7 @@ Ahora s\'i, a calcular las medias. Esto se supone que lo hace la herramienta \em
 Qu\'e es lo que est\'a sucediendo ac\'a? \inlinecode{bash} es el comando que \emph{activa} o \emph{ejecuta} ese script. Luego viene el nombre del script a ejecutar, y termina con el nombre del archivo del cual se est\'a realizando los c\'alculos. Al implementar esto dentro de nuestro script (s\'i, se puede correr un script desde otro script), el c\'odigo se va a ver algo as\'i:
 
 \begin{Code}
-for archivo in \$(find ../TQCA/Data/Agua* | sort)\\
+for archivo in \$(find ../TC3Q/Data/Agua* | sort)\\
 do\\
 echo \$archivo\\
 echo \$(bash med.sh \$archivo)\\
@@ -290,7 +290,7 @@ done
 Ya casi terminarmos. Ahora, ser\'ia conveniente saber cu\'ales son los datos que se est\'a calculando en cada columna. Para eso, agregamos otra l\'inea m\'as extrayendo del contenido de cada archivo la primera fila, y de ella los nombres de las columnas excepto la primera que sabemos que son los nombres de los lugares.
 
 \begin{Code}
-for archivo in \$(find ../TQCA/Data/Agua* | sort)\\
+for archivo in \$(find ../TC3Q/Data/Agua* | sort)\\
 do\\
 echo \$archivo\\
 echo \$(cat \$archivo | head -1 | cut -d , -f 2-)\\
@@ -302,7 +302,7 @@ Excelente, terminamos el script. Pero momento, si se trata de muchos archivos, n
 
 \begin{Code}
 echo Medias de los muestreos en el lago de Atitlan $>$\ resultados.txt\\
-for archivo in \$(find ../TQCA/Data/Agua* | sort)\\
+for archivo in \$(find ../TC3Q/Data/Agua* | sort)\\
 do\\
 echo \$archivo $>>$\ resultados.txt\\
 echo \$(cat \$archivo | head -1 | cut -d , -f 2-) $>>$\ resultados.txt\\
@@ -354,7 +354,7 @@ Felicidades nuevamente, y nos vemos ma\~nana en la introducci\'on a bases de dat
 
 \noindent \includegraphics{img/cc_big.png}
 
-\noindent Taller de Computaci\'on Cient\'ifica para Ciencias Qu\'imicas by \href{http://github.com/zronyj/TQCA}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
+\noindent Taller de Computaci\'on Cient\'ifica para Ciencias Qu\'imicas by \href{http://github.com/zronyj/TC3Q}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
 Based on a work at \url{http://github.com/swcarpentry/bc}.
 
 \end{document}
