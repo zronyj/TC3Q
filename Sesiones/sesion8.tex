@@ -54,12 +54,13 @@
 \end{center}
 }
 
-\newcommand{\Picture}[1]
+\newcommand{\Picture}[3]
 {
 	\begin{figure}[H]
-	\begin{flushleft}
-	\includegraphics[width=\columnwidth]{#1}
-	\end{flushleft}
+	\begin{center}
+	\caption{#3}
+	\includegraphics[scale=#2]{#1}
+	\end{center}
 	\end{figure}
 }
 
@@ -390,6 +391,8 @@ Esta peque\~na matriz nos dice que si las bases nitrogenadas son iguales en amba
 Para resolver este problema, utilizamos otra estrategia: dividimos nuestra secuencia en \emph{palabras} de 3 o 4 letras (al comparar ADN las palabras son de 11 letras generalmente). Eesto significa que, si tenemos una secuencia $\underset{0}{G} \underset{1}{A} \underset{2}{T} \underset{3}{G} \underset{4}{C} \underset{5}{A}$, las palabras que 4 letras que podr\'iamos formar son: $\underset{0}{G} \underset{1}{A} \underset{2}{T} \underset{3}{G}$, $\underset{1}{A} \underset{2}{T} \underset{3}{G} \underset{4}{C}$ y $\underset{2}{T} \underset{3}{G} \underset{4}{C} \underset{5}{A}$. Ahora que ya tenemos dividida la cadena en palabras, podemos proceder a ordenar y ver qu\'e tanto se repiten las palabras. Esta es una de las diferencias entre el algoritmo BLAST y su antecesor FASTA. En el caso del \'ultimo, todas las palabras son importantes y se revisan. En el caso de BLAST, solo toma en cuenta las palabras m\'as importantes seg\'un la cantidad de veces que aparece en la secuencia y el \emph{score} obtenido de compararse con la matriz de la que hablamos anteriormente. Veamos esto por pasos.\\
 
 Primero comenzamos con la parte m\'as sencilla: Revisamos la cantidad de veces que aparece la palabra en cada secuencia y las anotamos. Luego ordenamos las palabras por la cantidad de veces que aparecieron. Finalmente, revisamos si las palabras de la secuencia de prueba aparecen en la secuencia de referencia.\\
+
+\Picture{img/BLAST.png}{0.6}{Diagrama de flujo del algoritmo BLAST.}
 
 Entonces, en resumen, vamos a dividir la secuencia en palabras. Luego vamos a ver qu\'e tanto se repiten las palabras que hallamos y a hacer una lista de ellas. Las ordenamos y comparamos las palabras de la secuencia de prueba con la de referencia. El paso que determina la diferencia entre BLAST y FASTA va entre el ordenado y la comparaci\'on. Lo que haremos es escoger solo las palabras que tengan muchas apariciones. Cu\'anto es \emph{muchas}? Un umbral que nosotros decidamos. Esto va a depender mucho de la longitud de la secuencia. Podr\'iamos tener un valor relativo al tama\~no de la secuencia, pero en este caso lo vamos a definir nosotros como un valor fijo para mantener las cosas simples.\\
 
