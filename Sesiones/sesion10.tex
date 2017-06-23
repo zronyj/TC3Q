@@ -55,12 +55,13 @@
 \end{center}
 }
 
-\newcommand{\Picture}[1]
+\newcommand{\Picture}[3]
 {
 	\begin{figure}[H]
-	\begin{flushleft}
-	\includegraphics[width=\columnwidth]{#1}
-	\end{flushleft}
+	\begin{center}
+	\caption{#3}
+	\includegraphics[scale=#2]{#1}
+	\end{center}
 	\end{figure}
 }
 
@@ -71,38 +72,58 @@
 
 
 \subsection{Procesando Datos}
-El gran problema con el que se han encontrado los qu\'imicos muchas veces es que resultan teniendo varias posibilidades de mol\'eculas o de propiedades a tomar en cuenta, y deben de calcular todas para hallar la mejor opci\'on. Hasta hace poco esto se hac\'ia siempre con peque\~nos scripts en l\'inea de comando, como vimos en el caso del docking o de mec\'anica cu\'antica en donde, utilizando un lenguaje sencillo de programaci\'on, se simplific\'o hacer una tarea complicada y repetitiva. Pero qu\'e pasa cuando el c\'alculo que se debe hacer no es uno nada m\'as, sino que se trata de m\'as operaciones en secuencia? Entonces fue que se comenz\'o a hablar de \emph{flujos de trabajo} (o \emph{workflows}). La idea de esto es trabajar los datos como si fueran en una l\'inea de producci\'on: primero se les hace esto, luego se les calcula eso, a continuaci\'on se comparan contra aquello, etc. Y si bien los scripts permiten eso parcialmente, los qu\'imicos nunca hemos sido muy amantes de andar haciendo scripts tan grandes. De all\'i surgieron los programas que, mediante nodos, pueden hacer los flujos de trabajo posibles y con un nivel de dificultad m\'inimo.\\
+El gran problema con el que se han encontrado los qu\'imicos muchas veces es que resultan teniendo varias posibilidades de mol\'eculas o de propiedades a tomar en cuenta, y deben de calcular todas para hallar la mejor opci\'on. Hasta hace poco esto se hac\'ia siempre con peque\~nos scripts en l\'inea de comando, como vimos en el caso del docking o de mec\'anica cu\'antica en donde, utilizando un lenguaje sencillo de programaci\'on, se simplific\'o hacer una tarea complicada y repetitiva. Pero qu\'e pasa cuando tenemos demasiados datos? Pero qu\'e pasa cuando el c\'alculo que se debe hacer no es uno nada m\'as, sino que se trata de m\'as operaciones en secuencia? Entonces fue que se comenz\'o a hablar de \emph{flujos de trabajo} (o \emph{workflows}). La idea de esto es trabajar los datos como si fueran en una l\'inea de producci\'on: primero se les hace esto, luego se les calcula eso, a continuaci\'on se comparan contra aquello, etc. Y, si bien los scripts permiten eso parcialmente, los qu\'imicos nunca hemos sido muy amantes de andar haciendo scripts tan grandes. De all\'i surgieron los programas que, mediante nodos, pueden hacer los flujos de trabajo posibles y con un nivel de dificultad m\'inimo.\\
 
-\subsubsection{Energ\'ias de nuestra Din\'amica Molecular}
+Este es un buen momento para arrancar KNIME. Este programa se tarda bastante en abrir, y por ello vamos a iniciarlo desde este momento. Para ello vamos a ir a la Terminal, vamos a escribir \inlinecode{$\sim$/KNIME/knime} y vamos a ejecutar el comando. En lo que abre KNIME, sigamos haciendo el Taller.
 
-Para comenzar hoy, vamos a volver a abrir VMD desde una l\'inea de comando. Posteriormente, vamos a abrir nuestros \'ultimos archivos del d\'ia anterior. Primero, abrimos \textbf{1GUJ\_wb.psf}. Luego, y sin cerrar la ventana con la que cargamos nuestro archivo, abrimos \textbf{1GUJ\_wb.pdb}. Finalmente, y manteniendo la misma peque\~na ventana abierta, abrimos \textbf{1GUJ\_wb.dcd}. Al terminar con esto vamos a ver a la insulina vibrando en nuestra din\'amica molecular. El problema que nos qued\'o la vez pasada fue calcular la energ\'ia de nuestra mol\'ecula. Para hacer esto, vamos a ir a \textit{Extensions}, \textit{Analysis}, \textit{NAMD Energy}. Como siempre en VMD, resultamos con una peque\~na ventana, pero muchas opciones. Para simplificar el proceso haremos lo siguiente: en \textit{Selection 1:} vamos a escribir \textbf{protein}, en \textit{Energy type:} haremos click solamente a la casilla \textbf{All}, en \textit{Output file:} vamos a escribir \textbf{energias.csv}, en \textit{XSC File (opt):} vamos a hacer click en \textbf{Generate}, a continuaci\'on en la nueva ventana haremos click en \textbf{Guess from molecule}, luego en \textbf{Done}, y finalmente en \textbf{Run NAMDEnergy}. El programa nos preguntar\'a d\'onde se halla NAMD. Para ello solo lo buscamos en \inlinecode{/home/mint/NAMD/namd2} y esperamos. El proceso puede tardar un par de minutos en lo que NAMD halla todas las energ\'ias de la din\'amica. Y esto es lo interesante: halla todas las formas de energ\'ia\footnote{Energ\'ia de enlace, angular, de dihedros, de impropios, electrost\'atica, Van der Waals, conformacional, no-enlazante y total.}! Luego de haber terminado, cerramos todo y vamos a proceder a analizar un poco nuestros datos.\\
+\subsubsection{Fuentes de Informaci\'on}
+Al intentar trabajar an\'alisis de datos, el primer problema con el que contamos en pa\'ises como estos es que no producimos suficiente informaci\'on. Nuestras redes de informaci\'on sobre la poblaci\'on, salud, educaci\'on, comercio, etc. est\'an desactualizadas, incompletas, no existen o nadie las usa y no tienen informaci\'on. Existen algunas excepciones, pero la gran mayor\'ia de datos no est\'an disponibles para que nosotros podamos intentar hacer algo con ellos; nos toca generarlos.\\
 
-Abrimos KNIME\footnote{KNIME puede tardar un poco en abrir. Tengamos paciencia.} y vamos a crear un espacio de trabajo nuevo. Es posible que KNIME desee que establezcamos un lugar de trabajo al principio. Busquemos un buen lugar y establezc\'amoslo. Ahora vamos a comenzar con algo sencillo. En la parte inferior izquierda de KNIME se halla una lista con muchas entradas y una peque\~na caja de b\'usqueda. All\'i vamos a escribir \textbf{File Reader}. Vamos a escoger la \'unica entrada que tiene exactamente este nombre y la vamos a arrastrar a nuestro nuevo espacio de trabajo (al centro de la ventana) y nos daremos cuenta de que se transform\'o en un nodo. Este ser\'a nuestro punto de partida.\\
+Para no complicarnos, vamos a ver un par de fuentes de informaci\'on que pueden sernos de utilidad en alg\'un momento. Por ahora las veremos con fines did\'acticos, pero si deseamos hacer investigaci\'on utilizando estos datos solo se trata de proponerlo y buscar maneras de obtenerlos todos. Comencemos buscando informaci\'on sobre fen\'omenos naturales.\\
 
-Vamos a cambiarle propiedades al nodo, as\'i que vamos a hacerle doble click para abrir la ventana de propiedades. Lo primero que haremos aqu\'i es hacer click en \textit{Browse} y hallar nuestro archivo \textbf{energias.csv}. Si nos damos cuenta, al no m\'as hallar el archivo KNIME ya carga todos los datos como una tabla. Presionamos \textit{OK} y hacemos click en el bot\'on verde con una flecha blanca a la derecha que hallamos hasta arriba, o simplemente presionamos F7.
+\paragraph{Informaci\'on Geol\'ogica}
+Vamos a ir a la p\'agina de la Encuesta Geol\'ogica de Estados Unidos (\href{https://www.usgs.gov/}{USGS}) y despu\'es de dedicar un minuto para estudiar la p\'agina, vamos a visitar este sitio: \href{https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.csv}{Sismos del \'Ultimo Mes}. Nos vamos a dar cuenta de que en esta p\'agina se nos ofrece la informaci\'on de todos los sismos ocurridos alrededor del mundo en el \'ultimo mes. Y nos los entrega en formato CSV! Esto lo conocemos ya. Despu\'es de descargar el documento, \textbf{NO} lo vamos a abrir a\'un. Esperaremos a obtener m\'as informaci\'on ...\\
 
-Qu\'e sucedi\'o? KNIME acaba de cargar nuestro arhivo como una tabla en su sistema. Para ver estos resultados, podemos presionar Shift + F6, o la tabla con la lupa que se halla unos cuantos botones despu\'es del bot\'on verde que acabamos de presionar. Cerramos esta ventana y continuamos. Los datos de nuestra din\'amica se descomponen en dos partes: minimizaci\'on y din\'amica. En la primera parte solo se minimiza la energ\'ia, mientras que en la segunda parte se pone a vibrar todo con determinada temperatura (lo cual le inyecta cierta cantidad de energ\'ia). Para visualizar esto claramente, vamos a agregar un nodo llamado \textbf{Line Chart}. Ahora, del nodo \emph{File Reader}, vamos a arrastrar la flecha que sale de su lado derecho hacia la primera flecha de entrada de \emph{Line Chart}. Cambiaremos las propiedades de \emph{Line Chart} de la siguiente manera: en \textit{X Axis} vamos a escoger \textbf{Time}, vamos a remover \emph{solamente} \textbf{Time} de la caja verde del lado derecho, \textit{Line width} lo subiremos a 3 y nos cambiaremos a la pesta\~na \textit{Axis configuration}. Ya all\'i, vamos a activar la caja \textbf{Show color caption}, haremos click en \textit{OK} y correremos el nodo (F7). Luego, para ver los resultados, presionaremos F10 o haremos click a la peque\~na lupa a la derecha del bot\'on que nos mostraba resultados. Qu\'e observamos? Qu\'e conclusiones nos permite sacar esto de nuestra din\'amica molecular?\\
+\paragraph{Informaci\'on Clim\'atica}
+Otro tema de inter\'es cuando se trata de ciencia aplicada es el clima. Desgraciadamente la p\'agina del \href{http://www.insivumeh.gob.gt/}{INSIVUMEH} no nos provee con tanta informaci\'on como desear\'iamos. Pero no nos sintamos mal; existe una alternativa. Existe un servicio en internet llamado \href{https://www.wunderground.com/}{WeatherUnderground} que tiene una buena cantidad de informaci\'on clim\'atica de todo el mundo. Este sitio nos permite conseguir esta informaci\'on poco por poco utilizando su servicio de \href{https://www.wunderground.com/history/}{Clima Hist\'orico}. El problema es que conseguir un solo dato no nos ayuda mucho. Pero para eso existen las APIs.\\
 
-Muchas veces una im\'agen es suficiente, pero en otros casos necesitamos n\'umeros. Para ello, vamos a agregar un nodo \textbf{Row Filter}. Vamos a conectar \textit{File Reader} con \textit{Row Filter} y configuramos este \'ultimo de la siguiente manera: en \textit{Column to test} vamos a colocar \textit{Time}, y luego seleccionamos \textit{use range checking} en donde colocaremos \textbf{51} y \textbf{250} en \textit{lower bond} y \textit{upper bond} respectivamente. Haremos click en \textit{OK} y corremos nuestro nuevo nodo. Si revisamos los resultados, lo que hicimos fue tomar en consideraci\'on solo los datos de la din\'amica, no los de la minimizaci\'on. Finalmente agregamos 2 nodos m\'as: \textbf{Statistics} y \textbf{Histogram Chart}. Estos dos los vamos a conectar desde \textit{Row Filter} y procedemos a configurarlos.\\
+Una API (\textbf{A}pplication \textbf{P}rogramming \textbf{I}nterface) nos permite \emph{conectarnos} con o \emph{realizar consultas} a la base de datos de una aplicaci\'on. En el caso de WeatherUnderground podemos conectarnos a su base de datos v\'ia Python y extraer m\'as informaci\'on que una sola consulta. Para ello vamos a ir a nuestra carpeta \textit{TC3Q/Data} y vamos a copiar \textit{wu.py}. Este lo vamos a pegar en \textit{Playground} y lo vamos a correr con Python. El script nos solicitar\'a que ingresemos una llave para utilizar la API de Wunderground. Esta te la tuvo que haber dado quien te esta dando el taller. Ingresamos la llave y esperamos. En un momento tendremos muchos documentos nuevos! Nos interesa que este script se conect\'o con WeatherUnderground, descarg\'o los datos clim\'aticos para el 22 de junio de los \'ultimos 10 a\~nos a toda hora y nos los condens\'o en archivos CSV sobre \textbf{temperatura}, \textbf{humedad}, \textbf{presion}, \textbf{lluvia} y \textbf{visibilidad}.\\
 
-En el caso de \textit{Statistics} activamos la casilla de \textbf{Calculate median values}. Luego colocamos todos los campos de la caja roja en la verde, y regresarmos \textbf{Time} de la caja verde a la roja. Hacemos click en \textit{OK} y corremos nuestro nodo. El resultado lo podemos visualizar con la lupa. Claramente veremos que KNIME nos acaba de calcular toda la estad\'istica descriptiva de cada forma de energ\'ia de nuestra din\'amica. Esto nos puede ser de \emph{gran} ayuda si existe alg\'un t\'ermino de la energ\'ia que nos interese analizar. En general es importante la energ\'ia \emph{total}, pero muchas veces se puede observar cambios muy especiales entre todas.\\
+Con estos datos ya podemos realizar algunos tipos de an\'alisis tambi\'en. Si nos interesa la manera en que el script se conect\'o a la API de WUnderground, solo debemos abrirlo y ver c\'omo es que este funciona.\\
 
-En el caso de \textit{Histogram Chart} pasamos todas las entradas de la caja verde a la caja roja, menos \textbf{Total}. Luego aumentamos \textit{Number of bins} a \textbf{10}, activamos la opci\'on \textbf{Show legend}, hacemos click en \textit{OK} y corremos el nodo. El resultado tambi\'en lo visualizamos con la lupa. La imagen que obtuvimos nos muestra un histograma de frecuencias\footnote{Un histograma de frecuencias es simplemente la representaci\'on en una gr\'afica de barras, de qu\'e tantas veces se repiti\'o cada dato de un listado. En este caso, qu\'e tantas veces tuvo nuestra mol\'ecula la misma energ\'ia.} de la energ\'ia total de la din\'amica. Al hacer este an\'alisis, podemos ver si nuestra mol\'ecula tiende a comportarse de maneras extra\~nas. De hecho, si reconfiguramos nuestro nodo a modo que \textit{Number of bins} sea \textbf{50}, vamos a notar que a nuestra mol\'ecula le gusta estar no en \emph{una} forma particular, sino en \textbf{dos}! Qu\'e podr\'iamos concluir de esto?
+\paragraph{Otras Fuentes de Informaci\'on de Inter\'es} Si deseamos m\'as informaci\'on interesante con qu\'e trabajar, podemos revisar los \emph{DataSets} mantenidos por Amazon en \href{https://aws.amazon.com/public-datasets/}{AWS Public Datasets} o las \href{https://github.com/caesar0301/awesome-public-datasets}{listas} curadas por otros usuarios. Los proyectos \href{https://exoplanetarchive.ipac.caltech.edu/docs/program_interfaces.html}{Localizaci\'on de Exoplanetas de NASA}, \href{http://www.internationalgenome.org/data}{1000 Genomas} y la \href{http://zinc.docking.org/browse/subsets/}{Base de Datos ZINC} son generalmente algunos de inter\'es para muchas personas.\\
+
+\subsubsection{Leyendo Datos con KNIME}
+
+A este punto ya debemos de tener abierto KNIME. Lo primero que vamos a hacer solo es intentar cargar los datos. Para ello crearemos un \emph{workflow} y comenzaremos revisando el listado de nodos. Nos interesar\'a ir a \textbf{IO}, \textbf{Read} y \textbf{CSV Reader}. Al hacer doble click sobre el nodo, este aparecer\'a en nuestro espacio de trabajo; est\'a listo para ser \emph{configurado}. Hacemos doble click directamente sobre el nuevo nodo y nos disponemos a buscar el primer archivo que descargamos: el de informaci\'on sismol\'ogica. Despu\'es de haber localizado el archivo, hacemos click en \emph{OK} y ejecutamos el nodo presionando \textbf{F7}. Para ver los resultados de haber hecho esto, presionamos ahora \textbf{Shift + F6}. Se abrir\'a una nueva peque\~na ventana que parece una hoja de c\'alculo. Lo que se nos est\'a mostrando es la informaci\'on que hab\'ia en el archivo en forma de una tabla. Vale la pena notar, en la pesta\~na de arriba, cu\'antas entradas tiene el archivo y cu\'antas columnas tiene. Con esto comenzamos a entender la cantidad de datos que acaba de leer KNIME sin problemas y los mantiene listos para que nosotros trabajemos con ellos.\\
+
+Como ejercicio, vamos a repetir el mismo procedimiento para abrir los archivos de informaci\'on clim\'atica. La diferencia es que \emph{todos} los vamos a cargar en el mismo \emph{workflow}, pero con diferentes nodos. En otras palabras, vamos a incluir m\'as nodos \textbf{CSV Read} en el espacio en el que ya estamos trabajando. Intent\'emoslo y comparemos nuestros resultados con nuestros compa\~neros!
+
+\subsubsection{Conect\'andonos a una API desde KNIME}
+El siguiente ejercicio nos mostrar\'a que KNIME puede conectarse a APIs directamente. La API que vamos a utilizar esta vez \textbf{NO} ser\'a sobre informaci\'on de fen\'omenos naturales, sino de una red social. En la barra de b\'usqueda de los nodos de KNIME, escribiremos \emph{Twitter} y esperaremos a que KNIME nos muestre los nodos para conectarse con Twitter. Entre los que nos mostrar\'a, nos interesan \textbf{Twitter API Connector}, \textbf{Twitter Search} y, de ser posible, \textbf{Twitter Trends}. Vamos a incluirlos a los 3 dentro de nuestro \'area de trabajo y procederemos a configurar el primero: \textbf{Twitter API Connector}.\\
+
+Lo que ese nodo nos pide son una serie de llaves y \emph{tokens} para conectarse con esta red social. Estos te los debe proveer que te est\'e dando el taller. Conseguir los tuyos no es problema, pero toma tiempo: debes estudiar un poco lo que ofrece la rama de \href{https://dev.twitter.com/}{Twitter para Desarrolladores}. Una vez hayas ingresado los datos, corres el nodo con \textbf{F7}. Los resultados de la conecci\'on no nos dicen mucho, as\'i que conectamos nuestro nodo\footnote{Desde la cajita celeste del que acabamos de configurar a la cajita celeste del otro.} a los otros dos.\\
+
+Para configurar el primer nodo, \textbf{Twitter Trends}, vamos a hacerle doble click y vamos a seleccionar a \emph{Guatemala} como pa\'is y \emph{Guatemala City} como ciudad. Vamos a correr este nodo (F7) y esta vez s\'i vamos a visualizar los resultados con \textbf{Shift + F6}. Aqu\'i deber\'iamos de haber obtenido los temas que marcan tendencia en Twitter para la ciudad de Guatemala en este momento.\\
+
+Para configurar el segundo nodo, \textbf{Twitter Search}, vamos a hacerle doble click, vamos a colocar \emph{traficogt} en \textbf{query} y vamos a aumentar \textbf{number of rows} a 500. Hacemos click en \emph{OK} y ejecutamos el nodo (F7). Este quiz\'a tome un poco m\'as, pues est\'a buscando las \'ultimas 500 entradas con la palabra \emph{traficogt} en las bases de datos de Twitter. Al terminar visualizamos los resultados (Shift + F6). Estamos de acuerdo con lo que obtuvimos? Si nos pareci\'o interesante, comentemos con nuestros compa\~neros.\\
+
+KNIME solo permite conectarse con Twitter y con Google Analytics\footnote{Herramienta de Google para monitorear la actividad de los usuarios en nuestra p\'agina web.} al momento de escribir este documento, pero se espera que en alg\'un futuro hayan nodos para conectarse con la API de \href{https://developers.facebook.com/}{Facebook}, \href{https://www.instagram.com/developer/}{Instagram}, \href{https://developers.google.com/maps/}{Google Maps}, \href{https://www.waze.com/about/dev}{Waze}, \href{https://www.dropbox.com/developers}{Dropbox} y \href{https://partners.skyscanner.net/travel-apis/}{Skyscanner}, por mencionar algunos.
 
 \subsubsection{Bases de Datos y Estad\'istica}
 
-El D\'ia 2 del taller trabajamos con una base de datos que conten\'ia datos falsos sobre el Laboratorio de Monitoreo del Aire. Resulta que hoy vamos a utilizar un poco de lo que aprendimos el d\'ia 2 y veremos maneras nuevas de analizar esos datos. En un nuevo espacio de trabajo comenzamos con un nodo \emph{Database Reader} al que le configuramos sus propiedades. Lo primero que necesitamos especificar es el \emph{driver} de base de datos que deseamos utilizar. Este es el \textbf{org.sqlite.JDBC}. Luego debemos especificar la ruta \textbf{completa} de d\'onde se halla nuestra base de datos. Es importante mencionar que las diagonales utilizadas para esas rutas son diagonales normales, sin importar si estamos en Windows. Cada diagonal que ponemos debe ir duplicada, as\'i que en vez de escribir \inlinecode{/home/mint/TQCA/Data/monitoreo.db} debemos escribir \inlinecode{//home//mint//TQCA//Data//monitoreo.db} Finalmente, no obviemos que si KNIME comienza su URL con \inlinecode{jdbc:sqlite://}, debemos de agregar nuestra ruta \emph{despu\'es} de eso sin cambiar nada. Luego, hasta abajo donde dice \textbf{SQL Statement}, vamos a escribir un poquito de SQL: \inlinecode{SELECT * FROM Muestreo} Presionamos \emph{OK} y corremos el nodo.\\
+En la Sesi\'on 2 del taller trabajamos con una base de datos que conten\'ia datos falsos sobre el Laboratorio de Monitoreo del Aire. Resulta que hoy vamos a utilizar un poco de lo que aprendimos esa sesi\'on y veremos maneras nuevas de analizar esos datos. En un nuevo espacio de trabajo comenzamos con un nodo \emph{Database Reader} al que le configuramos sus propiedades. Lo primero que necesitamos especificar es el \emph{driver} de base de datos que deseamos utilizar. Este es el \textbf{org.sqlite.JDBC}. Luego debemos especificar la ruta \textbf{completa} de d\'onde se halla nuestra base de datos. Es importante mencionar que las diagonales utilizadas para esas rutas son diagonales normales, sin importar si estamos en Windows. Cada diagonal que ponemos debe ir duplicada, as\'i que en vez de escribir \inlinecode{/home/mint/TC3Q/Data/monitoreo.db} debemos escribir \inlinecode{//home//mint//TC3Q//Data//monitoreo.db} Finalmente, no obviemos que si KNIME comienza su URL con \inlinecode{jdbc:sqlite://}, debemos de agregar nuestra ruta \emph{despu\'es} de eso sin cambiar nada. Luego, hasta abajo donde dice \textbf{SQL Statement}, vamos a escribir un poquito de SQL: \inlinecode{SELECT * FROM Muestreo} Presionamos \emph{OK} y corremos el nodo.\\
 
 Si todo sali\'o bien, deber\'iamos de poder ver los resultados como hemos visto antes (Shift + F6). Un dato importante a notar es el sem\'aforo que se halla debajo de cada nodo. Este se muestra en rojo cuando el nodo no est\'a listo. En amarillo cuando est\'a listo para ejecutarse, y en verde cuando ya proces\'o los datos que dese\'abamos.\\
 
-Una vez terminado esto, intentaremos algo m\'as. Vamos a agregar un nodo \textbf{Row filter}, un nodo \textbf{Statistics} y un nodo \textbf{2D/3D Scatterplot}. Los 3 los vamos a agregar al \'area de trabajo. Ahora es necesario conectar \emph{Database Reader} con \emph{Row Filter}. Cambiaremos las propiedades de \emph{Row Splitter} para que cambie la columna \textbf{fecha} y utilice \emph{use range checking} entre \emph{2012-06-01} y \emph{2013-06-01}. Hacemos click en \emph{OK} y ejecutamos ese nodo tambi\'en. Qu\'e observamos cuando abrimos ahora los resultados?\\
+Una vez terminado esto, haremos algo m\'as. Vamos a agregar un nodo \textbf{Row filter}, un nodo \textbf{Statistics} y un nodo \textbf{2D/3D Scatterplot}. Los 3 los vamos a agregar al \'area de trabajo. Ahora es necesario conectar \emph{Database Reader} con \emph{Row Filter}. Cambiaremos las propiedades de \emph{Row Filter} para que cambie la columna \textbf{persona} y utilice \emph{use pattern matching} igual a \emph{3}. Hacemos click en \emph{OK} y ejecutamos ese nodo tambi\'en. Qu\'e observamos cuando abrimos ahora los resultados?\\
 
 A continuaci\'on conectamos ese nodo con \emph{Statistics} y tambi\'en con \emph{2D/3D Scatterplot}. Solo en \emph{Statistics} ser\'ia conveniente revisar sus propiedades para que solo se incluya la estad\'istica de los campos que comienzan con una \textbf{D}. Ejecutamos ambos nodos y los dos los visualizamos con la peque\~na lupa de arriba o presionando F10. Qu\'e observamos de resultados? Comentemos con nuestro compa\~nero de al lado lo que vemos y lo que interpretamos. En el caso de \emph{2D/3D Scatterplot}, qu\'e pasa cuando cambiamos las cajas de abajo? Qu\'e podemos visualizar?
 
 \subsubsection{Qu\'imica y Optimizaci\'on}
 Ahora que ya entendimos c\'omo funcionan los nodos y las conecciones entre ellos, vamos a tomarnos un tiempo en ver todos los nodos que podemos hallar en la peque\~na lista de abajo. Revisemos bien todo lo que KNIME puede hacer, porque si somos creativos, podemos resultar con \textbf{muchas} ideas all\'i. Si tenemos duda sobre alg\'un nodo, podemos revisar c\'omo funciona en la parte de ayuda del nodo. Aqu\'i no solo se nos explica qu\'e hace, sino qu\'e recibe, qu\'e resultados nos da, qu\'e teor\'ias utiliza y, muchas veces, hasta los art\'iculos cient\'ificos en los que se basaron para hacer el nodo.\\
 
-Para continuar, intentaremos armar un flujo de trabajo m\'as complejo. Arrastramos un nuevo nodo \emph{Molfile Reader} que vamos a configurar con la ruta \inlinecode{/home/mint/TQCA/Data/Mols}. Ejecutamos el nodo y observamos los resultados. Qu\'e apareci\'o all\'i? Qu\'e concluimos que puede hacer KNIME?\\
+Para continuar, intentaremos armar un flujo de trabajo m\'as complejo. Arrastramos un nuevo nodo \emph{Molfile Reader} que vamos a configurar con la ruta \inlinecode{/home/mint/TC3Q/Data/Mols}. Ejecutamos el nodo y observamos los resultados. Qu\'e apareci\'o all\'i? Qu\'e concluimos que puede hacer KNIME?\\
 
 A nuestro anterior nodo le conectaremos ahora los siguientes: \emph{MarvinView}, \emph{Molecule to CDK} y \emph{RDKit from Molecule}. Corremos los 3 y miramos los resultados de cada uno. No deber\'ia de haber pasado mucho en los posteriores 2, pero \emph{MarvinView} nos deber\'ia de haber mostrado algo muy bonito. Las mol\'eculas est\'an en 3D, as\'i que por qu\'e no intentar rotarlas?\\
 
@@ -112,18 +133,15 @@ Ahora nos vamos a dividir en 3 secciones: c\'alculo de huellas digitales, c\'alc
 A nuestro nodo de \emph{Molecule to CDK} agregaremos dos nodos \emph{Fingerprints}. Corremos los nodos e inmediatamente despu\'es colocamos un nodo \emph{Fingerprint Similarity}. Cada uno de los nodos anteriores debe ir conectado a este \'ultimo. Corramos este \'ultimo nodo y analicemos los resultados. Qu\'e obtuvimos de resultado? Por qu\'e creemos que obtuvimos eso? Revisamos las propiedades de cada nodo que incluimos? Recordemos de ver las opciones de cada nodo a la derecha.
 
 \paragraph{C\'alculo de Propiedades (descriptores)}
-De nuestro nodo \textit{RDKit from Molecule} sacamos el siguiente nodos: \textit{RDKit Descriptor Calculator}. Configuramos el nodo revisando bien las propiedades que deseamos incluir para nuestros c\'alculos, y finalmente vamos a correr el nodo. Qu\'e resultados observamos? Qu\'e pasa si conectamos un nodo \emph{CheS-Mapper} al final de ese flujo? Qu\'e podr\'iamos observar all\'i? Finalmente, para qu\'e nos sirve todo eso?
+De nuestro nodo \textit{RDKit from Molecule} sacamos el siguiente nodos: \textit{RDKit Add Hs}, \textit{RDKit Optimize Geometry} y \textit{RDKit Descriptor Calculator}. Configuramos cada uno de los primeros dos nodos coloc\'andoles que eliminen la columna fuente y en el caso del campo de fuerzas, escogemos \emph{MMFF94}. En el caso del nodo para descriptores, revisando bien las propiedades que deseamos incluir para nuestros c\'alculos, y finalmente corremos el nodo. Qu\'e resultados observamos? Qu\'e pasa si conectamos un nodo \emph{CheS-Mapper} al final de ese flujo? Qu\'e podr\'iamos observar all\'i? Finalmente, para qu\'e nos sirve todo eso?
 
-\paragraph{Optimizaci\'on de Geometr\'ia}
-A nuestro nodo \textit{RDKit from Molecule} agregamos los siguientes 3 nodos m\'as: \textit{RDKit Add Hs}, \textit{RDKit Calculate Charges} y finalmente \textit{RDKit Optimize Geometry} en secuencia. Revisemos las propiedades de cada uno de los nodos y preguntemos si no entendemos algo. Corramos el flujo y veamos los resultados. Adem\'as de una geometr\'ia bonita, qu\'e otro dato obtuvimos? Nos sirven esos datos?\\
-
-Lo que acabamos de hacer son c\'alculos que quiz\'a no entendamos ahora. Los datos que generamos nos sirven para \emph{ver} una mol\'ecula de diferentes maneras y compararla con otras (e.g. fingerprint similarity). En algunos casos nos enfocamos m\'as en el n\'umero de cierto tipo de enlaces y en otro de la geometr\'ia de nuestra mol\'ecula. A simple vista, esto no tiene mucha relaci\'on! Sin embargo, en base a todos estos datos es que se pueden crear modelos de relaci\'on estructura-actividad. Estos \'ultimos son otra de las grandes t\'ecnicas en qu\'imica computacional.
+Lo que acabamos de hacer son c\'alculos que ya hab\'iamos hecho con iPython. Los datos que generamos nos sirven para \emph{ver} una mol\'ecula de diferentes maneras y compararla con otras (e.g. fingerprint similarity). En algunos casos nos enfocamos m\'as en el n\'umero de cierto tipo de enlaces y en otro de la geometr\'ia de nuestra mol\'ecula. A simple vista, esto no tiene mucha relaci\'on! Sin embargo, en base a todos estos datos es que se pueden crear modelos de relaci\'on estructura-actividad. Estos \'ultimos son otra de las grandes t\'ecnicas en qu\'imica computacional.
 
 \subsection{Quimioinform\'atica: QSAR/QSPR}
-Esta t\'ecnica, que vemos frecuentemente en publicaciones, son las relaciones entre la esrtuctura de un compuesto y sus propiedades o su \emph{actividad}. Claro, la estructura de una mol\'ecula nos da muchas ideas sobre las propiedades, caracter\'isticas o actividad de ese compuesto, si es que ya contamos con algunas otras estructuras y valores experimentales de referencia. Vamos paso a paso viendo de qu\'e consta un modelo de estos.\\
+Los modelos de \textbf{R}elaci\'on \textbf{C}uantitativa de \textbf{E}structura \textbf{A}ctividad/\textbf{P}ropiedad (o QSAR/QSPR) son t\'ecnicas que vemos frecuentemente en publicaciones. Estas calculan las relaciones entre la esrtuctura de un compuesto o sus descriptores y sus propiedades qu\'imicas o su \emph{actividad} a trav\'es de un modelo matem\'atico. Claro, la estructura de una mol\'ecula nos da muchas ideas sobre las propiedades, caracter\'isticas o actividad de ese compuesto, si es que ya contamos con algunas otras estructuras y valores experimentales de referencia. Vamos paso a paso viendo de qu\'e consta un modelo de estos.\\
 
 \subsubsection{Descriptores Moleculares}
-Lo primero que debemos entender es que uno de estos modelos consta de dos partes: los descriptores y el modelo matem\'atico. Los descriptores son aquellas propiedades que podemos extraer de una estructura molecular. Esta no necesariamente tiene que estar en 3 dimensiones. De hecho, ni siquiera tiene que estar en 2 o en 1. Solo de la f\'ormula de un compuesto ya podemos extraer algunas propiedades que nos sirven como descriptores. De hecho, es por esta misma raz\'on que los descriptores generalmente se clasifican como:
+Lo primero que debemos entender es que uno de estos modelos consta de dos partes: los descriptores y el modelo matem\'atico. Los descriptores son aquellas propiedades que podemos extraer de una estructura molecular. Esta no necesariamente tiene que estar en 3 dimensiones. De hecho, ni siquiera tiene que estar en 2 o en 1. Solo de la f\'ormula de un compuesto ya podemos extraer algunas propiedades que nos sirven como descriptores. Es por esta misma raz\'on que los descriptores generalmente se clasifican como:
 
 \begin{itemize}
 \item \textbf{0D}: n\'umero de \'atomos, n\'umero de enlaces, n\'umero de \'atomos pesados, etc.
@@ -169,52 +187,152 @@ dodecano & 12 & 216\\
 La relaci\'on parecer\'ia ser lineal. Sin embargo, como buenos cient\'ificos, no podemos afirmar nada hasta no tener evidencia de que la relaci\'on existe y es estad\'isticamente significativa. Pero m\'as que eso, nos interesar\'ia la capacidad de predecir cu\'al ser\'a la temperatura de ebullici\'on de los siguientes alcanos. Para eso vamos a dise\~nar nuestro modelo QSPR. Entonces, recapitulando:
 
 \begin{enumerate}
-\item Elegimos nuestra colecci\'on de mol\'eculas: los alcanos lineales del pentano al dodecano
-\item Elegimos un descriptor: la temperatura de ebullici\'on
-\item Elegimos un modelo matem\'atico: una regresi\'on lineal
-\item Comprobamos que el modelo funcione
-\item Intentamos predecir en base a \'el, o revisar si alguna mol\'ecula (diferente a las de la colecci\'on) encaja en el modelo
+\item \textbf{Elegimos nuestra colecci\'on de mol\'eculas:} los alcanos lineales del pentano al dodecano
+\item \textbf{Elegimos un descriptor:} la temperatura de ebullici\'on
+\item \textbf{Elegimos un modelo matem\'atico:} una regresi\'on lineal
+\item \textbf{Comprobamos} que el modelo funcione
+\item \textbf{Intentamos predecir} en base a \'el, o revisar si alguna mol\'ecula (diferente a las de la colecci\'on) encaja en el modelo
 \end{enumerate}
 
-Para hacer esto real, no vamos a ir a Calc o a Microsoft Excel a hacer la regresi\'on; no nos interesa ver la regresi\'on como tal. Nos interesa predecir resultados, por lo que vamos a crear el modelo de regresi\'on en KNIME. Para ello, arrastraremos un nodo \textit{Read CSV} a nuestro espacio de trabajo. Este lo configuramos para que apunte al archivo \inlinecode{/home/mint/TQCA/Data/ebullicion.csv} y lo correremos. Al haber logrado esto, agregamos otro nodo al espacio de trabajo: \textit{Linear Regresion Learner}. \textit{Read CSV} se conecta a este nuevo nodo por la esquina de la parte superior. Al correr el nodo de aprendizaje, nos damos cuenta de que necesitamos otro nodo: el de predicci\'on (\textit{Regression predictor}). Lo arrastramos al espacio de trabajo, pero nos damos cuenta de que este no se conecta por las peque\~nas flechas que normalmente utilizamos, sino que se conecta por la caja azul al nodo de aprendizaje. Hacemos esto y solo nos queda darle valores a predecir a nuestro sistema. Para ello agregamos un nodo \textit{Table Creator} que configuramos de la siguiente manera: la primera columna de la tabla la nombramos \textbf{carbonos} y la llenamos con los valores 13, 14, 15 y 16. Al terminar, corremos este nodo y lo conectamos a la esquina inferior del nodo \textit{Regression Predictor}. Corremos este nodo y miramos los resultados. Qu\'e pas\'o? Ya revisamos los valores de puntos de ebullici\'on para este tipo de compuestos en internet?\\
+Para hacer esto real, no vamos a ir a Calc o a Microsoft Excel a hacer la regresi\'on; no nos interesa ver la regresi\'on como tal. Nos interesa predecir resultados, por lo que vamos a crear el modelo de regresi\'on en KNIME. Para ello, arrastraremos un nodo \textit{Read CSV} a nuestro espacio de trabajo. Este lo configuramos para que apunte al archivo \inlinecode{/home/mint/TC3Q/Data/ebullicion.csv} y lo correremos. Al haber logrado esto, agregamos otro nodo al espacio de trabajo: \textit{Linear Regresion Learner}. \textit{Read CSV} se conecta a este nuevo nodo por la esquina de la parte superior. Al correr el nodo de aprendizaje, nos damos cuenta de que necesitamos otro nodo: el de predicci\'on (\textit{Regression predictor}). Lo arrastramos al espacio de trabajo, pero nos damos cuenta de que este no se conecta por las peque\~nas flechas que normalmente utilizamos, sino que se conecta por la caja azul al nodo de aprendizaje. Hacemos esto y solo nos queda darle valores a predecir a nuestro sistema. Para ello agregamos un nodo \textit{Table Creator} que configuramos de la siguiente manera: la primera columna de la tabla la nombramos \textbf{carbonos} y la llenamos con los valores 13, 14, 15 y 16. Al terminar, corremos este nodo y lo conectamos a la esquina inferior del nodo \textit{Regression Predictor}. Corremos este nodo y miramos los resultados. Qu\'e pas\'o? Ya revisamos los valores de puntos de ebullici\'on para este tipo de compuestos en \href{http://www.chemspider.com/}{internet}?\\
 
 Si utilizamos un nodo \textit{Scatter Plot}, los puntos parec\'ian dibujar una recta. Y al calcular la regresi\'on, hallamos que esto es casi un hecho (revisemos el nodo de aprendizaje con la lupa). El valor del coeficiente de determinaci\'on\footnote{Nos ayuda a saber qu\'e tan buena es nuestra aproximaci\'on. Entre m\'as cercano a 1 sea, mejor es nuestra aproximaci\'on.} $R^2$ parece indicar que todo est\'a bastante bien. Entonces, en teor\'ia, podr\'iamos usar nuestro modelo (la ecuaci\'on de la recta) para calcular la temperatura de ebullici\'on de los siguientes alcanos con un margen peque\~no de error solo dando como \'unico dato el n\'umero de carbonos. Tambi\'en podr\'iamos comprobar, si nos dan el n\'umero de carbonos y una temperatura de ebullici\'on, si esos datos son \textit{ciertos}. Sin embargo, qu\'e pasar\'ia si en vez de usar un nodo de regresi\'on lineal utilizamos uno de regresi\'on polinomial? Y si decimos que el polinomio es de grado 3?\\
 
 Un modelo estad\'istico es entonces la regresi\'on lineal (LR). Claro, existen otros muchos, entre los cuales hallamos la regresi\'on lineal m\'ultiple (MLR), la regresi\'on lineal parcial (PLS), ANOVA, an\'alisis de componentes principales (PCA), pruebas de hip\'otesis (estad\'istico \emph{t}), etc. Vale la pena mencionar que estos m\'etodos requieren que tengamos una idea previa de la \textit{forma} que tendr\'a el modelo que estamos buscando. Esto los hace r\'apidos, pues solo est\'an hallando un ajuste de ese modelo. El problema es que muchas veces no vamos a tener idea de qu\'e forma tendr\'a el modelo, y para eso recurrimos a los m\'etodos de aprendizaje de m\'aquinas o \emph{Machine Learning} en ingl\'es (ML).
 
-\paragraph{Machine Learning}
-Los m\'etodos de \emph{machine learning} son un poco m\'as complicados de explicar. En este caso solo se incluye un ejemplo muy sencillo, en donde los datos son \emph{falsos}, pero que ilustra muy bien de qu\'e trata uno de estos m\'etodos. Vamos a arrastrar un nodo \textit{XLS Reader} a nuestro espacio de trabajo y luego cargamos el archivo \textit{farmacos.xlsx} en las propiedades del nodo. Adem\'as de eso, activamos la casilla que dice \textit{Table contains row column names un row number: \textbf{1}}. Hacemos click en \textit{OK} y corremos el nodo. Luego armamos un workflow de la siguiente manera:
+\subsection{Machine Learning}
+Los m\'etodos de \emph{machine learning} son un poco m\'as complicados de explicar. En este caso solo vamos a ver un par de ejemplos muy sencillos para darnos una idea de lo que se puede hacer con ellos. Los que se exponen a continuaci\'on \textbf{NO} son todos los m\'etodos o algoritmos de ML. Para un estudio m\'as a profundidad de ellos, podemos revisar el \href{https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-algorithm-choice}{Documento de Apoyo de Microsoft} o podemos llevar el curso de \href{https://www.coursera.org/learn/machine-learning}{Machine Learning} de Coursera.\\
 
-\Picture{img/workflow.png}
+Lo primero que debemos saber sobre los m\'etodos de ML es que existen de dos clases: los de \textbf{aprendizaje supervisado} y los de \textbf{aprendisaje sin supervisi\'on}. Cuando se pretenden \emph{entrenar} un algoritmo de ML, se cuenta con un conjunto de datos. Si este conjunto de datos tiene los \emph{resultados} que deseamos (como en el caso de los puntos de fusi\'on), se habla de que se puede entrenar a un algoritmo supervisado. Si no se cuenta con los resultados, se utilizar\'a un algoritmo sin supervisi\'on. En el taller solo veremos m\'etodos supervisados, pues no da tiempo esta vez a ver los no-supervisados.\\
 
-Las propiedades de \textit{Normalize} son sencillas: todos los campos van en la caja verde. Las propiedades de \textit{Partitioning} son: \textbf{Relative[\%]: 33} y \textbf{Stratified sampling: actividad}. En el caso de \textit{RProp MLP Learner}, lo importante es que \textbf{class column:} sea \textbf{actividad} y \textbf{Number of hidden layers} sea igual a \textbf{2}. Ya al final, \textit{Scorer} debe de tener las columnas \textbf{actividad} y \textbf{PredClass} en sus propiedades. Corremos todo el flujo de trabajo y finalizamos viendo el mapa de calor. Qu\'e hicimos? Tomamos todos los datos del archivo de Microsoft Excel, normalizamos\footnote{Todos los valores se dividieron a modo de que est\'en entre 0 y 1} esto, dividimos los datos en 3 partes, 2 de las cuales sirvieron para entrenar a la red neural, y la otra sirvi\'o para probarla. Finalmente, dependiendo de qu\'e tan similares sean, KNIME ponder\'o la similitud entre los datos de la clase N de un paquete de datos con la clase M del otro (N y M son todos de cada una, entonces se comparan todos contra todos). El mapa de calor muestra en azul qui\'enes son los m\'as similares.
+Vamos a ir combinando la capacidad de KNIME con Python y sus librer\'ias Pandas y SciKit Learn. Por esta raz\'on solo iremos viendo c\'omo se ensamblan los flujos de trabajo y probaremos sobre algunos datos que debemos ir consiguiendo.
 
-\subsubsection{Qu\'e m\'as puedo hacer?}
-En este punto, ya vimos un poco de lo que puede hacer KNIME. Un \'ultimo ejercicio es cargar el workflow \textit{Docking\_Vina.zip} que se halla en \inlinecode{/home/mint/TQCA/Data} y revisar detenidamente los nodos que corren scripts de Python. Con esto terminamos de entender que aquello que vimos los d\'ias 4, 6 y 7 tiene total sentido: podemos hacer lo que sea con KNIME y automatizarlo tanto como nosotros querramos!\\
+\subsubsection{Regresi\'on Lineal}
+Intentaremos predecir el $pK_a$ de algunos \'acidos org\'anicos. Para ello utilizaremos al \'acido f\'ormico (1), ac\'etico (2), propan\'oico (3), butan\'oico (4), hexan\'oico (6) y octan\'oico (8) como set de entrenamiento, y buscaremos predecir el de los \'acidos pentan\'oico (5), eptan\'oico (7) y nonan\'oico (9). La informaci\'on necesaria para entrenar a este modelo est\'a en la p\'agina de la \href{https://labs.chem.ucsb.edu/zhang/liming/pdf/pKas_of_Organic_Acids_and_Bases.pdf}{Universidad de California Santa B\'arbara}.
 
-Ser\'ia interesante ahora intentar guardar las mol\'eculas en formato \emph{mol2} desde KNIME. O guardar nuestros resultados de la base de datos en un archivo de Microsoft Excel. Revisamos si existen nodos para eso? Podr\'iamos tambi\'en calcular otros tipos de huellas digitales con RDKit, por ejemplo. Las posibilidades son casi ilimitadas. Sigamos probando qu\'e m\'as se puede hacer.
+\Picture{img/lin_reg.png}{0.55}{Flujo de trabajo para una Regresi\'on Lineal utilizando Python y SciKit Learn.}
+
+\noindent El nodo de aprendizaje contiene el siguiente script:
+
+\begin{Code}
+from sklearn import linear\_model\\
+
+X = [[int(i)] for i in input\_table['column1']]\\
+y = [float(j) for j in input\_table['column2']]\\
+
+output\_model = linear\_model.LinearRegression()\\
+output\_model.fit(X, y)
+\end{Code}
+
+\noindent Mientras que el nodo de predicci\'on tiene este otro script:
+
+\begin{Code}
+z = [[int(k)] for k in input\_table['column1']]\\
+
+output\_table = input\_table.copy()\\
+
+output\_table['Prediction'] = input\_model.predict(z)
+\end{Code}
+
+Intentemos correr los nodos y revisemos qu\'e sale en cada uno. Est\'as de acuerdo con los resultados? Comenta con tus compa\~neros a ver si a ellos les dio el mismo resultado y si consideran que este es l\'ogico. Ya comparamos con los valores reales seg\'un la tabla que nos dieron?
+
+\subsubsection{Clasificador de Bayes Ingenuo}
+A partir de este momento vamos a utilizar un set de datos sobre vinos. Este se encuentra en nuestra carpeta \textit{TC3Q/Data/ML\_Wines}. Descomprimamos el contenido de esto en una carpeta \textit{mint/Vinos}. Estos son datos sobre la \textit{acidez fija}, \textit{acidez vol\'atil}, \textit{contenido de \'acido c\'itrico}, \textit{az\'ucares residuales}, \textit{cloruros}, \textit{$SO_2$ libre}, \textit{$SO_2$ total}, \textit{densidad}, \textit{pH}, \textit{contenido de sulfatos} y \textit{contenido de alcohol}. Al final se incluye un par\'ametro de calidad que es el que se desea predecir. Trabajaremos con los datos del vino tinto.\\
+
+Lo que asume el clasificador de Bayes es que los datos de cada campo deben de comportarse seg\'un una distribuci\'on gaussiana. Lo que hace este modelo es calcular la probabilidad de qu\'e tanto se puede alejar un dato nuevo de las distribuciones anteriores. Los datos los podemos descargar tambi\'en de la \href{https://archive.ics.uci.edu/ml/datasets/wine+quality}{Universidad de California Irvine}.
+
+\Picture{img/naive_bayes.png}{0.55}{Flujo de trabajo para una Clasificaci\'on utilizando Python y SciKit Learn.}
+Vale la pena mencionar que el nodo \textbf{Row Sampling} se configur\'o para que solo un $30\%$ de los datos fuera tomado como datos desconocidos. En el caso de \textbf{Reference Row Filter}, este nodo se configur\'o para que \emph{excluyera} a las filas de la tabla de referencia. De esta manera separamos nuestros datos en un $70\%$ que utilizaremos para entrenar el modelo y otro $30\%$ que utilizaremos como conjunto de prueba.\\
+
+\noindent El nodo de aprendizaje contiene el siguiente script:
+
+\begin{Code}
+from sklearn.naive\_bayes import GaussianNB\\
+
+output\_model = GaussianNB()\\
+
+X = [[float(input\_table[d][c]) for d in input\_table.keys()[:-1]] for c in range(len(input\_table['quality']))]\\
+y = [float(i) for i in input\_table['quality']]\\
+
+output\_model.fit(X, y)
+\end{Code}
+
+\noindent Mientras que el nodo de predicci\'on tiene este otro script:
+
+\begin{Code}
+z = [[float(input\_table[d][c]) for d in input\_table.keys()[:-1]] for c in range(len(input\_table['quality']))]\\
+
+output\_table = input\_table.copy()\\
+
+output\_table['Prediction'] = input\_model.predict(z)
+\end{Code}
+
+Al final, visualizaremos los datos hallados por el nodo de predicci\'on. Nos interesa saber qu\'e tan distintas son las dos \'ultimas columnas, pues all\'i est\'an los datos reales y la predicci\'on.
+
+\subsubsection{M\'aquinas de Soporte Vectorial}
+Las m\'aquinas de soporte vectorial (\textbf{SVM}) son bastante modernas en medio de los algoritmos de ML. A pesar de llamarse \emph{m\'aquinas}, se basan en un principio matem\'atico muy simple: intentan generar una recta o un plano\footnote{Un hiperplano en altas dimensiones.} que quede a la mayor distancia entre dos conjuntos de datos distintos. De esta manera, al probar qu\'e datos quedaron de qu\'e lado, la SVM habr\'a clasificado a estos en dos conjuntos distintos.\\
+
+Para tener una idea de c\'omo funcionan los diferentes algoritmos, esta vez vamos a utilizar lo mismo que en el ejemplo anterior. Literalmente vamos a utilizar el mismo flujo de trabajo y los mismos datos. Lo \'unico que haremos cambiar es el script del nodo de aprendizaje. Este se ver\'a as\'i en este caso:
+
+\begin{Code}
+from sklearn import svm\\
+
+output\_model = svm.SVC()\\
+
+X = [[float(input\_table[d][c]) for d in input\_table.keys()[:-1]] for c in range(len(input\_table['quality']))]\\
+y = [float(i) for i in input\_table['quality']]\\
+
+output\_model.fit(X, y)
+\end{Code}
+
+Si ponemos atenci\'on, el cambio es m\'inimo: importamos otro paquete de SciKit Learn y lo montamos como nuestro modelo. Lo dem\'as es id\'entico! Corremos el flujo de trabajo nuevamente y analizamos las \'ultimas dos columnas igual que en el ejemplo anterior. Este modelo, ser\'a mejor que el de Bayes? C\'omo podr\'iamos saberlo?
+
+\subsubsection{\emph{k} Vecinos m\'as Cercanos}
+El algoritmo de k Vecinos m\'as Cercanos (\textbf{kNN}) calcula las distancias que existen entre los puntos de una categor\'ia y la otra. Por ejemplo, dados dos conjuntos de puntos $A$ y $B$, si se tiene un nuevo dato $c$ que se desea clasificar entre los dos, se calcula la distancia del nuevo dato $c$ a $k$ puntos m\'as pr\'oximos (\textit{vecinos}) del conjunto $A$ y a $k$ puntos vecinos m\'as pr\'oximos (\textit{vecinos}) del conjunto $B$ y dependiendo de c\'ual sea la distancia m\'as corta, a ese conjunto se dice que pertenece.\\
+
+\noindent Para probar este algoritmo, haremos lo mismo que en el caso anterior: solo cambiaremos las primeras 2 l\'ineas del script del nodo de aprendizaje por las siguientes.
+
+\begin{Code}
+from sklearn import neighbors\\
+
+output\_model = neighbors.KNeighborsClassifier(n\_neighbors=5)
+\end{Code}
+
+Despu\'es de correr el c\'odigo y analizar los resultados en las \'ultimas dos columnas, pregunt\'emonos qu\'e tan acertado nos parece este algoritmo. Ahora, un detalle importante a notar es que en el caso de kNN, podemos definir cu\'antos vecinos queremos utilizar. Qu\'e pasa si cambiamos el valor de \inlinecode{n\_neighbors} a un n\'umero mayor?
+
+\subsubsection{Redes Neurales Artificiales}
+Al final de nuestro recorrido por los algoritmos en la Sesi\'on 8 y al final de esta Sesi\'on, llegamos al mismo tema: las Redes Neurales Artificiales (\textbf{ANN}). En este caso en particular vemos las redes de Perceptr\'on Multi-Capas con retro-propagaci\'on. Lo que significa todo esto es que la red, que emula el comportamiento de las neuronas en nuestro cerebro, contar\'a con varias neuronas que estar\'an organizadas en capas. La parte de retro-propagaci\'on significa que nuestro ordenador ir\'a probando a ver si lo que propone la red neural en cada corrida de entrenamiento es correcto. Si no, esta sufrir\'a una correcci\'on de atr\'as (el resultado) hacia adelante (los nodos que reciben la informaci\'on). Para fines pr\'acticos, lo que nos interesa de este algoritmo es que puede modelar casos en que la informaci\'on no se comporte de manera f\'acil de clasificar.\\
+
+\Picture{img/ann_mlp.png}{0.45}{Flujo de trabajo para una Clasificaci\'on utilizando KNIME y una ANN.}
+Seguiremos trabajando con la misma informaci\'on que en los casos anteriores, pero esta vez vamos a cambiar el flujo de trabajo. Esta vez ya no incluiremos scripts! Algunos detalles de configuraci\'on vale la pena mencionar. El primero es que el nodo \textbf{Normalizer} debe de estar configurado para que los datos queden entre 0 y 1. El nodo \textbf{RProp MLP Learner} debe de estar configurado para hacer 100 iteraciones, tener 3 capas ocultas y 15 neuronas en cada capa. La columna clase es \emph{quality}. El nodo \textbf{Column Splitter} debe de tener el campo \emph{quality} del lado filtrado (el lado verde). El nodo \textbf{MultiLayerPerceptron Predictor} debe de tener activada la opci\'on para cambiar el nombre a la columna de predicci\'on y esta debe llamarse \emph{quality}. Finalmente \textbf{Double To Int} debe de tener el campo \emph{quality} del lado autorizado (el lado verde) y al momento de correr el flujo, debemos ignorar el error que nos debe de aparecer.\\
+
+Al final, podemos visualizar los resultados yendo al nodo \textbf{Column Appender} y presionando Shift + F6. Las dos \'ultimas columnas nos revelar\'an la efectividad de este algoritmo. Comparemos con los dem\'as y comentemos con nuestros compa\~neros: cu\'al ser\'a el mejor para este caso?
+
+\subsection{Qu\'e m\'as puedo hacer?}
+En este punto, ya vimos un poco de lo que puede hacer KNIME. Un \'ultimo ejercicio es cargar el workflow \textit{Docking\_Vina.zip} que se halla en \inlinecode{/home/mint/TC3Q/Data} y revisar detenidamente los nodos que corren scripts de Python. Con esto terminamos de entender que aquello que vimos en las sesiones 4, 5 y 6 tiene total sentido: podemos hacer lo que sea con KNIME y automatizarlo tanto como nosotros querramos!\\
+
+Ser\'ia interesante ahora intentar guardar las mol\'eculas en formato \emph{mol2} desde KNIME. O guardar nuestros resultados de la base de datos en un archivo de Microsoft Excel. Revisemos si existen nodos para eso! Podr\'iamos tambi\'en calcular otros tipos de huellas digitales con RDKit, por ejemplo. Las posibilidades son casi ilimitadas. Sigamos probando qu\'e m\'as se puede hacer.
 
 \subsection{Nodos para Vina, dise\~no \emph{de novo}, Mec\'anica Cu\'antica y Din\'amica Molecular}
-Una serie de nodos que todav\'ia no se han desarrollado para KNIME son nodos para correr dise\~no \emph{de novo}. Este es un tema que todav\'ia no se ha logrado implementar de manera estable dentro del trabajo de un qu\'imico computacional. Es especialmente dif\'icil, puesto que implica crear mol\'eculas nuevas a partir de fragmentos nada m\'as. La ventaja es que bases de datos de fragmentos existen\footnote{Existe una base de datos gratis llamada ZINC.}, pero el software desarrollado para ello es demasiado caro, o un poco malo. Por ello, ser\'ia muy interesante que existieran nodos para ello en KNIME y para escoger los mejores candidatos haciendo uso de huellas digitales, docking con Vina o QSAR de mayor nivel (lo cual tampoco tiene nodos gratis).\\
+Una serie de nodos que todav\'ia no se han desarrollado para KNIME son nodos para correr dise\~no \emph{de novo}. Este es un tema que todav\'ia no se ha logrado implementar de manera estable dentro del trabajo de alguien que trabaja quimioinform\'atica. Es especialmente dif\'icil, puesto que implica crear mol\'eculas nuevas a partir de fragmentos nada m\'as. La ventaja es que bases de datos de fragmentos existen\footnote{Revisemos la base de datos ZINC que se menciona al principio de este documento.}, pero el software desarrollado para ello es demasiado caro, o un poco malo. Por ello, ser\'ia muy interesante que existieran nodos para ello en KNIME y para escoger los mejores candidatos haciendo uso de huellas digitales, docking con Vina o QSAR de mayor nivel (lo cual tampoco tiene nodos gratis).\\
 
 Finalmente, otros c\'alculos para los que tampoco existen nodos son QM y MD. Estos ser\'ian muy interesantes de poderse calcular as\'i, puesto que el an\'alisis de resultados tambi\'en se podr\'ia automatizar bastante. Adem\'as, son c\'alculos tan largos que dejar que KNIME los haga en un servidor ser\'ia la soluci\'on a muchos problemas. Existen algunos nodos ya para ello, pero son comerciales.
 
 \subsection{Comentarios Finales}
-Felicidades! Terminaste el taller de QCA! En este punto ya debes de tener una mucho mejor idea de lo que es posible hacer con qu\'imica computacional. Sin embargo, deber\'ias de tener una mejor idea de lo que todav\'ia no se ha hecho y que podr\'ias hacer tu. Este es el momento clave para proponer ideas, unirte con tus compa\~neros y buscar investigar algo o buscar crear algo. Hay bastante software comercial que nos resuelve muchos problemas, pero solo con lo que hemos visto que podemos hacer con software gratis, vale la pena comenzar a investigar m\'as.\\
+Felicidades! Terminaste la segunda semana del TC$^3$Q! En este punto ya debes de tener una mucho mejor idea de lo que es posible hacer con computaci\'on cient\'ifica. Tambi\'en deber\'ias de tener una mejor idea de lo que todav\'ia no se ha hecho y que podr\'ias hacer \textbf{tu}. Este es el momento clave para proponer ideas, unirte con tus compa\~neros y buscar investigar algo o buscar crear algo. Hay bastante software comercial que nos resuelve muchos problemas, pero solo con lo que hemos visto que podemos hacer con software gratis, vale la pena comenzar a investigar m\'as.\\
 
 Recuerda, toda iniciativa puedes colocarla en un sistema de control de revisi\'on (e.g. GitHub) y puedes solicitar ayuda a tus compa\~neros de carrera, facultad o al mundo. Muchos proyectos han salido solo con donaciones de personas o universidades alrededor del mundo. Y, sin ir muy lejos, KNIME es un proyecto de la universidad de Konstanz en Alemania. As\'i que piensa en todo lo que puedes y podr\'ias hacer, y no dejes que te digan que una idea es mala. Despu\'es de todo, fue un qu\'imico quien dijo:
 
-\begin{flushright}
 \begin{quote}
-"La \'unica forma de tener una buena idea, es teniendo muchas ideas."\\
-Linus Pauling
+``La \'unica forma de tener una buena idea, es teniendo muchas ideas."\ - Linus Pauling
 \end{quote}
-\end{flushright}
+
+Las siguientes sesiones tratar\'an sobre la aplicaci\'on de todos los conceptos que ya hemos ido viendo. Ya no son tantas las herramientas que nos quedan por aprender, sino c\'omo y cu\'ando utilizarlas. De nuevo felicidades por haber terminado otra sesi\'on y te invitamos a que comiences a pensar sobre todo lo que podr\'ias hacer con tus conocimientos de carrera y lo que has aprendido.
 
 \section*{Licencia}
 
 \noindent \includegraphics{img/cc_big.png}
 
-\noindent Taller de Qu\'imica Computacional Aplicada by \href{http://github.com/zronyj/TQCA}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
+\noindent Taller de Computaci\'on Cient\'ifica para Ciencias Qu\'imicas by \href{http://github.com/zronyj/TC3Q}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
 
 \end{document}

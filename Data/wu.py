@@ -11,8 +11,10 @@ def num_or_dump(x):
 		t = -9999.
 	return t
 
+llave = raw_input("Ingresa la llave para la API de WUnderground: ")
+
 for a in range(2008,2018):
-	d = urllib2.urlopen('http://api.wunderground.com/api/api-key/history_' + str(a) + '0601/q/MGGT.json')
+	d = urllib2.urlopen('http://api.wunderground.com/api/' + llave + '/history_' + str(a) + '0622/q/MGGT.json')
 	j = d.read()
 	with open(str(a) + ".json","w") as f:
 		f.write(j)
@@ -44,5 +46,5 @@ for a in range(2008,2018):
 	d.close()
 
 for p in ["temperatura", "humedad", "presion", "lluvia", "visibilidad"]:
-	v = pd.DataFrame.from_dict({a:[t[v] for t in data[a]] for a in data.keys()})
+	v = pd.DataFrame.from_dict({a:[t[p] for t in data[a]] for a in data.keys()})
 	v.to_csv(p + ".csv")
