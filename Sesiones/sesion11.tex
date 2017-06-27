@@ -1,0 +1,230 @@
+%
+% sesion11.tex
+% 
+% Copyright 2017 Rony J. Letona <zronyj@gmail.com>
+% 
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2 of the License, or
+% any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+% MA 02110-1301, USA.
+%
+
+\documentclass[10pt,letterpaper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{float}
+\usepackage{upquote}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Rony J. Letona}
+\title{Taller de Computaci\'on Cient\'ifica para Ciencias Qu\'imicas: Sesi\'on 11}
+\definecolor{light-gray}{gray}{0.90}
+
+\newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
+
+\newcommand{\inlinecode}[1]{
+\colorbox{light-gray}{\texttt{#1}}
+}
+
+\newsavebox{\selvestebox}
+\newenvironment{Code}
+{
+\begin{lrbox}{\selvestebox}%
+\begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax}
+\fontfamily{\ttdefault}\selectfont
+}
+{\end{minipage}\end{lrbox}%
+\begin{center}
+\colorbox{light-gray}{\usebox{\selvestebox}}
+\end{center}
+}
+
+\newcommand{\Picture}[1]
+{
+	\begin{figure}[H]
+	\begin{flushleft}
+	\includegraphics[width=\columnwidth]{#1}
+	\end{flushleft}
+	\end{figure}
+}
+
+\begin{document}
+\maketitle
+
+\section{Bioinform\'atica y Gen\'omica}
+En la Sesi\'on 10 terminamos de ver las herramientas intermedias para hacer computaci\'on cient\'ifica en el \'ambito de la qu\'imica. Hoy comenzamos con una nueva modalidad: vamos a aplicar conocimientos a problemas reales. Si bien esto suena un poco intimidante, no caigamos en la trampa: al igual que el resto del taller, todo esto se puede hacer.\\
+
+El d\'ia de hoy vamos a entrar de lleno a un campo de inter\'es para los interesados en la biolog\'ia molecular. Ya hab\'iamos tenido un breve acercamiento a la bioinform\'atica. Esta rama de la biolog\'ia molecular trata con la obtenci\'on, almacenamiento, an\'alisis e interpretaci\'on de informaci\'on biol\'ogica compleja, como lo son secuencias de ADN o de amino\'acidos. Las t\'ecnicas utilizadas por esta disciplina van desde la estad\'istica, hasta las ciencias de la computaci\'on. Si nos damos cuenta, la idea es que estamos utilizando herramientas que ya existen para analizar informaci\'on de bases de datos.\\
+
+La gen\'omica, por su parte, utiliza a la bioinform\'atica y otras herramientas de las ciencias de la computaci\'on para estudiar la estructura, evoluci\'on, mappeo y funci\'on de los genomas. En otras palabras, lo que vamos a hacer es analizar secuencias de nucle\'otidos (ADN o ARN) buscando caracter\'isticas que lleven a la interpretaci\'on de las diferentes regiones de las mismas. De aqu\'i es que se pueden identificar los genes, se pueden traducir las prote\'inas, se halla relaciones con otras especies, etc.\\
+
+Estas dos disciplinas nos dar\'an una base sobre lo que podemos hacer con informaci\'on gen\'etica. Como siempre, la idea no es que nos volvamos expertos en la materia, sino simplemente adquirir una idea clara de nuestro alcance como cient\'ificos.
+
+\subsection{Archivos FASTA}
+Un tipo de arhivo que \textbf{no} estudiamos en la Sesi\'on 8 fue el archivo FASTA. Este archivo puede manipularse con OpenBabel, pero no lo solemos hacer porque no ganamos mucho al hacerlo. El tipo de archivo naci\'o del programa FASTA que se utilizaba antes para alinear secuencias. Este \'ultimo fue sucedido por BLAST. FASTA viene de \textbf{FAST} \textbf{A}ll, que significa que el archivo no solo trata con nucle\'otidos como FAST-N, ni solo con prote\'inas como FAST-P.\\
+
+Un archivo FASTA consta b\'asicamente de dos partes: \textbf{(1)} Una l\'inea de descripci\'on. \textbf{(2)} La secuencia de nucle\'otidos o amino\'acidos.\\
+
+La l\'inea de descripci\'on siempre comienza con una cu\~na \inlinecode{>} y contin\'ua dando un nombre o un identificador a la secuencia a continuaci\'on. La secuencia, por otra parte, utiliza letras para representar a cada nucle\'otido o amino\'acido. En el caso de los nucle\'otidos hallamos que estos se representan por:
+
+\begin{itemize}
+\item A: \textbf{A}denina
+\item C: \textbf{C}itosina
+\item G: \textbf{G}uanina
+\item T: \textbf{T}imina
+\item U: \textbf{U}racilo
+\item R: pu\textbf{R}ina
+\item Y: p\textbf{Y}rimidina
+\end{itemize}
+
+En el caso de los amino\'acidos, podemos revisar la tabla propuesta por la \href{http://www.fao.org/docrep/004/y2775e/y2775e0e.htm}{Organizaci\'on de las Naciones Unidas para la Alimentaci\'on y la Agricultura - FAO}.\\
+
+Generalmente, las secuencias son cadenas largas de letras, pero en los archivos FASTA estas se van recortando cada 70 caracteres continuando en la siguiente l\'inea del archivo. Esto se realiza en parte para facilitar la lectura de uno de estos archivos. Para comprender mejor c\'omo es que se ve un FASTA, comenzaremos abriendo \textit{KY042043.1.fasta} en nuestra carpeta de datos del taller.\\
+
+Despu\'es de analizar por un momento el archivo, comentemos con nuestros compa\~neros y reflexionemos sobre la informaci\'on que guarda uno de estos archivos. Posteriormente comenzaremos a utilizar la informaci\'on en este archivo.
+
+\subsection{Ejercicios Sencillos}
+Para comenzar a hacer algunos ejercicios sencillos, vamos a copiar el archivo \textit{KY042043.1.fasta} a nuestra carpeta \textit{Playground}. Aqu\'i vamos a realizar unas operaciones sencillas con \'el.
+
+\subsubsection{Contenido GC - Python}
+El primer ejercicio que haremos con nuestra secuencia FASTA ser\'a hallar el contenido de Guanina y Citosina en el ADN. Este lo vamos a expresar como un valor entre 0 y 100. La idea es sencilla: contar cu\'antas veces aparece G y C dentro de la secuencia de ADN, dividir este n\'umero entre la cantidad total de amino\'acidos y multiplicar por 100.\\
+
+Por sencillo que aparente ser este ejercicio, lo que estamos calculando es un tipo de \textit{descriptor} de la secuencia de nucle\'otidos que estamos tratando, adem\'as de que el contenido GC da una idea de qu\'e tan estable es este segmento de ADN frente a altas temperaturas\footnote{Los nucle\'otidos G y C forman 3 puentes de hidr\'ogeno entre ellos en contraste con los 2 puentes formados por A y T. Esto hace que una secuencia con alto contenido de GC sea m\'as termoestable.}.\\
+
+Tomando en cuenta lo que ya sabemos, c\'omo construir\'iamos un script en Python para realizar esta operaci\'on? Pensemos por un momento y comentemos con nuestros compa\~neros. Despu\'es, continuaremos al siguiente paso.\\
+
+Ya que tenemos una idea de lo que vamos a hacer, intentemos plasmarlo en papel. S\'i, la idea ser\'a escribir en papel. Pero no vamos a escribir el c\'odigo, sino la secuencia de pasos que esperamos que nuestro ordenador siga para calcular esto. Listo? De acuerdo.\\
+
+Ahora, vamos a abrir el archivo \textit{gc\_content.py} en nuestra carpeta de datos del taller y vamos a comparar nuestras ideas con lo que all\'i se muestra. \'Ibamos por buen camino? El script que vemos hace lo que deber\'ia de hacerse seg\'un nosotros?\\
+
+Finalmente, copiamos el archivo \textit{gc\_content.py} a \textit{Playground} y ejecutamos el script mediante el siguiente comando: \inlinecode{python gc\_content.py KY042043.1.fasta}. El resultado dio lo que esper\'abamos? Podr\'iamos hacer esta tarea a mano, pero resultar\'ia un poco tedioso y cansado. El uso de scripts nos est\'a facilitando parte de la tarea. Procedamos al siguiente ejemplo.
+
+\subsubsection{Traduciendo el ADN - Python}
+Una de las funciones que tiene el ADN en un organismo es codificar prote\'inas. El proceso de decodificar la informaci\'on del ADN es realizado por los ribosomas, despu\'es de haber transcrito el ADN a ARN. Nosotros vamos a realizar este proceso, haciendo uso de Python, buscando obtener la secuencia de amino\'acidos que codifica este ADN.\\
+
+Lo primero que debemos recordar es que el ADN codifica amino\'acidos en forma de codones. Cada codon es un conjunto de 3 nucle\'otidos que, seg\'un la \href{http://rosalind.info/glossary/dna-codon-table/}{Tabla de Codones}, representa a un amino\'acido en particular. Existen, sin embargo, codones para indicar d\'onde comienza y d\'onde termina una prote\'ina. Estos tambi\'en los debemos tomar en cuenta. C\'omo construir\'ias un script para realizar esta tarea? Pi\'ensalo, com\'entalo con tus compa\~neros y despu\'es contin\'ua con la lectura.\\
+
+Cuando ya hayas terminado de proponer tu idea, intenta plantear la idea en papel. No intentes escribir el c\'odigo, sino solo plantear lo que tu c\'odigo debe de hacer con la informaci\'on del archivo FASTA. Una vez hayas terminado con eso, revisa el archivo \textit{traductor.py} en la carpeta de datos del taller. Compara tu idea con lo que all\'i se propone y saca conclusiones. Cuando hayas terminado con esto, copia \textit{traductor.py} a \textit{Playground} y ejecuta el siguienet comando en una terminal: \inlinecode{python traductor.py KY042043.1.fasta}\\
+
+Al haber hecho esto, busca qu\'e hay de nuevo en tu carpeta \textit{Playground} y analiza el nuevo archivo FASTA. Esto fue sencillo, no? Utilizamos un script simple para traducir ADN. Si no quedamos convencidos de que el proceso puede ser muy simple y podr\'ia implementarse en otra parte, revisemos lo que propone \href{http://bioinformatics.org/sms2/translate.html}{Bioinformatics.org}.
+
+\subsubsection{Punto Isoel\'ectrico - Python}
+Un ejercicio que com\'unmente se hace cuando se est\'a estudiando a un p\'eptido es el c\'alculo de su punto isoel\'ectrico. La idea es encontrar a qu\'e pH es que el p\'eptido tiene una carga de 0. Esto suena sencillo hasta que recordamos que hay que tomar en cuenta que tanto el extremo amino, como el extremo carboxilo tienen carga y cada uno de estos tiene un pKa. Y por si esto fuera poco, existen algunos amino\'acidos que tienen residuos que pueden cargarse y, por ende, tienen su propio pKa.\\
+
+Al comenzar a pensar c\'omo hacer esto, la idea comienza a mostrarse algo as\'i:
+\begin{enumerate}
+\item Tomar la secuencia de amino\'acidos y hallar los extremos amino y carboxilo.
+\item En una tabla, agregar el pKa del grupo amino para el extremo amino y el pKa del grupo carboxilo para el extremo carboxilo.
+\item Buscar uno por uno dentro de los dem\'as amino\'acidos en la secuencia y hallar aquellos que tienen residuo con posibilidad de carga.
+\item Aquellos que encontramos tienen residuo con posibilidad de carga, los agregamos a la tabla con su pKa.
+\item Ordenamos la tabla por pKa de menor a mayor.
+\item Consideramos que el amino\'acido con extremo amino tiene carga positiva por debajo de su pKa y el amino\'acido con extremo carboxilo tiene carga negativa al superar su pKa.
+\item Consideramos que los amino\'acidos C,D,E y Y se cargan negativamente al superar su pKa y los amino\'acidos H, K y R tienen carga positiva por debajo de su pKa.
+\item Probamos una cifra de pH comenzando desde 0 y vamos actualizando la suma total de cargas del p\'eptido en base a las dos \'ultimas consideraciones.
+\item Al hallar que la carga del p\'eptido es 0, calculamos el promedio entre los dos pKa m\'as cercanos al pH que hab\'iamos utilizado de \'ultimo.
+\end{enumerate}
+
+Ahora que tenemos la idea m\'as o menos clara, intentemos plantear un script que haga esto. C\'omo lo har\'ias? Pi\'ensalo, plat\'icalo con tus compa\~neros e intenta plasmar tus ideas en papel. Cuando ya hayas hecho esto, revisa \textit{isoelectricp.py} en la carpeta de datos del taller. Compara tus ideas con el script y revisa si ibas por buen camino.\\
+
+Una vez hayas terminado, copia \textit{isoelectricp.py} a \textit{Playground} y ejecuta el script aplicado a nuestro FASTA del ADN ya traducido: \inlinecode{python isoelectricp.py trad\_KY042043.1.fasta}. El resultado deber\'ia ser claro. Como siempre, vamos a dejar otro recurso un poco m\'as r\'apido para hacer la misma tarea: \href{http://bioinformatics.org/sms2/protein_iep.html}{Bioinformatics.org}. Puedes probar hacer la misma tarea si as\'i lo deseas. Ser\'ia interesante comparar resultados y discutirlos.
+
+\subsection{Ejercicios Aplicados}
+Habiendo ya calculado algunas propiedades sencillas de la secuencia de ADN que se nos dio, vamos a pasar a hacer ejercicios un poco m\'as interesantes. Resulta que la secuencia de ADN que tenemos en nuestras manos no es un dato falso. Esta cadena es parte del genoma de un organismo conocido. Vamos a estudiar entonces un poco de d\'onde provino la secuencia, de qu\'e organismo es, a qu\'e parte del genoma del organismo corresponde la secuencia, c\'omo se ver\'ia si intentamos calcular su geometr\'ia en 3D, a qu\'e otras secuencias se parece y con qu\'e otros organismos est\'a emparentado el organismo que estamos estudiando.\\
+
+Vamos a trabajar con muchas herramientas en l\'inea. Si bien sabemos lo hacen algunas de ellas, porque lo hemos visto en sesiones anteriores, algunas son nuevas y utilizan ideas que a\'un no hemos estudiado. Manteng\'amonos alerta.
+
+\subsubsection{Buscando una Secuencia de Nucle\'otidos - GenBank}
+Vamos a comenzar buscando si nuestra secuencia de ADN existe en la base de datos de genes del  \href{https://www.ncbi.nlm.nih.gov/nuccore/}{Centro Nacional para Informaci\'on Biotecnol\'ogica - NCBI}. Al no tener mayor informaci\'on sobre la secuencia, vamos a realizar un estudio \href{https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome}{BLAST de nucle\'otidos}. Accedemos al enlace anterior y esperamos a que cargue toda la p\'agina. En esta p\'agina que se ve complicada, solo vamos a hacer click en \textbf{Choose File} y all\'i vamos a buscar nuestro archivo \textit{KY042043.1.fasta}. Sin cambiar nada, vamos a ir hasta el final de la p\'agina y haremos click en \textbf{BLAST}. Eso nos llevar\'a a una p\'agina que se nos mostrar\'a solo por unos segundos, y luego nos llevar\'a a otra p\'agina con los resultados.\\
+
+Lo primero que notamos es una figura con varias barras rojas. Esta nos muestra, gr\'aficamente, qu\'e tan similar fue nuestra secuencia a las secuencias halladas por BLAST. Si bien esto se ve interesante, no es ese el lugar que m\'as informaci\'on nos da. Bajamos en la p\'agina para hallar un listado de resultados. Aqu\'i es donde se nos muestra realmente con qu\'e secuencia de la base de datos es que mejor se aline\'o el FASTA que enviamos. Eevisar el primer resultado parece ser una buena idea. Leemos toda la l\'inea y nos vamos al final; all\'i est\'a el n\'umero de acceso o \emph{Accession}. Hacemos click en el n\'umero y este nos llevar\'a a una p\'agina con la informaci\'on completa de la secuencia m\'as parecida a la que nosotros tenemos.\\
+
+Analiza por un momento la p\'agina y contesta las siguientes preguntas:
+
+\begin{itemize}
+\item De qu\'e organismo es la secuencia de ADN con la que estamos tratando?
+\item De qu\'e parte del organismo es nuestra secuencia de ADN?
+\item En qu\'e pa\'is se realiz\'o el estudio que nos proporcion\'o este ADN?
+\item De qu\'e especie fue el hospedero (\emph{host}) del que se sac\'o la muestra para en an\'alisis?
+\item De qu\'e pa\'is era originario el hospedero?
+\item En qu\'e fecha se realiz\'o el an\'alisis?
+\end{itemize}
+
+Esta informaci\'on ya nos da una buena idea de con qu\'e estamos trabajando. Si seguimos leyendo, vamos a hallar que el ADN est\'a traducido ya! Esa traducci\'on, se parece a la que nosotros hab\'iamos generado en los ejercicios anteriores? Revisemos y discutamos con nuestros compa\~neros. Si todo est\'a bien, seguiremos con el estudio.
+
+\subsubsection{Doblamiento por Homolog\'ia - SWISS-MODEL}
+Como qu\'imicos curiosos, no podemos quedarnos con la idea de que una secuencia de amino\'acidos es simplemente eso: una secuencia. Nosotros entendemos que como una mol\'ecula, esta tiene que contar con una estructura en 3 dimensiones. Si bien podr\'iamos vernos tentados a intentar optimizar nuestra secuencia de amino\'acidos con Mec\'anica Molecular, recordemos que esta t\'ecnica ya dejaba a nuestro ordenador pensando con mol\'eculas peque\~nas. Conclusi\'on: mala idea.\\
+
+Y qu\'e pasar\'ia si utilizamos Din\'amica Molecular y dej\'aramos que la mol\'ecula tomara ella misma su conformaci\'on m\'as estable dentro de una caja de agua? Esta ser\'ia una de las mejores ideas. Sin embargo, esta es a\'un m\'as demandante que Mec\'anica Molecular. Tendr\'iamos que dejar a nuestro ordenador trabajando por d\'ias sin parar para lograr esto. Conclusi\'on: peor idea.\\
+
+Entonces, qu\'e nos queda? Durante mucho tiempo, los bi\'ologos moleculares se han preguntado si existe una mejor manera para calcular la estructura 3D de prote\'inas (a lo que com\'unmente llamamos \emph{doblar} prote\'inas). Hasta la fecha este es un tema que se sigue investigando. Sin embargo, existe una t\'ecnica que ha facilitado este proceso. Esta se llama doblamiento por homolog\'ia.\\
+
+El doblamiento por homolog\'ia busca segmentos de nuestra secuencia que se parezcan a la secuencia de \emph{otras} prote\'inas de las que s\'i se conozcan la estructura en 3D. Luego procede a doblar cada segmento de nuestra secuencia utilizando las otras prote\'inas como plantillas. El c\'alculo no toma tanto tiempo como una din\'amica molecular, y arroja resultados prometedores. Lo que se hace generalmente es correr una din\'amica posterior a un doblamiento por homolog\'ia para obtener lo mejor de ambos mundos. Intentemos ahora realizar un doblamiento.\\
+
+Existen 2 opciones muy utilizadas para hacer este an\'alisis: \href{http://zhanglab.ccmb.med.umich.edu/I-TASSER/}{I-TASSER} y \href{https://swissmodel.expasy.org/}{SWISS-MODEL}. Ambos dan muy buenos resultados, pero solo el segundo podemos operarlo sin necesidad de tener una direcci\'on de correo electr\'onico \textit{.edu}. As\'i que vamos a accesar a SWISS-MODEL y comenzamos a modelar. Como vamos a notar, SWISS-MODEL tambi\'en trabaja con archivos FASTA. Podemos copiar nuestra secuencia de amino\'acidos en el recuadro que se nos ofrece, o podemos hacer click en el bot\'on verde y cargar nuestro archivo del FASTA ya traducido. Notaremos que, en ambos casos, SWISS-MODEL carga la secuencia, halla el tama\~no de esta y le asigna colores. Lo siguiente que debemos hacer es colocar un nombre a nuestro proyecto e ingresar nuestra direcci\'on de correo electr\'onico. Hay algunos de estos c\'alculos que pueden tardar d\'ias, as\'i que dar nuestra direcci\'on de correo puede ser una ventaja: nos env\'ian los resultados cuando el c\'alculo est\'e listo. Cuando ya hayamos terminado, presionamos el bot\'on azul: \textbf{Build Model}.\\
+
+El proceso tardar\'a unos minutos, pero no m\'as. Debemos estar atentos a nuestro correo electr\'onico; all\'i nos avisar\'a SWISS-MODEL que el c\'alculo ha terminado. Abrimos el correo y entramos al enlace que nos enviaron. All\'i podremos ver qu\'e modelo (\emph{Template}) nos fue propuesto y c\'omo se ve la prote\'ina ya doblada. Podemos hallar el \textbf{GMQE}, un indicador de la calidad de nuestro modelo. Este se halla entre 0 y 1. Entre m\'as cerca de 1 est\'e, mejor es el modelo que se nos plantea.\\
+
+Explremos la p\'agina y observemos los resultados. Comentemos con nuestros compa\~neros lo que hallamos y discutamos lo que podr\'iamos hacer con esto. Notemos que a la par de \textbf{Models} hay 3 peque\~nos \'iconos. El de en medio, con una flecha hacia abajo, nos permite descargar todos los resultados. Estos incluyen un \textit{pdb} que podemos abrir con Chimera para ver nuestro p\'eptido ya doblado.\\
+
+Como ejercicio en papel, pantea c\'omo preparar\'ias los resultados que obtuviste de SWISS-MODEL, utilizando Chimera, para una din\'amica molecular. Qu\'e esperar\'ias lograr haciendo esto? Qu\'e limitaciones tienes ahora para hacerlo?
+
+\subsubsection{Alineaci\'on de Secuencias - Kalign}
+Hablando de Chimera, recordamos que nosotros ya hab\'iamos realizado una comparaci\'on de secuencias aminoac\'idicas. Lo que no hab\'iamos hecho es una alineaci\'on. Y para qu\'e nos puede servir esto? En algunos casos la informaci\'on de genes o de prote\'inas que hallamos no est\'a completa. Lo que nos queda es compararla con otros organismos para saber si podemos utilizarlos a ellos como base para modelar lo que buscamos.\\
+
+Vamos a ir m\'as all\'a de la secuencia peque\~na con la que est\'abamos trabajando y vamos a utilizar genomas completos. El virus del Zika presenta s\'intomas parecidos a los de otros virus transmitidos a trav\'es de mosquitos. Estos son el \textbf{Dengue}, el \textbf{Chikungunya} y el virus del Nilo o \textbf{West Nile}. Los genomas completos de estos 4 (incluyendo al \textbf{Zika}) los podemos hallar en la carpeta \textit{FASTA} dentro de la carpeta de datos del taller. Ser\'ia muy interesante que abri\'eramos cada archivo FASTA y revis\'aramos qu\'e informaci\'on nos provee la descripci\'on. Buscarlos en GenBank es otra opci\'on si as\'i lo deseamos. No obstante, vamos a continuar con nuestro estudio.\\
+
+Podr\'iamos realizar un an\'alisis y alineaci\'on en Chimera, pero esta vez vamos a optar por trabajar en la nube y no forzar tanto nuestro ordenador. Para ello, lo primero que necesitaremos ser\'a combinar estos en un solo FASTA. Podr\'iamos crear un documento nuevo y copiar y pegar el contenido de cada uno, pero esto toma tiempo. Vamos a hacerlo en un solo comando:
+
+\begin{Code}
+cat chikungunya.fasta dengue.fasta westnile.fasta zika.fasta >\ flaviviridae.fasta
+\end{Code}
+
+Ahora que ya tenemos todas las secuencias en un solo lugar, vamos a ir a \href{http://www.ebi.ac.uk/Tools/msa/kalign/}{Kalign}. Esta herramienta la ofrece el \href{http://www.ebi.ac.uk/}{Instituto de Bioinform\'atica de Europa - EBI} que a su vez es parte del \href{http://embl.org/}{Laboratorio Europeo de Biolog\'ia Molecular - EMBL}. En Kalign, vamos a escoger \textbf{Nucleic Acid} en vez de \textbf{Protein} y vamos a hacer click en \textbf{Choose File}. All\'i buscaremos nuestro archivo \textit{flaviviridae.fasta}. Antes de enviar la solicitud para el c\'alculo, hagamos click en \textbf{Be notified by email} y coloquemos un t\'itulo para el trabajo y nuestra direcci\'on de correo electr\'onico. Finalmente, hacemos click en \textbf{Submit}. Nuevamente tendremos que esperar un momento pendientes de nuestro correo electr\'onico.\\
+
+Al haber terminado Kalign nos enviar\'a un correo con los resultados y en \'el habr\'a un enlace al que necesitamos acceder. Al abrir este, nos encontraremos a un mapa con las 4 secuencias alineadas en los segmentos que estas se parecen. Vale la pena notar que hay segmentos en los que difieren un poco y otros que sobran en una secuencia y faltan en otra. Esto, a pesar de que se nota es un an\'alisis muy complejo, no nos dice nada sobre qu\'e tanto se parecen las secuencias de una manera sencilla. Para obtener resultados sencillos, pasamos a \textbf{Result Summary} y buscamos el \'ultimo enlace: \textbf{Percent Identity Matrix}. Aqu\'i se nos mostrar\'a, en porcentaje, qu\'e tanto se parecen las secuencias entre ellas. Recordemos que:
+
+\begin{itemize}
+\item KR559481 = Chikungunya
+\item HQ999999 = Dengue
+\item AY660002 = West Nile
+\item KU922960 = Zika
+\end{itemize}
+
+De estos resultados podemos notar qu\'e virus se parecen y qu\'e tanto! Discutamos con nuestros compa\~neros nuestros resultados y c\'omo podr\'iamos utilizar esto en otros estudios o investigaciones.
+
+\subsubsection{\'Arboles Filogen\'eticos - Simple Phylogeny}
+Otra propiedad que podemos estudiar al tener secuencias de nucle\'otidos de especies semejantes es su filogenia. Esto se refiere a qu\'e tan \textit{emparentados} est\'an entre ellos seg\'un un \'arbol geneal\'ogico o, m\'as formalmente, un \emph{\'arbol filogen\'etico}. Este tipo de representaci\'on nos muestra, por medio de algoritmos que calculan la m\'axima parsimonia\footnote{Principio que propone que, de un conjunto de organismos, aquellos cuyo ADN difiera menos, tienen un ancestro en com\'un.}, un diagrama (\emph{cladograma}) mostrando qu\'e especies tuvieron un ancestro com\'un y cu\'ales no.\\
+
+En nuestro caso, lo \'unico que debemos hacer es regresar a los resultados que nos hab\'ia arrojado Kalign. All\'i hay una opci\'on para enviar nuestros resultados de alineaci\'on a \textbf{Simple\_Phylogeny}, lo cual calcular\'ia el \'arbol filogen\'etico de nuestras 4 secuencias. De hacer esto, solo tendr\'iamos que hacer click en \textbf{Be notified by email} nuevamente, llenar con nuestros datos y enviar la solicitud. Sin embargo, esto no es necesario. Kalign solo ofrece esta opci\'on en caso que nosotros \textbf{NO} estemos de acuerdo con sus par\'ametros de c\'alculo y necesitemos de otro tipo de \'arbol. Realmente, el resultado de \textbf{Simple Phylogeny} se halla dentro de los resultados de Kalign. Solo debemos ir a \textbf{Phylogenetic Tree}.\\
+
+Aqu\'i vamos a notar que dos de las especies que incluimos en el FASTA tienen un ancestro en com\'un, mientras que las otras 2 no. Entonces podemos concluir que si deseamos trabajar con una de las dos que m\'as se parecen y no tenemos suficiente informaci\'on sobre ella, podemos acudir a utilizar la otra; la que m\'as se parece a ella.
+
+\section{Comentarios Finales}
+Felicidades! Terminaste con una sesi\'on m\'as del TC$^3$Q! Lo que aprendiste hoy es muy \'util si te deseas dedicar m\'as a la bioinform\'atica, la gen\'omica y la prote\'omica. \href{http://www.ebi.ac.uk/training/online/}{EMBL-EBI} ofrece entrenamiento en l\'inea si deseas seguir profundizando en estos temas. El proyecto \href{http://rosalind.info/problems/locations/}{ROSALIND} propone muchos ejercicios que tambi\'en puedes ir haciendo para pulir bien la base que necesitas. Si realmente te interesa el tema, puedes sacar una micro-maestr\'ia en \href{https://www.edx.org/micromasters/bioinformatics}{edX}, o puedes solo estudiar \href{https://www.edx.org/xseries/data-analysis-life-sciences}{an\'alisis de datos} y \href{https://www.edx.org/xseries/genomics-data-analysis}{gen\'omica}. En general, el saber utilizar estas herramientas y saber qu\'e se puede lograr con ellas nos permite entender mejor c\'omo funcionan las prote\'inas en distintos organismos (incluyendo el nuestro!). En muchos casos esto es suficiente. En el caso de enfermedades, este es el comienzo de una investigaci\'on para dise\~nar nuevos medicamentos o vacunas.\\
+
+Muchas veces nos ocultamos tras la excusa de que no existe informaci\'on con qu\'e podamos trabajar. Sin embargo, con lo que acabamos de ver, nos deber\'iamos de dar cuenta de que ... la informaci\'on all\'i est\'a. Lo que nos hace falta es aprender a usarla y comenzar a desarrollar algo nuevo con ella. Esta vez ya no se trata de escribir nuestras herramientas tampoco, sino de hacer uso de las que ya existen y comenzar a hacer investigaci\'on en el tema.\\
+
+Nuevamente felicidades por haber terminado con la primera sesi\'on aplicada del taller! \'Animo que en la siguiente sesi\'on trabajaremos con qu\'imica computacional aplicada a reacciones. Veremos si se puede predecir en qu\'imica.
+
+\section*{Licencia}
+
+\noindent \includegraphics{img/cc_big.png}
+
+\noindent Taller de Computaci\'on Cient\'ifica para Ciencias Qu\'imicas by \href{http://github.com/zronyj/TC3Q}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
+
+\end{document}

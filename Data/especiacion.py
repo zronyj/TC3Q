@@ -1,5 +1,5 @@
 K = [7.5E-3, 6.2E-8, 4.8E-13]
-def especiacion(*args):
+def especiacion(args):
     f = open("diagrama.csv","w")
     for i in xrange(0,141,1):
         spec = len(args) + 1
