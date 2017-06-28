@@ -179,6 +179,46 @@ Con estos datos, ya podemos hallar todo lo necesario para hacer nuestra reacci\'
 
 Perfecto! Logramos predecir, de manera te\'orica, el comportamiento de nuestra reacci\'on. Ahora, si dese\'aramos realizar esta reacci\'on en el laboratorio, c\'omo sabr\'iamos si obtuvimos el producto realmente? Para ello, vamos a utilizar \textit{otra} herramienta y otra t\'ecnica.
 
+\subsection{Caracterizaci\'on}
+Cuando despu\'es de 2 laboratorios, 6 horas de trabajo, sudor y a veces l\'agrimas obtenemos un producto de una reacci\'on, generalmente lo que nos toca hacer es averiguar si lo que obtuvimos es lo que esper\'abamos. Inhalamos, cerramos los ojos y nos proponemos a comenzar el proceso de caracterizaci\'on. Este proceso puede ser algo muy sencillo si nuestro producto ya ha sido caracterizado antes y ya existen los datos espectrales y caracter\'isticas fisicoqu\'imicas de \'el. Pero si no, ... qu\'e hacemos?
+
+\subsubsection{Analizando Frecuencias IR}
+Una de las evidencias que ya tenemos a mano de nuestros c\'alculos anteriores resultan ser los espectros IR de las mol\'eculas. Estos revelan qu\'e enlaces de la mol\'ecula vibran frente a qu\'e frecuencias de radiaci\'on infrarroja. Para revelar las frecuencias de de IR, lo \'unico que debemos hacer es abrir nuestros archivos de salida con \textbf{wxMacMolPlt}. En su men\'u de \textit{Subwindow} est\'a la opci\'on de \textbf{Frequencies} que nos permitir\'a ir visualizando frecuencia por frecuencia y c\'omo es que vibra la mol\'ecula. Si deseamos \emph{ver} la vibraci\'on, solo debemos de ir a \textit{View} y a \textit{Animate Mode}.\\
+
+Otra opci\'on que podemos utilizar para obtener los espectros IR es utilizando \textbf{GaussSum}. Este programa lo podemos correr desde la terminal escribiendo \inlinecode{gausssum}. Con \'el, abrimos uno de nuestros archivos de salida, cambiamos la opci\'on a \textit{Frequencies} e inmediatamente despu\'es presionamos el logo grande, dorado que se halla a la derecha. El resultado deber\'ia de ser algo conocido para algunos. El espectro calculado por GuassSum se asemeja m\'as a los obtenidos de los aparatos.
+
+\Picture{img/IR.png}{0.7}{Espectro IR te\'orico del primer producto.}
+
+\subsubsection{Re-calculando para HOMO-LUMO}
+Otra opci\'on poco conocida que podemos utilizar para caracterizar una mol\'ecula es su espectro UV/visible. Generalmente solo utilizamos esto para cuantificar, pero esta vez intentaremos decir a qu\'e longitud de onda es que nuestros productos absorben luz. Esto se debe a que los electrones de la \emph{capa} de valencia (o del \'ultimo orbital ocupado), pasan a la siguiente capa (u orbital m\'as bajo desocupado).\\
+
+Para obtener estos datos, debemos de re-calcular con Firefly los productos de nuestra reacci\'on. Esta vez, como ya optimizamos la geometr\'ia anteriormente, solo vamos a utilizar un comando que nos dejar\'a nuestros archivos de entrada listos para agregar c\'odigo y correr. Por cada archivo de salida vamos a pedirle a OpenBabel que nos transforme este a uno de entrada.
+
+\begin{Code}
+obabel -iout salida.out -oinp -Oreentrada.inp
+\end{Code}
+
+Una vez que ya hayamos hecho esto, solo nos queda agregar el siguiente c\'odigo en el encabezado de nuestros nuevos archivos. Para ello debemos reemplazar el encabezado que ya existe. Siempre recordemos dejar el espacio en blanco antes de cada l\'inea en los archivos de entrada de Firefly.
+
+\begin{Code}
+\$BASIS GBASIS=STO NGAUSS=3 \$END\\
+\$CONTRL SCFTYP=RHF RUNTYP=ENERGY LOCAL=BOYS \$END
+\end{Code}
+
+Corremos Firefly sobre estos archivos \textit{inp} como lo hicimos en la Sesi\'on 9 y los archivos de salida los abrimos con \textbf{wxMacMolPlt}. Aqu\'i calculamos los orbitales en 3D (\textit{Subwindow}, \textit{Surfaces}, \textit{3D Orbital}) y hallamos, entre los valores de enrg\'ia en la parte inferior derecha de la ventana, donde hay un cambio de signo.\\
+
+El valor de energ\'ia con signo negativo corresponde a los electrones en la \'ultima capa, o en el \'ultimo orbital ocupado: HOMO - \textbf{H}ighest \textbf{O}ccupied \textbf{M}olecular \textbf{O}rbital. El valor de enrg\'ia positivo corresponde a los electrones en la primera capa despu\'es de la de valencia, o el orbital m\'as bajo desocupado: LUMO - \textbf{L}owest \textbf{U}noccupied \textbf{M}olecular \textbf{O}rbital.\\
+
+Es la energ\'ia entre estos dos $\Delta E_{MO} = HOMO - LUMO$ la que corresponde a la excitaci\'on de los electrones de una mol\'ecula. Lo \'unico que quedar\'ia ser\'ia introducir este nuevo valor que acabamos de hallar a la siguiente ecuaci\'on y despejar $\nu$ para hallar la frecuencia de la luz a la que la mol\'ecula absorbe.
+
+\begin{equation}
+\Delta E = h \nu
+\end{equation}
+
+Calculemos esto y hallemos la frecuencia. Para calcular la longitud de onda a partir de esto podemos introducir nuestro dato a $\nu = \frac{c}{\lambda}$ donde $c$ es la velocidad de la luz. Luego comparemos estos datos con un espectro electromagn\'etico y veremos qu\'e \emph{color} corresponde a esa frecuencia y longitud de onda.
+
+\section{Comentarios Finales}
+
 
 \section*{Licencia}
 
