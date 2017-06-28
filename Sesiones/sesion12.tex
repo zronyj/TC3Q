@@ -1,0 +1,189 @@
+%
+% sesion12.tex
+% 
+% Copyright 2017 Rony J. Letona <zronyj@gmail.com>
+% 
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2 of the License, or
+% any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+% MA 02110-1301, USA.
+%
+
+\documentclass[10pt,letterpaper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{float}
+\usepackage{upquote}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Rony J. Letona}
+\title{Taller de Computaci\'on Cient\'ifica para Ciencias Qu\'imicas: Sesi\'on 12}
+\definecolor{light-gray}{gray}{0.90}
+
+\newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
+
+\newcommand{\inlinecode}[1]{
+\colorbox{light-gray}{\texttt{#1}}
+}
+
+\newsavebox{\selvestebox}
+\newenvironment{Code}
+{
+\begin{lrbox}{\selvestebox}%
+\begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax}
+\fontfamily{\ttdefault}\selectfont
+}
+{\end{minipage}\end{lrbox}%
+\begin{center}
+\colorbox{light-gray}{\usebox{\selvestebox}}
+\end{center}
+}
+
+\newcommand{\Picture}[3]
+{
+	\begin{figure}[H]
+	\begin{center}
+	\caption{#3}
+	\includegraphics[scale=#2]{#1}
+	\end{center}
+	\end{figure}
+}
+
+\begin{document}
+\maketitle
+
+\section{Qu\'imica Computacional y Termodin\'amica}
+Una de las habilidades m\'as grandes que cualquiera que estudie qu\'imica desear\'ia lograr en determinado momento es la de poder predecir si una reacci\'on se va a dar o no. A pesar de que esto se puede hacer expl\'icito a trav\'es del estudio de la \emph{Termodin\'amica}, muchas veces nos quedamos con la duda sobre c\'omo llegar a los valores y las constantes necesarios para poder calcular las cosas.\\
+
+Partiendo de principios y enunciados, la Mec\'anica Cu\'antica logr\'o generar resultados que pueden explicar fen\'omenos a nivel at\'omico o molecular, pero llegar a la termodin\'amica requiri\'o un poco m\'as. Fue hasta que Ludwig Boltzmann propuso la \emph{Mec\'anica Estad\'istica} que se logr\'o conectar la mec\'anica cu\'antica y la termodin\'amica. Esto bajo la premisa que todas las mol\'eculas en un sistema no se comportan de una sola manera, sino de todas las maneras posibles. Una manera dominar\'a estad\'isticamente, por lo que el comportamiento de las propiedades moleculares se asemejar\'a a una distribuci\'on gaussiana.\\
+
+El software para mec\'anica cu\'antica con el que hemos trabajado ya realiza los c\'alculos necesarios para hallar las propiedades de los \'atomos y mol\'eculas en ambas maneras: individual y colectivamente. Esto nos permite lograr aquello que busc\'abamos: predecir reacciones. Lo que nos queda por hacer, que generalmente no lo hacen ninguno de estos programas, es tomar los resultados que estos producen e introducirlos a algunas f\'ormulas. De esta manera podemos calcular las propiedades que deseamos y podemos llegar a modelar sustancias, materiales, reacciones y equilibrios.
+
+\subsection{Diagrama de Energ\'ia}
+
+Al comenzar el estudio de la qu\'imica, y en particular de la qu\'imica org\'anica, existe un diagrama que comienza a perseguirnos por el resto de nuestras vidas: el diagrama de energ\'ia. Este, aunque se ve simple, revela aspectos sobre qu\'e tan f\'acilmente es que suceder\'a una reacci\'on.
+
+\Picture{img/diagrama.png}{0.6}{Diagrama de energ\'ia libre para una reacci\'on exot\'ermica.}
+
+Como podemos notar de \'el, no importa c\'omo lleguemos de los \textbf{reactivos} a los \textbf{productos}. Lo \'unico que s\'i debemos de hacer es pasar por el \textbf{estado de transici\'on}. A partir de esto podemos hallar la cantidad de energ\'ia necesaria para que la reacci\'on se d\'e $E_a$ y la cantidad de energ\'ia que esta libera o absorbe $\Delta G$.\\
+
+El reto para nosotros hoy ser\'a modelar una reacci\'on completa con base en esto que acabamos de ver. La reacci\'on con la que trabajaremos ser\'a la \emph{\href{https://www.uam.es/departamentos/ciencias/qorg/docencia_red/qo/l9/prep3.html}{Reacci\'on de Wittig}}.
+
+\subsubsection{Dibujando Mol\'eculas}
+Lo primero que vamos a hacer es definir qui\'enes son nuestros reactivos y nuestros productos. Para ello nos ofrecen el SMILES de cada uno de ellos:\\
+
+\textbf{Reactivos}
+\begin{itemize}
+\item Benzaldehido: O=CC1=CC=CC=C1
+\item Fenilmetilentrifenilfosfano: C(C1=CC=CC=C1)=P(C1=CC=CC=C1)(C1=CC=CC=C1)C1=CC=CC=C1
+\end{itemize}
+
+
+\textbf{Productos}
+\begin{itemize}
+\item \ \hspace*{-1.5mm}\big[(E)-2-feniletenil\big]benceno: C1=CC=CC=C1C=CC2=CC=CC=C2
+\item (difenilfosforoso)benceno: O=P(C1=CC=CC=C1)(C1=CC=CC=C1)C1=CC=CC=C1
+\end{itemize}
+
+Ya teniendo esto podemos comenzar con la reacci\'on. Existe, sin embargo, un detalle que no podemos pasar por alto: el estado de transici\'on. Este, en vez de proponerlo como un SMILES, vamos a dejarlo como una imagen para dibujarlo en \href{https://marvinjs-demo.chemaxon.com/latest/demo.html}{MarvinJS}.
+
+\Picture{img/molecula.png}{0.6}{Estado de transici\'on de la reacci\'on de Wittig.}
+
+Lo que debemos hacer ahora es dibujar o abrir todas las anteriores mol\'eculas con MarvinJS y guardarlas en formato \textbf{MDL Molfile} o, como ya lo hab\'iamos conocido antes: \textit{mol}. Una vez ya las tengamos guardadas en nuestra carpeta de \textit{Playground}, vamos a hallar su geometr\'ia 3D y las vamos a guardar en formato \textit{mol2}. Para ello vamos a utilizar a OpenBabel de la siguiente manera:
+
+\begin{Code}
+obabel -imol molecula1.mol -omol2 -Omolecula1.mol2 -h --gen3D
+\end{Code}
+
+Es conveniente que dejemos el estado de transici\'on para el final. Este, por la geometr\'ia tan especial que posee, no es tan f\'acil de optimizar. Para ello vamos a cambiar un poco el comando anterior y vamos a forzar a OpenBabel a utilizar otro campo de fuerzas: GAFF.
+
+\begin{Code}
+obabel -imol molecula5.mol -omol2 -Omolecula5.mol2 -h --ff GAFF --minimize --steps 5000 --sd
+\end{Code}
+
+Las banderas \inlinecode{steps} y \inlinecode{sd} corresponden a la cantidad de iteraciones que har\'a OpenBabel para optimizar la geometr\'ia del estado de transici\'on y a el algoritmo de optimizaci\'on que usar\'a (Steepest Descent) respectivamente. Al terminar con esto, estamos listos para abrir nuestras mol\'eculas en Avogadro y comenzar a prepararlas para la corrida de mec\'anica cu\'antica.
+
+\subsubsection{Optimizando Geometr\'ias}
+
+El siguiente paso que nos toca es ir abriendo una a una las mol\'eculas \textit{mol2} y preparar los archivos de entrada para Firefly. Siempre recordemos que antes de generar un archivo de estos, debemos realizar una breve optimizaci\'on de geometr\'ia dentro de Avogadro para asegurarnos de que nuestros c\'alculos no vayan a ser muy largos. La \'unica diferencia esta vez es que usaremos el campo de fuerzas GAFF, pues el \'atomo de f\'osforo no es tan f\'acil de modelar con el MMFF94 o Ghemical.\\
+
+Cuando ya hayamos logrado energ\'ias relativamente aceptables (algo por debajo de $10^{-5}$), vamos a generar los archivos de entrada para Firefly. En esta ocasi\'on no vamos a buscar que Avogadro haga todo, sino simplemente vamos a ir generando los archivos con cualquier base y luego vamos a sustituir todo el encabezado por lo siguiente:
+
+\begin{Code}
+\$BASIS GBASIS=AM1 \$END\\
+\$CONTRL SCFTYP=RHF RUNTYP=OPTIMIZE \$END\\
+\$STATPT OPTTOL=0.00001 NSTEP=50 HESS=CALC HSSEND=.TRUE. \$END\\
+\$FORCE METHOD=NUMERIC VIBANL=.TRUE. PURIFY=.t. NVIB=2 \$END
+\end{Code}
+
+Vale la pena mencionar que cada una de estas l\'ineas comienza con un espacio vac\'io! Pero entrando en detalle, veamos qu\'e es lo que estamos haciendo. Estamos realizando un c\'alculo semi-emp\'irico con base AM1. Esto significa que no vamos a tardarnos tanto en cada c\'alculo y que no vamos a ocupar tanto espacio en disco. Luego estamos buscando optimizar la geometr\'ia de la mol\'ecula. Por qu\'e es tan importante la geometr\'ia? Pi\'ensalo por un momento, disc\'utelo con tus compa\~neros y prop\'on una idea.\\
+
+Continuando con la configuraci\'on para Firefly, hay mucha m\'as informaci\'on. Esta, en orden, dice lo siguiente: la geometr\'ia debe optimizarse hasta que el RMSD de esta geometr\'ia con el de la geometr\'ia anterior sea menor a $0.0001$, vamos a darle 50 pasos para que logre esta optimizaci\'on, Firefly debe de calcular los datos termodin\'amicos de la mol\'ecula y esto lo debe de colocar al final. Aqu\'i terminamos de describir la tercera l\'inea.\\
+
+En la \'ultima l\'inea no vale la pena profundizar. Basta decir que \inlinecode{VIBANL=.TRUE.} le dice a Firefly que debe de calcular las frecuencias IR de la mol\'ecula y hallar en qu\'e modo vibra la misma. Notemos que al sustituir esto, lo que va a quedar intacto del archivo \textit{inp} son la identidad de cada \'atomo y sus coordenadas. Esto nos servir\'a m\'as adelante, pues podemos hacer cualquier tipo de c\'alculo, solo cambiando el encabezado.\\
+
+El caso distinto en lo que ser refiere a c\'alculos de propiedades vuelve a ser el estado de transici\'on. Este lleva algunas variaciones en el encabezado; en particular en la l\'inea 3. Debido a la cantidad de \'atomos, la identidad de los mismos y el tipo de estructura que ser forma, no podemos ser tan exigentes en que la geometr\'ia \emph{deba} de ser quedar en alg\'un punto en particular. Lo que s\'i requerimos es que esta sea hallada a cualquier costo. Por esta raz\'on es que aumentamos el grado de tolerancia de la optimizaci\'on y aumentamos la cantidad de pasos para hallarla. Con esto deber\'iamos de hallar la energ\'ia del estado de transici\'on sin que nos tome mucho tiempo.
+
+\begin{Code}
+\$BASIS GBASIS=AM1 \$END\\
+\$CONTRL SCFTYP=RHF RUNTYP=OPTIMIZE \$END\\
+\$STATPT OPTTOL=0.0001 NSTEP=1000 HESS=CALC HSSEND=.TRUE. \$END\\
+\$FORCE METHOD=NUMERIC VIBANL=.TRUE. PURIFY=.t. NVIB=2 \$END
+\end{Code}
+
+Ahora que ya tenemos listos nuestros archivos de entrada, lleg\'o el momento importante: vamos a calcular. La idea es realizar 5 c\'alculos que posiblemente se tardar\'an algunos minutos. No queremos tener que estar pendientes de ellos, por lo que utilizamos algo de lo que ya aprendimos de sesiones pasadas. En la terminal, y asegur\'andonos de que estamos en la carpeta adecuada, corremos Firefly sobre nuestros archivos de manera consecutiva:
+
+\begin{Code}
+for f in \$(ls *.inp)\\
+do\\
+/home/mint/FF8.1/firefly810 -f -i \$f -o \$\big\{f\%.inp\big\}.out\\
+done
+\end{Code}
+
+Una vez el c\'alculo haya terminado, estaremos listos para continuar con el modelaje de nuestra reacci\'on. Lo que debemos tomar en cuenta es que el c\'alculo del estado de transici\'on puede generarnos un archivo bastante grande; estemos pendientes de \'el.
+
+\subsubsection{Obteniendo Energ\'ias}
+Al haber terminado los c\'alculos de la secci\'on anterior, procedemos a revisar los resultados. Estos debieron haberse escrito en archivos \textit{.out} que se hallan a la par de los \textit{.inp} que hab\'iamos generado. Al abrir cada uno de estos, nos toparemos con que contienen miles de l\'ineas. Esto es poco pr\'actico. As\'i que utilizando la herramienta de b\'usqueda de nuestro editor de texto, vamos a buscar la palabra \textit{THERMOCHEMISTRY}. Cuidado! Firefly fue calculando estos valores para cada optimizaci\'on de geometr\'a. Por esta raz\'on debemos de encontrar la \'ultima entrada que escribi\'o este en el archivo. Para ello conviene activar la casilla de b\'usqueda inversa en la herramienta de b\'usqueda. Una vez la hallemos, vamos a buscar dos peque\~nas tablas debajo de THERMOCHEMISTRY. All\'i deber\'ian aparecer los totales de energ\'ia de la mol\'ecula (\textbf{E}), entalp\'ia (\textbf{H}), energ\'ia libre de Gibbs (\textbf{G}), capacidad calor\'ifica a volumen constante (\textbf{CV}), capacidad calor\'ifica a presi\'on constante (\textbf{CP}) y entrop\'ia (\textbf{S}) tanto en KJ/MOL como en KCAL/MOL.\\
+
+Si revisamos nuevamente el diagrama de energ\'ia libre, nos vamos a dar cuenta que solo con estos datos ya tenemos suficiente para saber cu\'al es la energ\'ia de los productos, de los reactivos y del estado de transici\'on. Es la energ\'ia libre de Gibbs \textbf{G} que nos dan estos archivos! Para calcular las diferencias de energ\'ia $\Delta G$ si debemos tomar en cuenta la siguiente expresi\'on.
+
+\begin{equation}
+\Delta G = \sum^{N}_{p=1} G_{p} - \sum^{M}_{r=1} G_{r}
+\end{equation}
+
+\noindent $G_{p} =$ energ\'ia libre de Gibbs de productos\\
+$G_{r} =$ energ\'ia libre de Gibbs de reactivos\\
+
+La idea entonces es sumar la energ\'ia de todos los reactivos y rest\'arsela a la suma de la energ\'ia de todos los productos. Este valor no se ve muy importante en este caso; solo nos ayuda a completar el diagrama. Sin embargo, si deseamos conocer un poco m\'as del equilibrio de esta reacci\'on y si deseamos saber cu\'al ser\'a el rendimiento te\'orico de la misma, solo debemos recordar que la energ\'ia libre de Gibbs se relaciona con la constante de equilibrio de la siguiente manera:
+
+\begin{equation}
+K_{eq} = e^{- \frac{\Delta G}{R T} } = \frac{ \left[ C \right] \left[ D \right] }{ \left[ A \right] \left[ B \right] }
+\end{equation}
+
+Con estos datos, ya podemos hallar todo lo necesario para hacer nuestra reacci\'on en el laboratorio! Calculemos de cu\'anto es la constante de equilibrio de nuestra reacci\'on y propongamos cu\'anto producto podr\'iamos obtener si partimos de $500mg$ de cada reactivo en $10mL$ de tetrahidrofurano (THF). Recordemos pasar las cantidades a moles para hacer esto. Si deseamos una manera r\'apida de hallar el peso molecular de cada uno de nuestros compuestos, podemos ingresar el SMILES en \href{https://www.wolframalpha.com/}{Wolfram Alpha} precedido por la palabra \inlinecode{SMILES}.\\
+
+Perfecto! Logramos predecir, de manera te\'orica, el comportamiento de nuestra reacci\'on. Ahora, si dese\'aramos realizar esta reacci\'on en el laboratorio, c\'omo sabr\'iamos si obtuvimos el producto realmente? Para ello, vamos a utilizar \textit{otra} herramienta y otra t\'ecnica.
+
+
+\section*{Licencia}
+
+\noindent \includegraphics{img/cc_big.png}
+
+\noindent Taller de Computaci\'on Cient\'ifica para Ciencias Qu\'imicas by \href{http://github.com/zronyj/TC3Q}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
+
+\end{document}
