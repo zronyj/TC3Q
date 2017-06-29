@@ -82,6 +82,7 @@ En la carpeta de datos del taller hallar\'as una carpeta de nombre \textit{Final
 \item Buscar\'as si existen alternativas ya dobladas de la mol\'ecula y, de ser as\'i, las comparar\'as realizando alineaciones con UCSF Chimera.
 \item De no hallar alternativas, utilizar\'as SWISS-MODEL para doblar el FASTA y obtener un nuevo modelo de la mol\'ecula en cuesti\'on. Se te recomienda revisar la \textit{sugerencia} en el folder \textit{Data/Final/BI} si buscas un modelo completo.
 \item En Chimera, buscar\'as limpiar tu mol\'ecula (ya sea una que hayas hallado doblada o tu nuevo modelo doblado con SWISS-MODEL) y preparar\'as un docking con cada una de las mol\'eculas halladas en \textit{Data/Final/BI/Ejemplos}.
+\item Realiza el docking de todas las mol\'eculas e interpreta los resultados.
 \item Una vez hayas concluido con esto. Procede a guardar toda tu investigaci\'on en un nuevo repositorio propio de GitLab.
 \item Reportar\'as tus resultados en un \textbf{peque\~no} documento \LaTeX\ (menos de una p\'agina) como \textbf{Estudio Exploratorio \emph{in silico} del sitio activo de los agonistas del adrenorreceptor $\beta 1$ Humano}.
 \end{itemize}
@@ -99,9 +100,36 @@ Como nos habremos dado cuenta, acabamos de hacer una peque\~na investigaci\'on! 
 \item Guarda tus mol\'eculas en formato SMILES y transf\'ormalas a formato MOL y MOL2 con OpenBabel haciendo uso de la optimizaci\'on en 3D.
 \item Importa tus nuevas mol\'eculas MOL en KNIME y, con nodos RDKit, agrega hidr\'ogenos, optimiza y calcula descriptores \textbf{Chi} de las mismas.
 \item Utiliza el modelo que hab\'ias dise\~nado antes para predecir su actividad.
-\item Realiza docking de tus 5 anteriores mol\'eculas utilizando Chimera.
+\item Realiza docking de tus 5 anteriores mol\'eculas utilizando Chimera e interpreta tus resultados.
 \item Una vez hayas concluido con esto. Procede a guardar toda tu investigaci\'on en el repositorio de GitLab.
 \item Reportar\'as nuevamente tus resultados en un nuevo documento \LaTeX\ (menos de una p\'agina) como \textbf{Dise\~no \emph{in silico} de agonistas del adrenorreceptor $\beta 1$ Humano}.
+\end{itemize}
+
+\subsection{Estudio de Materiales}
+Para un tema totalmente distinto, vamos a comenzar con el estudio de otro tipo de material. Los datos de estos los vamos a hallar en la carpeta \textit{Data/Final/MD} y con ellos vamos a realizar el siguiente estudio.
+
+\begin{itemize}
+\item En KNIME, abre las mol\'eculas mencionadas anteriormente.
+\item Utilizando nodos RDKit, realiza una optimizaci\'on molecular con campo de fuerzas MMFF94.
+\item Estudia las energ\'ias obtenidas de este proceso y las comp\'aralas.
+\item Utilizando OpenBabel o Avogadro, prepara las mol\'eculas para correrlas en Firefly. Busca solo hacer una corrida de \emph{frecuencias} con base \emph{AM1}.
+\item Corre Firefly sobre las mol\'eculas.
+\item Revisa los archivos de salida y encuentra las entalp\'ias (en \textbf{THERMOCHEMISTRY} encuentra la \textbf{H}).
+\item Compara tus resultados discute cu\'al de las mol\'eculas crees que es el explosivo m\'as energ\'etico.
+\item Una vez hayas concluido con esto. Procede a guardar toda tu investigaci\'on en un \textbf{nuevo} repositorio propio de GitLab.
+\item Reporta tus resultados en un \textbf{peque\~no} documento \LaTeX\ (menos de una p\'agina) como \textbf{Estudio Caracterizaci\'on de 7 Explosivos utilizando Modelaci\'on Molecular y Qu\'imica Computacional}.
+\end{itemize}
+
+\subsection{Dise\~no \emph{de novo}}
+Finalmente, para terminar la sesi\'on, vamos a abrir una terminal en la carpeta \textit{Data/Final/MD} y vamos a revisar el script \textit{de\_novo.py}. Intentemos entender qu\'e hace el script y en qu\'e nos ayuda. Luego ejecut\'emoslo y veamos qu\'e podemos hacer con esto.
+
+\begin{itemize}
+\item En KNIME, abre el archivo SMILES \textit{nuevos.smiles}.
+\item Utilizando nodos RDKit, realiza una optimizaci\'on molecular con campo de fuerzas MMFF94.
+\item Estudia las energ\'ias obtenidas de este proceso y las comp\'aralas.
+\item Compara tus resultados con los anteriores y discute cu\'al de las mol\'eculas crees que es el explosivo m\'as energ\'etico. Luego recuerda que si es \emph{demasiado} energ\'etico, este no ser\'a estable y es una mala idea intentar sintetizarlo.
+\item Una vez hayas concluido con esto. Procede a guardar toda tu investigaci\'on en el anterior repositorio propio de GitLab.
+\item Reporta tus resultados en un \textbf{peque\~no} documento \LaTeX\ (menos de una p\'agina) como \textbf{Estudio Caracterizaci\'on de Explosivos generados por m\'etodos \emph{de novo} utilizando Modelaci\'on Molecular}.
 \end{itemize}
 
 \section*{Licencia}
