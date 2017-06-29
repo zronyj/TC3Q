@@ -1,0 +1,113 @@
+%
+% sesion13.tex
+% 
+% Copyright 2017 Rony J. Letona <zronyj@gmail.com>
+% 
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2 of the License, or
+% any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software
+% Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+% MA 02110-1301, USA.
+%
+
+\documentclass[10pt,letterpaper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{float}
+\usepackage{upquote}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Rony J. Letona}
+\title{Taller de Computaci\'on Cient\'ifica para Ciencias Qu\'imicas: Sesi\'on 13}
+\definecolor{light-gray}{gray}{0.90}
+
+\newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
+
+\newcommand{\inlinecode}[1]{
+\colorbox{light-gray}{\texttt{#1}}
+}
+
+\newsavebox{\selvestebox}
+\newenvironment{Code}
+{
+\begin{lrbox}{\selvestebox}%
+\begin{minipage}{\dimexpr\columnwidth-2\fboxsep\relax}
+\fontfamily{\ttdefault}\selectfont
+}
+{\end{minipage}\end{lrbox}%
+\begin{center}
+\colorbox{light-gray}{\usebox{\selvestebox}}
+\end{center}
+}
+
+\newcommand{\Picture}[3]
+{
+	\begin{figure}[H]
+	\begin{center}
+	\caption{#3}
+	\includegraphics[scale=#2]{#1}
+	\end{center}
+	\end{figure}
+}
+
+\begin{document}
+\maketitle
+
+\section{Dise\~no Molecular}
+Estamos en la recta final. Llegamos a la parte que m\'as dese\'abamos, pues es ahora que vamos a aprender a hacer lo que hemos venido esperando desde que comenz\'o el taller. Si bien ha sido un recorrido largo, y hemos aprendido muchas cosas, recordemos que solo hemos rascado la superficie de todo lo que es posible hacer con computaci\'on cient\'ifica. Hoy no vamos a seguir instrucciones por mucho tiempo. Lo que intentaremos ser\'a algo m\'as ambicioso. Intentaremos trabajar con una idea que se nos propone, pero sin nada m\'as que nuestro conocimiento adquirido y un peque\~no listado de pasos. Vamos a contar con 3 proyectos, y ser\'ia ideal si logramos hacer los 3.\\
+
+Felicidades por haber llegado tan lejos en el mejor taller de computaci\'on cient\'ifica orientado a qu\'imica del pa\'is! Los contenidos son varios y la intensidad es grande. Esperamos que hayas disfrutado cada sesi\'on y que hayas aprendido mucho sobre lo que se puede y \emph{no} se puede hacer. Sin embargo, lo que m\'as nos agrada ha sido todo lo que tu nos has contribuido en el desarrollo del mismo. Sin ti esto no pudo ser posible.\\
+
+Toma ahora lo que sabes, usa tu creatividad y tu ingenio, y sal a hacer ciencia de una nueva manera que antes no cre\'ias se pod\'ia. Comencemos entonces con la sesi\'on final del TC$^3$Q!
+
+\subsection{Bioinform\'atica}
+En la carpeta de datos del taller hallar\'as una carpeta de nombre \textit{Final}. En ella, a su vez, hallar\'as otra de nombre \textit{BI}. De all\'i tomar\'as el archivo FASTA que se te ofrece y te propondr\'as a estudiarlo de la siguiente manera utilizando lo que ya has aprendido.\\
+
+\begin{itemize}
+\item Hallar\'as, por medio de la informaci\'on en el FASTA y herramientas vistas anteriormente, qu\'e codifica el FASTA y para qu\'e sirve esa mol\'ecula. Puedes tambi\'en utilizar \href{http://www.uniprot.org/}{UniProt}.
+\item Buscar\'as si existen alternativas ya dobladas de la mol\'ecula y, de ser as\'i, las comparar\'as realizando alineaciones con UCSF Chimera.
+\item De no hallar alternativas, utilizar\'as SWISS-MODEL para doblar el FASTA y obtener un nuevo modelo de la mol\'ecula en cuesti\'on. Se te recomienda revisar la \textit{sugerencia} en el folder \textit{Data/Final/BI} si buscas un modelo completo.
+\item En Chimera, buscar\'as limpiar tu mol\'ecula (ya sea una que hayas hallado doblada o tu nuevo modelo doblado con SWISS-MODEL) y preparar\'as un docking con cada una de las mol\'eculas halladas en \textit{Data/Final/BI/Ejemplos}.
+\item Una vez hayas concluido con esto. Procede a guardar toda tu investigaci\'on en un nuevo repositorio propio de GitLab.
+\item Reportar\'as tus resultados en un \textbf{peque\~no} documento \LaTeX\ (menos de una p\'agina) como \textbf{Estudio Exploratorio \emph{in silico} del sitio activo de los agonistas del adrenorreceptor $\beta 1$ Humano}.
+\end{itemize}
+
+\subsection{Estudio de Medicamentos}
+Como nos habremos dado cuenta, acabamos de hacer una peque\~na investigaci\'on! Intentemos continuar, sin quedarnos atr\'as, al momento de dise\~nar un nuevo medicamento. Podemos comenzar abriendo KNIME y entrando a \href{http://www.swisssimilarity.ch/}{Swiss  Similarity}. Lo que haremos ahora ser\'a ensamblar un modelo QSAR.\\
+
+\begin{itemize}
+\item Comenzar\'as abriendo alguna de las mol\'eculas de las que hiciste docking anteriormente en Swiss Similarity. All\'i, buscar\'as dentro de la base de datos \textbf{GPCR Ligands (ChEMBL)} y utilizar\'as la columna \textbf{Combined}.
+\item Al haber terminado la b\'usqueda, descargar\'as los resultados en formato CSV y los importar\'as a KNIME con el nodo \textit{Read File}.
+\item Existe un peque\~no archivo en \textit{Data/Final/DD} llamado \textit{validos.csv}. \'Abrelo con KNIME tambi\'en y utiliza el nodo \textit{Group By} para filtrar los resultados del primer archivo.
+\item Haciendo uso de nodos RDKit, agrega hidr\'ogenos, optimiza y calcula descriptores \textbf{Chi} de todas las mol\'eculas de tu archivo. Esto \'ultimo con el nodo \textit{RDKit Descriptor Calculator}.
+\item Utilizando nodos Python, construye un modelo de Machine Learning que utilice el modelo \textbf{SVR} de la librer\'ia \textbf{sklearn} a partir de los descriptores que calculaste y de la columna \textit{values}.
+\item Observa las mol\'eculas de las que hab\'ias realizado docking utilizando PyMOL. Ahora dibuja, haciendo uso de \href{https://marvinjs-demo.chemaxon.com/latest/demo.html}{MarvinJS}, 5 nuevas mol\'eculas que creas pueden funcionar como medicamentos en el mismo receptor.
+\item Guarda tus mol\'eculas en formato SMILES y transf\'ormalas a formato MOL y MOL2 con OpenBabel haciendo uso de la optimizaci\'on en 3D.
+\item Importa tus nuevas mol\'eculas MOL en KNIME y, con nodos RDKit, agrega hidr\'ogenos, optimiza y calcula descriptores \textbf{Chi} de las mismas.
+\item Utiliza el modelo que hab\'ias dise\~nado antes para predecir su actividad.
+\item Realiza docking de tus 5 anteriores mol\'eculas utilizando Chimera.
+\item Una vez hayas concluido con esto. Procede a guardar toda tu investigaci\'on en el repositorio de GitLab.
+\item Reportar\'as nuevamente tus resultados en un nuevo documento \LaTeX\ (menos de una p\'agina) como \textbf{Dise\~no \emph{in silico} de agonistas del adrenorreceptor $\beta 1$ Humano}.
+\end{itemize}
+
+\section*{Licencia}
+
+\noindent \includegraphics{img/cc_big.png}
+
+\noindent Taller de Computaci\'on Cient\'ifica para Ciencias Qu\'imicas by \href{http://github.com/zronyj/TC3Q}{Rony J. Letona} is licensed under a \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License}.
+
+\end{document}
