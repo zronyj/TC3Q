@@ -1,17 +1,23 @@
 \documentclass[10pt,letterpaper]{article}
-\usepackage[round]{natbib}
-\usepackage[latin1]{inputenc}
-\usepackage[spanish]{babel}
-\usepackage{graphicx}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
-\bibliographystyle{achemso}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{apacite}
+\usepackage[numbib,nottoc]{tocbibind}
+\usepackage{graphicx}
+\usepackage{url}
+
 \author{Rony J. Letona}
-\title{Taller de Qu\'imica Computacional Aplicada - Programa}
+\title{Taller de Computaci\'on Cient\'ifica para Ciencias Qu\'imicas - Programa}
+
+\renewcommand\bibname{REFERENCIAS}
+
 \begin{document}
+
 \maketitle
 
 \section{Introducci\'on}
-El taller que se propone pretende dar la oportunidad, a quienes atiendan, a incursionar en el campo de la inform\'atica qu\'imica, quimioinform\'atica y qu\'imica computacional. Se comienza con conceptos b\'asicos, pero esenciales, para la comprensi\'on y uso de un ordenador. Luego se procede a escalar hacia el uso de paquetes, librer\'ias y programas espec\'ificos. Esto se distribuye a lo largo de 2 semanas en donde cada participante hace ejercicios sobre cada tema visto a modo de tener contacto directo con cada interfase y cada diferente ambiente digital en el que se llevan a cabo las simulaciones y modelos. Finalmente, se espera que cada uno tenga una mejor idea de lo que se puede hacer en este campo para poder hacer uso de \'el en su formaci\'on acad\'emica, as\'i como en su vida profesional.
+El taller que se propone pretende dar la oportunidad, a quienes atiendan, a incursionar en el campo de la inform\'atica qu\'imica, quimioinform\'atica y qu\'imica computacional. Se comienza con conceptos b\'asicos, pero esenciales, para la comprensi\'on y uso de un ordenador. Luego se procede a escalar hacia el uso de paquetes, librer\'ias y programas espec\'ificos. Finalmente se llega a hacer uso de programas especializados para construir modelos y realizar simulaciones con diversas aplicaciones. Esto se distribuye a lo largo de 13 sesiones en donde cada participante hace ejercicios sobre cada tema visto a modo de tener contacto directo con cada interfase y cada diferente ambiente virtual. Al terminar se espera que cada uno tenga una mejor idea de lo que se puede hacer en el campo de la computaci\'on cient\'ifica para poder hacer uso de \'el en su formaci\'on acad\'emica, as\'i como en su vida profesional.
 
 \section{Objetivos}
 \subsection{General}
@@ -24,24 +30,30 @@ Que quienes atiendan al taller:
 \item Se familiaricen con las bases de datos relacionales y hagan uso del lenguaje SQL para interactuar con ellas.
 \item Conozcan sobre el lenguaje \LaTeX\ y lo utilicen en la elaboraci\'on de documentos cient\'ificos, reportes y art\'iculos.
 \item Aprendan, se familiaricen y hagan uso del lenguaje Python para crear peque\~nos programas que puedan interactuar con informaci\'on sobre datos de an\'alisis, reacciones o mol\'eculas para facilitar tareas repetitivas.
-\item Se familiaricen con algunos de los algoritmos m\'as modernos en el campo de la qu\'imica computacional y an\'alisis de datos, y que sepan aplicarlos dependiendo de la situaci\'on que se les presente.
-\item Conozcan y se familiaricen con el paquete para c\'alculos num\'ericos SciPy y operaciones qu\'imicas RDKit, para interactuar con diferentes tipos de archivos y extraer propiedades f\'isicas y qu\'imicas de las mol\'eculas.
+\item Se familiaricen con algunos de los algoritmos m\'as modernos en el campo de la computaci\'on cient\'ifica y an\'alisis de datos, y que sepan aplicarlos dependiendo de la situaci\'on que se les presente.
+\item Conozcan y se familiaricen con el paquete para c\'alculos num\'ericos SciPy y operaciones qu\'imicas RDKit, para interactuar con diferentes tipos de archivos y extraer o calcular propiedades f\'isicas y qu\'imicas de las mol\'eculas.
 \item Conozcan y hagan uso de sistemas de control de revisi\'on Git para llevar registro en la redacci\'on de informes, datos en investigaci\'on y/o avances en desarrollo de software.
 \item Conozcan y se familiaricen con los algoritmos para el an\'alisis de secuencias aminoac\'idicas, c\'omo cuantificar su similitud y el uso de acoplamiento molecular en el an\'alisis de afinidad de mol\'eculas peque\~nas a prote\'inas o enzimas.
 \item Aprendan a realizar c\'alculos de mec\'anica cu\'antica para la determinaci\'on te\'orica de propiedades fisicoqu\'imicas y posteriormente representar las estructuras electr\'onicas y moleculares.
+\item Aprendan a realizar c\'alculos muy simples de din\'amica molecular para la determinaci\'on te\'orica de propiedades moleculares como la energ\'ia y la estructura de mol\'eculas en soluci\'on.
 \item Realicen determinaciones de descriptores moleculares mediante flujos de trabajo, y conozcan sobre algoritmos predictivos al trabajar con muchos datos.
+\item Analizen y apliquen \emph{scripts} o rutinas que les permita simplificar tareas de bioinform\'atica.
+\item Conozcan y hagan uso de bases de datos en l\'inea y aplicaciones web que permiten obtener informaci\'on sobre secuencias de ADN, doblamiento de secuencias aminoac\'idicas por homolog\'ia y determinaci\'on de \'arboles filogen\'eticos.
 \item Conozcan y se familiaricen con todo el software de fuente abierta que se puede usar en qu\'imica:
 	\begin{enumerate}
-	\item Avogadro: Dibujo de mol\'eculas en 3D y optimizaci\'on de las mismas por mec\'anica molecular.
-	\item Firefly: C\'alculos de mec\'anica cu\'antica, optimizaci\'on de geometr\'ia, generaci\'on de espectros y datos termodin\'amicos te\'oricos.
-	\item Jupyter: Realizaci\'on de cuadernos electr\'onicos de c\'alculo.
-	\item AutoDock Tools: Preparaci\'on de par\'ametros para llevar a cabo dockings en AutoDock o AutoDock Vina.
-	\item AutoDock Vina: Acoplamiento intermolecular para determinaci\'on de energ\'ias de acomplejamiento.
+	\item Avogadro: Programa para dibujar mol\'eculas en 3D y optimizar las mismas utilizando mec\'anica molecular.
+	\item Firefly: Programa para realizar c\'alculos de mec\'anica cu\'antica, optimizaci\'on de geometr\'ia, generaci\'on de espectros y datos termodin\'amicos te\'oricos.
+	\item Jupyter: Plataforma para realizar cuadernos electr\'onicos de c\'alculo.
+	\item AutoDock Tools: Suite de programas para configurar los par\'ametros de un \emph{docking} en AutoDock o AutoDock Vina.
+	\item AutoDock Vina: Programa para realizar simulaciones de acoplamiento intermolecular en la determinaci\'on de energ\'ias de acomplejamiento.
 	\item Chimera: Visualizaci\'on de biomol\'eculas, c\'alculo de interacciones, alineado, comparado y b\'usqueda de mol\'eculas similares por medio del m\'etodo BLAST y haciendo uso de otras herramientas para representaci\'on.
-	\item VMD: Visualizaci\'on de mol\'eculas, preparaci\'on de din\'amicas moleculares para ejecuci\'on en NAMD y visualizaci\'on de los resultados.
-	\item RDKit: C\'alculo de descriptores moleculares, similitud y relaci\'on estructura-actividad.
-	\item Open3DQSAR: C\'alculo de modelos de relaci\'on estructura-actividad basados en campos electrost\'aticos.
+	\item VMD: Programa para visualizar mol\'eculas, preparar din\'amicas moleculares para ejecuci\'on en NAMD y visualizar los resultados.
+	\item NAMD: Programa para realizar simulaciones de din\'amica molecular, y as\'i  determinar estructuras y energ\'ias de mol\'eculas solvatadas.
+	\item RDKit: Herramienta para calcular descriptores moleculares, similitud y relaci\'on estructura-actividad.
 	\item KNIME: Plataforma para an\'alisis de datos de manera estad\'istica, inteligente y sencilla.
+	\item OpenBabel: Herramienta para interconversi\'on de formatos para representar mol\'eculas, optimizaci\'on de geometr\'ia y c\'alculo de algunas propiedades.
+	\item wxMacMolPlt: Programa para visualizar los resultados obtenidos de c\'alculos mec\'anico-cu\'anticos realizados con GAMESS o Firefly.
+	\item CHEMBL-EBI: Plataforma web que permite la realizaci\'on de varios c\'alculos bioinform\'aticos.
 	\end{enumerate}
 \end{enumerate}
 
@@ -69,160 +81,30 @@ Cada d\'ia se desarrollar\'a el taller durante 4 horas, en dos segmentos de 2 ho
 \item \textbf{Sesi\'on 5}: Introducci\'on al lenguaje Python, declaraci\'on de funciones, ciclos y condiciones. Ambientes integrados de desarrollo, ventajas y desventajas.
 \item \textbf{Sesi\'on 6}: Paquetes en Python, orientaci\'on a objetos y algoritmos (m\'etodos num\'ericos heur\'isticos y metaheur\'isticos).
 \item \textbf{Sesi\'on 7}: Introducci\'on al sistema de control de revisiones Git, manipulaci\'on de proyectos y acceso a los mismos en Internet.
-\item \textbf{Sesi\'on 8}: Algoritmos de b\'usqueda para secuencias de ADN o de amino\'acidos, BLAST, visualizaci\'on, edici\'on y alineado de biomol\'eculas en UCSF Chimera, propiedades de p\'eptidos y acoplamientos moleculares (docking) utilizando AutoDock Vina.
-\item \textbf{Sesi\'on 9}: Dibujo, optimizaci\'on y preparaci\'on de c\'alculos en Avogadro. Determinaci\'on de propiedades termodin\'amicas, espectros IR y orbitales moleculares mediante Firefly. 
-\item \textbf{Sesi\'on 10}: C\'alculo de descriptores moleculares y manejo de flujos de trabajo con KNIME.
+\item \textbf{Sesi\'on 8}: Manipulaci\'on de formatos de archivos, c\'alculo de algunas propiedades, algoritmos de b\'usqueda para secuencias de ADN o de amino\'acidos, BLAST, visualizaci\'on, edici\'on y alineado de biomol\'eculas en UCSF Chimera, propiedades de p\'eptidos y acoplamientos moleculares (docking) utilizando AutoDock Vina.
+\item \textbf{Sesi\'on 9}: Dibujo, optimizaci\'on y preparaci\'on de c\'alculos en Avogadro. Determinaci\'on de propiedades termodin\'amicas y orbitales moleculares mediante Firefly. Representaci\'on de los resultados de Firefly mediante wxMacMolPlt.
+\item \textbf{Sesi\'on 10}: Obtenci\'on y manipulaci\'on de datos, c\'alculo de descriptores moleculares, construcci\'on de modelos QSAR, uso de algoritmos para \emph{machine learning} y manejo de flujos de trabajo con KNIME.
+\item \textbf{Sesi\'on 11}: Uso de archivos FASTA, an\'alisis de \emph{scripts} para el trabajo con secuencias de ADN o de amino\'acidos y uso de herramientas web para la determinaci\'on de estructuras y propiedades de las mismas.
+\item \textbf{Sesi\'on 12}: Modelaci\'on de la termodin\'amica de una reacci\'on utilizando c\'alculos mec\'anico-cu\'anticos, determinaci\'on del espectro IR y la energ\'ia HOMO-LUMO del producto.
+\item \textbf{Sesi\'on 13}: Proyectos orientados a: bioinform\'atica, dise\~no de medicamentos, dise\~no de materiales y dise\~no \textit{de novo} en general.
 \end{itemize}
 
 \section{Materiales y Requisitos}
 \begin{itemize}
-\item El taller est\'a enfocado para poder ser comprendido sin una base previa en ninguno de los temas a tratar. Sin embargo, est\'a dise\~nado y orientado para personas relacionadas a la qu\'imica.
-\item Se requerir\'a que quien atienda al taller provea una memoria USB de m\'inimo 8GB de capacidad para entregarle el software con el que se trabajar\'a.
-\item El taller no tendr\'a un costo, pero se espera a un m\'inimo de 10 personas para llevarlo a cabo.
-\item Se requeri\'a que quien atienda al taller lleve consigo una computadora laptop (no tablet) para realizar los ejercicios propuestos.
-\item Todo el material se manejar\'a de manera electr\'onica, por lo que al final de cada sesi\'on se le estar\'a enviando a quienes asistan todo lo referente al contenido cubierto esa sesi\'on y una introducci\'on a la siguiente sesi\'on.
+\item El taller est\'a enfocado para poder ser comprendido sin una base previa en ninguno de los temas a tratar. Sin embargo, est\'a dise\~nado y orientado para personas estudiando qu\'imica y/o alguna de sus ramas.
+\item Se requerir\'a que quien atienda al taller provea una memoria USB de m\'inimo 16GB de capacidad para entregarle en ella el software con el que se trabajar\'a.
+\item El taller no tendr\'a un costo, pero se requiere un m\'inimo de 10 personas para llevarlo a cabo.
+\item Se requeri\'a que quien atienda al taller lleve consigo una computadora laptop (no tablet) para realizar los ejercicios propuestos\footnote{Esto si no se cuenta con infraestructura (hardware) por parte de la instituci\'on en donde se realizar\'a el taller.}.
+\item Todo el material se manejar\'a de manera electr\'onica, por lo que antes de cada sesi\'on se le estar\'a enviando a quienes asistan todo lo referente al contenido cubierto esa sesi\'on.
+\item Antes de proceder a la siguiente sesi\'on, se llevar\'a a cabo un examen corto para que quien haya atendido al taller pueda determinar qu\'e tanto aprendi\'o y en d\'onde tiene deficiencias a\'un.
 \item Al final del taller se har\'a entrega de un diploma de participaci\'on.
 \end{itemize}
 
-\begin{thebibliography}{99}
+\bibliographystyle{apacite}
+\setlength{\bibindent}{2em}
 
-\bibitem[Best, Li \& Helms, 2017]{cchemorga}
- Best, K. T., Li, D., Helms, E. D. (2017).
- Molecular Modeling of an Electrophilic Addition Reaction with \grqq Unexpected\grqq\ Regiochemistry.
- \textit{Journal of Chemical Education}.
+\nocite{*}
 
-\bibitem[Berthold et. al., 2009]{knime}
- Berthold, M. R., Cebron, N., Dill, F., Gabriel, T. R., K\"otter, T., Meinl, T., et al. (2009).
- KNIME - The Konstanz Information Miner.
- \textit{ACM SigKDD Explorations Newsletter},
- \textit{11} (1),
- 26.
-
-\bibitem[Davis, 2014]{github}
- Davis, J. (2014, January 19).
- GitHub + University: How College Coding Assignments Should Work - Josh Davis.
- \textit{GitHub + University: How College Coding Assignments Should Work - Josh Davis}.
- Retrieved May 28, 2014, from {\footnotesize http://joshldavis.com/2014/01/19/github-university-how-college-assignments-should-work/}
-
-\bibitem[Downey, Meyer \& Elkner, 2002]{python}
- Downey, A., Meyer, C., \& Elkner, J. (2002).
- \textit{How to think like a computer scientist: learning with Python.}
- Wellsley, Mass.:
- Green Tea Press.
-
-\bibitem[Granovsky, 2014]{firefly}
- Granovsky, A. A. (2014).
- Firefly (formerly PC GAMESS) Home Page.
- \textit{Firefly (formerly PC GAMESS) Home Page.}
- Retrieved May 28, 2014, from {\footnotesize http://classic.chem.msu.su/gran/gamess/index.html}
-
-\bibitem[Hanwel et. al., 2012]{avogadro}
- Hanwell, M. D., Curtis, D. E., Lonie, D. C., Vandermeersch, T., Zurek, E., \& Hutchison, G. R. (2012).
- Avogadro: an advanced semantic chemical editor, visualization, and analysis platform.
- \textit{Journal of Cheminformatics},
- \textit{4}(17),
- 1-17.
-
-\bibitem[Hessley, 2004]{cchemcourse5}
- Hessley, R. K. (2004).
- A Computational-Modeling Course for Undergraduate Students in Chemical Technology.
- \textit{Journal of Chemical Education},
- \textit{81}(8),
- 1140-1144.
-
-\bibitem[Humphrey, Dalke \& Schulten, 1996]{vmd}
- Humphrey, W., Dalke, A., \& Schulten, K. (1996).
- VMD: Visual molecular dynamics.
- \textit{Journal of Molecular Graphics},
- \textit{14}(1),
- 33-38.
-
-\bibitem[Lamport, 1995]{latex}
- Lamport, L. (1995).
- LATEX: A document preparation system user's guide and reference manual.
- \textit{Computers \& Mathematics with Applications},
- \textit{29}(11),
- 108.
-
-\bibitem[MySQL, 2014]{mysql}
- MySQL :: The world's most popular open source database. (2014).
- MySQL :: The world's most popular open source database.
- Retrieved May 28, 2014, from {\footnotesize http://www.mysql.com/}
-
-\bibitem[O'Boyle \& Hutchinson, 2008]{cinfony}
- O'Boyle, N. M., \& Hutchison, G. R. (2008).
- Cinfony: combining Open Source cheminformatics toolkits behind a common interface.
- \textit{Chemistry Central Journal},
- \textit{2}(24),
- 1-10.
-
-\bibitem[Park, Lee \& Lee, 2006]{autodock}
- Park, H., Lee, J., \& Lee, S. (2006).
- Critical assessment of the automated AutoDock as a new docking tool for virtual screening.
- \textit{Proteins: Structure, Function, and Bioinformatics},
- \textit{65}(3),
- 549-554.
-
-\bibitem[Pearson, 2007]{cchemcourse4}
- Pearson, J. K. (2007).
- Introducing the Practical Aspects of Computational Chemistry to Undergraduate Chemistry Students.
- \textit{Journal of Chemical Education},
- \textit{84}(8),
- 1323-1325.
-
-\bibitem[Petersen et. al., 2004]{chimera}
- Pettersen, E. F., Goddard, T. D., Huang, C. C., Couch, G. S., Greenblatt, D. M., Meng, E. C., et al. (2004).
- UCSF Chimera: A visualization system for exploratory research and analysis.
- \textit{Journal of Computational Chemistry},
- \textit{25}(13),
- 1605-1612.
-
-\bibitem[Price, Gould \& Marsh, 2014]{cchemcourse3}
- Price, G. W., Gould, P. S., Marsh A. (2014).
- \textit{Journal of Chemical Education},
- \textit{91},
- 602-604.
- 
-\bibitem[Rodrigues et. al., 2015]{cchemcourse2}
- Rodrigues, R. P., Andrade, S. F., Manatoani, S. P., Eifler-Lima, V. L., Silva, V. B., Kawano, D. F. (2015).
- Using Free Computational Resources to Illustrate the Drug Design Process in an Undergraduate Medicinal Chemistry Course.
- \textit{Journal of Chemical Education}.
-
-\bibitem[Silva, 2013]{scipy}
- Silva, F. J. (2013).
- \textit{Learning SciPy for numerical and scientific computing}.
- Birmingham, UK:
- Packt Pub.
-
-\bibitem[Software Carpentry, 2014]{softwarec}
- Teaching lab skills for Scientific Computing. (2014).
- Software Carpentry.
- Retrieved May 28, 2014, from {\footnotesize http://software-carpentry.org/index.html}
-
-\bibitem[Srnec, Upadhyay \& Madura, 2017]{pyschrodinger}
- Srnec, M. N., Updadhyay. (2017).
- A Python Program for Solving Schr\"odinger's Equation in Undergraduate Physical Chmistry.
- \textit{Journal of Chemical Education},
-
-\bibitem[Tosco \& Balle, 2011]{open3dqsar}
- Tosco, P., \& Balle, T. (2011).
- Open3DQSAR: a new open-source software aimed at high-throughput chemometric analysis of molecular interaction fields.
- \textit{Journal of Molecular Modeling},
- \textit{17}(1),
- 201-208.
-
-\bibitem[Trott \& Olson, 2009]{vina}
- Trott, O., \& Olson, A. J. (2009).
- AutoDock Vina: Improving the speed and accuracy of docking with a new scoring function, efficient optimization, and multithreading.
- \textit{Journal of Computational Chemistry},
- \textit{31}(2),
- 455-461.
-
-\bibitem[Weiss, 2017]{cchemcourse1}
- Weiss C. J. (2017).
- Scientific Computing for Chemists: An Undergraduate Course in Simulations, Data Processing, and Visualization.
- \textit{Journal of Chemical Education}.
-
-\end{thebibliography}
+\bibliography{TC3Q}
 
 \end{document}
