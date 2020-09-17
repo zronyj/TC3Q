@@ -1,5 +1,4 @@
 from sys import argv
-import fpformat
 
 nombre = argv[1]
 
@@ -19,6 +18,4 @@ contenido_g = secuencia.count("G")
 
 porcentaje = float(contenido_c + contenido_g) / len(secuencia) * 100
 
-bonito = fpformat.fix( porcentaje , 2)
-
-print "Contenido GC:", bonito + "%"
+print "Contenido GC: {:.2}%".format(porcentaje)

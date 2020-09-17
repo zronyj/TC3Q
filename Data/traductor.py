@@ -20,12 +20,12 @@ tablacodon = {
 
 def translate(aminoacidos, inicio=0):
 	prot = ""
-	for c in xrange(inicio, len(aminoacidos)+3, 3):
+	for c in range(inicio, len(aminoacidos)+3, 3):
 		codon = aminoacidos[c:c+3]
 		if codon in tablacodon.keys():
 			prot += tablacodon[codon]
 		else:
-			print "Codon no reconocido:", codon
+			print( "Codon no reconocido: {0}".format(codon) )
 	return prot
 	
 nombre = argv[1]
@@ -36,12 +36,15 @@ with open(nombre,"r") as fastn:
 descripcion = texto[0]
 
 secuencia_nu = ""
-for i in xrange(1, len(texto)):
-	secuencia_nu += texto[i][:-1]
+for i in range(1, len(texto)):
+	if texto[i][-1] == "\n":
+		secuencia_nu += texto[i][:-1]
+	else:
+		secuencia_nu += texto[i][:]
 
 secuencia_aa = translate(secuencia_nu)
 
-formato = [secuencia_aa[frag:frag+70] + "\n" for frag in xrange(0, len(secuencia_aa)+70,70)]
+formato = [secuencia_aa[frag:frag+70] + "\n" for frag in range(0, len(secuencia_aa)+70,70)]
 
 nueva_descripcion = descripcion[0] + "Traduccion " + descripcion[1:]
 

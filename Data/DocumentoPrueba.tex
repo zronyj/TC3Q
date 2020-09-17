@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{changepage,multicol,lipsum,float,hyperref}
+\usepackage[square,sort,comma,numbers]{natbib}
+
+\title{Elaboración de un Documento Científico utilizando \LaTeX}
+\author{Nombre Apellido}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{adjustwidth}{1cm}{1cm}
+\lipsum[1]\cite{genchem}% Escribe algo aqui
+\end{adjustwidth}
+\rule{\textwidth}{0.4pt}
+\vspace*{5mm}
+
+\begin{multicols*}{2}
+\section{Introducción}
+\lipsum[2]\cite{ochem}% Escribe algo aqui
+\section{Procedimiento}
+\lipsum[3]\cite{pchem}% Escribe algo aqui
+\subsection{Materiales}
+\lipsum[4]% Escribe algo aqui
+\subsection{Métodos}
+\lipsum[5]% Escribe algo aqui
+\section{Resultados}
+\lipsum[6]\cite{ichem}% Escribe algo aqui
+\section{Discusión}
+\lipsum[7]\cite{biochem}% Escribe algo aqui
+\section{Conclusiones}
+\lipsum[8]% Escribe algo aqui
+\section{Recomendaciones}
+\lipsum[9]% Escribe algo aqui
+\section{Bibliografía}
+
+\begin{thebibliography}{9}
+\bibitem{genchem} 
+Theodore E. Brown, H. Eugene LeMay, Bruce E. Bursten, Catherine Murphy, Patrick Woodward, Matthew E. Stoltzfus.
+\textit{Chemistry: The Central Science}. 
+Pearson, 14th Edition, 2017.
+
+\bibitem{ochem} 
+Johnathan Clayden, Nick Greeves, Stuart Warren.
+\textit{Organic Chemistry}. 
+Oxford University Press, 2nd Edition, 2014.
+
+
+\bibitem{pchem}
+Peter Atkins, Julio de Paula, James Keeler.
+\textit{Atkins' Physical Chemistry}.
+Oxford University Press, 11th Edition, 2018.
+
+\bibitem{ichem}
+Catherine E. Housecroft, Alan G. Sharpe.
+\textit{Inorganic Chemistry}.
+Pearson, 5th Edition, 2018.
+
+\bibitem{biochem}
+Roger L. Miesfeld, Megan M. McEvoy.
+\textit{Biochemistry}.
+W. W. Norton \& Company, 1st Edition, 2017.
+\end{thebibliography}
+
+\end{multicols*}
+\end{document}
